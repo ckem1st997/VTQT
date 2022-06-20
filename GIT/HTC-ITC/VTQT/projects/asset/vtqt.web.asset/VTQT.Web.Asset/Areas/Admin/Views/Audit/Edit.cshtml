@@ -1,0 +1,222 @@
+﻿@using VTQT.Core.Events
+@using VTQT.Core.Infrastructure
+@using VTQT.Web.Framework.Events
+
+@model AuditModel
+
+<script>
+            var frmEdit = {
+            urlSaveData: '@Url.Action("EditSave")',
+            selector: '.page-data',
+            $this: {},
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { }
+            },
+            grdIndex: {
+                el: '#frmEdit_grdIndex',
+                $el: {},
+                api: {},
+                data: function () { },
+                init: function () { }
+            },
+            btnSave: {
+                selector: '#editAudit',
+                $this: {},
+                init: function () { }
+            },
+            btnCancel: {
+                selector: 'a[data-action="cancel"]',
+                $this: {},
+                init: function () { }
+            },
+            helpers: {
+                saveData: function () { }
+            },
+            init: function () { }
+        };
+        var form = frmEdit.form;
+        var grdIndex = frmEdit.grdIndex;
+        var btnSave = frmEdit.btnSave;
+        var btnCancel = frmEdit.btnCancel;
+        var helpers = frmEdit.helpers;
+
+             grdIndex.data = function () {
+            var searchModel = {
+                AuditId: '@Model.Id'
+            };
+            return searchModel;
+            };
+</script>
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="create" id="editAudit" href="javascript:void(0)" class="btn blue btn-sm"><i class="fa fa-check"></i> @T("Common.Save")</a>
+            <a data-action="cancel" href="javascript:void(0)" class="btn red btn-sm"><i class="fa fa-times"></i> @T("Common.Cancel")</a>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+<div class="page-data" style="padding-top: 10px">
+    <div class="form fixed-layout-form">
+        <form id="form-data" data-form-type="ajax" class="form-horizontal">
+            <div class="row full-height" style="padding-top: 196px">
+                <div class="row" style="position: absolute; top: 10px; width: 100%">
+                    <div class="col-md-8" style="padding-left: 0">
+                        <fieldset class="fieldset-no-border">
+                            @Html.HiddenFor(m => m.AuditLocation)
+                            @Html.HiddenFor(m => m.VoucherDate)
+                            @Html.HiddenFor(m => m.CreatedDate)
+                            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 99%;">@T("Common.Audit")</legend>
+                            @Html.HiddenFor(x => x.Id);
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.VoucherDate, true, new { @class = "control-label col-md-4" }, true)
+                                        <div class="col-md-8">
+                                            @Html.DisplayFor(m => m.VoucherDate)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.AuditLocation, true, new { @class = "control-label col-md-4" }, true)
+                                        <div class="col-md-8">
+                                            @Html.DisplayFor(m => m.AuditLocation, new { list = Model.AvailableOrganizations })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10" style="width:75%;">
+                                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4" style="padding-right: 0">
+                        <fieldset class="fieldset-no-border" style="width:98%;">
+                            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 85%;">@T("Common.InfoGroup")</legend>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.VoucherCode, true, new { @class = "control-label col-md-3" }, true)
+                                <div class="col-md-9">
+                                    @Html.DisplayFor(m => m.VoucherCode)
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.CreatedBy, true, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(m => m.CreatedBy, Model.AvailableCreatedBy, string.Format(T("Common.SelectObject"), T("Common.Fields.CreatedBy")), new { @class = "form-control", style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.CreatedDate, true, new { @class = "control-label col-md-3" }, true)
+                                <div class="col-md-9">
+                                    @Html.DisplayFor(m => m.CreatedDate)
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="full-height" style="padding-top: 5px">
+                    @(Html.XBase().TabStrip()
+                        .Name("tabIndex")
+                        .HtmlAttributes(new { @class = "tab-top fixed-layout-tab" })
+                        .Items(async x =>
+                        {
+                            x.Add().Text(T("Common.AuditDetail"))
+                                .Name("tbAuditDetail")
+                                .LinkHtmlAttributes(new { data_tab_name = "AuditDetail" })
+                                .Content(Html.Partial("TabEditAuditDetail", new AuditDetailSearchModel()).RenderHtmlContent())
+                                .Selected(true);
+
+                            x.Add().Text(T("Common.AuditCouncil"))
+                                .Name("tbAuditCouncil")
+                                .LinkHtmlAttributes(new { data_tab_name = "AuditCouncil" })
+                                .Action("TabEditAuditCouncil", "Audit", null)
+                                .Ajax();
+
+                            await EngineContext.Current.Resolve<IEventPublisher>().PublishAsync(new TabStripCreated(x, "tabIndex", this.Html));
+                        }))
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- #endregion -->
+<!-- #region Scripts -->
+<script> 
+        //Helpers
+       helpers.saveData = function (model, details) {
+           model.AuditLocation = $("#AuditLocation").val();
+            $.ajax({
+                type: 'POST',
+                data: { model: model, modelDetails: details },
+                dataType: 'json',
+                url: frmEdit.urlSaveData,
+                beforeSend: function(jqXhr, settings) {
+                },
+                success: function(msg) {
+                    if (msg.success) {
+                        $.pjax({ url: '@Url.Action("Index", "Audit")' });
+                    }
+                }
+            });
+        }
+
+        //Inits
+        frmEdit.init = function() {
+            frmEdit.$this = $(frmEdit.selector);
+            form.init();
+            grdIndex.init();
+            btnCancel.init();
+            btnSave.init();
+
+            $('#AuditLocation').on('change', function (e) {
+                grdIndex.api.reload();
+            });
+        }
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex.init = function() {
+            grdIndex.$el = $(grdIndex.el);
+            grdIndex.api = grdIndex.$el.data('kendoGrid');
+        };
+        btnSave.init = function() {
+            btnSave.$this = $(btnSave.selector);
+
+            btnSave.$this.click(function(e) {
+                if (form.$this.valid()) {
+                    var model = form.$this.serializeObject();
+                    model.Id = '@Model.Id';
+                    model.VoucherCode = '@Model.VoucherCode';
+
+                    helpers.saveData(model);
+                }
+            });
+        }
+        btnCancel.init = function() {
+            btnCancel.$this = $(btnCancel.selector);
+
+            btnCancel.$this.click(function(e) {
+                $.pjax({ url: '@Url.Action("Index", "Audit")' });
+            });
+        }
+
+        //Startup
+        $(function() {
+            frmEdit.init();
+        });
+</script>
+<!-- #endregion -->

@@ -1,0 +1,239 @@
+﻿@using XBase.Core.Domain.Hrm
+@{
+    Layout = null;
+}
+
+<script>
+    _chooseEmp = {
+        urlGetOrgTree: '@Url.Action("GetOrganizationalUnitTree", "Common")',
+        el: 'form[data-client-form-id="@ClientFormId"]',
+        $el: {},
+        winForm: {},
+        grdIndex: {
+            el: '#_chooseEmp_grd',
+            $el: {},
+            api: {},
+            init: function () { },
+            tmp: {
+                status: function (status, statusText) { }
+            },
+            data: function () { }
+        },
+        treeIndex: {
+            el: '#_chooseEmp_tree',
+            $el: {},
+            api: {},
+            init: function () { }
+        },
+        keywords: {
+            el: '#_chooseEmp_keywords',
+            $el: {},
+            init: function () { }
+        },
+        btnSearch: {
+            el: '#_chooseEmp_btnSearch',
+            $el: {},
+            init: function () { }
+        },
+        splitter: {
+            el: '.splitter.choose-employee',
+            $el: {},
+            init: function () { }
+        },
+        init: function () { }
+    };
+
+    _chooseEmp.grdIndex.data = function () {
+        var keywords = null;
+        if (!_.isEmpty(_chooseEmp.keywords.$el))
+            keywords = _chooseEmp.keywords.$el.val().trim();
+
+        var organizationalUnitId = null;
+        if (!_.isEmpty(_chooseEmp.treeIndex.api) && _chooseEmp.treeIndex.api.getActiveNode())
+            organizationalUnitId = _chooseEmp.treeIndex.api.getActiveNode().key;
+
+        return {
+            Keywords: keywords,
+            OrganizationalUnitId: organizationalUnitId
+        };
+    };
+
+    _chooseEmp.search = _.debounce(() => {
+        _chooseEmp.grdIndex.api.resetPage();
+    }, app.ui.def.debounce.timeout);
+</script>
+
+<div class="form fixed-layout-form">
+    <form id="_chooseEmpForm" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@string.Format(T("Common.SelectObject"), T("Common.Employee"))</h4>
+            </div>
+            <div class="modal-body">
+                <div class="splitter choose-employee fixed-layout-split" style="margin: 0">
+                    <div class="leftPane">
+                        <div id="_chooseEmp_tree" class="full-height"></div>
+                    </div>
+                    <div class="rightPane">
+                        <div class="page-data" style="position: relative; height: 100%; padding-top: 40px">
+                            <div class="row search-form" style="position: absolute; width: 100%; top: 0; padding: 4px 3px">
+                                <div class="search-label" style="float: left; margin-right: 8px; color: #23527c; line-height: 32px;">
+                                    @T("Common.Search"):
+                                </div>
+                                <div class="col-md-8" style="padding-left: 0; padding-right: 5px">
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" id="_chooseEmp_keywords" name="Keywords" class="form-control" placeholder="@T("Common.Fields.EnterKeywords")" />
+                                    </div>
+                                </div>
+                                <div class="col-md-1" style="padding-left: 0; padding-right: 5px">
+                                    <div class="form-group form-group-sm">
+                                        <button type="button" id="_chooseEmp_btnSearch" class="btn btn-default btn-sm">
+                                            <i class="fa fa-search"></i> @T("Common.GetData")
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row full-height">
+                                @(Html.Kendo().Grid<EmployeeModel>()
+                                    .Name("_chooseEmp_grd")
+                                    .HtmlAttributes(new { style = "height: 99%" })
+                                    .Columns(columns =>
+                                    {
+                                        columns.Bound(x => x.EmployeeCode).Width(110);
+                                        columns.Bound(x => x.FullName).Width(220);
+                                        columns.Bound(x => x.OrganizationalUnit).ClientTemplate("#=OrganizationalUnit.Name#").Width(220);
+                                        columns.Bound(x => x.PositionTitle).ClientTemplate("#=PositionTitle.Name#").Width(220);
+                                        columns.Bound(x => x.StaffRank).ClientTemplate("#=StaffRank != null ? StaffRank.Name : ''#").Width(180);
+                                        columns.Bound(x => x.EmployeeStatusText).ClientTemplate("#=_chooseEmp.grdIndex.tmp.status(EmployeeStatus, EmployeeStatusText)#").Width(150);
+                                    })
+                                    .DataSource(dataSource => dataSource
+                                        .Ajax()
+                                        .ServerOperation(true)
+                                        .PageSize(AdminAreaSettings.GridPageSize)
+                                        .Read(read => read.Action("Employees_Read", "Common").Data("_chooseEmp.grdIndex.data"))
+                                    )
+                                    .NoRecords()
+                                    .Scrollable(scr => scr.Enabled(true))
+                                    .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).PreviousNext(true).Refresh(true))
+                                    .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Single))
+                                    .Navigatable())
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @string.Format(T("Common.SelectObject"), "")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    _chooseEmp.init = function() {
+        //Init Window
+        _chooseEmp.$el = $(_chooseEmp.el);
+        _chooseEmp.winForm = _chooseEmp.$el.data('winForm');
+        //Init Grid
+        _chooseEmp.grdIndex.init();
+        //Init OrganizationalUnitTree
+        _chooseEmp.treeIndex.init();
+
+        _chooseEmp.keywords.init();
+        _chooseEmp.btnSearch.init();
+
+        //Init Splitter
+        _chooseEmp.splitter.init();
+        //Init AjaxForm
+        _chooseEmp.$el.initAjaxForm({
+            validationCallback: function() {
+                if (_chooseEmp.grdIndex.api.selectedItems().length === 0) {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                    return false;
+                }
+                return true;
+            }
+        });
+    };
+
+    _chooseEmp.grdIndex.init = function() {
+        _chooseEmp.grdIndex.$el = $(_chooseEmp.grdIndex.el);
+        _chooseEmp.grdIndex.api = _chooseEmp.grdIndex.$el.data('kendoGrid');
+    };
+
+    _chooseEmp.treeIndex.init = function() {
+        _chooseEmp.treeIndex.$el = $(_chooseEmp.treeIndex.el);
+        _chooseEmp.treeIndex.$el.fancytree({
+            source: {
+                url: _chooseEmp.urlGetOrgTree,
+                data: { expandLevel: 1 },
+                beforeSend: function(jqXHR, settings) {
+                    _chooseEmp.grdIndex.api.clear();
+                }
+            },
+            activate: function(event, data) {
+                var node = data.node;
+                if (node.statusNodeType !== 'loading') {
+                    _chooseEmp.grdIndex.api.resetPage();
+                }
+            }
+        });
+        _chooseEmp.treeIndex.api = _chooseEmp.treeIndex.$el.fancytree("getTree");
+    };
+
+    _chooseEmp.keywords.init = function () {
+        _chooseEmp.keywords.$el = $(_chooseEmp.keywords.el);
+
+        _chooseEmp.keywords.$el.keypress(function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                _chooseEmp.search();
+                return false;
+            }
+        });
+    };
+    _chooseEmp.btnSearch.init = function () {
+        _chooseEmp.btnSearch.$el = $(_chooseEmp.btnSearch.el);
+
+        _chooseEmp.btnSearch.$el.click(function (e) {
+            e.preventDefault();
+            _chooseEmp.search();
+            return false;
+        });
+    };
+
+    _chooseEmp.splitter.init = function () {
+        _chooseEmp.splitter.$el = $(_chooseEmp.splitter.el);
+        window.setTimeout(function () {
+            _chooseEmp.splitter.$el.split({
+                orientation: 'vertical',
+                limit: 2,
+                position: '220px'
+            });
+        }, 100);
+    };
+
+    _chooseEmp.grdIndex.tmp.status = function (status, statusText) {
+        var labelClass = "";
+        if (status === (@((int)EmployeeStatus.Working)))
+            labelClass = "label label-sm label-info";
+        else if (status === (@((int)EmployeeStatus.Resigned)))
+            labelClass = "label label-sm label-warning";
+        else if (status === (@((int)EmployeeStatus.Terminated)))
+            labelClass = "label label-sm label-danger";
+
+        return '<span class="' + labelClass + '"> ' + statusText + ' </span>';
+    };
+
+    $(function () {
+        _chooseEmp.init();
+    });
+</script>

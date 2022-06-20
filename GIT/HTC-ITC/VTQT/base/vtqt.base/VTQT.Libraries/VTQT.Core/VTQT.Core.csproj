@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\VTQT.Core.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="AngleSharp" Version="0.9.11" />
+    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="FastMember" Version="1.5.0" />
+    <PackageReference Include="HtmlSanitizer" Version="4.0.217" />
+    <PackageReference Include="IdentityModel" Version="4.6.0" />
+    <PackageReference Include="linq2db" Version="3.4.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.17" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="5.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RestSharp" Version="106.12.0" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+    <PackageReference Include="System.IO.FileSystem.AccessControl" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll.config&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.pdb&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.xml&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt" />
+  </Target>
+
+</Project>

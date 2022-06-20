@@ -1,0 +1,1250 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Core.Domain.Warehouse</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Core.Domain.Warehouse.WarehouseDataConnection">
+            <summary>
+            Database       : WarehouseManagement
+            Data Source    : 192.168.100.43
+            Server Version : 8.0.26-0ubuntu0.20.04.2
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.Audits">
+            <summary>
+            Kiểm kê kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.AuditCouncils">
+            <summary>
+            Hội đồng kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.AuditDetails">
+            <summary>
+            Kết quả kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.AuditDetailSerials">
+            <summary>
+            Chi tiết các serial khi audit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.BeginningWareHouses">
+            <summary>
+            Tồn kho đầu kỳ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.Inwards">
+            <summary>
+            Phiếu nhập kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.InwardDetails">
+            <summary>
+            Chi tiết nhập kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.Outwards">
+            <summary>
+            Phiếu xuất kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.OutwardDetails">
+            <summary>
+            Chi tiết xuất kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.SerialWareHouses">
+            <summary>
+            Quản lý tồn kho theo Serial
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.Units">
+            <summary>
+            Đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.Vendors">
+            <summary>
+            Nhà cung cấp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.WareHouses">
+            <summary>
+            Danh mục Kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.WarehouseBalances">
+            <summary>
+            Bảng tổng hợp tồn kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.WareHouseItems">
+            <summary>
+            Danh mục vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.WareHouseItemCategories">
+            <summary>
+            Loại vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.WareHouseItemUnits">
+            <summary>
+            Đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseDataConnection.WareHouseLimits">
+            <summary>
+            Định mức tồn kho
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.Audit">
+            <summary>
+            Kiểm kê kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.VoucherCode">
+            <summary>
+            Số phiếu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.VoucherDate">
+            <summary>
+            Ngày phiếu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.WareHouseId">
+            <summary>
+            Kho kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.Description">
+            <summary>
+            Tên đợt kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.AuditCouncils">
+            <summary>
+            FK_AuditCouncils_PK_Audit_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.AuditDetails">
+            <summary>
+            FK_AuditDetails_PK_Audit_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Audit.WareHouse">
+            <summary>
+            FK_Audits_PK_WareHouse
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.AuditCouncil">
+            <summary>
+            Hội đồng kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditCouncil.AuditId">
+            <summary>
+            fk kỳ kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditCouncil.EmployeeId">
+            <summary>
+            fk nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditCouncil.EmployeeName">
+            <summary>
+            Tên nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditCouncil.Role">
+            <summary>
+            vai trò trong đoàn kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditCouncil.Audit">
+            <summary>
+            FK_AuditCouncils_PK_Audit
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.AuditDetail">
+            <summary>
+            Kết quả kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetail.AuditId">
+            <summary>
+            FK Audit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetail.ItemId">
+            <summary>
+            fk Vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetail.Quantity">
+            <summary>
+            Số lượng sổ sách
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetail.AuditQuantity">
+            <summary>
+            Số lượng thực tế
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetail.Conclude">
+            <summary>
+            Kết luận
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetail.Audit">
+            <summary>
+            FK_AuditDetails_PK_Audit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetail.AuditDetailSerials">
+            <summary>
+            FK_AuditDetailSerials_PK_AuditDetail_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetail.WareHouseItem">
+            <summary>
+            FK_AuditDetails_PK_WareHouseItem
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.AuditDetailSerial">
+            <summary>
+            Chi tiết các serial khi audit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetailSerial.ItemId">
+            <summary>
+            fk Vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetailSerial.Serial">
+            <summary>
+            Serial
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetailSerial.AuditDetailId">
+            <summary>
+            fk Detail audit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetailSerial.AuditDetail">
+            <summary>
+            FK_AuditDetailSerials_PK_AuditDetail
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.AuditDetailSerial.WareHouseItem">
+            <summary>
+            FK_AuditDetailSerials_PK_WareHouseItem
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.BeginningWareHouse">
+            <summary>
+            Tồn kho đầu kỳ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.WareHouseId">
+            <summary>
+            Kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.ItemId">
+            <summary>
+            Vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.UnitId">
+            <summary>
+            Đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.Quantity">
+            <summary>
+            Số lượng tồn
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.ModifiedBy">
+            <summary>
+            Người sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.Unit">
+            <summary>
+            FK_BeginningWareHouses_PK_Unit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.WareHouse">
+            <summary>
+            FK_BeginningWareHouses_PK_WareHouse
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.BeginningWareHouse.WareHouseItem">
+            <summary>
+            FK_BeginningWareHouses_PK_WareHouseItem
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.Inward">
+            <summary>
+            Phiếu nhập kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.VoucherCode">
+            <summary>
+            Số phiếu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.VoucherDate">
+            <summary>
+            Ngày
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.WareHouseID">
+            <summary>
+            fk kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.Deliver">
+            <summary>
+            Người giao hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.VendorId">
+            <summary>
+            Nhà cung cấp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.Reason">
+            <summary>
+            Lý do nhập kho (1: Mua hàng, 2: Thu hồi, 3: Trả lại, 4: Khác)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.ReasonDescription">
+            <summary>
+            Lý do bằng chữ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.Description">
+            <summary>
+            Diễn giải
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.Reference">
+            <summary>
+            Danh sách tham chiếu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.InwardDetails">
+            <summary>
+            FK_InwardDetails_PK_Inward_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.Vendor">
+            <summary>
+            FK_WareHouseInwards_PK_Vendor
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Inward.WareHouse">
+            <summary>
+            FK_WareHouseInwards_PK_WareHouse
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.InwardDetail">
+            <summary>
+            Chi tiết nhập kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.InwardId">
+            <summary>
+            fk Id chứng từ nhập
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.ItemId">
+            <summary>
+            Id vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.UnitId">
+            <summary>
+            Id đơn vị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.UIQuantity">
+            <summary>
+            Số lượng nhập
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.UIPrice">
+            <summary>
+            Đơn giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.Amount">
+            <summary>
+            Thành tiền
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.Quantity">
+            <summary>
+            Số lượng theo dõi tồn kho (= UIQuantity * tỷ lệ chuyển đối)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.Price">
+            <summary>
+            Thành tiền theo đơn vị tính chính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.DepartmentId">
+            <summary>
+            Id Phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.DepartmentName">
+            <summary>
+            Tên phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.EmployeeId">
+            <summary>
+            id nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.EmployeeName">
+            <summary>
+            Nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.StationId">
+            <summary>
+            Id Trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.StationName">
+            <summary>
+            Tên trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.ProjectId">
+            <summary>
+            Id dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.ProjectName">
+            <summary>
+            Tên dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.CustomerId">
+            <summary>
+            Id khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.CustomerName">
+            <summary>
+            Tên khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.Inward">
+            <summary>
+            FK_InwardDetails_PK_Inward
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.SerialWareHouses">
+            <summary>
+            FK_SerialWareHouses_PK_InwardDetail_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.Unit">
+            <summary>
+            FK_InwardDetails_PK_Unit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.InwardDetail.WareHouseItem">
+            <summary>
+            FK_InwardDetails_PK_WareHouseItem
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.Outward">
+            <summary>
+            Phiếu xuất kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.VoucherCode">
+            <summary>
+            Số phiếu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.VoucherDate">
+            <summary>
+            Ngày
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.WareHouseID">
+            <summary>
+            fk kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.Deliver">
+            <summary>
+            Người giao hàng (mặc định là thủ kho)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.Receiver">
+            <summary>
+            Người nhận hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.Reason">
+            <summary>
+            Lý do xuất kho (1: Cấp phát tài sản hành chính, 2: Cấp phát tài sản Trạm, 3: Cấp phát tài sản dự án, 4: Cấp phát tài sản khách hàng, 5: Cấp vật tư, 6: Cấp công cụ dụng cụ, 7: Chuyển kho, 8: Khác)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.ReasonDescription">
+            <summary>
+            Lý do bằng chữ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.Description">
+            <summary>
+            Diễn giải
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.OutwardDetails">
+            <summary>
+            FK_OutwardDetails_PK_Outward_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.ToWareHouse">
+            <summary>
+            FK_ToWareHouse_Outwards_PK_ToWareHouse
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Outward.WareHouse">
+            <summary>
+            FK_Warehouse_Outwards_PK_WareHouse
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.OutwardDetail">
+            <summary>
+            Chi tiết xuất kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.OutwardId">
+            <summary>
+            fk Id chứng từ xuất
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.ItemId">
+            <summary>
+            Id vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.UnitId">
+            <summary>
+            Id đơn vị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.UIQuantity">
+            <summary>
+            Số lượng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.UIPrice">
+            <summary>
+            Đơn giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.Amount">
+            <summary>
+            Thành tiền
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.Quantity">
+            <summary>
+            Số lượng theo đơn vị tính chính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.Price">
+            <summary>
+            Thành tiền theo đơn vị tính chính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.DepartmentId">
+            <summary>
+            Id Phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.DepartmentName">
+            <summary>
+            Tên phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.EmployeeId">
+            <summary>
+            id nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.EmployeeName">
+            <summary>
+            Nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.StationId">
+            <summary>
+            Id Trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.StationName">
+            <summary>
+            Tên trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.ProjectId">
+            <summary>
+            Id dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.ProjectName">
+            <summary>
+            Tên dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.CustomerId">
+            <summary>
+            Id khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.CustomerName">
+            <summary>
+            Tên khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.Outward">
+            <summary>
+            FK_OutwardDetails_PK_Outward
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.SerialWareHouses">
+            <summary>
+            FK_SerialWareHouses_PK_OutwardDetail_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.Unit">
+            <summary>
+            FK_OutwardDetails_PK_Unit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.OutwardDetail.WareHouseItem">
+            <summary>
+            FK_OutwardDetails_PK_WareHouseItem
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.SerialWareHouse">
+            <summary>
+            Quản lý tồn kho theo Serial
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.SerialWareHouse.ItemId">
+            <summary>
+            fk Vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.SerialWareHouse.Serial">
+            <summary>
+            Serial
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.SerialWareHouse.InwardDetailId">
+            <summary>
+            fk Detail nhập kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.SerialWareHouse.OutwardDetailId">
+            <summary>
+            fk detail xuất kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.SerialWareHouse.IsOver">
+            <summary>
+            Đánh dấu Serial mới nhập mà chưa xuất ra (Giá trị mặc định = 0)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.SerialWareHouse.InwardDetail">
+            <summary>
+            FK_SerialWareHouses_PK_InwardDetail
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.SerialWareHouse.OutwardDetail">
+            <summary>
+            FK_SerialWareHouses_PK_OutwardDetail
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.SerialWareHouse.WareHouseItem">
+            <summary>
+            FK_SerialWareHouses_PK_WareHouseItem
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.Unit">
+            <summary>
+            Đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Unit.UnitName">
+            <summary>
+            Tên đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Unit.BeginningWareHouses">
+            <summary>
+            FK_BeginningWareHouses_PK_Unit_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Unit.InwardDetails">
+            <summary>
+            FK_InwardDetails_PK_Unit_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Unit.OutwardDetails">
+            <summary>
+            FK_OutwardDetails_PK_Unit_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Unit.WareHouseItems">
+            <summary>
+            FK_WareHouseItems_PK_Unit_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Unit.WareHouseItemUnits">
+            <summary>
+            FK_WareHouseItemUnits_PK_Unit_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Unit.WareHouseLimits">
+            <summary>
+            FK_WareHouseLimits_PK_Unit_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.Vendor">
+            <summary>
+            Nhà cung cấp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Vendor.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Vendor.ContactPerson">
+            <summary>
+            Người liên hệ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Vendor.Inactive">
+            <summary>
+            Ngừng theo dõi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Vendor.WareHouseInwards">
+            <summary>
+            FK_WareHouseInwards_PK_Vendor_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.Vendor.WareHouseItems">
+            <summary>
+            FK_WareHouseItems_PK_Vendor_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.WareHouse">
+            <summary>
+            Danh mục Kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.Code">
+            <summary>
+            Mã kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.Name">
+            <summary>
+            Tên kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.Address">
+            <summary>
+            Địa chỉ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.Description">
+            <summary>
+            Mô tả
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.ParentId">
+            <summary>
+            fk Id của kho cha
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.Path">
+            <summary>
+            HearachyID dạng path để hỗ trợ query dữ liệu dạng tree
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.Inactive">
+            <summary>
+            Ngừng theo dõi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.Audits">
+            <summary>
+            FK_Audits_PK_WareHouse_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.BeginningWareHouses">
+            <summary>
+            FK_BeginningWareHouses_PK_WareHouse_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.ToWareHouse_Outwards">
+            <summary>
+            FK_ToWareHouse_Outwards_PK_ToWareHouse_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.Warehouse_Outwards">
+            <summary>
+            FK_Warehouse_Outwards_PK_WareHouse_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.WareHouseInwards">
+            <summary>
+            FK_WareHouseInwards_PK_WareHouse_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouse.WareHouseLimits">
+            <summary>
+            FK_WareHouseLimits_PK_WareHouse_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.WarehouseBalance">
+            <summary>
+            Bảng tổng hợp tồn kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseBalance.ItemId">
+            <summary>
+            fk vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseBalance.WarehouseId">
+            <summary>
+            fk kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseBalance.Quantity">
+            <summary>
+            Số lượng tồn
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WarehouseBalance.Amount">
+            <summary>
+            Giá trị tồn
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.WareHouseItem">
+            <summary>
+            Danh mục vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.Code">
+            <summary>
+            Mã vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.Name">
+            <summary>
+            Tên vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.CategoryID">
+            <summary>
+            Loại vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.Description">
+            <summary>
+            Mô tả
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.VendorID">
+            <summary>
+            Nhà cung cấp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.VendorName">
+            <summary>
+            Tên nhà cung cấp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.Country">
+            <summary>
+            Nước sản xuất
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.Inactive">
+            <summary>
+            Ngừng theo dõi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.AuditDetails">
+            <summary>
+            FK_AuditDetails_PK_WareHouseItem_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.AuditDetailSerials">
+            <summary>
+            FK_AuditDetailSerials_PK_WareHouseItem_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.BeginningWareHouses">
+            <summary>
+            FK_BeginningWareHouses_PK_WareHouseItem_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.InwardDetails">
+            <summary>
+            FK_InwardDetails_PK_WareHouseItem_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.OutwardDetails">
+            <summary>
+            FK_OutwardDetails_PK_WareHouseItem_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.SerialWareHouses">
+            <summary>
+            FK_SerialWareHouses_PK_WareHouseItem_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.Unit">
+            <summary>
+            FK_WareHouseItems_PK_Unit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.Vendor">
+            <summary>
+            FK_WareHouseItems_PK_Vendor
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.WareHouseItemCategory">
+            <summary>
+            FK_WareHouseItems_PK_WareHouseItemCategory
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.WareHouseItemUnits">
+            <summary>
+            FK_WareHouseItemUnits_PK_WareHouseItem_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItem.WareHouseLimits">
+            <summary>
+            FK_WareHouseLimits_PK_WareHouseItem_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.WareHouseItemCategory">
+            <summary>
+            Loại vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemCategory.Code">
+            <summary>
+            Mã loại
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemCategory.Name">
+            <summary>
+            Tên loại
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemCategory.ParentId">
+            <summary>
+            Thuộc loại (Id loại cha)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemCategory.Path">
+            <summary>
+            Path dạng cây nhị phân 1/2/1 -&gt; Query đệ quy cho nó nhanh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemCategory.Inactive">
+            <summary>
+            Ngừng theo dõi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemCategory.Parent">
+            <summary>
+            FK_WareHouseItemCategories_PK_Parent
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemCategory.WareHouseItemCategories">
+            <summary>
+            FK_WareHouseItemCategories_PK_Parent_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemCategory.WareHouseItems">
+            <summary>
+            FK_WareHouseItems_PK_WareHouseItemCategory_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.WareHouseItemUnit">
+            <summary>
+            Đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemUnit.ItemId">
+            <summary>
+            Id của vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemUnit.UnitId">
+            <summary>
+            fk id đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemUnit.UnitName">
+            <summary>
+            Tên đơn vị tính, lưu dư thừa để hiển thị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemUnit.ConvertRate">
+            <summary>
+            Tỷ lệ quy đổi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemUnit.Unit">
+            <summary>
+            FK_WareHouseItemUnits_PK_Unit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseItemUnit.WareHouseItem">
+            <summary>
+            FK_WareHouseItemUnits_PK_WareHouseItem
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.WareHouseLimit">
+            <summary>
+            Định mức tồn kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.WareHouseId">
+            <summary>
+            Kho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.ItemId">
+            <summary>
+            Vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.UnitId">
+            <summary>
+            Đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.MinQuantity">
+            <summary>
+            Tồn tối thiểu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.MaxQuantity">
+            <summary>
+            Tồn tối đa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.ModifiedBy">
+            <summary>
+            Người sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.Unit">
+            <summary>
+            FK_WareHouseLimits_PK_Unit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.WareHouse">
+            <summary>
+            FK_WareHouseLimits_PK_WareHouse
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Warehouse.WareHouseLimit.WareHouseItem">
+            <summary>
+            FK_WareHouseLimits_PK_WareHouseItem
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.Enum.InwardReason">
+            <summary>
+            Reason Inward
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.InwardReason.Buy">
+            <summary>
+            Mua hàng
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.InwardReason.Recall">
+            <summary>
+            Thu hồi
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.InwardReason.Return">
+            <summary>
+            Trả lại
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.InwardReason.Other">
+            <summary>
+            Khác
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.Enum.OutwardReason">
+            <summary>
+            Outward reason
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.OutwardReason.Office">
+            <summary>
+            Cấp phát tài sản hành chính
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.OutwardReason.Station">
+            <summary>
+            Cấp phát tài sản trạm
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.OutwardReason.Project">
+            <summary>
+            Cấp phát tài sản dự án
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.OutwardReason.Customer">
+            <summary>
+            Cấp phát tài sản khách hàng
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.OutwardReason.Items">
+            <summary>
+            Cấp vật tư
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.OutwardReason.Tool">
+            <summary>
+            Cấp công cụ dụng cụ
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.OutwardReason.ChangeWarehouse">
+            <summary>
+            Chuyển kho
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.OutwardReason.Other">
+            <summary>
+            Khác
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Warehouse.Enum.VoucherType">
+            <summary>
+            Loại phiếu kho 
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.VoucherType.Inward">
+            <summary>
+            Phiếu nhập
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Warehouse.Enum.VoucherType.Outward">
+            <summary>
+            Phiếu xuất
+            </summary>
+        </member>
+    </members>
+</doc>

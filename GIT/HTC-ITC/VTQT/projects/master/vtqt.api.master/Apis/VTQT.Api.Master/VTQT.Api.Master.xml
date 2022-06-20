@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Api.Master</name>
+    </assembly>
+    <members>
+        <member name="M:VTQT.Api.Master.Controllers.CustomerController.GetById(System.Int32)">
+            <summary>
+            Get a Customer by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.CustomerController.Get(VTQT.SharedMvc.Master.Models.CustomerSearchModel)">
+            <summary>
+            Get a list Customers
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.LocationController.GetById(System.String)">
+            <summary>
+            Get a Location by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.LocationController.Get(VTQT.SharedMvc.Master.Models.LocationSearchModel)">
+            <summary>
+            Get a list Locations
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.OrganizationController.GetById(System.Int32)">
+            <summary>
+            Get an Organization by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.OrganizationController.Get(VTQT.SharedMvc.Master.Models.OrganizationSearchModel)">
+            <summary>
+            Get a list Organizations
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.ProjectController.GetById(System.Int32)">
+            <summary>
+            Get a Project by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.ProjectController.Get(VTQT.SharedMvc.Master.Models.ProjectSearchModel)">
+            <summary>
+            Get a list Projects
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.StationController.GetById(System.Int32)">
+            <summary>
+            Get a Station by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.StationController.Get(VTQT.SharedMvc.Master.Models.StationSearchModel)">
+            <summary>
+            Get a list Stations
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.VendorBillingController.GetById(System.Int32)">
+            <summary>
+            Get an Vendor by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Master.Controllers.VendorBillingController.Get(VTQT.SharedMvc.Master.Models.VendorBillingSearchModel)">
+            <summary>
+            Get a list Vendors
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VTQT.Api.Master.Infrastructure.DependencyRegistrar">
+            <summary>
+            Dependency registrar
+            </summary>
+        </member>
+        <member name="M:VTQT.Api.Master.Infrastructure.DependencyRegistrar.Register(Autofac.ContainerBuilder,VTQT.Core.Infrastructure.ITypeFinder,VTQT.Core.Configuration.XBaseConfig)">
+            <summary>
+            Register services and interfaces
+            </summary>
+            <param name="builder">Container builder</param>
+            <param name="typeFinder">Type finder</param>
+            <param name="config">Config</param>
+        </member>
+        <member name="P:VTQT.Api.Master.Infrastructure.DependencyRegistrar.Order">
+            <summary>
+            Gets order of this dependency registrar implementation
+            </summary>
+        </member>
+    </members>
+</doc>

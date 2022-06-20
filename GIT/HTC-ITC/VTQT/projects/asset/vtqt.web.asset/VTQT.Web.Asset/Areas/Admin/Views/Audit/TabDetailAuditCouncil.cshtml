@@ -1,0 +1,74 @@
+﻿@model AuditCouncilSearchModel
+@{
+    Layout = null;
+}
+
+<script>
+        var frmEditAuditCouncil = {
+            selector: '.page-data',
+            $this: {},
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { }
+            },
+            grdIndex4: {
+                el: '#frmEdit1_grdIndex1',
+                $el: {},
+                api: {},
+                data: function () { },
+                init: function () { }
+            },
+            init: function () { }
+        };
+    var form = frmEditAuditCouncil.form;
+    var grdIndex4 = frmEditAuditCouncil.grdIndex4;
+
+</script>
+
+<div class="row full-height">
+    <script id="toolbar1" type="text/x-kendo-template">
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+        </div>
+    </script>
+    @(Html.Kendo().Grid<AuditCouncilModel>()
+                        .Name("frmEdit1_grdIndex1")
+                        .HtmlAttributes(new {style = "height: 100%; border-top: none"})
+                        .Columns(columns =>
+                        {
+                            columns.Bound(x => x.EmployeeId).Hidden();
+                            columns.Bound(x => x.EmployeeName).Width(400);
+                            columns.Bound(x => x.Role).Width(300);
+                        })
+                        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar1"); })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(int.MaxValue)
+                            .ServerOperation(true)
+                            .Read(read => read.Action("AuditCouncil_Read", "Audit").Data("grdIndex.data"))
+                        )
+                        .NoRecords()
+                        .Scrollable(scr => scr.Enabled(true))
+                        .Pageable(pageable => pageable.Enabled(false))
+                        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+                        .Navigatable())
+</div>
+
+<script>
+
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex4.init = function() {
+            grdIndex4.$el = $(grdIndex4.el);
+            grdIndex4.api = grdIndex4.$el.data('kendoGrid');
+        };
+
+        //Startup
+        $(function() {
+            frmEditAuditCouncil.init();
+        });
+</script>

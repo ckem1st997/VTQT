@@ -1,0 +1,100 @@
+@model AssetAttachmentModel
+@{
+    Layout = null;
+}
+
+<script>
+    frmAddItem = {
+        el: 'form[data-client-form-id="@ClientFormId"]',
+        $el: {},
+        winForm: {},
+        init: function () { }
+    };
+</script>
+
+<div class="form fixed-layout-form">
+    <form class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Asset.AssetAttachments.AppActions.Create")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.AttachmentId, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        <select id="AttachmentId" name="AttachmentId" style="width: 100%"></select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.AttachmentQuantity, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        <input name="AttachmentQuantity" id="AttachmentQuantity" style="width: 100%">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>   
+    $('#AttachmentQuantity').kendoNumericTextBox({
+        format: "#",
+        decimals: 0,
+        value: 1,
+        min: 1
+    });
+
+    $('#AttachmentId').select2({
+        placeholder: 'Tài sản',
+        allowClear: true,
+        ajax: {
+            delay: 500,
+            url: '@Url.Action("GetAssetAttachments")',
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+
+                return query;
+            },
+            processResults: function (data, params) {
+                var items = [];
+                $.each(data.data, function (index, item) {
+                    items.push({
+                        id: item.Id,
+                        text: item.Name
+                    });
+                });
+                params.page = params.page || 1;
+
+                return {
+                    results: items,
+                    pagination: {
+                        more: (params.page * 10) < data.totalCount
+                    }
+                };
+            }
+        }
+    });
+
+    frmAddItem.init = function () {
+        frmAddItem.$el = $(frmAddItem.el);
+        frmAddItem.winForm = frmAddItem.$el.data('winForm');
+    };
+
+    $(function () {
+        frmAddItem.init();
+    });
+</script>

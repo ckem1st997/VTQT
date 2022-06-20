@@ -1,0 +1,531 @@
+﻿@model StorageValueModel
+@{
+    Layout = null;
+}
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<div class="form fixed-layout-form">
+    <form enctype="multipart/form-data" onchange="AJAXSubmitCreate(this);return false;" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Dashboard.StorageValue.AppActions.Edits")</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.NameColumn, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.NameColumn, Model.AvailableNameTable, "Chọn bảng", new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TypeValueId, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.TypeValueId, Model.AvailableTypeValue, string.Format(T("Common.SelectObject"), T("Common.TypeValue")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TimeYear, true, new { @class = "control-label col-md-3" }, false)
+                    <div class="col-md-9 iii">
+                        @Html.EditorFor(m => m.TimeYear, new { @class = "form-control w-100" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TimeMouth, true, new { @class = "control-label col-md-3" }, false)
+                    <div class="col-md-9 iii">
+                        @Html.EditorFor(m => m.TimeMouth, new { @class = "form-control w-100" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TimeDay, true, new { @class = "control-label col-md-3" }, false)
+                    <div class="col-md-9 iii">
+                        @Html.EditorFor(m => m.TimeDay, new { @class = "form-control w-100" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.VoucherBy, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.VoucherBy, Model.AvailableUsers, string.Format(T("Common.SelectObject"), T("Common.Fields.CreatedBy")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm" style="display: none">
+                    @Html.XBaseLabelFor(m => m.FileName, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.FileName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm" style="display: none">
+                    @Html.XBaseLabelFor(m => m.FileContent, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.FileContent, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm" style="display: none">
+                    @Html.XBaseLabelFor(m => m.FileLength, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.FileLength, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm" style="display: none">
+                    @Html.XBaseLabelFor(m => m.FileType, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.FileType, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm" style="display: none">
+                    @Html.XBaseLabelFor(m => m.DataSave, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.DataSave, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.SaveValue, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.FormFile, new { type = "file", @class = "form-control", accept = ".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" })
+                        <div class="icon-show">
+                        </div>
+                        <span id='valSpan'> Drop files to attach, or <button type="button" class="issue-drop-zone__button"> browse.</button></span>
+
+                        <script>
+
+                            var listItemData = {};
+                                   var oFileIn;
+
+                                               $(document).ready(function (){
+                                                     $('#valSpan').text($("#FileName").val());
+                                                     $('#DataSave').val('');
+                                               });
+
+
+                                               function ArrayBufferToString(buffer) {
+                                                   return BinaryToString(String.fromCharCode.apply(null, Array.prototype.slice.apply(new Uint8Array(buffer))));
+                                               }
+                                               function StringToArrayBuffer(string) {
+                                                   return StringToUint8Array(string).buffer;
+                                               }
+
+                                               function BinaryToString(binary) {
+                                                   var error;
+
+                                                   try {
+                                                       return decodeURIComponent(escape(binary));
+                                                   } catch (_error) {
+                                                       error = _error;
+                                                       if (error instanceof URIError) {
+                                                           return binary;
+                                                       } else {
+                                                           throw error;
+                                                       }
+                                                   }
+                                               }
+
+                                               function StringToBinary(string) {
+                                                   var chars, code, i, isUCS2, len, _i;
+
+                                                   len = string.length;
+                                                   chars = [];
+                                                   isUCS2 = false;
+                                                   for (i = _i = 0; 0 <= len ? _i < len : _i > len; i = 0 <= len ? ++_i : --_i) {
+                                                       code = String.prototype.charCodeAt.call(string, i);
+                                                       if (code > 255) {
+                                                           isUCS2 = true;
+                                                           chars = null;
+                                                           break;
+                                                       } else {
+                                                           chars.push(code);
+                                                       }
+                                                   }
+                                                   if (isUCS2 === true) {
+                                                       return unescape(encodeURIComponent(string));
+                                                   } else {
+                                                       return String.fromCharCode.apply(null, Array.prototype.slice.apply(chars));
+                                                   }
+                                               }
+
+                                               function StringToUint8Array(string) {
+                                                   var binary, binLen, buffer, chars, i, _i;
+                                                   binary = StringToBinary(string);
+                                                   binLen = binary.length;
+                                                   buffer = new ArrayBuffer(binLen);
+                                                   chars  = new Uint8Array(buffer);
+                                                   for (i = _i = 0; 0 <= binLen ? _i < binLen : _i > binLen; i = 0 <= binLen ? ++_i : --_i) {
+                                                       chars[i] = String.prototype.charCodeAt.call(binary, i);
+                                                   }
+                                                   return chars;
+                                               }
+                                               $('#buttonSelect').click(function () {
+                                                   $("input[type='file']").trigger('click');
+                                               })
+
+                                               $("input[type='file']").change(function () {
+                                                   $('#valSpan').text(this.value.replace(/C:\\fakepath\\/i, ''))
+                                               })
+
+                                         // func apeend html
+                                           function appendData(objData) {
+
+                                                       listItemData = objData;
+                                               }
+                                           function AJAXSubmitCreate(oFormElement) {
+
+                                               const formData = new FormData(oFormElement);
+                                               var checkFile=formData.get("FormFile");
+                                               if (checkFile.name.length>0 && checkFile.size>0 && $("#FileName").val()!==checkFile.name)
+                                                   {
+                                                       $.ajax({
+                                                       type: 'POST',
+                                                       url: '/Admin/StorageValue/FileConvert',
+                                                       data: formData,
+                                                       cache: false,
+                                                       contentType: false,
+                                                       processData: false,
+                                                       beforeSend: function(jqXhr, settings) {
+                                                               app.ui.loader(grdIndex.$this, true);
+                                                         },
+                                                       success: function (data) {
+                                                               app.ui.loader(grdIndex.$this, false);
+                                                              $("#FileName").val(data.FileName);
+                                                              $("#DataSave").val(data.DataSave);
+                                                              $("#FileContent").val(data.FileContent);
+                                                              $("#FileLength").val(data.FileLength);
+                                                              $("#FileType").val(data.FileType);
+                                                       },
+                                                       error: function (data) {
+                                                           alert(data.responseText);
+                                                       }
+                                                       });
+                                                    }
+
+
+                                                   }
+                        </script>
+                    </div>
+                </div>
+
+
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.SheeActive, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.SheeActive, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.NumberHeader, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.NumberHeader, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-md-3" for="OptionSelectColumn" title="Bản tham chiếu">Lấy hết dữ liệu</label>
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.ActiveGetAllData, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-md-3" for="OptionSelectColumn" title="Bản tham chiếu">Chọn cột</label>
+                    <div class="col-md-9">
+                        <select class="form-control" name="OptionSelectColumn" id="OptionSelectColumn" multiple="multiple" style="width: 100%"></select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.NameTableRefense, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        <select class="form-control" name="NameTableRefense" id="NameTableRefense" multiple="multiple" style="width: 100%"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <a id="downloadfiletemplate" style="float: left;margin-left: 15px;text-decoration:underline !important;">
+                    Tải tệp mẫu
+                </a>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+
+            </div>
+        </div>
+    </form>
+</div>
+<style>
+    .issue-drop-zone__button {
+        position: relative;
+        cursor: pointer;
+        color: #3572b0;
+        background: 0 0;
+        padding: 0;
+        border: 0;
+        font-family: inherit;
+        font-size: inherit;
+    }
+
+    input[type='file'] {
+        /*width:400px;*/
+        height: 25px;
+        opacity: 0;
+    }
+
+    .icon-show {
+        position: absolute;
+        top: 0;
+        left: 39px;
+        font-size: 19px;
+        line-height: 25px;
+        text-indent: 10px;
+        pointer-events: none;
+        background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjI1cHgiIGhlaWdodD0iMjFweCIgdmlld0JveD0iMCAwIDI1IDIxIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHNrZXRjaDp0eXBlPSJNU1BhZ2UiPgogICAgICAgIDxnIGlkPSIwNV9Ecm9wem9uZS0oQ0EpLS0tdXBsb2FkZWQiIHNrZXRjaDp0eXBlPSJNU0FydGJvYXJkR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMTMuMDAwMDAwLCAtNjQ1LjAwMDAwMCkiIGZpbGw9IiM3MDcwNzAiPgogICAgICAgICAgICA8ZyBpZD0iSXNzdWUtQXR0YWNobWVudHMiIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIwLjAwMDAwMCwgNjAyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPGcgaWQ9IkRyYWctJmFtcDstZHJvcC1lbXB0eS0yIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyOTMuMDAwMDAwLCA0My4wMDAwMDApIiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj4KICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iY2xvdWQtdXBsb2FkLTIiPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMTMuMTI0Nzk3NywxOS42NDc5NDEgTDEzLjEyNDc5NzcsMTEuMDU2MzA2IEwxNS4xNzM3OTIyLDEzLjEzMDYxMDQgQzE1LjQ1NzI5NTcsMTMuNDE2NjYzNiAxNS45MTQzNzI3LDEzLjQxNjY2MzYgMTYuMTk4NzAyNywxMy4xMzA2MTA0IEMxNi40ODEzNzk2LDEyLjg0MzcyMDcgMTYuNDgxMzc5NiwxMi4zODAzNDc5IDE2LjE5ODcwMjcsMTIuMDk0Mjk0NiBMMTIuOTEzMjAzMyw4Ljc2OTU1MjY3IEMxMi44Nzg0ODg2LDguNzM1MjU5NzMgMTIuODQwNDY3Nyw4LjcwNTE0ODg2IDEyLjgwMTYyMDMsOC42NzgzODM2NCBDMTIuNzg1MDg5NSw4LjY2NzUxMDI3IDEyLjc2NzczMjEsOC42NjA4MTg5NyAxMi43NTEyMDEzLDguNjUwNzgyMDEgQzEyLjcyNzIzMTYsOC42MzY1NjI5OSAxMi43MDI0MzU0LDguNjIyMzQzOTcgMTIuNjc2ODEyNyw4LjYxMTQ3MDYgQzEyLjY1NTMyMjYsOC42MDIyNzAwNSAxMi42MzMwMDYsOC41OTcyNTE1OCAxMi42MTE1MTU5LDguNTkxMzk2NjggQzEyLjU4ODM3MjgsOC41ODM4Njg5NyAxMi41NjUyMjk3LDguNTc0NjY4NDIgMTIuNTQxMjYsOC41NzA0ODYzNiBDMTIuNTA0MDY1Nyw4LjU2MjEyMjIzIDEyLjQ2Njg3MTMsOC41NjA0NDk0IDEyLjQyOTY3Nyw4LjU1ODc3NjU3IEMxMi40MTg5MzIsOC41NTg3NzY1NyAxMi40MTA2NjY1LDguNTU1NDMwOTIgMTIuMzk5MDk1LDguNTU1NDMwOTIgQzEyLjM4NzUyMzQsOC41NTU0MzA5MiAxMi4zNzg0MzE1LDguNTU4Nzc2NTcgMTIuMzY2ODU5OSw4LjU1ODc3NjU3IEMxMi4zMzA0OTIxLDguNTYwNDQ5NCAxMi4yOTQxMjQzLDguNTYyOTU4NjQgMTIuMjU4NTgzMSw4LjU3MDQ4NjM2IEMxMi4yMzI5NjAzLDguNTc1NTA0ODQgMTIuMjA4OTkwNiw4LjU4NTU0MTc5IDEyLjE4NDE5NDQsOC41OTMwNjk1MSBDMTIuMTYzNTMwOSw4LjU5OTc2MDgyIDEyLjE0MzY5MzksOC42MDMxMDY0NyAxMi4xMjMwMzA0LDguNjExNDcwNiBDMTIuMDk0OTI4LDguNjIzMTgwMzggMTIuMDY5MzA1Miw4LjYzODIzNTgyIDEyLjA0Mjg1NTksOC42NTQxMjc2NiBDMTIuMDI3OTc4Miw4LjY2MjQ5MTc5IDEyLjAxMzEwMDUsOC42NjgzNDY2OSAxMS45OTgyMjI3LDguNjc3NTQ3MjMgQzExLjk1NzcyMjIsOC43MDUxNDg4NiAxMS45MjA1Mjc5LDguNzM2MDk2MTQgMTEuODg2NjM5Nyw4Ljc3MDM4OTA4IEw4LjYwMTk2NjksMTIuMDk0Mjk0NiBDOC40NjA2Mjg0NCwxMi4yMzczMjEyIDguMzg5NTQ1OTQsMTIuNDI1NTE0MiA4LjM4OTU0NTk0LDEyLjYxMjAzNDMgQzguMzg5NTQ1OTQsMTIuODAwMjI3MiA4LjQ2MDYyODQ0LDEyLjk4NzU4MzcgOC42MDE5NjY5LDEzLjEzMDYxMDQgQzguODg0NjQzODMsMTMuNDE2NjYzNiA5LjM0MjU0NzM5LDEzLjQxNjY2MzYgOS42MjYwNTA4NiwxMy4xMzA2MTA0IEwxMS42NzUwNDUzLDExLjA1NjMwNiBMMTEuNjc1MDQ1MywxOS42NDg3Nzc0IEMxMS42NzUwNDUzLDIwLjA1MzYwMTMgMTEuOTk5MDQ5MywyMC4zODIzMTE2IDEyLjM5ODI2ODQsMjAuMzgyMzExNiBDMTIuODAwNzkzOCwyMC4zODE0NzUyIDEzLjEyNDc5NzcsMjAuMDUzNjAxMyAxMy4xMjQ3OTc3LDE5LjY0Nzk0MSBMMTMuMTI0Nzk3NywxOS42NDc5NDEgWiIgaWQ9IlNoYXBlIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0yMC43MDMzNDk2LDYuMjg0NTY5NDUgQzIwLjQ3OTM1NzEsMi45MTQ2NjEyMiAxNy42OTgwNDc1LDAuMjQzMTU3ODk1IDE0LjMxMjUzNjgsMC4yNDMxNTc4OTUgQzEyLjE4MjU0MTMsMC4yNDMxNTc4OTUgMTAuMjEwNDE1MSwxLjMzMzg0MDUzIDkuMDMyNTk0NjIsMy4wNjY4ODg0IEM4LjU1NzMzMzcsMi44NjExMzA3OCA4LjA0MjM5ODgzLDIuNzUyMzk3MDkgNy41MTkxOTg1NiwyLjc1MjM5NzA5IEM1LjUxMzE4NDIyLDIuNzUyMzk3MDkgMy44NTU5NzAwOCw0LjI5MzA2OTk1IDMuNjQyNzIyNTcsNi4yNjYxNjgzNyBDMS42MDE5OTM1Myw3LjA1NzQxNTEzIDAuMjEwMDk4OTUxLDkuMDM4MDQxMjYgMC4yMTAwOTg5NTEsMTEuMzIzOTU4MiBDMC4yMTAwOTg5NTEsMTQuMzIxNjYyNiAyLjYyMDI5MTcsMTYuNzYwNjQzMSA1LjU4MjYxMzY0LDE2Ljc2MDY0MzEgTDkuNjYzMjQ1MTksMTYuNzYwNjQzMSBMOS42NjMyNDUxOSwxNS41MDYwMjM1IEw1LjU4MTc4NzEsMTUuNTA2MDIzNSBDMy4yOTg4ODE2MywxNS41MDYwMjM1IDEuNDQ5MDgzNDksMTMuNjM2NjQwMyAxLjQ0OTA4MzQ5LDExLjMyMzk1ODIgQzEuNDQ5MDgzNDksOS4yNTA0OTAxOCAyLjk0OTI1NDksNy41MzkxODkwNSA0LjkwOTgwOTUsNy4yMTIxNTE1NCBDNC44NzY3NDc4Nyw3LjA0NTcwNTM0IDQuODU4NTYzOTcsNi44NzUwNzcwOCA0Ljg1ODU2Mzk3LDYuNjk5NDMwMzMgQzQuODU4NTYzOTcsNS4yMTE0NTE0OSA2LjA0OTYwOTE1LDQuMDA3MDE2NjggNy41MTkxOTg1Niw0LjAwNzAxNjY4IEM4LjI5ODYyNjQ2LDQuMDA3MDE2NjggOC45OTI5MjA2Niw0LjM1MjQ1NTI4IDkuNDc5NzUzMTUsNC44OTI3NzgxMiBDMTAuMjE0NTQ3OSwyLjkwOTY0Mjc0IDEyLjA5ODIzNDIsMS40OTc3Nzc0OSAxNC4zMTI1MzY4LDEuNDk3Nzc3NDkgQzE3LjE2NTc1NTMsMS40OTc3Nzc0OSAxOS40Nzg0MTYzLDMuODM3MjI0ODMgMTkuNDc4NDE2Myw2LjcyNTM1OTE0IEMxOS40Nzg0MTYzLDYuODkwOTY4OTMgMTkuNDcxODAzOSw3LjA1NjU3ODcxIDE5LjQ1NDQ0NjYsNy4yMTg4NDI4NSBDMjEuMzc2OTgwMyw3LjU3ODUwMDQ2IDIyLjgzNjY1MTIsOS4yNzU1ODI1NyAyMi44MzY2NTEyLDExLjMyMzk1ODIgQzIyLjgzNjY1MTIsMTMuNjM2NjQwMyAyMC45ODY4NTMxLDE1LjUwNjAyMzUgMTguNzAzOTQ3NiwxNS41MDYwMjM1IEwxNS4wODc4MzE5LDE1LjUwNjAyMzUgTDE1LjA4NzgzMTksMTYuNzYwNjQzMSBMMTguNzAzOTQ3NiwxNi43NjA2NDMxIEMyMS42NjYyNjk2LDE2Ljc2MDY0MzEgMjQuMDc2NDYyMywxNC4zMjE2NjI2IDI0LjA3NjQ2MjMsMTEuMzIzOTU4MiBDMjQuMDc1NjM1OCw5LjA3MzE3MDYxIDIyLjcwNzcxMDksNy4wOTY3MjY1NCAyMC43MDMzNDk2LDYuMjg0NTY5NDUgTDIwLjcwMzM0OTYsNi4yODQ1Njk0NSBaIiBpZD0iU2hhcGUiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==);
+        background-position: 0 0;
+        width: 24px;
+        height: 21px;
+        position: absolute;
+        margin-left: -31px;
+        display: inline-block;
+        content: " ";
+    }
+
+    #valSpan {
+        margin-left: 36px;
+        height: 25px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 13px;
+        line-height: 25px;
+        text-indent: 10px;
+        pointer-events: none;
+    }
+
+    #buttonSelect {
+        cursor: pointer;
+        display: block;
+        width: 90px;
+        background-color: purple;
+        height: 25px;
+        color: white;
+        position: absolute;
+        right: 3px;
+        top: 0;
+        font-size: 11px;
+        line-height: 25px;
+        text-align: center;
+        -webkit-transition: 500ms all;
+        -moz-transition: 500ms all;
+        transition: 500ms all;
+    }
+
+        #buttonSelect:hover {
+            background-color: blue;
+        }
+
+    label {
+        cursor: pointer;
+        /* Style as you please, it will become the visible UI component. */
+    }
+
+        label.input-t {
+            cursor: pointer;
+            color: #337ab7;
+            /* Style as you please, it will become the visible UI component. */
+        }
+
+    .w-100 {
+        width: 100% !important;
+    }
+
+    .iii span.k-widget.k-numerictextbox {
+        width: 100% !important;
+    }
+
+    #upload-photo {
+        /*opacity: 0;*/
+        /*position: absolute;*/
+        /*z-index: 1;*/
+    }
+
+    .drag-area {
+        border: 2px dashed #fff;
+        height: 65px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: inherit;
+    }
+
+        .drag-area.active {
+            border: 2px solid #fff;
+        }
+
+        .drag-area .icon {
+            font-size: 30px;
+            color: #9f9f9f;
+        }
+
+        .drag-area header {
+            font-size: 30px;
+            font-weight: 500;
+            color: #1b1e21;
+        }
+
+        .drag-area span {
+            font-size: 25px;
+            font-weight: 500;
+            color: #1b1e21;
+            margin: 10px 0 15px 0;
+        }
+
+        .drag-area button {
+            padding: 10px 25px;
+            font-size: 20px;
+            font-weight: 500;
+            border: none;
+            outline: none;
+            background: #fff;
+            color: #5256ad;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .drag-area img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+</style>
+
+<script>
+        $( document ).ready(function() {
+     $('#OptionSelectColumn').empty();
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "/Admin/StorageValue/GetSelect?nameTable=@Model.NameColumn",
+                success: function (msg) {
+                    console.log();
+                    if (msg && msg.length > 0) {
+                        $("#OptionSelectColumn").select2({
+                            data: msg
+                        });
+                    }
+
+                    else
+                        notify({ text: "Bảng không có cột dữ liệu, xin vui lòng thử lại hoặc liên hệ với bộ phận IT !", type: 'err' });
+
+                }
+            });
+    });
+         $("#NameColumn").on("select2:select", function (e) {
+            $('#OptionSelectColumn').empty();
+            var data = e.params.data;
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "/Admin/StorageValue/GetSelect?nameTable=" + $(this).val() + "",
+                success: function (msg) {
+                    console.log();
+                    if (msg && msg.length > 0) {
+                        $("#OptionSelectColumn").select2({
+                            data: msg
+                        });
+                    }
+
+                    else
+                        notify({ text: "Bảng không có cột dữ liệu, xin vui lòng thử lại hoặc liên hệ với bộ phận IT !", type: 'err' });
+
+                }
+            });
+            return false;
+        });
+    $('#downloadfiletemplate').click(function (){
+        var id=$('#@Html.FieldIdFor(m => m.Id)');
+        window.location = '/Admin/StorageValue/DownloadToTemplate/' + id.val()
+    });
+    frmAddItemEdit = {
+            el: 'form[data-client-form-id="@ClientFormId"]',
+            $el: {},
+            winForm: {},
+            $TimeDay: $('#@Html.FieldIdFor(m => m.TimeDay)'),
+            $TimeMouth: $('#@Html.FieldIdFor(m => m.TimeMouth)'),
+            $TimeYear: $('#@Html.FieldIdFor(m => m.TimeYear)'),
+            $TypeValueId: $('#@Html.FieldIdFor(m => m.TypeValueId)'),
+            $VoucherBy: $('#@Html.FieldIdFor(m => m.VoucherBy)'),
+            $NameTableRefense: $('#@Html.FieldIdFor(m => m.NameTableRefense)'),
+            $OptionSelectColumn: $('#@Html.FieldIdFor(m => m.OptionSelectColumn)'),
+            $File: $('#@Html.FieldIdFor(m => m.FormFile)'),
+            init: function () { }
+        };
+
+        frmAddItemEdit.init = function () {
+            //Init Window
+            frmAddItemEdit.$el = $(frmAddItemEdit.el);
+            frmAddItemEdit.winForm = frmAddItemEdit.$el.data('winForm');
+        };
+         $(function () {
+                frmAddItemEdit.init();
+
+
+          });
+           var res=@Html.Raw(Model.NameTableRefense);
+          $("#NameTableRefense").select2({
+             data: res,
+             tags: true,
+             multiple: true,
+             tokenSeparators: [',', ' '],
+          });
+           $('#NameTableRefense').val(res);
+           $('#NameTableRefense').trigger('change');
+            var resColumn=@Html.Raw(Model.OptionSelectColumn);
+
+            $("#OptionSelectColumn").select2({
+            tags: true,
+            data: resColumn,
+            multiple: true,
+            tokenSeparators: [',', ' '],
+            createTag: newtag,
+            matcher: matchCustom
+        });
+        $('#OptionSelectColumn').val(resColumn);
+           $('#OptionSelectColumn').trigger('change');
+        function newtag(params, data) {
+            var term = $.trim(params.term);
+            if (term === '') {
+                return null;
+            }
+            return {
+                id: term,
+                text: term ,
+                newTag: true // add additional parameters
+            }
+        }
+
+        function matchCustom(params, data) {
+            // If there are no search terms, return all of the data
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+
+            // Do not display the item if there is no 'text' property
+            if (typeof data.text === 'undefined') {
+                return null;
+            }
+
+            // Return `null` if the term should not be displayed
+            return null;
+        }
+</script>
+
+<script src="~/js/libs-xlsx-0.8.0-jszip.js"></script>
+<script src="~/js/libs-xlsx-0.8.0-xlsx.js"></script>

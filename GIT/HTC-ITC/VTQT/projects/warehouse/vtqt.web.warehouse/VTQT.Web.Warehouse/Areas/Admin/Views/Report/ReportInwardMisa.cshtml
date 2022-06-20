@@ -1,0 +1,735 @@
+﻿@model ReportInwaMisaSearchModel
+
+<div class="row full-height" id="right-data" style="padding-top: 300px">
+    <div class="row" style="position: absolute; width: 100%; top: 0">
+        <div style="border-bottom: 1px solid lightgray;
+            padding: 10px 10px">
+            <b style="font-size: 18px; color: #0277BD">Báo cáo nhập kho misa</b>
+        </div>
+
+        <div class="options-params">
+            <form id="form-param" style="display:flex; flex-direction: column">
+                @Html.HiddenFor(m => m.RouteKey)
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div id="collapseOne" class="collapse in" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body" style="display: flex; flex-direction: column">
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2">
+                                        @Html.XBaseLabelFor(m => m.WareHouseId, true, new { @style = "float: right" })
+                                    </div>
+                                    <div class="col-md-4" style="padding: 0">
+                                        <select id="selectedWarehouse" style="width: 100%"></select>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2">
+                                        @Html.XBaseLabelFor(m => m.WareHouseItemId, true, new { @style = "float: right" })
+                                    </div>
+                                    <div class="col-md-4" style="padding: 0">
+                                        <select id="selectedItem" style="width: 100%"></select>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2" style="padding: 0">
+                                        @Html.XBaseLabelFor(m => m.FromDate, true, new { @style = "float: right" }, true)
+                                    </div>
+                                    <div class="col-md-2" style="padding: 2px">
+                                        @(Html.Kendo().DatePicker()
+                                        .Name("fromdate")
+                                        .Value(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1))
+                                        .HtmlAttributes(new { style = "width: 100%"})
+                                    )
+                                    </div>
+                                    <div class="col-md-2" style="padding: 2px">
+                                        @(Html.Kendo().DatePicker()
+                                        .Name("todate")
+                                        .Value(DateTime.Now)
+                                        .HtmlAttributes(new { style = "width: 100%" })
+                                    )
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm" style="display: flex;
+                                justify-content: center">
+                    <button id="btnLoadReport" type="submit" class="btn btn-success">
+                        <i class="fa fa-search"></i>&nbsp;Xem báo cáo
+                    </button>
+                    <button class="btn btn-primary" id="btnExportExcel" style="margin-left: 10px">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Xuất báo cáo
+                    </button>
+                    <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="margin-left: 10px">
+                        <div style="display: flex; align-items:center; justify-content: flex-start">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Ẩn/hiện tham số
+                        </div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row full-height" style="padding: 0 10px">
+        @(Html.Kendo().Grid<ReportInwardMisaModel>()
+            .Name("grd")
+            .HtmlAttributes(new { style = "height: 100%; border-left: 1px solid lightblue; border-right: 1px solid lightblue" })
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.Moment).Locked().Width(100).Format("{0: dd/MM/yyyy}");
+                columns.Bound(x => x.VoucherDateTime).Locked().Width(100).Format("{0: dd/MM/yyyy}");
+                columns.Bound(x => x.VoucherCode).Locked().Width(100);
+                columns.Bound(x => x.Voucher).Locked().Width(150);
+                columns.Bound(x => x.VendorCode).Width(120);
+                columns.Bound(x => x.ProjectId).Width(120);
+                columns.Bound(x => x.DepartmentName).Width(100);
+                columns.Bound(x => x.NoteRender).Width(120);
+                columns.Bound(x => x.WareHouseItemCode).Width(100);
+                columns.Bound(x => x.WareHouseItemName).Width(100);
+                columns.Bound(x => x.WareHouseItemId).Width(100);
+                columns.Bound(x => x.AccountMore).Width(200);
+                columns.Bound(x => x.AccountYes).Width(200);
+                columns.Bound(x => x.UnitName).Width(120);
+                columns.Bound(x => x.Quantity).Width(200);
+                columns.Bound(x => x.Price).Width(200);
+                columns.Bound(x => x.Amount).Width(200);
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .Read(read => read.Action("GetInwardMisa", "Report").Data("grd.data"))
+            )
+            .NoRecords()
+            .AutoBind(false)
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(true))
+            .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+            .Navigatable())
+    </div>
+</div>
+
+<script>
+    var master = {
+        urlGet: '@Url.Action("GetInwardMisa", "Report")',
+        urlGetItems: '@Url.Action("GetItems", "Report")',
+        urlGetWarehouses: '@Url.Action("GetWarehouses", "Report")',
+        urlGetDepartments: '@Url.Action("GetDepartments", "Report")',
+        urlGetProjects: '@Url.Action("GetProjects", "Report")',
+        urlGetUsers: '@Url.Action("GetUsers", "Report")',
+        urlGetExcel: '@Url.Action("GetExcelInwardMisaReport", "Report")',
+        urlDownloadExcel: '@Url.Action("DownloadExcel", "Report")',
+        el: '.page-data',
+        $el: {},
+        init: function () { },
+        grd: {
+            el: '#grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            data: function () { }
+        },
+        form: {
+            el: '#form-param',
+            $el: {},
+            init: function () { }
+        },
+        fromdate: {
+            el: '#fromdate',
+            $el: {},
+            init: function () { },
+            api: {}
+        },
+        todate: {
+            el: '#todate',
+            $el: {},
+            init: function () { },
+            api: {}
+        },
+        selectedItem: {
+            el: '#selectedItem',
+            $el: {},
+            init: function () { },
+        },
+        selectedWarehouse: {
+            el: '#selectedWarehouse',
+            $el: {},
+            init: function () { }
+        },
+        selectedDepartment: {
+            el: '#selectedDepartment',
+            $el: {},
+            init: function () { }
+        },
+        selectedProject: {
+            el: '#selectedProject',
+            $el: {},
+            init: function () { }
+        },
+        selectedUser: {
+            el: '#selectedUser',
+            $el: {},
+            init: function () { }
+        },
+        btnLoadReport: {
+            el: '#btnLoadReport',
+            $el: {},
+            init: function () { }
+        },
+        btnExportExcel: {
+            el: '#btnExportExcel',
+            $el: {},
+            init: function () { }
+        },
+        objectData: []
+    };
+    var grd = master.grd;
+    var form = master.form;
+    var fromdate = master.fromdate;
+    var todate = master.todate;
+    var selectedItem = master.selectedItem;
+    var selectedWarehouse = master.selectedWarehouse;
+    var selectedDepartment = master.selectedDepartment;
+    var selectedProject = master.selectedProject;
+    var btnLoadReport = master.btnLoadReport;
+    var btnExportExcel = master.btnExportExcel;
+    var objectData = master.objectData;
+    var selectedUser = master.selectedUser;
+
+    grd.data = function () {
+        var $fromdate = null;
+        var $todate = null;
+        var $wareHouseItemId = null;
+        var $wareHouseId = null;
+        var $departmentId = null;
+        var $projectId = null;
+        var $proposer = null;
+        var $routeKey = $('#@Html.FieldIdFor(m => m.RouteKey)');
+
+        if (objectData.find(item => item.name === 'RouteKey') !== undefined) {
+            var route = objectData.find(item => item.name === 'RouteKey').value;
+            if (route === $routeKey.val()) {
+                if (objectData.find(item => item.name === 'WareHouseId') !== undefined) {
+                    $wareHouseId = objectData.find(item => item.name === 'WareHouseId').value;
+                }
+
+                if (objectData.find(item => item.name === 'WareHouseItemId') !== undefined) {
+                    $wareHouseItemId = objectData.find(item => item.name === 'WareHouseItemId').value;
+                }
+
+                if (objectData.find(item => item.name === 'FromDate') !== undefined) {
+                    $fromdate = objectData.find(item => item.name === 'FromDate').value;
+                }
+
+                if (objectData.find(item => item.name === 'ToDate') !== undefined) {
+                    $todate = objectData.find(item => item.name === 'ToDate').value;
+                }
+
+                if (objectData.find(item => item.name === 'DepartmentId') !== undefined) {
+                    $departmentId = objectData.find(item => item.name === 'DepartmentId').value;
+                }
+
+                if (objectData.find(item => item.name === 'ProjectId') !== undefined) {
+                    $projectId = objectData.find(item => item.name === 'ProjectId').value;
+                }
+
+                if (objectData.find(item => item.name === 'Proposer') !== undefined) {
+                    $proposer = objectData.find(item => item.name === 'Proposer').value;
+                }
+            }
+        }
+
+        var seachModel = {
+            FromDate: $fromdate,
+            ToDate: $todate,
+            RouteKey: $routeKey.val(),
+            WareHouseId: $wareHouseId,
+            WareHouseItemId: $wareHouseItemId,
+            DepartmentId: $departmentId,
+            ProjectId: $projectId,
+            Proposer: $proposer
+        };
+
+        return seachModel;
+    };
+
+    master.init = function () {
+        master.$el = $(master.el);
+
+        grd.init();
+        form.init();
+        fromdate.init();
+        todate.init();
+        selectedDepartment.init();
+        selectedItem.init();
+        selectedProject.init();
+        selectedWarehouse.init();
+        selectedUser.init();
+        btnLoadReport.init();
+        btnExportExcel.init();
+    };
+
+    grd.init = function () {
+        grd.$el = $(grd.el);
+        grd.api = grd.$el.data('kendoGrid');
+    }
+
+    form.init = function () {
+        form.$el = $(form.el);
+        objectData = form.$el.serializeArray();
+    };
+
+    fromdate.init = function () {
+        fromdate.$el = $(fromdate.el);
+        fromdate.api = fromdate.$el.data('kendoDatePicker');
+        var foundIt = false;
+
+        objectData.forEach(function (item) {
+            if (item.name === "FromDate") {
+                item.value = fromdate.$el.val();
+                foundIt = true;
+            }
+        });
+        if (!foundIt) {
+            objectData.push({ name: "FromDate", value: fromdate.$el.val() });
+        }
+
+        fromdate.api.bind("change", function () {
+            foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "FromDate") {
+                    item.value = fromdate.$el.val();
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "FromDate", value: fromdate.$el.val() });
+            }
+        });
+    };
+
+    todate.init = function () {
+        todate.$el = $(todate.el);
+        todate.api = todate.$el.data('kendoDatePicker');
+        var foundIt = false;
+
+        objectData.forEach(function (item) {
+            if (item.name === "ToDate") {
+                item.value = todate.$el.val();
+                foundIt = true;
+            }
+        });
+        if (!foundIt) {
+            objectData.push({ name: "ToDate", value: todate.$el.val() });
+        }
+
+        todate.api.bind("change", function () {
+            foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "ToDate") {
+                    item.value = todate.$el.val();
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "ToDate", value: todate.$el.val() });
+            }
+        });
+    };
+
+    selectedItem.init = function () {
+        selectedItem.$el = $(selectedItem.el);
+
+        selectedItem.$el.select2({
+            placeholder: 'Vật tư',
+            allowClear: true,
+            ajax: {
+                delay: 500,
+                url: master.urlGetItems,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    return query;
+                },
+                processResults: function (data, params) {
+                    var items = [];
+                    $.each(data.data, function (index, item) {
+                        items.push({
+                            id: item.Id,
+                            text: `[${item.Code}] ${item.Name}`
+                        });
+                    });
+                    params.page = params.page || 1;
+
+                    return {
+                        results: items,
+                        pagination: {
+                            more: (params.page * 10) < data.totalCount
+                        }
+                    };
+                }
+            }
+        });
+
+        selectedItem.$el.on('select2:select', function (e) {
+            var foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "WareHouseItemId") {
+                    item.value = e.params.data.id;
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "WareHouseItemId", value: e.params.data.id });
+            }
+        });
+
+                  selectedItem.$el.on("select2:unselect", function(e){
+                                objectData.forEach(function (item) {
+                                               if (item.name === "WareHouseItemId") {
+                                                   item.value ='';
+                                               }
+                                           });
+                           }).trigger('change');
+
+    };
+
+    selectedWarehouse.init = function () {
+        selectedWarehouse.$el = $(selectedWarehouse.el);
+
+        selectedWarehouse.$el.select2({
+            placeholder: 'Kho',
+            allowClear: true,
+            ajax: {
+                delay: 500,
+                url: master.urlGetWarehouses,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    return query;
+                },
+                processResults: function (data, params) {
+                    var items = [];
+                    $.each(data.data, function (index, item) {
+                        items.push({
+                            id: item.Id,
+                            text: `${item.Name}`
+                        });
+                    });
+                    params.page = params.page || 1;
+
+                    return {
+                        results: items,
+                        pagination: {
+                            more: (params.page * 10) < data.totalCount
+                        }
+                    };
+                }
+            }
+        });
+
+        selectedWarehouse.$el.on('select2:select', function (e) {
+            var foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "WareHouseId") {
+                    item.value = e.params.data.id;
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "WareHouseId", value: e.params.data.id });
+            }
+        });
+
+           selectedWarehouse.$el.on("select2:unselect", function(e){
+                objectData.forEach(function (item) {
+                               if (item.name === "WareHouseId") {
+                                   item.value ='';
+                               }
+                           });
+           }).trigger('change');
+    };
+
+    selectedDepartment.init = function () {
+        selectedDepartment.$el = $(selectedDepartment.el);
+
+        selectedDepartment.$el.select2({
+            placeholder: 'Phòng ban',
+            allowClear: true,
+            ajax: {
+                delay: 500,
+                url: master.urlGetDepartments,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    return query;
+                },
+                processResults: function (data, params) {
+                    var items = [];
+                    $.each(data.data, function (index, item) {
+                        items.push({
+                            id: item.Id,
+                            text: `[${item.Code}] ${item.Name}`
+                        });
+                    });
+                    params.page = params.page || 1;
+
+                    return {
+                        results: items,
+                        pagination: {
+                            more: (params.page * 10) < data.totalCount
+                        }
+                    };
+                }
+            }
+        });
+
+        selectedDepartment.$el.on('select2:select', function (e) {
+            var foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "DepartmentId") {
+                    item.value = e.params.data.id;
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "DepartmentId", value: e.params.data.id });
+            }
+        });
+
+           selectedDepartment.$el.on("select2:unselect", function(e){
+                objectData.forEach(function (item) {
+                               if (item.name === "DepartmentId") {
+                                   item.value ='';
+                               }
+                           });
+           }).trigger('change');
+    };
+
+    selectedProject.init = function () {
+        selectedProject.$el = $(selectedProject.el);
+
+        selectedProject.$el.select2({
+            placeholder: 'Dự án',
+            allowClear: true,
+            ajax: {
+                delay: 500,
+                url: master.urlGetProjects,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    return query;
+                },
+                processResults: function (data, params) {
+                    var items = [];
+                    $.each(data.data, function (index, item) {
+                        items.push({
+                            id: item.Id,
+                            text: `[${item.Code}] ${item.Name}`
+                        });
+                    });
+                    params.page = params.page || 1;
+
+                    return {
+                        results: items,
+                        pagination: {
+                            more: (params.page * 10) < data.totalCount
+                        }
+                    };
+                }
+            }
+        });
+
+        selectedProject.$el.on('select2:select', function (e) {
+            var foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "ProjectId") {
+                    item.value = e.params.data.id;
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "ProjectId", value: e.params.data.id });
+            }
+        });
+           selectedProject.$el.on("select2:unselect", function(e){
+                        objectData.forEach(function (item) {
+                                       if (item.name === "ProjectId") {
+                                           item.value ='';
+                                       }
+                                   });
+                   }).trigger('change');
+    };
+
+    selectedUser.init = function () {
+        selectedUser.$el = $(selectedUser.el);
+
+        selectedUser.$el.select2({
+            placeholder: 'Người đề xuất',
+            allowClear: true,
+            ajax: {
+                delay: 500,
+                url: master.urlGetUsers,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    return query;
+                },
+                processResults: function (data, params) {
+                    var items = [];
+                    $.each(data.data, function (index, item) {
+                        items.push({
+                            id: item.Id,
+                            text: `${item.FullName} - ${item.Email} (${item.UserName})`
+                        });
+                    });
+                    params.page = params.page || 1;
+
+                    return {
+                        results: items,
+                        pagination: {
+                            more: (params.page * 10) < data.totalCount
+                        }
+                    };
+                }
+            }
+        });
+
+        selectedUser.$el.on('select2:select', function (e) {
+            var foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "Proposer") {
+                    item.value = e.params.data.text;
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "Proposer", value: e.params.data.text });
+            }
+        });
+          selectedUser.$el.on("select2:unselect", function(e){
+                                objectData.forEach(function (item) {
+                                               if (item.name === "Proposer") {
+                                                   item.value ='';
+                                               }
+                                           });
+                           }).trigger('change');
+    };
+
+    btnLoadReport.init = function () {
+        btnLoadReport.$el = $(btnLoadReport.el);
+
+        const load = _.debounce(() => {
+            grd.api.resetPage();
+        }, app.ui.def.debounce.timeout);
+        btnLoadReport.$el.click(function (e) {
+            load();
+            return false;
+        });
+    };
+
+    btnExportExcel.init = function () {
+        btnExportExcel.$el = $(btnExportExcel.el);
+
+        btnExportExcel.$el.click(function (e) {
+            e.preventDefault();
+            var $fromdate = null;
+            var $todate = null;
+            var $wareHouseItemId = null;
+            var $wareHouseId = null;
+            var $departmentId = null;
+            var $projectId = null;
+            var $proposer = null;
+            var $routeKey = $('#@Html.FieldIdFor(m => m.RouteKey)');
+
+            if (objectData.find(item => item.name === 'RouteKey') !== undefined) {
+                var route = objectData.find(item => item.name === 'RouteKey').value;
+                if (route === $routeKey.val()) {
+                    if (objectData.find(item => item.name === 'WareHouseId') !== undefined) {
+                        $wareHouseId = objectData.find(item => item.name === 'WareHouseId').value;
+                    }
+
+                    if (objectData.find(item => item.name === 'WareHouseItemId') !== undefined) {
+                        $wareHouseItemId = objectData.find(item => item.name === 'WareHouseItemId').value;
+                    }
+
+                    if (objectData.find(item => item.name === 'FromDate') !== undefined) {
+                        $fromdate = objectData.find(item => item.name === 'FromDate').value;
+                        var parts = $fromdate.split('/');
+                        $fromdate = parts[1] + '/' + parts[0] + '/' + parts[2];
+                    }
+
+                    if (objectData.find(item => item.name === 'ToDate') !== undefined) {
+                        $todate = objectData.find(item => item.name === 'ToDate').value;
+                        var parts = $todate.split('/');
+                        $todate = parts[1] + '/' + parts[0] + '/' + parts[2];
+                    }
+
+                    if (objectData.find(item => item.name === 'DepartmentId') !== undefined) {
+                        $departmentId = objectData.find(item => item.name === 'DepartmentId').value;
+                    }
+
+                    if (objectData.find(item => item.name === 'ProjectId') !== undefined) {
+                        $projectId = objectData.find(item => item.name === 'ProjectId').value;
+                    }
+
+                    if (objectData.find(item => item.name === 'Proposer') !== undefined) {
+                        $proposer = objectData.find(item => item.name === 'Proposer').value;
+                    }
+                }
+            }
+
+            var seachModel = {
+                FromDate: $fromdate,
+                ToDate: $todate,
+                RouteKey: $routeKey.val(),
+                WareHouseId: $wareHouseId,
+                WareHouseItemId: $wareHouseItemId,
+                DepartmentId: $departmentId,
+                ProjectId: $projectId,
+                Proposer: $proposer
+            };
+            window.location = master.urlGetExcel + '?' + $.param(seachModel);
+        });
+    };
+
+    $(function () {
+        master.init();
+        $('#collapseOne').on('hide.bs.collapse', function () {
+            $('#right-data').css('padding-top', '90px');
+            app.grid.handlers.resize();
+        });
+        $('#collapseOne').on('show.bs.collapse', function () {
+            $('#right-data').css('padding-top', '300px');
+            app.grid.handlers.resize();
+        });
+    });
+</script>

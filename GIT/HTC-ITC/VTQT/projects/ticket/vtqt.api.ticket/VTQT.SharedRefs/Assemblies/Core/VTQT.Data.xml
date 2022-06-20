@@ -1,0 +1,1377 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Data</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Data.EntityRepository`1">
+            <summary>
+            Represents the Entity repository
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.GetByIds(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.GetByIdsAsync(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.GetById(System.Object)">
+            <summary>
+            Get entity by identifier
+            </summary>
+            <param name="id">Identifier</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.Insert(`0)">
+            <summary>
+            Insert entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.Insert(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Insert entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.LoadOriginalCopy(`0)">
+            <summary>
+            Loads the original copy of the entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <returns>Copy of the passed entity</returns>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.Update(`0)">
+            <summary>
+            Update entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.Update(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Update entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.Delete(`0)">
+            <summary>
+            Delete entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.Delete(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.Delete(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="predicate">A function to test each element for a condition</param>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.EntityFromSql(System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using System.Data.CommandType.StoredProcedure command type
+            and returns results as collection of values of specified type
+            </summary>
+            <param name="storeProcedureName">Store procedure name</param>
+            <param name="dataParameters">Command parameters</param>
+            <returns>Collection of query result records</returns>
+        </member>
+        <member name="M:VTQT.Data.EntityRepository`1.Truncate(System.Boolean)">
+            <summary>
+            Truncates database table
+            </summary>
+            <param name="resetIdentity">Performs reset identity column</param>
+        </member>
+        <member name="P:VTQT.Data.EntityRepository`1.Table">
+            <summary>
+            Gets a table
+            </summary>
+        </member>
+        <member name="P:VTQT.Data.EntityRepository`1.Entities">
+            <summary>
+            Gets an entity set
+            </summary>
+        </member>
+        <member name="T:VTQT.Data.IntEntityRepository`1">
+            <summary>
+            Represents the Entity repository
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.GetByIds(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.GetByIdsAsync(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.GetById(System.Object)">
+            <summary>
+            Get entity by identifier
+            </summary>
+            <param name="id">Identifier</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.Insert(`0)">
+            <summary>
+            Insert entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.Insert(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Insert entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.LoadOriginalCopy(`0)">
+            <summary>
+            Loads the original copy of the entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <returns>Copy of the passed entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.Update(`0)">
+            <summary>
+            Update entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.Update(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Update entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.Delete(`0)">
+            <summary>
+            Delete entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.Delete(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.Delete(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="predicate">A function to test each element for a condition</param>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.EntityFromSql(System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using System.Data.CommandType.StoredProcedure command type
+            and returns results as collection of values of specified type
+            </summary>
+            <param name="storeProcedureName">Store procedure name</param>
+            <param name="dataParameters">Command parameters</param>
+            <returns>Collection of query result records</returns>
+        </member>
+        <member name="M:VTQT.Data.IntEntityRepository`1.Truncate(System.Boolean)">
+            <summary>
+            Truncates database table
+            </summary>
+            <param name="resetIdentity">Performs reset identity column</param>
+        </member>
+        <member name="P:VTQT.Data.IntEntityRepository`1.Table">
+            <summary>
+            Gets a table
+            </summary>
+        </member>
+        <member name="P:VTQT.Data.IntEntityRepository`1.Entities">
+            <summary>
+            Gets an entity set
+            </summary>
+        </member>
+        <member name="T:VTQT.Data.IntLowercaseEntityRepository`1">
+            <summary>
+            Represents the Entity repository
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.GetByIds(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.GetByIdsAsync(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.GetById(System.Object)">
+            <summary>
+            Get entity by identifier
+            </summary>
+            <param name="id">Identifier</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.Insert(`0)">
+            <summary>
+            Insert entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.Insert(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Insert entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.LoadOriginalCopy(`0)">
+            <summary>
+            Loads the original copy of the entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <returns>Copy of the passed entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.Update(`0)">
+            <summary>
+            Update entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.Update(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Update entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.Delete(`0)">
+            <summary>
+            Delete entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.Delete(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.Delete(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="predicate">A function to test each element for a condition</param>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.EntityFromSql(System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using System.Data.CommandType.StoredProcedure command type
+            and returns results as collection of values of specified type
+            </summary>
+            <param name="storeProcedureName">Store procedure name</param>
+            <param name="dataParameters">Command parameters</param>
+            <returns>Collection of query result records</returns>
+        </member>
+        <member name="M:VTQT.Data.IntLowercaseEntityRepository`1.Truncate(System.Boolean)">
+            <summary>
+            Truncates database table
+            </summary>
+            <param name="resetIdentity">Performs reset identity column</param>
+        </member>
+        <member name="P:VTQT.Data.IntLowercaseEntityRepository`1.Table">
+            <summary>
+            Gets a table
+            </summary>
+        </member>
+        <member name="P:VTQT.Data.IntLowercaseEntityRepository`1.Entities">
+            <summary>
+            Gets an entity set
+            </summary>
+        </member>
+        <member name="T:VTQT.Data.IRepository`1">
+            <summary>
+            Represents an entity repository
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.GetByIds(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.GetByIdsAsync(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.GetById(System.Object)">
+            <summary>
+            Get entity by identifier
+            </summary>
+            <param name="id">Identifier</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.GetByIdAsync(System.Object)">
+            <summary>
+            Get entity by identifier
+            </summary>
+            <param name="id">Identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entry
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.Insert(`0)">
+            <summary>
+            Insert entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.Insert(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Insert entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.LoadOriginalCopy(`0)">
+            <summary>
+            Loads the original copy of the entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <returns>Copy of the passed entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.Update(`0)">
+            <summary>
+            Update entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.Update(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Update entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.Delete(`0)">
+            <summary>
+            Delete entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.Delete(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.Delete(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="predicate">A function to test each element for a condition</param>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.EntityFromSql(System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using System.Data.CommandType.StoredProcedure command type
+            and returns results as collection of values of specified type
+            </summary>
+            <param name="storeProcedureName">Store procedure name</param>
+            <param name="dataParameters">Command parameters</param>
+            <returns>Collection of query result records</returns>
+        </member>
+        <member name="M:VTQT.Data.IRepository`1.Truncate(System.Boolean)">
+            <summary>
+            Truncates database table
+            </summary>
+            <param name="resetIdentity">Performs reset identity column</param>
+        </member>
+        <member name="P:VTQT.Data.IRepository`1.Table">
+            <summary>
+            Gets a table
+            </summary>
+        </member>
+        <member name="T:VTQT.Data.IIntRepository`1">
+            <summary>
+            Represents an entity repository
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.GetByIds(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.GetByIdsAsync(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.GetById(System.Object)">
+            <summary>
+            Get entity by identifier
+            </summary>
+            <param name="id">Identifier</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.GetByIdAsync(System.Object)">
+            <summary>
+            Get entity by identifier
+            </summary>
+            <param name="id">Identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entry
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.Insert(`0)">
+            <summary>
+            Insert entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.Insert(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Insert entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.LoadOriginalCopy(`0)">
+            <summary>
+            Loads the original copy of the entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <returns>Copy of the passed entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.Update(`0)">
+            <summary>
+            Update entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.Update(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Update entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.Delete(`0)">
+            <summary>
+            Delete entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.Delete(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.Delete(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="predicate">A function to test each element for a condition</param>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.EntityFromSql(System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using System.Data.CommandType.StoredProcedure command type
+            and returns results as collection of values of specified type
+            </summary>
+            <param name="storeProcedureName">Store procedure name</param>
+            <param name="dataParameters">Command parameters</param>
+            <returns>Collection of query result records</returns>
+        </member>
+        <member name="M:VTQT.Data.IIntRepository`1.Truncate(System.Boolean)">
+            <summary>
+            Truncates database table
+            </summary>
+            <param name="resetIdentity">Performs reset identity column</param>
+        </member>
+        <member name="P:VTQT.Data.IIntRepository`1.Table">
+            <summary>
+            Gets a table
+            </summary>
+        </member>
+        <member name="T:VTQT.Data.IIntLowercaseRepository`1">
+            <summary>
+            Represents an entity repository
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.GetByIds(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.GetByIdsAsync(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Get entity entries by identifiers
+            </summary>
+            <param name="ids">Entity entry identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entries
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.GetById(System.Object)">
+            <summary>
+            Get entity by identifier
+            </summary>
+            <param name="id">Identifier</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.GetByIdAsync(System.Object)">
+            <summary>
+            Get entity by identifier
+            </summary>
+            <param name="id">Identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the entity entry
+            </returns>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.Insert(`0)">
+            <summary>
+            Insert entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.Insert(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Insert entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.LoadOriginalCopy(`0)">
+            <summary>
+            Loads the original copy of the entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <returns>Copy of the passed entity</returns>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.Update(`0)">
+            <summary>
+            Update entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.Update(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Update entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.Delete(`0)">
+            <summary>
+            Delete entity
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.Delete(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="entities">Entities</param>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.Delete(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Delete entities
+            </summary>
+            <param name="predicate">A function to test each element for a condition</param>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.EntityFromSql(System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using System.Data.CommandType.StoredProcedure command type
+            and returns results as collection of values of specified type
+            </summary>
+            <param name="storeProcedureName">Store procedure name</param>
+            <param name="dataParameters">Command parameters</param>
+            <returns>Collection of query result records</returns>
+        </member>
+        <member name="M:VTQT.Data.IIntLowercaseRepository`1.Truncate(System.Boolean)">
+            <summary>
+            Truncates database table
+            </summary>
+            <param name="resetIdentity">Performs reset identity column</param>
+        </member>
+        <member name="P:VTQT.Data.IIntLowercaseRepository`1.Table">
+            <summary>
+            Gets a table
+            </summary>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.SelectAwait``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{``1}})">
+            <summary>
+            Projects each element of an async-enumerable sequence into a new form by applying
+            an asynchronous selector function to each member of the source sequence and awaiting
+            the result.
+            </summary>
+            <typeparam name="TSource"> The type of the elements in the source sequence</typeparam>
+            <typeparam name="TResult">
+            The type of the elements in the result sequence, obtained by running the selector
+            function for each element in the source sequence and awaiting the result.
+            </typeparam>
+            <param name="source">A sequence of elements to invoke a transform function on</param>
+            <param name="predicate">An asynchronous transform function to apply to each source element</param>
+            <returns>
+            An async-enumerable sequence whose elements are the result of invoking the transform
+            function on each element of the source sequence and awaiting the result
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.FirstOrDefaultAwaitAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{System.Boolean}})">
+            <summary>
+            Returns the first element of an async-enumerable sequence that satisfies the
+            condition in the predicate, or a default value if no element satisfies the condition
+            in the predicate
+            </summary>
+            <typeparam name="TSource">The type of element in the sequence</typeparam>
+            <param name="source">Source sequence</param>
+            <param name="predicate">An asynchronous predicate to invoke and await on each element of the sequence</param>
+            <returns>
+            A Task containing the first element in the sequence that satisfies the predicate,
+            or a default value if no element satisfies the predicate
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.AllAwaitAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{System.Boolean}})">
+            <summary>
+            Determines whether all elements in an async-enumerable sequence satisfy a condition
+            </summary>
+            <typeparam name="TSource">The type of element in the sequence</typeparam>
+            <param name="source">An sequence whose elements to apply the predicate to</param>
+            <param name="predicate">An asynchronous predicate to apply to each element of the source sequence</param>
+            <returns>
+            A Task containing a value indicating whether all elements in the sequence
+            pass the test in the specified predicate
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.SelectManyAwait``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.Task{System.Collections.Generic.IList{``1}}})">
+            <summary>
+            Projects each element of an async-enumerable sequence into an async-enumerable
+            sequence and merges the resulting async-enumerable sequences into one async-enumerable
+            sequence
+            </summary>
+            <typeparam name="TSource">The type of elements in the source sequence</typeparam>
+            <typeparam name="TResult">The type of elements in the projected inner sequences and the merged result sequence</typeparam>
+            <param name="source">An async-enumerable sequence of elements to project</param>
+            <param name="predicate">An asynchronous selector function to apply to each element of the source sequence</param>
+            <returns>
+            An async-enumerable sequence whose elements are the result of invoking the one-to-many
+            transform function on each element of the source sequence and awaiting the result
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.SelectManyAwait``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{``1}}})">
+            <summary>
+            Projects each element of an async-enumerable sequence into an async-enumerable
+            sequence and merges the resulting async-enumerable sequences into one async-enumerable
+            sequence
+            </summary>
+            <typeparam name="TSource">The type of elements in the source sequence</typeparam>
+            <typeparam name="TResult">The type of elements in the projected inner sequences and the merged result sequence</typeparam>
+            <param name="source">An async-enumerable sequence of elements to project</param>
+            <param name="predicate">An asynchronous selector function to apply to each element of the source sequence</param>
+            <returns>
+            An async-enumerable sequence whose elements are the result of invoking the one-to-many
+            transform function on each element of the source sequence and awaiting the result
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.WhereAwait``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{System.Boolean}})">
+            <summary>
+            Filters the elements of an async-enumerable sequence based on an asynchronous
+            predicate
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source">An async-enumerable sequence whose elements to filter</param>
+            <param name="predicate">An asynchronous predicate to test each source element for a condition</param>
+            <returns>
+            An async-enumerable sequence that contains elements from the input sequence that
+            satisfy the condition
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.AnyAwaitAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{System.Boolean}})">
+            <summary>
+            Determines whether any element in an async-enumerable sequence satisfies a condition
+            </summary>
+            <typeparam name="TSource">The type of element in the sequence</typeparam>
+            <param name="source">An async-enumerable sequence whose elements to apply the predicate to</param>
+            <param name="predicate">An asynchronous predicate to apply to each element of the source sequence</param>
+            <returns>
+            A Task containing a value indicating whether any elements in the source
+            sequence pass the test in the specified predicate
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.SingleOrDefaultAwaitAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{System.Boolean}})">
+            <summary>
+            Returns the only element of an async-enumerable sequence that satisfies the condition
+            in the asynchronous predicate, or a default value if no such element exists,
+            and reports an exception if there is more than one element in the async-enumerable
+            sequence that matches the predicate
+            </summary>
+            <typeparam name="TSource">The type of elements in the source sequence</typeparam>
+            <param name="source">Source async-enumerable sequence</param>
+            <param name="predicate">An asynchronous predicate that will be applied to each element of the source sequence</param>
+            <returns>
+            Task containing the only element in the async-enumerable sequence that satisfies
+            the condition in the asynchronous predicate, or a default value if no such element
+            exists
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.ToListAsync``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Creates a list from an async-enumerable sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements in the source sequence</typeparam>
+            <param name="source">The source async-enumerable sequence to get a list of elements for</param>
+            <returns>
+            An async-enumerable sequence containing a single element with a list containing
+            all the elements of the source sequence
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.OrderByDescendingAwait``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{``1}})">
+            <summary>
+            Sorts the elements of a sequence in descending order according to a key obtained
+            by invoking a transform function on each element and awaiting the result
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <typeparam name="TKey">The type of the key returned by keySelector</typeparam>
+            <param name="source">An async-enumerable sequence of values to order</param>
+            <param name="keySelector">An asynchronous function to extract a key from an element</param>
+            <returns>
+            An ordered async-enumerable sequence whose elements are sorted in descending
+            order according to a key
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.GroupByAwait``3(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{``1}},System.Func{``0,System.Threading.Tasks.ValueTask{``2}})">
+            <summary>
+            Groups the elements of an async-enumerable sequence and selects the resulting
+            elements by using a specified function
+            </summary>
+            <typeparam name="TSource">The type of the elements in the source sequence</typeparam>
+            <typeparam name="TKey">The type of the grouping key computed for each element in the source sequence</typeparam>
+            <typeparam name="TElement">The type of the elements within the groups computed for each element in the source sequence</typeparam>
+            <param name="source">An async-enumerable sequence whose elements to group</param>
+            <param name="keySelector">An asynchronous function to extract the key for each element</param>
+            <param name="elementSelector">An asynchronous function to map each source element to an element in an async-enumerable group</param>
+            <returns>
+            A sequence of async-enumerable groups, each of which corresponds to a unique
+            key value, containing all elements that share that same key value
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.AggregateAwaitAsync``2(System.Collections.Generic.IEnumerable{``0},``1,System.Func{``1,``0,System.Threading.Tasks.ValueTask{``1}})">
+            <summary>
+            Applies an accumulator function over an async-enumerable sequence, returning
+            the result of the aggregation as a single element in the result sequence. The
+            specified seed value is used as the initial accumulator value
+            </summary>
+            <typeparam name="TSource">specified seed value is used as the initial accumulator value</typeparam>
+            <typeparam name="TAccumulate">The type of the result of aggregation</typeparam>
+            <param name="source">An async-enumerable sequence to aggregate over</param>
+            <param name="seed">The initial accumulator value</param>
+            <param name="accumulator">An asynchronous accumulator function to be invoked and awaited on each element</param>
+            <returns>A Task containing the final accumulator value</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.ToDictionaryAwaitAsync``3(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{``1}},System.Func{``0,System.Threading.Tasks.ValueTask{``2}})">
+            <summary>
+            Creates a dictionary from an async-enumerable sequence using the specified asynchronous
+            key and element selector functions
+            </summary>
+            <typeparam name="TSource">The type of the elements in the source sequence</typeparam>
+            <typeparam name="TKey">The type of the dictionary key computed for each element in the source sequence</typeparam>
+            <typeparam name="TElement">The type of the dictionary value computed for each element in the source sequence</typeparam>
+            <param name="source">An async-enumerable sequence to create a dictionary for</param>
+            <param name="keySelector">An asynchronous function to extract a key from each element</param>
+            <param name="elementSelector">An asynchronous transform function to produce a result element value from each element</param>
+            <returns>
+            A Task containing a dictionary mapping unique key values onto the corresponding
+            source sequence's element
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.GroupByAwait``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{``1}})">
+            <summary>
+            Groups the elements of an async-enumerable sequence according to a specified
+            key selector function
+            </summary>
+            <typeparam name="TSource">The type of the elements in the source sequence</typeparam>
+            <typeparam name="TKey">The type of the grouping key computed for each element in the source sequence</typeparam>
+            <param name="source">An async-enumerable sequence whose elements to group</param>
+            <param name="keySelector">An asynchronous function to extract the key for each element</param>
+            <returns>
+            A sequence of async-enumerable groups, each of which corresponds to a unique
+            key value, containing all elements that share that same key value
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIEnumerableExtensions.SumAwaitAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.ValueTask{System.Decimal}})">
+            <summary>
+            Computes the sum of a sequence of System.Decimal values that are obtained by
+            invoking a transform function on each element of the source sequence and awaiting
+            the result
+            </summary>
+            <typeparam name="TSource">The type of elements in the source sequence</typeparam>
+            <param name="source">A sequence of values that are used to calculate a sum</param>
+            <param name="selector">An asynchronous transform function to apply to each element</param>
+            <returns>A Task containing the sum of the values in the source sequence</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AllAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Determines whether all the elements of a sequence satisfy a condition
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence whose elements to test for a condition</param>
+            <param name="predicate">A function to test each element for a condition</param>
+            <returns>
+            true if every element of the source sequence passes the test in the specified
+            predicate, or if the sequence is empty; otherwise, false
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AnyAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Determines whether any element of a sequence satisfies a condition
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence whose elements to test for a condition</param>
+            <param name="predicate">A function to test each element for a condition</param>
+            <returns>
+            true if any elements in the source sequence pass the test in the specified predicate;
+            otherwise, false
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int32}}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int64}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int64}}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Single}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Single}}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Double}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Double}}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Decimal}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Decimal}}})">
+            <summary>
+            Computes the average of a sequence that is obtained by
+            invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to calculate the average of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the average of the sequence of values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.ContainsAsync``1(System.Linq.IQueryable{``0},``0)">
+            <summary>
+            Determines whether a sequence contains a specified element by using the default
+            equality comparer
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">An sequence in which to locate item</param>
+            <param name="item">The object to locate in the sequence</param>
+            <returns>
+            true if the input sequence contains an element that has the specified value;
+            otherwise, false
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.CountAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Returns the number of elements in the specified sequence that satisfies a condition
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">An sequence that contains the elements to be counted</param>
+            <param name="predicate">A function to test each element for a condition</param>
+            <returns>
+            The number of elements in the sequence that satisfies the condition in the predicate
+            function
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.FirstAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Returns the first element of a sequence that satisfies a specified condition
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source">An sequence to return an element from</param>
+            <param name="predicate">A function to test each element for a condition</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the first element in source that passes the test in predicate
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.FirstOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Returns the first element of a sequence, or a default value if the sequence contains no elements
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">Source</param>
+            <param name="predicate">Predicate</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the default(TSource) if source is empty; otherwise, the first element in source
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.FirstOrDefaultAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Returns the first element of a sequence, or a default value if the sequence contains no elements
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">Source</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the default(TSource) if source is empty; otherwise, the first element in source
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.LongCountAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Returns an System.Int64 that represents the number of elements in a sequence
+            that satisfy a condition
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">An sequence that contains the elements to be counted</param>
+            <param name="predicate">A function to test each element for a condition</param>
+            <returns>
+            The number of elements in source that satisfy the condition in the predicate
+            function
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.MaxAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Returns the maximum value in a generic sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to determine the maximum of</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the maximum value in the sequence
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.MaxAsync``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Invokes a projection function on each element of a generic sequence
+            and returns the maximum resulting value
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <typeparam name="TResult">The type of the value returned by the function represented by selector</typeparam>
+            <param name="source">A sequence of values to determine the maximum of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the maximum value in the sequence
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.MinAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Returns the minimum value in a generic sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values to determine the minimum of</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the minimum value in the sequence
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.MinAsync``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Invokes a projection function on each element of a generic sequence
+            and returns the minimum resulting value
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <typeparam name="TResult">The type of the value returned by the function represented by selector</typeparam>
+            <param name="source">A sequence of values to determine the minimum of</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the minimum value in the sequence
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SingleAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Returns the only element of a sequence that satisfies a specified condition,
+            and throws an exception if more than one such element exists
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source">An sequence to return a single element from</param>
+            <param name="predicate">A function to test an element for a condition</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the single element of the input sequence that satisfies the condition in predicate
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SingleOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Returns the only element of a sequence that satisfies a specified condition or
+            a default value if no such element exists; this method throws an exception if
+            more than one element satisfies the condition
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source">A sequence to return a single element from</param>
+            <param name="predicate">A function to test an element for a condition</param>
+            <returns>
+            The single element of the input sequence that satisfies the condition in predicate,
+            or default(TSource) if no such element is found
+            </returns>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Decimal}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Decimal}}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Double}}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Single}}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Double}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int32}}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int64}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int64}}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Single}})">
+            <summary>
+            Computes the sum of the sequence that is obtained
+            by invoking a projection function on each element of the input sequence
+            </summary>
+            <typeparam name="TSource">The type of the elements of source</typeparam>
+            <param name="source">A sequence of values of type TSource</param>
+            <param name="predicate">A projection function to apply to each element</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the sum of the projected values
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.ToDictionaryAsync``3(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            Asynchronously loads data from query to a dictionary
+            </summary>
+            <typeparam name="TSource">Query element type</typeparam>
+            <typeparam name="TKey">Dictionary key type</typeparam>
+            <typeparam name="TElement">Dictionary element type</typeparam>
+            <param name="source">Source query</param>
+            <param name="keySelector">Source element key selector</param>
+            <param name="elementSelector">Dictionary element selector</param>
+            <param name="comparer">Dictionary key comparer</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the dictionary with query results
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.ToDictionaryAsync``2(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            Asynchronously loads data from query to a dictionary
+            </summary>
+            <typeparam name="TSource">Query element type</typeparam>
+            <typeparam name="TKey">Dictionary key type</typeparam>
+            <param name="source">Source query</param>
+            <param name="keySelector">Source element key selector</param>
+            <param name="comparer">Dictionary key comparer</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the dictionary with query results
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.ToListAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Asynchronously loads data from query to a list
+            </summary>
+            <typeparam name="TSource">Query element type</typeparam>
+            <param name="source">Source query</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the list with query results
+            </returns>
+        </member>
+        <member name="M:System.Linq.AsyncIQueryableExtensions.ToPagedListAsync``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="source">source</param>
+            <param name="pageIndex">Page index</param>
+            <param name="pageSize">Page size</param>
+            <param name="getOnlyTotalCount">A value in indicating whether you want to load only total number of records. Set to "true" if you don't want to load data from database</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+    </members>
+</doc>

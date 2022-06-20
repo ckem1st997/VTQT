@@ -1,0 +1,607 @@
+﻿@model ReportAssetValueSearchModel
+
+<div class="row full-height" id="right-data" style="padding-top: 300px">
+    <div class="row" style="position: absolute; width: 100%; top: 0">
+        <div style="border-bottom: 1px solid lightgray;
+            padding: 10px 10px">
+            <b style="font-size: 18px; color: #0277BD">Báo cáo tài sản hành chính</b>
+        </div>
+
+        <div class="options-params">
+            <form id="form-param" style="display:flex; flex-direction: column">
+                @Html.HiddenFor(m => m.RouteKey)
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div id="collapseOne" class="collapse in" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body" style="display: flex; flex-direction: column">
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2">
+                                        @Html.XBaseLabelFor(m => m.OrganizationUnitId, true, new {@style = "float: right"}, true)
+                                    </div>
+                                    <div class="col-md-4" style="padding: 0">
+                                        <select id="selectedOrganizationUnitId" style="width: 100%"></select>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2">
+                                        @*
+                                        @Html.XBaseLabelFor(m => m.ItemCode, true, new { @style = "float: right", @class = "device" }, true)
+                                    *@
+                                        <label class="device" for="ItemCode" style="float: right" title="Nhân viên">Nhân viên<span class="required" aria-required="true">*</span></label>
+
+                                    </div>
+                                    <div class="col-md-4" style="padding: 0">
+                                        <select id="selectedItem" style="width: 100%"></select>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2">
+                                        <label class="device" for="ItemCode" style="float: right" title="Loại">Loại<span class="required" aria-required="true">*</span></label>
+                                    </div>
+                                    <div class="col-md-4" style="padding: 0">
+                                        <select id="selectedSation" style="width: 100%"></select>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2" style="padding: 0">
+                                        @Html.XBaseLabelFor(m => m.ToDate, true, new {@style = "float: right"}, true)
+                                    </div>
+                                    <div class="col-md-2" style="padding: 2px;display:none">
+                                        @(Html.Kendo().DatePicker()
+                                            .Name("fromdate")
+                                            .Max(DateTime.Today)
+                                            .Value(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1))
+                                            .HtmlAttributes(new {style = "width: 100%"})
+                                            )
+                                    </div>
+                                    <div class="col-md-2" style="padding: 2px">
+                                        @(Html.Kendo().DatePicker()
+                                            .Name("todate")
+                                            .Max(DateTime.Now)
+                                            .Value(DateTime.Now)
+                                            .HtmlAttributes(new {style = "width: 100%"})
+                                            )
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm" style="display: flex;
+                                justify-content: center">
+                    <button id="btnLoadReport" type="submit" class="btn btn-success">
+                        <i class="fa fa-search"></i>&nbsp;Xem báo cáo
+                    </button>
+                    <button class="btn btn-primary" id="btnExportExcelOffice" style="margin-left: 10px">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Xuất báo cáo
+                    </button>
+                    <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="margin-left: 10px">
+                        <div style="display: flex; align-items:center; justify-content: flex-start">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Ẩn/hiện tham số
+                        </div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row full-height" style="padding: 0 10px">
+        @(Html.Kendo().Grid<AssetModel>()
+            .Name("grd")
+            .HtmlAttributes(new {style = "height: 100%; border-left: 1px solid lightblue; border-right: 1px solid lightblue"})
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.AllocationDate).Locked().Format("{0:dd/MM/yyyy}").Width(100);
+                columns.Bound(x => x.Code).Locked().Width(150);
+                columns.Bound(x => x.Name).Locked().Width(250);
+                columns.Bound(x => x.CategoryId).Width(59);
+                columns.Bound(x => x.OriginQuantity).Width(150).RightAlign();
+                columns.Bound(x => x.RecallQuantity).Width(150).RightAlign();
+                columns.Bound(x => x.BrokenQuantity).Width(150).RightAlign();
+                columns.Bound(x => x.SoldQuantity).Width(150).RightAlign();
+                columns.Bound(x => x.BalanceQuantity).Width(150).RightAlign();
+                columns.Bound(x => x.UnitName).Width(100);
+                columns.Bound(x => x.CurrentUsageStatus).Width(150);
+                columns.Bound(x => x.MaintenancedDate).Format("{0:dd/MM/yyyy}").Width(150);
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .Read(read => read.Action("GetAssetOffice", "Report").Data("grd.data"))
+            )
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(true))
+            .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+            .Navigatable())
+    </div>
+</div>
+
+<script>
+    var master = {
+        urlGet: '@Url.Action("GetAssetOffice", "Report")',
+        urlGetWarehouses: '@Url.Action("GetOrganizationUnitId", "Report")',
+        urlGetItem: '@Url.Action("GetEmployee", "Report")',
+        urlGetExcel: '@Url.Action("GetExcelOfficeReport", "Report")',
+        urlGetProject: '@Url.Action("GetCategory", "Report")',
+        el: '.page-data',
+        $el: {},
+        init: function () { },
+        grd: {
+            el: '#grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            data: function () { }
+        },
+        form: {
+            el: '#form-param',
+            $el: {},
+            init: function () { }
+        },
+        selectedStation111: {
+                    el: '#selectedSation',
+                    $el: {},
+                    init: function () { }
+                },
+        fromdate: {
+            el: '#fromdate',
+            $el: {},
+            init: function () { },
+            api: {}
+        },
+        todate: {
+            el: '#todate',
+            $el: {},
+            init: function () { },
+            api: {}
+        },
+        selectedItem: {
+            el: '#selectedItem',
+            $el: {},
+            init: function () { },
+        },
+        selectedOrganizationUnitId: {
+            el: '#selectedOrganizationUnitId',
+            $el: {},
+            init: function () { }
+        },
+        btnLoadReport: {
+            el: '#btnLoadReport',
+            $el: {},
+            init: function () { }
+        },
+        btnExportExcelOffice: {
+            el: '#btnExportExcelOffice',
+            $el: {},
+            init: function () { }
+        },
+        objectData: []
+    };
+    var grd = master.grd;
+    var form = master.form;
+    var fromdate = master.fromdate;
+    var todate = master.todate;
+    var selectedItem = master.selectedItem;
+    var btnLoadReport = master.btnLoadReport;
+    var btnExportExcelOffice = master.btnExportExcelOffice;
+    var objectData = master.objectData;
+    var selectedUser = master.selectedUser;
+        var selectedSation = master.selectedStation111;
+
+    var selectedOrganizationUnitId = master.selectedOrganizationUnitId;
+
+    grd.data = function () {
+        var $fromdate = null;
+        var $todate = null;
+        var $OrganizationUnitId = null;
+        var $ItemCode = null;
+        var $Keywords = null;
+        var $routeKey = $('#@Html.FieldIdFor(m => m.RouteKey)');
+
+        if (objectData.find(item => item.name === 'RouteKey') !== undefined) {
+            var route = objectData.find(item => item.name === 'RouteKey').value;
+            if (route === $routeKey.val()) {
+
+
+                if (objectData.find(item => item.name === 'OrganizationUnitId') !== undefined) {
+                    $OrganizationUnitId = objectData.find(item => item.name === 'OrganizationUnitId').value;
+                }
+
+                if (objectData.find(item => item.name === 'ItemCode') !== undefined) {
+                    $ItemCode = objectData.find(item => item.name === 'ItemCode').value;
+                }
+
+                if (objectData.find(item => item.name === 'FromDate') !== undefined) {
+                    $fromdate = objectData.find(item => item.name === 'FromDate').value;
+                }
+
+                if (objectData.find(item => item.name === 'ToDate') !== undefined) {
+                    $todate = objectData.find(item => item.name === 'ToDate').value;
+                }
+
+                if (objectData.find(item => item.name === 'Keywords') !== undefined) {
+                    $Keywords = objectData.find(item => item.name === 'Keywords').value;
+                }
+
+            }
+        }
+
+        var seachModel = {
+            FromDate: $fromdate,
+            ToDate: $todate,
+            RouteKey: $routeKey.val(),
+            OrganizationUnitId: $OrganizationUnitId,
+            ItemCode: $ItemCode,
+            Keywords: $Keywords
+
+        };
+
+        return seachModel;
+    };
+
+    master.init = function () {
+        master.$el = $(master.el);
+
+        grd.init();
+        form.init();
+        fromdate.init();
+        todate.init();
+        selectedItem.init();
+        btnLoadReport.init();
+        btnExportExcelOffice.init();
+        selectedOrganizationUnitId.init();
+                this.selectedStation111.init();
+
+    };
+
+    grd.init = function () {
+        grd.$el = $(grd.el);
+        grd.api = grd.$el.data('kendoGrid');
+    }
+
+    form.init = function () {
+        form.$el = $(form.el);
+        objectData = form.$el.serializeArray();
+    };
+
+    fromdate.init = function () {
+        fromdate.$el = $(fromdate.el);
+        fromdate.api = fromdate.$el.data('kendoDatePicker');
+        var foundIt = false;
+
+        objectData.forEach(function (item) {
+            if (item.name === "FromDate") {
+                item.value = fromdate.$el.val();
+                foundIt = true;
+            }
+        });
+        if (!foundIt) {
+            objectData.push({ name: "FromDate", value: fromdate.$el.val() });
+        }
+
+        fromdate.api.bind("change", function () {
+            foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "FromDate") {
+                    item.value = fromdate.$el.val();
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "FromDate", value: fromdate.$el.val() });
+            }
+        });
+    };
+
+    todate.init = function () {
+        todate.$el = $(todate.el);
+        todate.api = todate.$el.data('kendoDatePicker');
+        var foundIt = false;
+
+        objectData.forEach(function (item) {
+            if (item.name === "ToDate") {
+                item.value = todate.$el.val();
+                foundIt = true;
+            }
+        });
+        if (!foundIt) {
+            objectData.push({ name: "ToDate", value: todate.$el.val() });
+        }
+
+        todate.api.bind("change", function () {
+            foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "ToDate") {
+                    item.value = todate.$el.val();
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "ToDate", value: todate.$el.val() });
+            }
+        });
+    };
+selectedSation.init = function () {
+
+        selectedSation.$el = $(selectedSation.el);
+        selectedSation.$el.select2({
+            placeholder: 'Loại',
+            allowClear: true,
+            ajax: {
+                delay: 500,
+                url: master.urlGetProject,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    return query;
+                },
+
+                processResults: function (data, params) {
+                    var items = [];
+                  //  $("#selectedSation").select2().select2('val', ");
+
+                    $.each(data.data, function (index, item) {
+                        items.push({
+                            id: item.Id,
+                            text: "[" + item.Code + "] " + item.Name + ""
+                        });
+                    });
+                    params.page = params.page || 1;
+
+                    return {
+                        results: items,
+                        pagination: {
+                            more: (params.page * 10) < data.totalCount
+                        }
+                    };
+
+                }
+            }
+        });
+
+        selectedSation.$el.on('select2:select', function (e) {
+            var foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "Keywords") {
+                    item.value = e.params.data.id;
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "Keywords", value: e.params.data.id });
+            }
+        });
+           selectedSation.$el.on("select2:unselect", function(e){
+                                        objectData.forEach(function (item) {
+                                                       if (item.name === "Keywords") {
+                                                           item.value ='';
+                                                       }
+                                                   });
+                                   }).trigger('change');
+    };
+    selectedItem.init = function () {
+        selectedItem.$el = $(selectedItem.el);
+        selectedItem.$el.select2({
+            placeholder: 'Nhân viên',
+            allowClear: true,
+            ajax: {
+                delay: 500,
+                url: master.urlGetItem,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    return query;
+                },
+
+                processResults: function (data, params) {
+                    var items = [];
+                    $.each(data.data, function (index, item) {
+                        items.push({
+                            id: item.Id,
+                            text: "" + item.FullName + "-" + item.Email + "("+item.UserName+")"
+                        });
+                    });
+                    params.page = params.page || 1;
+
+                    return {
+                        results: items,
+                        pagination: {
+                            more: (params.page * 10) < data.totalCount
+                        }
+                    };
+
+                }
+            }
+        });
+
+        selectedItem.$el.on('select2:select', function (e) {
+            var foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "ItemCode") {
+                    item.value = e.params.data.id;
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "ItemCode", value: e.params.data.id });
+            }
+        });
+         selectedItem.$el.on("select2:unselect", function(e){
+                                                objectData.forEach(function (item) {
+                                                               if (item.name === "ItemCode") {
+                                                                   item.value ='';
+                                                               }
+                                                           });
+                                           }).trigger('change');
+    };
+
+    selectedOrganizationUnitId.init = function () {
+        selectedOrganizationUnitId.$el = $(selectedOrganizationUnitId.el);
+
+        selectedOrganizationUnitId.$el.select2({
+            placeholder: 'Đơn vị',
+            allowClear: true,
+            ajax: {
+                delay: 500,
+                url: master.urlGetWarehouses,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    return query;
+                },
+
+                processResults: function (data, params) {
+                    var items = [];
+                    $.each(data.data, function (index, item) {
+                        items.push({
+                            id: item.Id,
+                            text: "[" + item.Code + "] " + item.Name + ""
+                        });
+                    });
+                    params.page = params.page || 1;
+                    return {
+                        results: items,
+                        pagination: {
+                            more: (params.page * 10) < data.totalCount
+                        }
+
+                    };
+                }
+            }
+        });
+
+        selectedOrganizationUnitId.$el.on('select2:select', function (e) {
+            var foundIt = false;
+            objectData.forEach(function (item) {
+                if (item.name === "OrganizationUnitId") {
+                    item.value = e.params.data.id;
+                    foundIt = true;
+                }
+            });
+            if (!foundIt) {
+                objectData.push({ name: "OrganizationUnitId", value: e.params.data.id });
+            }
+        });
+            selectedOrganizationUnitId.$el.on("select2:unselect", function(e){
+                                                        objectData.forEach(function (item) {
+                                                                       if (item.name === "OrganizationUnitId") {
+                                                                           item.value ='';
+                                                                       }
+                                                                   });
+                                                   }).trigger('change');
+    };
+
+
+    btnLoadReport.init = function () {
+        btnLoadReport.$el = $(btnLoadReport.el);
+
+        const load = _.debounce(() => {
+            grd.api.resetPage();
+        }, app.ui.def.debounce.timeout);
+        btnLoadReport.$el.click(function (e) {
+            load();
+            return false;
+        });
+    };
+
+    btnExportExcelOffice.init = function () {
+        btnExportExcelOffice.$el = $(btnExportExcelOffice.el);
+
+        btnExportExcelOffice.$el.click(function (e) {
+            e.preventDefault();
+              // notify({ text: 'Chức năng xuất phiếu đang trong quá trình bảo trì, xin bạn vui lòng chờ đợi, xin lỗi vì sự bất tiện này !', type: 'info' });
+              // return false;
+
+            var $fromdate = null;
+            var $todate = null;
+            var $OrganizationUnitId = null;
+            var $ItemCode = null;
+            var $Keywords = null;
+            var $routeKey = $('#@Html.FieldIdFor(m => m.RouteKey)');
+
+            if (objectData.find(item => item.name === 'RouteKey') !== undefined) {
+                var route = objectData.find(item => item.name === 'RouteKey').value;
+                if (route === $routeKey.val()) {
+
+                    if (objectData.find(item => item.name === 'OrganizationUnitId') !== undefined) {
+                        $OrganizationUnitId = objectData.find(item => item.name === 'OrganizationUnitId').value;
+                    }
+
+                    if (objectData.find(item => item.name === 'ItemCode') !== undefined) {
+                        $ItemCode = objectData.find(item => item.name === 'ItemCode').value;
+                    }
+
+                    if (objectData.find(item => item.name === 'FromDate') !== undefined) {
+                        $fromdate = objectData.find(item => item.name === 'FromDate').value;
+                        var parts = $fromdate.split('/');
+                        $fromdate = parts[1] + '/' + parts[0] + '/' + parts[2];
+                    }
+
+                    if (objectData.find(item => item.name === 'ToDate') !== undefined) {
+                        $todate = objectData.find(item => item.name === 'ToDate').value;
+                        var parts = $todate.split('/');
+                        $todate = parts[1] + '/' + parts[0] + '/' + parts[2];
+                    }
+                   if (objectData.find(item => item.name === 'Keywords') !== undefined) {
+                       $Keywords = objectData.find(item => item.name === 'Keywords').value;
+                }
+
+                }
+            }
+
+            var seachModel = {
+                FromDate: $fromdate,
+                ToDate: $todate,
+                RouteKey: $routeKey.val(),
+                OrganizationUnitId: $OrganizationUnitId,
+                ItemCode: $ItemCode,
+                Keywords:$Keywords
+            };
+            window.location = master.urlGetExcel + '?' + $.param(seachModel);
+        });
+    };
+
+    $(function () {
+        master.init();
+        $('#collapseOne').on('hide.bs.collapse', function () {
+            $('#right-data').css('padding-top', '90px');
+            app.grid.handlers.resize();
+        });
+        $('#collapseOne').on('show.bs.collapse', function () {
+            $('#right-data').css('padding-top', '300px');
+            app.grid.handlers.resize();
+        });
+
+    });
+</script>
+
+<style>
+    .device span {
+        opacity: 0;
+    }
+</style>

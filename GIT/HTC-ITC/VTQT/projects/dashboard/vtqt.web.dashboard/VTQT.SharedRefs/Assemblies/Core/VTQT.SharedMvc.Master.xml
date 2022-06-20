@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.SharedMvc.Master</name>
+    </assembly>
+    <members>
+        <member name="P:VTQT.SharedMvc.Master.Models.AppActionModel.App">
+            <summary>
+            FK_AppActions_PK_App
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Master.Models.AppActionModel.AppActionChildren">
+            <summary>
+            FK_AppActionChildren_PK_Parent_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Master.Models.AppActionModel.Parent">
+            <summary>
+            FK_AppActionChildren_PK_Parent
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Master.Models.RoleModel.Name">
+            <summary>
+            Tên vai trò (SystemName)
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Master.Models.RoleModel.DisplayName">
+            <summary>
+            Tên hiển thị (đa ngôn ngữ)
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Master.Models.RoleModel.Description">
+            <summary>
+            Mô tả (đa ngôn ngữ)
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Master.Models.RoleModel.Active">
+            <summary>
+            Kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Master.Models.RoleModel.DisplayOrder">
+            <summary>
+            Thứ tự hiển thị
+            </summary>
+        </member>
+    </members>
+</doc>

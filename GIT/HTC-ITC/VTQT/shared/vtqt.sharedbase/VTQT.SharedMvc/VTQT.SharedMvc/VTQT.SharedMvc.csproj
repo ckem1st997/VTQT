@@ -1,0 +1,241 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\VTQT.SharedMvc.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Views/Shared -->
+    <Content Include="Views\Shared\_AppInit.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\_Enums.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\_LocaleStringResources.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\_MvcErrorLayout.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\_Notifications.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+
+    <!-- Views/Shared/DisplayTemplates -->
+    <Content Include="Views\Shared\DisplayTemplates\AvatarUpload.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\CkEditor.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\Color.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\Decimal.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\Decimal4.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\DropDownList.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\IconPicker.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\ImageUpload.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\Int32.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\TimeSpan.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\Year.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+
+    <!-- Views/Shared/EditorTemplates -->
+    <Content Include="Views\Shared\EditorTemplates\AvatarUpload.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\CkEditor.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\Color.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\Decimal4.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\FileUpload.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\IconPicker.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\ImageUpload.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\Int32.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\KendoTextArea.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\KendoTextArea.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\KendoTextBox.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\TimeSpan.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\Year.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+
+    <!-- Views/MvcError -->
+    <Content Include="Views\MvcError\BadRequest.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcError\Forbidden.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcError\InternalServerError.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcError\NotFound.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcError\SessionExpired.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Views/Shared -->
+    <EmbeddedResource Include="Views\Shared\_AppInit.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_Enums.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_LocaleStringResources.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_MvcErrorLayout.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_Notifications.cshtml" />
+
+    <!-- Views/Shared/DisplayTemplates -->
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\AvatarUpload.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\CkEditor.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\Color.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\Decimal.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\Decimal4.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\DropDownList.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\IconPicker.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\ImageUpload.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\Int32.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\String.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\TimeSpan.cshtml" />
+    <EmbeddedResource Include="Views\Shared\DisplayTemplates\Year.cshtml" />
+
+    <!-- Views/Shared/EditorTemplates -->
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\AvatarUpload.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\CkEditor.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\Color.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\Decimal4.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\FileUpload.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\IconPicker.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\ImageUpload.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\Int32.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\KendoTextArea.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\KendoTextBox.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\TimeSpan.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\Year.cshtml" />
+
+    <!-- Views/MvcError -->
+    <EmbeddedResource Include="Views\MvcError\BadRequest.cshtml" />
+    <EmbeddedResource Include="Views\MvcError\Forbidden.cshtml" />
+    <EmbeddedResource Include="Views\MvcError\InternalServerError.cshtml" />
+    <EmbeddedResource Include="Views\MvcError\NotFound.cshtml" />
+    <EmbeddedResource Include="Views\MvcError\SessionExpired.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="FluentValidation" Version="10.3.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\VTQT.Web.Framework\VTQT.Web.Framework\VTQT.Web.Framework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Kendo.Mvc\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Caching.Helpers">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Caching.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Caching.Manager">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Caching.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Master">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Master.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Services">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.SharedMvc.Master">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.SharedMvc.Master.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll.config&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.pdb&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.xml&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt" />
+  </Target>
+
+</Project>

@@ -1,0 +1,26 @@
+<#
+    const string FkSeparator = "FK_";
+    const string PkSeparator = "_PK_";
+
+    string GetAssociationMemberNameCustom(ForeignKeySchema fk)
+    {
+        var name = fk.KeyName;
+        // PK Property
+        if (fk.BackReference != null)
+        {
+            name = name.Substring(name.IndexOf(PkSeparator) + PkSeparator.Length);
+        }
+        // FK Property
+        else
+        {
+            var pkIdx = name.IndexOf(PkSeparator);
+            if (pkIdx >= 0)
+            {
+                name = name.Remove(name.IndexOf(PkSeparator));
+                name = name.Substring(FkSeparator.Length);
+            }
+        }
+
+        return name;
+    }
+#>

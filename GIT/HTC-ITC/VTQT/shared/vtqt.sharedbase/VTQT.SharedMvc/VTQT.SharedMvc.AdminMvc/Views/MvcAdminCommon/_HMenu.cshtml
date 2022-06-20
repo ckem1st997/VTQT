@@ -1,0 +1,510 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@{
+    var appContext = EngineContext.Current.Resolve<IAppContext>();
+    var currentApp = appContext.CurrentApp;
+}
+
+<div id="admin_hMenu" class="hor-menu hor-menu-light hidden-sm hidden-xs">
+    <ul class="nav navbar-nav">
+        @if (currentApp.Id == "4")
+        {
+            <li class="classic-menu-dropdown">
+                <a href="/Admin">
+                    <i class="fa flaticon-home-1"></i>
+                    <span class="navbar-label">Bảng thông tin</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon2-layers-2"></i>
+                    <span class="navbar-label">Hệ thống</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/App">
+                            <i class=""></i> Quản lý ứng dụng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/AppAction">
+                            <i class=""></i> Quản lý chức năng
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon-security"></i>
+                    <span class="navbar-label">Bảo mật</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/User">
+                            <i class=""></i> Quản lý tài khoản
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Role">
+                            <i class=""></i> Quản lý vai trò
+                        </a>
+                    </li>
+                 @*   <li>
+                        <a href="/Admin/AuthorizeUser">
+                            <i class=""></i> Phân quyền theo tài khoản
+                        </a>
+                    </li>*@
+                    <li>
+                        <a href="/Admin/AuthorizeRole">
+                            <i class=""></i> Phân quyền theo vai trò
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon-interface-7"></i>
+                    <span class="navbar-label">Cấu hình</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/Language">
+                            <i class=""></i> Ngôn ngữ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class=""></i> Đơn vị tiền tệ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class=""></i> Thiết lập
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        }
+        @if (currentApp.Id == "5")
+        {
+            <li class="classic-menu-dropdown">
+                <a href="/Admin">
+                    <i class="fa flaticon-home-1"></i>
+                    <span class="navbar-label">Trang chủ</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="/Admin/WarehouseRequest">
+                    <i class="fa flaticon-whatsapp"></i>
+                    <span class="navbar-label">Yêu cầu kho</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon2-layers-2"></i>
+                    <span class="navbar-label">Quản lý kho</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/WareHouseBook">
+                            <i class=""></i> Quản lý sổ kho
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/WareHouseLimit">
+                            <i class=""></i> Định mức tồn kho
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/BeginningWareHouse">
+                            <i class=""></i> Tồn kho đầu kỳ
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="/Admin/Audit">
+                    <i class="fa flaticon-list"></i>
+                    <span class="navbar-label">Kiểm kê kho</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon-list-3"></i>
+                    <span class="navbar-label">Danh mục</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/WareHouse">
+                            <i class=""></i> Kho vận
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/WareHouseItemCategory">
+                            <i class=""></i> Loại vật tư
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/WareHouseItem">
+                            <i class=""></i> Vật tư
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Vendor">
+                            <i class=""></i> Nhà cung cấp
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Unit">
+                            <i class=""></i> Đơn vị tính
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="/Admin/Report">
+                    <i class="fa flaticon-diagram"></i>
+                    <span class="navbar-label">Báo cáo</span>
+                </a>
+            </li>
+        }
+        @if (currentApp.Id == "6")
+        {
+            <li class="classic-menu-dropdown">
+                <a href="/Admin">
+                    <i class="fa flaticon-home-1"></i>
+                    <span class="navbar-label">Trang chủ</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon-folder-1"></i>
+                    <span class="navbar-label">Tài sản hành chính</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/AssetOffice">
+                            <i class=""></i> Danh sách tài sản
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Audit">
+                            <i class=""></i> Kiểm kê tài sản
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon2-layers-2"></i>
+                    <span class="navbar-label">Tài sản hạ tầng</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/AssetInfrastructor">
+                            <i class=""></i> Danh sách tài sản
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/AuditInfrastructor">
+                            <i class=""></i> Kiểm kê tài sản
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon-suitcase"></i>
+                    <span class="navbar-label">Tài sản dự án</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/AssetProject">
+                            <i class=""></i> Danh sách tài sản
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/AssetAttachment">
+                            <i class=""></i> Tài sản đính kèm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/AuditProject">
+                            <i class=""></i> Kiểm kê tài sản
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon-list-3"></i>
+                    <span class="navbar-label">Danh mục</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/AssetCategory">
+                            <i class=""></i> Loại tài sản
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="/Admin/Report">
+                    <i class="fa flaticon-diagram"></i>
+                    <span class="navbar-label">Báo cáo</span>
+                </a>
+            </li>
+        }
+        @if (currentApp.Id == "10")
+        {
+            <li class="classic-menu-dropdown">
+                <a href="/Admin">
+                    <i class="fa flaticon-home-1"></i>
+                    <span class="navbar-label">Trang chủ</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="/Admin/StorageValue">
+                    <i class="fa flaticon-edit-1"></i>
+                    <span class="navbar-label">Nhập liệu</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="/Admin/Report">
+                    <i class="fa flaticon2-chart"></i>
+                    <span class="navbar-label">Báo cáo</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon-list-3"></i>
+                    <span class="navbar-label">Danh mục</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/TypeValue">
+                            <i class=""></i> Kiểu dữ liệu
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        }
+        @if (currentApp.Id == "8")
+        {
+            <li class="classic-menu-dropdown">
+                <a href="/Admin">
+                    <i class="fa flaticon-home-1"></i>
+                    <span class="navbar-label">Trang chủ</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon2-warning"></i>
+                    <span class="navbar-label">Ticket</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/ProblemTicket">
+                            <i class=""></i> Ticket sự cố
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/StationTicket">
+                            <i class=""></i> Ticket trạm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/TroubleTicket">
+                            <i class=""></i> Ticket vấn đề
+                        </a>
+                    </li>                    
+                </ul>
+            </li>
+            @*<li class="classic-menu-dropdown">
+                <a href="/Admin/ProblemTicket">
+                    <i class="fa flaticon-interface-9"></i>
+                    <span class="navbar-label">Ticket sự cố</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="/Admin/StationTicket">
+                    <i class="fa flaticon2-tag"></i>
+                    <span class="navbar-label">Ticket trạm</span>
+                </a>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="/Admin/TroubleTicket">
+                    <i class="fa flaticon2-warning"></i>
+                    <span class="navbar-label">Ticket vấn đề</span>
+                </a>
+            </li>*@
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;">
+                    <i class="fa flaticon2-send-1"></i>
+                    <span class="navbar-label">FTTH</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/ParitcularFtth">
+                            <i class=""></i> Sự cố lẻ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/WideFtth">
+                            <i class=""></i> Sự cố diện rộng
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa flaticon-list-3"></i>
+                    <span class="navbar-label">Danh mục</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/Channel">
+                            <i class=""></i> Danh sách kênh
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/ChannelCategory">
+                            <i class=""></i> Loại kênh
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/NetworkLink">
+                            <i class=""></i> Danh sách link mạng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/NetworkLinkCategory">
+                            <i class=""></i> Loại link mạng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Device">
+                            <i class=""></i> Danh sách thiết bị
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/DeviceCategory">
+                            <i class=""></i> Loại thiết bị
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Station">
+                            <i class=""></i> Danh sách trạm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/StationCategory">
+                            <i class=""></i> Loại trạm
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="classic-menu-dropdown">
+                <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="hover-initialized" aria-expanded="false">
+                    <i class="fa fa-get-pocket" aria-hidden="true"></i>
+                    <span class="navbar-label">CR</span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li>
+                        <a href="/Admin/CRPartner">
+                            <i class=""></i> CR Đối tác
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/CRMx">
+                            <i class=""></i> CR xin tác động MX lấy tuyến
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/CRHTC">
+                            <i class=""></i> CR HTC
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @*<li class="classic-menu-dropdown">
+                <a href="/Admin/CSRating">
+                    <i class="fa fa-smile-o" aria-hidden="true"></i>
+                    <span class="navbar-label">CS đánh giá</span>
+                </a>
+            </li>*@
+            <li class="classic-menu-dropdown">
+                <a href="/Admin/Report">
+                    <i class="fa flaticon2-chart"></i>
+                    <span class="navbar-label">Báo cáo</span>
+                </a>
+            </li>
+        }
+
+        @*@foreach (var appAction in Model)
+        {
+            <li class="classic-menu-dropdown">
+                @if (appAction.Children.Any())
+                {
+                    <a href="javascript:;" title="@appAction.Description" data-hover="megamenu-dropdown" data-close-others="true">
+                        <i class="@Html.Raw(appAction.Icon)"></i>
+                        <span class="navbar-label">@appAction.Name</span>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        @ChildMenu(appAction)
+                    </ul>
+                }
+                else
+                {
+                    <a href="@(!string.IsNullOrEmpty(appAction.Controller) && !string.IsNullOrEmpty(appAction.Action) ? Url.Action(appAction.Action, appAction.Controller) : "javascript:;")" title="@appAction.Description">
+                        <i class="@Html.Raw(appAction.Icon)"></i>
+                        <span class="navbar-label">@appAction.Name</span>
+                    </a>
+                }
+            </li>
+        }*@
+    </ul>
+</div>
+
+@*@functions {
+    private void ChildMenu(AppActionModel parent)
+    {
+        foreach (var child in parent.AppActionChildren)
+        {
+            if (child.AppActionChildren.Any())
+            {
+                <li class="dropdown-submenu">
+                    <a href="javascript:;" title="@child.Description">
+                        <i class="@Html.Raw(child.Icon)"></i> @child.Name
+                    </a>
+                    <ul class="dropdown-menu">
+                        @ChildMenu(child)
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@(!string.IsNullOrEmpty(child.Controller) && !string.IsNullOrEmpty(child.Action) ? Url.Action(child.Action, child.Controller) : "javascript:;")" title="@child.Description">
+                        <i class="@Html.Raw(child.Icon)"></i> @child.Name
+                    </a>
+                </li>
+            }
+        }
+    }
+}*@

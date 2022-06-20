@@ -1,0 +1,374 @@
+﻿@using VTQT.Core.Events
+@using VTQT.Core.Infrastructure
+@using VTQT.Web.Framework.Events
+
+@model AuditModel
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="create" id="addAudit" href="javascript:void(0)" class="btn blue btn-sm"><i class="fa fa-check"></i> @T("Common.Save")</a>
+            <a data-action="cancel" href="javascript:void(0)" class="btn red btn-sm"><i class="fa fa-times"></i> @T("Common.Cancel")</a>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+<div class="page-data" style="padding-top: 10px">
+    <div class="form fixed-layout-form">
+        <form id="form-data" data-form-type="ajax" class="form-horizontal">
+            <div class="row full-height" style="padding-top: 196px">
+                <div class="row" style="position: absolute; top: 10px; width: 100%">
+                    <div class="col-md-8" style="padding-left: 0">
+                        @Html.HiddenFor(m => m.CreatedDate)
+                        <fieldset class="fieldset-no-border">
+                            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 99%;">@T("Common.Audit")</legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.VoucherDate, true, new { @class = "control-label col-md-4" }, true)
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(m => m.VoucherDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.AuditLocation, true, new { @class = "control-label col-md-4" }, true)
+                                        <div class="col-md-8">
+                                            @Html.DropDownListFor(m => m.AuditLocation, Model.AvailableStations, string.Format(T("Common.SelectObject"), T("Common.Station")), new { @class = "form-control", style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10" style="width:75%;">
+                                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4" style="padding-right: 0;">
+                        <fieldset class="fieldset-no-border" style="width:98%;">
+                            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 85%;">@T("Common.InfoGroup")</legend>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.VoucherCode, true, new { @class = "control-label col-md-3" }, true)
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.VoucherCode, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.CreatedBy, true, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(m => m.CreatedBy, Model.AvailableCreatedBy, string.Format(T("Common.SelectObject"), T("Common.Fields.CreatedBy")), new { @class = "form-control", style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.CreatedDate, true, new { @class = "control-label col-md-3" }, true)
+                                <div class="col-md-9">
+                                    @Html.DisplayFor(m => m.CreatedDate)
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="full-height" style="padding-top: 5px">
+                    @(Html.XBase().TabStrip()
+                        .Name("tabIndex")
+                        .HtmlAttributes(new { @class = "tab-top fixed-layout-tab" })
+                        .Items(async x =>
+                        {
+                            x.Add().Text(T("Common.AuditDetail"))
+                                .Name("tbAuditDetail")
+                                .LinkHtmlAttributes(new { data_tab_name = "AuditDetail" })
+                                .Content(Html.Partial("TabAuditDetail", new AuditDetailSearchModel()).RenderHtmlContent())
+                                .Selected(true);
+
+                            x.Add().Text(T("Common.AuditCouncil"))
+                                .Name("tbAuditCouncil")
+                                .LinkHtmlAttributes(new { data_tab_name = "AuditCouncil" })
+                                .Action("TabAuditCouncil", "AuditInfrastructor", null)
+                                .Ajax();
+
+                            await EngineContext.Current.Resolve<IEventPublisher>().PublishAsync(new TabStripCreated(x, "tabIndex", this.Html));
+                        }))
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- #endregion -->
+<!-- #region Scripts -->
+<script>
+        var frmCreate = {
+            urlSaveData: '@Url.Action("CreateSave")',
+            selector: '.page-data',
+            $this: {},
+            tab: {
+                selector: '#tabIndex',
+                $this: {},
+                init: function () { },
+                change: function () { }
+            },
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { }
+            },
+            grdIndex: {
+                el: '#frmCreate_grdIndex',
+                $el: {},
+                api: {},
+                init: function () { }
+            },
+            btnSave: {
+                selector: '#addAudit',
+                $this: {},
+                init: function () { }
+            },
+            btnCancel: {
+                selector: 'a[data-action="cancel"]',
+                $this: {},
+                init: function () { }
+            },
+            btnRemoveItem: {
+                selector: '#btnRemove',
+                $this: {},
+                init: function () { }
+            },
+            helpers: {
+                saveData: function () { }
+            },
+
+            frmAuditDetail: {},
+            frmAuditCouncil: {},
+            init: function () { }
+        };
+        var form = frmCreate.form;
+        var grdIndex = frmCreate.grdIndex;
+        var btnSave = frmCreate.btnSave;
+        var btnCancel = frmCreate.btnCancel;
+        var helpers = frmCreate.helpers;
+        var btnRemoveItem = frmCreate.btnRemoveItem;
+
+        //Helpers
+    helpers.saveData = function (model, details, auditCouncilModels) {
+        model.AuditLocation = $("#AuditLocation").val();
+            $.ajax({
+                type: 'POST',
+                data: { model: model, modelDetails: details, auditCouncilModels: auditCouncilModels },
+                dataType: 'json',
+                url: frmCreate.urlSaveData,
+                beforeSend: function(jqXhr, settings) {
+                },
+                success: function(msg) {
+                    if (msg.success) {
+                        $.pjax({ url: '@Url.Action("Details", "AuditInfrastructor")/' + msg.data });
+                    }
+                }
+            });
+        }
+
+        //Inits
+        frmCreate.init = function () {
+            frmCreate.$this = $(frmCreate.selector);
+            form.init();
+            grdIndex.init();
+            btnCancel.init();
+            btnSave.init();
+            btnRemoveItem.init();
+            frmCreate.tab.init();
+
+            $('#AuditLocation').on('change', function (e) {
+                var arrDate = $("#VoucherDate").val().split("/");
+                var date = arrDate[2] + "-" + arrDate[1] + "-" + arrDate[0];
+                if (date != undefined && date.length>8)
+                    $.ajax({
+                        type: "POST",
+                url: '@Url.Action("Details_Read", "AuditInfrastructor")',
+                        data: { id: $('#AuditLocation').val(), dateTime: date },
+                success: function (data) {
+                    grdIndex.api.dataSource.data([]);
+                    var data1 = data.Data;
+                    for (var i = data1.length - 1; i >= 0; i--) {
+                        var item = {};
+                        item.ItemId = data1[i].ItemId;
+                        item.ItemName = data1[i].ItemName;
+                        item.UnitName = data1[i].UnitName;
+                        item.Quantity = data1[i].Quantity;
+                        item.AuditQuantity = data1[i].AuditQuantity;
+                        item.Conclude = "";
+                        grdIndex.api.dataSource.insert(item);
+                    }
+                }
+            });
+        else
+            {
+                 notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                    return false;
+            }
+            });
+
+            var $voucherDate = $('#VoucherDate');
+            var c = Globalize.culture().calendars.standard;
+            var fmt = c.patterns["d"].toUpperCase();
+            $voucherDate.datetimepicker({
+                format: fmt,
+                useCurrent: false,
+                locale: Globalize.culture().language,
+                calendarWeeks: false,
+                showTodayButton: true,
+                showClear: true,
+                showClose: true,
+                keepOpen: true,
+                allowInputToggle: false,
+                ignoreReadonly: true
+            });
+
+            $voucherDate.on('dp.change', function (e) {
+                var date = formatDate($('#VoucherDate').data("DateTimePicker").date());
+                if ($('#AuditLocation').val() != undefined && $('#AuditLocation').val().length > 0)
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Details_Read", "AuditInfrastructor")',
+                        data: { id: $('#AuditLocation').val(), dateTime: date },
+                        success: function (data) {
+                            grdIndex.api.dataSource.data([]);
+                            var data1 = data.Data;
+                            for (var i = data1.length - 1; i >= 0; i--) {
+                                var item = {};
+                                item.ItemId = data1[i].ItemId;
+                                item.ItemName = data1[i].ItemName;
+                                item.UnitName = data1[i].UnitName;
+                                item.Quantity = data1[i].Quantity;
+                                item.AuditQuantity = data1[i].AuditQuantity;
+                                item.Conclude = "";
+                                grdIndex.api.dataSource.insert(item);
+                            }
+                        }
+                    });
+                else
+                {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                    return false;
+                }
+            });
+        }
+        frmCreate.tab.init = function () {
+            frmCreate.tab.change();
+        }
+        frmCreate.tab.change = function () {
+            frmCreate.tab.$this = $(frmCreate.tab.selector);
+            frmCreate.tab.$this.on('shown.bs.tab', function () {
+                app.plugins.uniform.handles();
+                app.grid.handlers.resize();
+            });
+        }
+
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex.init = function () {
+            grdIndex.$el = $(grdIndex.el);
+            grdIndex.api = grdIndex.$el.data('kendoGrid');
+        };
+        btnCancel.init = function() {
+            btnCancel.$this = $(btnCancel.selector);
+
+            btnCancel.$this.click(function(e) {
+                $.pjax({ url: '@Url.Action("Index", "AuditInfrastructor")' });
+            });
+        }
+        btnSave.init = function () {
+            btnSave.$this = $(btnSave.selector);
+
+        }
+    $('#addAudit').click(function (e) {
+        if (form.$this.valid()) {
+                var details = [];
+            var gridData = grdIndex.api.dataSource.data();
+                $.each(gridData,
+                    function (i, x) {
+                        var item = {};
+                        item.ItemId = x.ItemId;
+                        item.ItemName = x.ItemName;
+                        item.UnitName = x.UnitName;
+                        item.Quantity = x.Quantity;
+                        item.AuditQuantity = x.AuditQuantity;
+                        item.Conclude = x.Conclude;
+                        item.Serial = x.Serial;
+
+                        details.push(item);
+                    },
+                );
+
+            var auditCouncilModels = [];
+            try {
+                var gridData = grdIndex2.api.dataSource.data();
+                $.each(gridData,
+                    function (i, x) {
+                        var item = {};
+                        //AuditCouncil
+                        item.EmployeeId = x.EmployeeId;
+                        item.EmployeeName = x.EmployeeName;
+                        item.Role = x.Role;
+
+                        auditCouncilModels.push(item);
+                    },
+                );
+            } catch (e) {
+                console.log(e)
+            }
+            var model = form.$this.serializeObject();
+            helpers.saveData(model, details, auditCouncilModels);
+        }
+    });
+
+         btnRemoveItem.init = function () {
+            btnRemoveItem.$this = $(btnRemoveItem.selector);
+
+            btnRemoveItem.$this.click(function (e) {
+                var selectedItems = grdIndex.api.selectedRows();
+                if (selectedItems.length > 0) {
+                    app.window.confirm.open({
+                        callback: function () {
+                            $.each(selectedItems,
+                                function(i, x) {
+                                    if (x) {
+                                        grdIndex.api.removeRow(x);
+                                    }
+                                });
+                        }
+                    });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                    return false;
+                }
+            });
+        }
+        //Startup
+        $(function() {
+            frmCreate.init();
+        });
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+</script>
+<!-- #endregion -->

@@ -1,0 +1,217 @@
+﻿@model AuthorizeToRoleModel
+@{
+    Layout = null;
+}
+
+<style>
+    body > div.k-widget.k-window.k-display-inline-flex
+    {
+    top: 250px !important;
+    }
+</style>
+<script>
+    // Fields
+    var masterSetRole = {
+        urlDetails: '@Url.Action("Details")',
+        urlCreate: '@Url.Action("Create")',
+        urlEdit: '@Url.Action("Edit")',
+        urlDeletes: '@Url.Action("Deletes")',
+        urlActivates: '@Url.Action("Activates")',
+        urlSetListRole: '@Url.Action("SetRole")',
+        urlGetListRole: '@Url.Action("GetListRoleById")',
+        toolbar: {
+            el: '.page-toolbar',
+            $el: {},
+            actions: {
+                init: function () { }
+            },
+            init: function () { }
+        },
+        grdSetRole: {
+            el: '#grdAuthorizeToRoleModel',
+            $this: {},
+            $el: {},
+            api: {},
+            edit: function (e) { },
+            create: function (e) { },
+            error: function (e) { },
+            actions: {
+                init: function () { }
+            },
+            tmp: {
+                name: function (id, name) { },
+                activate: function (activate) { },
+                role: function (role) { },
+                Listrole: function (id) { },
+            },
+            data: function () { },
+            init: function () { }
+        },
+        mnu: {
+            el: '#mnu',
+            $el: {},
+            api: {},
+            init: function () { }
+        },
+        btnSearch: {
+            el: '#btnSearch',
+            $el: {},
+            init: function () { }
+        },
+        init: function () { },
+        details: function (id) { },
+        create: function () { },
+        edit: function (id) { },
+        deletes: function () { },
+        activates: function (activate, ids) { },
+        refresh: function () { },
+        actionCallback: function () { },
+        importExcel: function () { },
+        export: function () { }
+    };
+    var toolbar = masterSetRole.toolbar;
+    var grdSetRole = masterSetRole.grdSetRole;
+    var mnu = masterSetRole.mnu;
+    var btnSearch = masterSetRole.btnSearch;
+
+    grdSetRole.data = function () {
+        var $IdTypeValue = $('#@Html.FieldIdFor(m => m.TypeValueId)');
+        console.log($IdTypeValue.val()); 
+        return {
+            idTypeValue: $IdTypeValue.val()
+        };
+    };
+
+    masterSetRole.edit = function() {
+        var id = grdSetRole.api.selectedIds()[0];
+        if (id) {
+            app.window.form.open({ url: `${master.urlEdit}/${id}`, options: { width: '550px' }, callback: master.actionCallback });
+        } else {
+            notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+        }
+    };
+    masterSetRole.deletes = function() {
+        var ids = grdSetRole.api.selectedIds();
+        if (ids.length > 0) {
+            app.window.deletes.open({ url: master.urlDeletes, ids: ids, options: { width: '450px' }, callback: master.actionCallback });
+        } else {
+            notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+        }
+    };
+    masterSetRole.refresh = function() {
+        grdSetRole.api.reload();
+    };
+    masterSetRole.actionCallback = function() {
+        grdSetRole.api.reload();
+    };
+    masterSetRole.init = function () {
+        toolbar.init();
+        grdSetRole.init();
+        mnu.init();
+        btnSearch.init();
+    };
+
+    toolbar.init = function() {
+        toolbar.$el = $(toolbar.el);
+
+        toolbar.actions.init();
+    };
+    toolbar.actions.init = function() {
+        var $toolbar = toolbar.$el;
+        $toolbar.find('a[data-action="export"]').click(function (e) {
+            master.export();
+        });
+        $toolbar.find('a[data-action="importexcel"]').click(function (e) {
+            master.importExcel();
+        });
+        admin.pageToolbar.actions.initCreate($toolbar, master.create);
+        admin.pageToolbar.actions.initEdit($toolbar, master.edit);
+        admin.pageToolbar.actions.initDeletes($toolbar, master.deletes);
+        admin.pageToolbar.actions.initActivate($toolbar, master.activates);
+    };
+    grdSetRole.init = function() {
+        grdSetRole.$el = $(grdSetRole.el);
+        grdSetRole.api = grdSetRole.$el.data('kendoGrid');
+
+      //  grdSetRole.actions.init();
+    };
+    // grdSetRole.actions.init = function () {
+    //     grdSetRole.api.initEdit(masterSetRole.edit);
+    // };
+    btnSearch.init = function() {
+        btnSearch.$el = $(btnSearch.el);
+
+        const search = _.debounce(() => {
+            grdSetRole.api.resetPage();
+        }, app.ui.def.debounce.timeout);
+        btnSearch.$el.click(function (e) {
+            search();
+            return false;
+        });
+    };
+
+    // Templates
+    grdSetRole.tmp.name = function(name) {
+        return `<a data-action="edit" href="javascript:void(0)">${name}</a>`;
+    };
+    grdSetRole.tmp.activate = function(activate) {
+        return activate ? '<i data-action="deactivate" class="fa fa-check green pointer"></i>' : '<i data-action="activate" class="fa fa-lock yellow pointer"></i>';
+    };
+    grdSetRole.tmp.role = function(id) {
+    return `<a class="setrole learn-more" data-typevalue=${id} data-action="set-role"  href="javascript:void(0)" class="learn-more"> <span class="circle" aria-hidden="true"> <span class="icon arrow"></span> </span> <span class="button-text">Phân quyền</span> </a>`;
+    };
+    grdSetRole.tmp.Listrole = function (id) {
+        return `<a class="getrole learn-more" data-typevalue=${id} data-action="get-role"  href="javascript:void(0)" class="learn-more"> <span class="circle" aria-hidden="true"> <span class="icon arrow"></span> </span> <span class="button-text">Danh sách</span> </a>`;
+    };
+</script>
+
+<script>
+
+    $(function () {
+        masterSetRole.init();
+
+    });
+</script>
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Danh sách kho được phân quyền</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row full-height">
+                    @Html.HiddenFor(x=>x.TypeValueId);
+                    @Html.AntiForgeryToken()
+                    @(Html.Kendo().Grid<AuthorizeToRoleModel>()
+                        .Name("grdAuthorizeToRoleModel")
+                        .HtmlAttributes(new { style = "height: 99%" })
+                        .Columns(columns =>
+                        {
+                            columns.Bound(x => x.DelegatorId).Width(100);
+                            columns.Bound(x => x.AuthorizedId).Width(100);
+                            columns.Bound(x => x.TypeValueId).Width(100);
+                        })
+                        .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(50)
+                            .ServerOperation(false)
+                            .PageSize(AdminAreaSettings.GridPageSize)
+                            .Read(read => read.Action("GetListRoleByIdAjax", "TypeValue").Data("grdSetRole.data"))
+                        )
+                        .NoRecords()
+                        .Scrollable(scr => scr.Enabled(true))
+                        .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PreviousNext(true).Refresh(true))
+                        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+                        .Navigatable())
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
+
+

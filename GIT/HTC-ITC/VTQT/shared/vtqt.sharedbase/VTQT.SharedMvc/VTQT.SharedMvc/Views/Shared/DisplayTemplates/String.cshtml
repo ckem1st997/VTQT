@@ -1,0 +1,65 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@functions {
+    private object _htmlAttributes;
+    private object HtmlAttributes
+    {
+        get
+        {
+            if (_htmlAttributes != null)
+                return _htmlAttributes;
+            var htmlAttrData = ViewData["htmlAttributes"];
+            if (htmlAttrData != null)
+                _htmlAttributes = new RouteValueDictionary(htmlAttrData);
+            return _htmlAttributes;
+        }
+    }
+
+    private bool? _isTextArea;
+    private bool IsTextArea
+    {
+        get
+        {
+            if (_isTextArea.HasValue)
+                return _isTextArea.Value;
+            var isTextArea = ViewData["isTextArea"];
+            if (isTextArea != null)
+                _isTextArea = (bool)isTextArea;
+            else
+                _isTextArea = false;
+            return _isTextArea.Value;
+        }
+    }
+
+    private string _value;
+    private string Value
+    {
+        get
+        {
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToString(ViewData.Model, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            return _value;
+        }
+    }
+}
+
+@(IsTextArea ? Html.TextArea(string.Empty, Value, HtmlAttributes ?? new {@class = "form-control", disabled = "disabled"}) : Html.TextBox(string.Empty, Value, HtmlAttributes ?? new {@class = "form-control", disabled = "disabled"}))

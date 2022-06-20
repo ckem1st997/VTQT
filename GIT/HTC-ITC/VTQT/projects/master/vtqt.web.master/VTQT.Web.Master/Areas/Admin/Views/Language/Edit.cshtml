@@ -1,0 +1,143 @@
+﻿@model LanguageModel
+@{
+    Layout = null;
+    var cdn = AppContext.CurrentApp.CdnUrl;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Common.AppActions.Languages.Edit")</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.LanguageCulture, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.LanguageCulture, Model.AvailableCultures, string.Format(T("Common.SelectObject"), T("Common.Fields.LanguageCulture")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.UniqueSeoCode, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.UniqueSeoCode, Model.AvailableTwoLetterLanguageCodes, string.Format(T("Common.SelectObject"), T("Common.Fields.UniqueSeoCode")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.FlagImageFileName, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        <select id="@Html.FieldIdFor(m => m.FlagImageFileName)" name="@Html.FieldNameFor(m => m.FlagImageFileName)" class="form-control" data-placeholder="@T("Common.Unspecified")" data-auto-init="false" style="width: 100%">
+                            <option></option>
+                            @foreach (var item in Model.AvailableFlags)
+                            {
+                                var select = item.Value.IsCaseInsensitiveEqual(Model.FlagImageFileName);
+                                if (select)
+                                {
+                                    <option value="@item.Value" selected="selected">@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Rtl, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.Rtl)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Published, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.Published)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.DisplayOrder, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.DisplayOrder, new { htmlAttributes = new { style = "width: 100%" } })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="icon-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="icon-close"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    //#region Fields
+
+    var frm = {
+        flagImageFileName: {
+            selector: '#@Html.FieldIdFor(m => m.FlagImageFileName)',
+            $this: {},
+            init: function () { },
+            flagSelectItemFormatting: function (item) { }
+        },
+        init: function () { }
+    };
+    var flagImageFileName = frm.flagImageFileName;
+
+    //#endregion
+
+    //#region Init
+
+    frm.init = function () {
+        flagImageFileName.init();
+    }
+
+    flagImageFileName.init = function () {
+        flagImageFileName.$this = $(flagImageFileName.selector);
+
+        flagImageFileName.$this.select2({
+            allowClear: true,
+            minimumResultsForSearch: 16,
+            templateResult: flagImageFileName.flagSelectItemFormatting,
+            templateSelection: flagImageFileName.flagSelectItemFormatting
+        });
+    }
+    flagImageFileName.flagSelectItemFormatting = function (item) {
+        var flagUrl = '@cdn/Content/global/img/flags/';
+
+        try {
+            if (item.text.length > 0) {
+                var $format = $('<span><img alt="" src="' + flagUrl + item.element.value + '" class="img-flag" width="13" /> ' + item.text + '</span>');
+
+                return $format;
+            }
+        }
+        catch (e) { }
+
+        return item.text;
+    }
+
+    //#endregion
+
+    //#region Startup
+
+    $(function () {
+        frm.init();
+    });
+
+    //#endregion
+</script>

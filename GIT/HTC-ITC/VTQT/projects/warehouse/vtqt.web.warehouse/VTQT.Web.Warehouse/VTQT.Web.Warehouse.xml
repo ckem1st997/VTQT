@@ -1,0 +1,315 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Web.Warehouse</name>
+    </assembly>
+    <members>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.AuditController.GetTree">
+            <summary>
+            Gọi Api lấy cấu trúc cây kho
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.ReportController.Index">
+            <summary>
+            Hàm Index
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.ReportController.GetTree">
+            <summary>
+            Gọi Api lấy cấu trúc cây báo cáo
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.ReportController.GetItems">
+            <summary>
+            Lấy dữ liệu items
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.ReportController.GetWarehouses">
+            <summary>
+            Lấy dữ liệu kho
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.ReportController.Get(Kendo.Mvc.UI.DataSourceRequest,VTQT.SharedMvc.Warehouse.Models.ReportSearchModel)">
+            <summary>
+            Lấy dữ liệu báo cáo
+            </summary>
+            <param name="request"></param>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.ReportController.ListenTreeSelect(System.String)">
+            <summary>
+            Load partial view
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.SerialWareHouseController.Index">
+            <summary>
+            Khởi tạo trang Index
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.SerialWareHouseController.Details(System.String)">
+            <summary>
+            Lấy chi tiết Serial
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.SerialWareHouseController.Create">
+            <summary>
+            Tạo mới Serial
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.SerialWareHouseController.Get(Kendo.Mvc.UI.DataSourceRequest,VTQT.SharedMvc.Warehouse.Models.SerialWareHouseSearchModel)">
+            <summary>
+            Lấy danh sách Serial phân trang
+            </summary>
+            <param name="request"></param>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.UnitController.Index">
+            <summary>
+            Khởi tạo trang Index
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.UnitController.Details(System.String)">
+            <summary>
+            Xem chi tiết đơn vị
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.UnitController.Create">
+            <summary>
+            Tạo mới đơn vị
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.UnitController.Create(VTQT.SharedMvc.Warehouse.Models.UnitModel)">
+            <summary>
+            Gọi Api tạo mới đơn vị
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.UnitController.Edit(System.String)">
+            <summary>
+            Chỉnh sửa đơn vị
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.UnitController.Edit(VTQT.SharedMvc.Warehouse.Models.UnitModel)">
+            <summary>
+            Gọi Api chỉnh sửa đơn vị
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.UnitController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Gọi Api xóa đơn vị
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.UnitController.Activates(VTQT.Web.Framework.Modelling.ActivatesModel)">
+            <summary>
+            Gọi Api kích hoạt/ ngừng kích hoạt
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.UnitController.Get(Kendo.Mvc.UI.DataSourceRequest,VTQT.SharedMvc.Warehouse.Models.UnitSearchModel)">
+            <summary>
+            Lấy về danh sách dữ liệu phân trang
+            </summary>
+            <param name="request"></param>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseBookController.Index">
+            <summary>
+            Khởi tạo trang Index
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseBookController.GetTree">
+            <summary>
+            Gọi Api lấy cấu trúc cây kho
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseBookController.Edit(System.String)">
+            <summary>
+            Chuyển tới trang chỉnh sửa phiếu nhập/ xuất tham số Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseBookController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Gọi Api xóa phiếu nhập/ xuất
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseBookController.Get(Kendo.Mvc.UI.DataSourceRequest,VTQT.SharedMvc.Warehouse.Models.VoucherWareHouseSearchModel)">
+            <summary>
+            Lấy danh sách phiếu nhập/ xuất kho phân trang
+            </summary>
+            <param name="request"></param>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.Index">
+            <summary>
+            Khởi tạo trang Index
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.Details(System.String)">
+            <summary>
+            Lấy chi tiết vật tư
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.Create">
+            <summary>
+            Tạo mới vật tư
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.GetDropDownList(VTQT.SharedMvc.Warehouse.Models.WareHouseItemModel)">
+            <summary>
+            Khởi tạo danh sách dropdown
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.Create(VTQT.SharedMvc.Warehouse.Models.WareHouseItemModel)">
+            <summary>
+            Gọi Api tạo mới vật tư
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.Edit(System.String)">
+            <summary>
+            Lấy về vật tư cần chỉnh sửa
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.Edit(VTQT.SharedMvc.Warehouse.Models.WareHouseItemModel)">
+            <summary>
+            Gọi Api chỉnh sửa vật tư
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Gọi Api xóa vật tư
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.Activates(VTQT.Web.Framework.Modelling.ActivatesModel)">
+            <summary>
+            Gọi Api kích hoạt, ngừng kích hoạt
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Areas.Admin.Controllers.WareHouseItemController.Get(Kendo.Mvc.UI.DataSourceRequest,VTQT.SharedMvc.Warehouse.Models.WareHouseItemSearchModel)">
+            <summary>
+            Lấy danh sách vật tư phân trang
+            </summary>
+            <param name="request"></param>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VTQT.Web.Warehouse.Infrastructure.Cache.ModelCacheEventConsumer">
+            <summary>
+            Model cache event consumer (used for caching of presentation layer models)
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Infrastructure.Cache.ModelCacheEventConsumer.HandleEventAsync(VTQT.Core.Events.EntityInsertedEvent{VTQT.Core.Domain.Master.Language})">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Infrastructure.Cache.ModelCacheEventConsumer.HandleEventAsync(VTQT.Core.Events.EntityUpdatedEvent{VTQT.Core.Domain.Master.Language})">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Infrastructure.Cache.ModelCacheEventConsumer.HandleEventAsync(VTQT.Core.Events.EntityDeletedEvent{VTQT.Core.Domain.Master.Language})">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Infrastructure.Cache.ModelCacheEventConsumer.HandleEventAsync(VTQT.Core.Events.EntityUpdatedEvent{VTQT.Core.Domain.Master.Setting})">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Warehouse.Infrastructure.DependencyRegistrar">
+            <summary>
+            Dependency registrar
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Infrastructure.DependencyRegistrar.Register(Autofac.ContainerBuilder,VTQT.Core.Infrastructure.ITypeFinder,VTQT.Core.Configuration.XBaseConfig)">
+            <summary>
+            Register services and interfaces
+            </summary>
+            <param name="builder">Container builder</param>
+            <param name="typeFinder">Type finder</param>
+            <param name="config">Config</param>
+        </member>
+        <member name="P:VTQT.Web.Warehouse.Infrastructure.DependencyRegistrar.Order">
+            <summary>
+            Gets order of this dependency registrar implementation
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Warehouse.Infrastructure.GenericUrlRouteProvider">
+            <summary>
+            Represents provider that provided generic routes
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Infrastructure.GenericUrlRouteProvider.RegisterRoutes(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+            <summary>
+            Register routes
+            </summary>
+            <param name="endpointRouteBuilder">Route builder</param>
+        </member>
+        <member name="P:VTQT.Web.Warehouse.Infrastructure.GenericUrlRouteProvider.Priority">
+            <summary>
+            Gets a priority of route provider
+            </summary>
+            <remarks>
+            it should be the last route. we do not set it to -int.MaxValue so it could be overridden (if required)
+            </remarks>
+        </member>
+        <member name="T:VTQT.Web.Warehouse.Infrastructure.RouteProvider">
+            <summary>
+            Represents provider that provided basic routes
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Warehouse.Infrastructure.RouteProvider.RegisterRoutes(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+            <summary>
+            Register routes
+            </summary>
+            <param name="endpointRouteBuilder">Route builder</param>
+        </member>
+        <member name="P:VTQT.Web.Warehouse.Infrastructure.RouteProvider.Priority">
+            <summary>
+            Gets a priority of route provider
+            </summary>
+        </member>
+    </members>
+</doc>

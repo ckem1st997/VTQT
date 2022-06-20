@@ -1,0 +1,205 @@
+﻿@model ConfirmCRSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var confirm = {
+        grd: {
+            el: '#confirm_grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            tmp: {
+                activate: function (activate) { }
+            },
+            data: function () { }
+        },
+        btnAdd: {
+            el: '#btnAddConfirm',
+            $el: {},
+            init: function () { }
+        },
+        btnRemove: {
+            el: '#btnRemoveConfirm',
+            $el: {},
+            init: function () { }
+        },
+        btnEditConfirm: {
+            el: '#btnEditConfirm',
+            $el: {},
+            init: function() { }
+        },
+        init: function () { },
+        activates: function (activate, ids) { }
+    }
+
+    var confirmGrd = confirm.grd;
+    var btnAddConfirm = confirm.btnAdd;
+    var btnRemoveConfirm = confirm.btnRemove;
+    var btnEditConfirm = confirm.btnEditConfirm;
+
+    confirmGrd.data = function () {
+        var searchModel = {
+            CrId: '@Model.CrId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-confirmCR" type="text/x-kendo-template">
+        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+            <span style="padding-left: 20px">Danh sách xác nhận</span>
+        </div>
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+            <a id="btnAddConfirm" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm xác nhận</a>
+            <a id="btnEditConfirm" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>
+            <a id="btnRemoveConfirm" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+        </div>
+    </script>
+    @(Html.Kendo().Grid<ConfirmCRModel>()
+        .Name("confirm_grd")
+        .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+        .Columns(columns =>
+        {
+            columns.Select().Locked().Width(30);
+            columns.ForeignKey(x => x.ConfirmClass, (System.Collections.IEnumerable)ViewData["ApproverCR"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.ForeignKey(x => x.Approver, (System.Collections.IEnumerable)ViewData["ApproverCR"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.ForeignKey(x => x.Progress, (System.Collections.IEnumerable)ViewData["progress"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.Bound(x => x.ReasonDetail).Width(350);
+        })
+        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-confirmCR"); })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(int.MaxValue)
+            .ServerOperation(false)
+            .Read(read => read.Action("GetConfirmCR", "CRHTC").Data("confirmGrd.data"))
+        )
+        .NoRecords()
+        .Scrollable(scr => scr.Enabled(true))
+        .Pageable(pageable => pageable.Enabled(false))
+        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+        .Navigatable())
+</div>
+
+<script>
+    confirm.init = function () {
+        confirmGrd.init();
+        btnAddConfirm.init();
+        btnRemoveConfirm.init();
+        btnEditConfirm.init();
+    };
+
+    confirmGrd.init = function () {
+        confirmGrd.$el = $(confirmGrd.el);
+        confirmGrd.api = confirmGrd.$el.data('kendoGrid');
+    };
+
+    confirm.activates = function(activate, ids) {
+        ids = ids || confirmGrd.api.selectedIds();
+        if (ids.length > 0) {
+
+        } else {
+            notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+        }
+    };
+
+    btnAddConfirm.init = function() {
+        btnAddConfirm.$el = $(btnAddConfirm.el);
+        btnAddConfirm.$el.click(function(e) {
+
+            app.window.form.open({
+                url: '@Url.Action("AddConfirmCR")', options: { width: '500px' }, callback: function() {
+                    var confirm = window.frmAddConfirm.$el.serializeObject();
+                    var confirmModel = {};
+                    confirmModel.ReasonDetail = confirm.ReasonDetail;
+                    confirmModel.Confirm = confirm.Confirm;
+                    confirmModel.CrId = '@Model.CrId';
+                    confirmModel.Approver = confirm.Approver;
+                    confirmModel.Progress = confirm.Progress;
+                    confirmModel.ConfirmClass = confirm.ConfirmClass;
+
+                    $.ajax({
+                        url: '@Url.Action("AddConfirmCR")',
+                        data: { confirmCR: confirmModel },
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function(res) {
+                            if (res.success) {
+                                confirmGrd.api.reload();
+                            }
+                        }
+                    });
+                    //Close form add item
+                    window.frmAddConfirm.winForm.close();
+                }
+            });
+
+        });
+    };
+
+    btnEditConfirm.init = function() {
+        btnEditConfirm.$el = $(btnEditConfirm.el);
+        btnEditConfirm.$el.click(function(e) {
+
+            var id = confirmGrd.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({
+                    url: '@Url.Action("EditConfirmCR")/' + '?id=' + id, options: { width: '500px' }, callback: function() {
+                        var editConfirm = window.frmEditConfirm.$el.serializeObject();
+                        var editConfirmTicketModel = {};
+                        editConfirmTicketModel.Id = id;
+                        editConfirmTicketModel.ReasonDetail = editConfirm.ReasonDetail;
+                        editConfirmTicketModel.Confirm = editConfirm.Confirm;
+                        editConfirmTicketModel.CrId = '@Model.CrId';
+                        editConfirmTicketModel.Approver = editConfirm.Approver;
+                        editConfirmTicketModel.Progress = editConfirm.Progress;
+                        editConfirmTicketModel.ConfirmClass = editConfirm.ConfirmClass;
+
+                        $.ajax({
+                            url: '@Url.Action("EditConfirmCR")',
+                            data: { editConfirmCR: editConfirmTicketModel },
+                            dataType: 'json',
+                            type: 'POST',
+                            success: function(res) {
+                                if (res.success) {
+                                    confirmGrd.api.reload();
+                                }
+                            }
+                        });
+                        //Close form add item
+                        window.frmEditConfirm.winForm.close();
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+
+        });
+    };
+
+    btnRemoveConfirm.init = function () {
+        btnRemoveConfirm.$el = $(btnRemoveConfirm.el);
+        btnRemoveConfirm.$el.click(function (e) {
+            var ids = confirmGrd.api.selectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: '@Url.Action("DeleteConfirmCR")', ids: ids, options: { width: '450px' }, callback: function () { confirmGrd.api.reload(); } });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                }
+        });
+    };
+
+    confirmGrd.tmp.activate = function (activate) {
+        return activate ? '<i class="fa fa-check green"></i>' : '<i class="fa fa-times" style="color: red"></i>';
+    };
+
+    $(function () {
+        confirm.init();
+    });
+</script>
+
+

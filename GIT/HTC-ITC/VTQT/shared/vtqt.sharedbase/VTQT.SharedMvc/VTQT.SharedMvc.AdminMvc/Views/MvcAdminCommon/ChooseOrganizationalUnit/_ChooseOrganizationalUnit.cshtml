@@ -1,0 +1,250 @@
+﻿@using Newtonsoft.Json
+
+@functions {
+    private string _organizationalField;
+    private string OrganizationalField
+    {
+        get
+        {
+            if (_organizationalField != null)
+                return _organizationalField;
+            var organizationalField = ViewData["OrganizationalField"];
+            if (organizationalField != null)
+            {
+                _organizationalField = Convert.ToString(organizationalField);
+            }
+            return _organizationalField;
+        }
+    }
+
+    private OrganizationalUnitModel _chosenOrganizational;
+    private OrganizationalUnitModel ChosenOrganizational
+    {
+        get
+        {
+            if (_chosenOrganizational != null)
+                return _chosenOrganizational;
+            var chosenOrganizational = ViewData["ChosenOrganizational"];
+            if (chosenOrganizational != null)
+                _chosenOrganizational = chosenOrganizational as OrganizationalUnitModel;
+            else
+                _chosenOrganizational = new OrganizationalUnitModel();
+            return _chosenOrganizational;
+        }
+    }
+
+    private bool? _readOnly;
+    private bool ReadOnly
+    {
+        get
+        {
+            if (_readOnly.HasValue)
+                return _readOnly.Value;
+            var readOnly = ViewData["ReadOnly"];
+            if (readOnly != null)
+                _readOnly = (bool)readOnly;
+            else
+                _readOnly = false;
+            return _readOnly.Value;
+        }
+    }
+
+    private string _selectedCallBack;
+    private string SelectedCallBack
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_selectedCallBack))
+                return _selectedCallBack;
+            var selectedCallBack = ViewData["SelectedCallBack"];
+            if (selectedCallBack != null)
+                _selectedCallBack = (string)selectedCallBack;
+            else
+                _selectedCallBack = string.Empty;
+            return _selectedCallBack;
+        }
+    }
+
+    private string _removedCallBack;
+    private string RemovedCallBack
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_removedCallBack))
+                return _removedCallBack;
+            var removedCallBack = ViewData["RemovedCallBack"];
+            if (removedCallBack != null)
+                _removedCallBack = (string)removedCallBack;
+            else
+                _removedCallBack = string.Empty;
+            return _removedCallBack;
+        }
+    }
+}
+
+@if (string.IsNullOrWhiteSpace(OrganizationalField))
+{
+    return;
+}
+
+@{
+    var jOrganizational = JsonConvert.SerializeObject(new { key = ChosenOrganizational.Id, title = ChosenOrganizational.Name });
+}
+
+<div id="_chooseOrgInput_@(OrganizationalField)" class="input-group">
+    <input type="text" id="@(OrganizationalField)_Text" class="form-control" value="" disabled="disabled" style="border-right: none" />
+    <a data-action="remove" class="input-group-addon hide" style="border-left: none; border-right: none; background-color: #f6f8f9" title="@T("Common.Delete")">
+        <i class="fa fa-times font-red" style="font-size: 11px; line-height: 11px"></i>
+    </a>
+    <a data-action="select" class="input-group-addon" style="border-left: none" title="@string.Format(T("Common.SelectObject"), T("Common.OrganizationalUnit"))">
+        <i class="fa fa-search font-blue"></i>
+    </a>
+    <input type="hidden" id="@(OrganizationalField)_Value" name="@OrganizationalField" value="" />
+</div>
+
+<script>
+    _chooseOrgInput['@(OrganizationalField)'] = {
+        chosenOrganizational: JSON.parse(JSON.stringify(@Html.Raw(jOrganizational))),
+        el: '#_chooseOrgInput_@(OrganizationalField)',
+        $el: {},
+        urlChoose: '@Url.Action("ChooseOrganizationalUnit", "Common")',
+        selectedItem: {},
+        btnSelect: {
+            $el: {},
+            init: function () { }
+        },
+        btnRemove: {
+            $el: {},
+            init: function () { }
+        },
+        organizationalText: {
+            $el: {},
+            init: function () { }
+        },
+        organizationalValue: {
+            $el: {},
+            init: function () { }
+        },
+        init: function () { },
+        openChoose: function () { },
+        select: function () { },
+        remove: function () { },
+        helpers: {
+            bindData: function (org) { }
+        }
+    };
+
+    _chooseOrgInput['@(OrganizationalField)'].init = function () {
+        _chooseOrgInput['@(OrganizationalField)'].$el = $(_chooseOrgInput['@(OrganizationalField)'].el);
+
+        //Init
+        _chooseOrgInput['@(OrganizationalField)'].btnSelect.init();
+        _chooseOrgInput['@(OrganizationalField)'].btnRemove.init();
+        _chooseOrgInput['@(OrganizationalField)'].organizationalText.init();
+        _chooseOrgInput['@(OrganizationalField)'].organizationalValue.init();
+        //BindData
+        _chooseOrgInput['@(OrganizationalField)'].helpers.bindData(_chooseOrgInput['@(OrganizationalField)'].chosenOrganizational);
+    };
+    //Init btnSelect
+    _chooseOrgInput['@(OrganizationalField)'].btnSelect.init = function() {
+        var $el = $(_chooseOrgInput['@(OrganizationalField)'].el).find('a[data-action="select"]');
+        _chooseOrgInput['@(OrganizationalField)'].btnSelect.$el = $el;
+
+        _chooseOrgInput['@(OrganizationalField)'].btnSelect.$el.click(function(e) {
+            _chooseOrgInput['@(OrganizationalField)'].openChoose();
+        });
+    };
+    //Init btnRemove
+    _chooseOrgInput['@(OrganizationalField)'].btnRemove.init = function() {
+        var $el = $(_chooseOrgInput['@(OrganizationalField)'].el).find('a[data-action="remove"]');
+        _chooseOrgInput['@(OrganizationalField)'].btnRemove.$el = $el;
+
+        _chooseOrgInput['@(OrganizationalField)'].btnRemove.$el.click(function(e) {
+            _chooseOrgInput['@(OrganizationalField)'].remove();
+        });
+    };
+    //Init OrganizationalText
+    _chooseOrgInput['@(OrganizationalField)'].organizationalText.init = function() {
+        var $el = $(_chooseOrgInput['@(OrganizationalField)'].el).find('#@(OrganizationalField)_Text');
+        _chooseOrgInput['@(OrganizationalField)'].organizationalText.$el = $el;
+    };
+    //Init OrganizationalValue
+    _chooseOrgInput['@(OrganizationalField)'].organizationalValue.init = function() {
+        var $el = $(_chooseOrgInput['@(OrganizationalField)'].el).find('#@(OrganizationalField)_Value');
+        _chooseOrgInput['@(OrganizationalField)'].organizationalValue.$el = $el;
+    };
+
+    _chooseOrgInput['@(OrganizationalField)'].openChoose = function() {
+        app.window.form.open(
+            {
+                url: _chooseOrgInput['@(OrganizationalField)'].urlChoose,
+                options: { width: '450px', height: '450px' },
+                callback: function() {
+                    _chooseOrgInput['@(OrganizationalField)'].select();
+                }
+            });
+    };
+    _chooseOrgInput['@(OrganizationalField)'].select = function() {
+        _chooseOrgInput['@(OrganizationalField)'].selectedItem = window._chooseOrg.tree.api.getActiveNode();
+        if (_chooseOrgInput['@(OrganizationalField)'].selectedItem) {
+            //Bind Data
+            _chooseOrgInput['@(OrganizationalField)'].helpers.bindData(_chooseOrgInput['@(OrganizationalField)'].selectedItem);
+            //Close Window
+            window._chooseOrg.winForm.close();
+            //CallBack
+            if ('@(SelectedCallBack)' !== '@string.Empty') {
+                @(SelectedCallBack)(_chooseOrgInput['@(OrganizationalField)'].selectedItem);
+            }
+        }
+    };
+    _chooseOrgInput['@(OrganizationalField)'].remove = function() {
+        _chooseOrgInput['@(OrganizationalField)'].organizationalText.$el.val('');
+        _chooseOrgInput['@(OrganizationalField)'].organizationalText.$el.attr('title', '');
+        _chooseOrgInput['@(OrganizationalField)'].organizationalValue.$el.val('');
+
+        if (_chooseOrgInput['@(OrganizationalField)'].organizationalText.$el.val() !== '') {
+            _chooseOrgInput['@(OrganizationalField)'].btnRemove.$el.removeClass('hide');
+        } else {
+            _chooseOrgInput['@(OrganizationalField)'].btnRemove.$el.addClass('hide');
+        }
+        //CallBack
+        if ('@(RemovedCallBack)' !== '@string.Empty') {
+            @(RemovedCallBack)(_chooseOrgInput['@(OrganizationalField)'].selectedItem);
+        }
+    };
+
+    _chooseOrgInput['@(OrganizationalField)'].helpers.bindData = function (org) {
+        if (org.key !== 0) {
+            _chooseOrgInput['@(OrganizationalField)'].organizationalValue.$el.val(org.key);
+        } else {
+            _chooseOrgInput['@(OrganizationalField)'].organizationalValue.$el.val('');
+        }
+
+        if (org.title !== null) {
+            _chooseOrgInput['@(OrganizationalField)'].organizationalText.$el.val(org.title);
+            _chooseOrgInput['@(OrganizationalField)'].organizationalText.$el.attr('title', org.title);
+        } else {
+            _chooseOrgInput['@(OrganizationalField)'].organizationalText.$el.val('');
+            _chooseOrgInput['@(OrganizationalField)'].organizationalText.$el.attr('title', '');
+        }
+
+        if (_chooseOrgInput['@(OrganizationalField)'].organizationalText.$el.val() !== '') {
+            _chooseOrgInput['@(OrganizationalField)'].btnRemove.$el.removeClass('hide');
+        } else {
+            _chooseOrgInput['@(OrganizationalField)'].btnRemove.$el.addClass('hide');
+        }
+
+        if ('@(ReadOnly)' === 'True') {
+            _chooseOrgInput['@(OrganizationalField)'].btnSelect.$el.css("pointer-events", "none");
+            _chooseOrgInput['@(OrganizationalField)'].btnRemove.$el.css("pointer-events", "none");
+            _chooseOrgInput['@(OrganizationalField)'].btnRemove.$el.addClass('hide');
+
+            _chooseOrgInput['@(OrganizationalField)'].btnSelect.$el.find('i').removeClass('font-blue');
+            _chooseOrgInput['@(OrganizationalField)'].btnRemove.$el.find('i').removeClass('font-red');
+        }
+    };
+
+    $(function () {
+        _chooseOrgInput['@(OrganizationalField)'].init();
+    });
+</script>

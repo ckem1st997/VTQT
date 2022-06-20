@@ -1,0 +1,102 @@
+﻿@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@{
+    var hasMessages = ResolveMvcNotifications(null).Any();
+}
+
+@if (hasMessages
+|| ((string)ViewContext.HttpContext.Request.Headers[VTQT.Web.Framework.Mvc.Pjax.Constants.PjaxHeader] != null
+ && bool.Parse((string)ViewContext.HttpContext.Request.Headers[VTQT.Web.Framework.Mvc.Pjax.Constants.PjaxHeader])))
+{
+    <script type="text/javascript">
+        $(function () {
+            var items = $("#notification-list").find("> .msg");
+            items.each(function (i, el) {
+                el = $(el);
+                var type = el.data("type");
+                var sticky = type != "success" && type != "info";
+                var delay = type == "success" ? 2000 : 5000;
+                var notify = function () {
+                    PubSub.publish("message", { text: el.html(), type: type, delay: delay, hide: !sticky });
+                };
+                _.delay(notify, 100 * i);
+            });
+        })
+    </script>
+
+    <div id="notification-list" style="display:none; position:absolute; left:-9999px">
+        @foreach (var message in GetMessages(MvcNotifyType.Error))
+        {
+            <div class="msg" data-type="error">@Html.Raw(message)</div>
+        }
+        @foreach (var message in GetMessages(MvcNotifyType.Success))
+        {
+            <div class="msg" data-type="success">@Html.Raw(message)</div>
+        }
+        @foreach (var message in GetMessages(MvcNotifyType.Info))
+        {
+            <div class="msg" data-type="info">@Html.Raw(message)</div>
+        }
+        @foreach (var message in GetMessages(MvcNotifyType.Warning))
+        {
+            <div class="msg" data-type="warning">@Html.Raw(message)</div>
+        }
+    </div>
+}
+
+@functions {
+    private ICollection<LocalizedString> GetMessages(MvcNotifyType type)
+    {
+        return ResolveMvcNotifications(type).AsReadOnly();
+    }
+
+    private IEnumerable<LocalizedString> ResolveMvcNotifications(MvcNotifyType? type)
+    {
+        IEnumerable<MvcNotifyEntry> result = Enumerable.Empty<MvcNotifyEntry>();
+
+        string key = MvcNotifyAttribute.NotificationsKey;
+        ICollection<MvcNotifyEntry> entries = null;
+
+        var tempData = ViewContext.TempData;
+        if (tempData.ContainsKey(key))
+        {
+            //entries = tempData[key] as ICollection<MvcNotifyEntry>;
+            entries = tempData.Get<ICollection<MvcNotifyEntry>>(key);
+            if (entries != null)
+            {
+                result = result.Concat(entries);
+            }
+        }
+
+        var viewData = ViewContext.ViewData;
+        if (viewData.ContainsKey(key))
+        {
+            entries = viewData[key] as ICollection<MvcNotifyEntry>;
+            if (entries != null)
+            {
+                result = result.Concat(entries);
+            }
+        }
+
+        var internalMvcNotifications = new HashSet<MvcNotifyEntry>(result);
+
+        if (type == null)
+        {
+            return internalMvcNotifications.Select(x => x.Message);
+        }
+
+        return internalMvcNotifications.Where(x => x.Type == type.Value).Select(x => x.Message);
+    }
+}

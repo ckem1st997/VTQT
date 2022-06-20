@@ -1,0 +1,159 @@
+﻿<!-- #region Page Header -->
+<div class="page-bar">
+    @*<ul class="page-breadcrumb"></ul>*@
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+<div class="page-data" style="padding-top: 38px">
+    <div class="row absolute" style="height: 38px; top: 0; padding: 4px 3px">
+        <p>
+            @string.Format(T("Common.SelectObject"), T("Common.Language")):
+            @Html.DropDownList("localeResourceLanguage", ViewBag.AllLanguages as IEnumerable<SelectListItem>,
+                    new { onchange = "localeResourceLanguage.change(this.value);", @class = "input-sm", style = "width: 300px" })
+        </p>
+    </div>
+    <div class="row full-height">
+        @(Html.Kendo().Grid<LocaleStringResourceModel>()
+            .Name("grdIndex")
+            .HtmlAttributes(new { style = "height: 100%" })
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.ResourceName).Filterable(f => f.Cell(c => c.Operator("contains"))).EditorTemplateName("KendoTextBox").Width(500);
+                columns.Bound(x => x.ResourceValue).Sortable(false).Filterable(f => f.Cell(c => c.Operator("contains"))).EditorTemplateName("KendoTextArea").Width(450);
+                columns.Command(commands =>
+                {
+                    commands.Destroy();
+                }).Width(120);
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Create();
+                toolbar.Save();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .Model(m =>
+                {
+                    m.Id(x => x.Id);
+                    m.Field(x => x.LanguageId).DefaultValue(ViewBag.LanguageId);
+                    m.Field(x => x.ResourceValue).DefaultValue("[" + T("Common.EnterValue") + "...]");
+                })
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .ServerOperation(false)
+                .Create(create => create.Action("Resources_Create", "Language", new { languageId = ViewBag.LanguageId }))
+                .Read(read => read.Action("Resources_Read", "Language", new { languageId = ViewBag.LanguageId }))
+                .Update(update => update.Action("Resources_Update", "Language"))
+                .Destroy(destroy => destroy.Action("Resources_Destroy", "Language"))
+                .Events(events => events.Error("grdIndex.error"))
+            )
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(false))
+            .Sortable(sortable => sortable.AllowUnsort(true).SortMode(GridSortMode.SingleColumn))
+            .Filterable(x => x.Extra(true).Mode(GridFilterMode.Row))
+            .Navigatable()
+            .Events(e => e.Edit("grdIndex.edit")))
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Scripts -->
+@section HeadScripts {
+    <script>
+        app.action.urlActiveMenu = '@Url.Action("Index", "Language")';
+        /*admin.breadcrumb.queryString = window.location.search;*/
+
+        //#region Fields
+
+        var master = {
+            urlResources: '@Url.Action("Resources")',
+            localeResourceLanguage: {
+                change: function (languageId) { }
+            },
+            grdIndex: {
+                selector: '#grdIndex',
+                $this: {},
+                api: {},
+                init: function () { },
+                edit: function (e) { },
+                error: function (e) { },
+                keyup: function (e) { }
+            },
+            init: function () { }
+        };
+        var grdIndex = master.grdIndex;
+        var localeResourceLanguage = master.localeResourceLanguage;
+
+        //#endregion
+
+        //#region Events
+
+        localeResourceLanguage.change = function (languageId) {
+            $.pjax({ url: master.urlResources + '?languageId=' + languageId });
+        }
+
+        grdIndex.edit = function (e) {
+            var $value = e.container.find('textarea[name="Value"]');
+            if ($value.length && $value.val() === '[' + '@T("Common.EnterValue").JavaScriptStringEncode()' + '...]') {
+                $value.select();
+            }
+        }
+        grdIndex.error = function (e) {
+            if (e.errors) {
+                var message = '@T("Common.Error").JavaScriptStringEncode():\n';
+                $.each(e.errors, function (key, value) {
+                    if ('errors' in value) {
+                        $.each(value.errors, function () {
+                            message += this + "\n";
+                        });
+                    }
+                });
+                alert(message);
+            }
+        }
+        grdIndex.keyup = function (e) {
+            if ((e.which === 78 || e.keyCode === 78) && e.altKey) { // Alt + N
+                if (grdIndex.api.editable) {
+                    var valueField = grdIndex.api.editable.options.model.Value;
+                    if (grdIndex.api.editable.validatable.validate() && valueField === '') {
+                        alert('@string.Format(T("Common.Validators.InputFields.Required"), T("Common.Fields.ResourceValue")).JavaScriptStringEncode()');
+                    } else {
+                        grdIndex.api.addRow();
+                    }
+                }
+            }
+        }
+
+        //#endregion
+    </script>
+}
+
+@section Scripts {
+    <script>
+
+        //#region Init
+
+        master.init = function () {
+            grdIndex.init();
+        }
+
+        grdIndex.init = function () {
+            grdIndex.$this = $(grdIndex.selector);
+            grdIndex.api = grdIndex.$this.data('kendoGrid');
+
+            grdIndex.api.tbody.keyup(grdIndex.keyup);
+        }
+
+        //#endregion
+
+        //#region Startup
+
+        $(function () {
+            master.init();
+        });
+
+            //#endregion
+    </script>
+}
+<!-- #endregion -->

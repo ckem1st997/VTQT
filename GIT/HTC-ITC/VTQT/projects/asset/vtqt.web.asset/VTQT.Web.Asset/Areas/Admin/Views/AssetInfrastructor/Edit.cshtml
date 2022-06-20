@@ -1,0 +1,818 @@
+﻿@model AssetInfrastructorModel
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right" style="display:flex">
+            <div class="btn-toolbar" role="toolbar" aria-label="Right group">
+                <a class="btn btn-primary btn-sm" href="javascript:void(0)" id="btnEdit"><i class="fa fa-check" aria-hidden="true"></i>Lưu</a>
+                <a href="javascript:void(0)" class="btn btn-danger btn-sm" id="btnBackList"><i class="fa fa-times" aria-hidden="true"></i>Hủy</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+
+<div class="page-data" style="padding-top: 10px">
+    <div class="form fixed-layout-form">
+        <form id="form-data" class="form-horizontal" data-form-type="ajax">
+            <div class="row full-height">
+                <div class="col-md-8">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="row">
+                        <fieldset class="fieldset-no-border">
+                            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase">TÀI SẢN</legend>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.WareHouseItemName, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            <select id="WareHouseItemCode" style="width: 100%"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.DepreciationDuration, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-2 ml-0 pl-0">
+                                            @Html.EditorFor(m => m.DepreciationDuration, new { htmlAttributes = new { style = "width: 100%" } })
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Html.DropDownListFor(m => m.SelectedDepreciationUnit, Model.AvailableDurations, "Thời gian", new { @class = "form-control", @style = "width: 100px" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.Code, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" }, true)
+                                        <div class="col-md-5">
+                                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @style = "width: 100%", @readonly = true })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.WarrantyDuration, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-2 ml-0 pl-0">
+                                            @Html.EditorFor(m => m.WarrantyDuration, new { htmlAttributes = new { style = "width: 100%" } })
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Html.DropDownListFor(m => m.SelectedWarrantyUnit, Model.AvailableDurations, "Thời gian", new { @class = "form-control", @style = "width: 100px" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" }, true)
+                                        <div class="col-md-5">
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.CurrentUsageStatus, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" }, true)
+                                        <div class="col-md-5">
+                                            @Html.DropDownListFor(m => m.CurrentUsageStatus, Model.AvailableAssetStatus, "Tình trạng hiện thời", new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.CategoryId, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" }, true)
+                                        <div class="col-md-5">
+                                            <select id="CategoryId" style="width: 100%"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.CurrentValue, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(m => m.CurrentValue, new { htmlAttributes = new { style = "width: 100%" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.OriginQuantity, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" }, true)
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(m => m.OriginQuantity, new { htmlAttributes = new { style = "width: 100%" } })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.VendorName, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            @Html.TextBoxFor(m => m.VendorName, new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.UnitId, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            @Html.DropDownListFor(m => m.UnitId, Model.AvailableUnits, "Đơn vị tính", new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.Country, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            @Html.TextBoxFor(m => m.Country, new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.OriginUsageStatus, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" }, true)
+                                        <div class="col-md-5">
+                                            @Html.DropDownListFor(m => m.OriginUsageStatus, Model.AvailableAssetStatus, "Tình trạng ghi tăng", new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.ManufactureYear, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            <input name="ManufactureYear" id="ManufactureYear" style="width: 100%" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.OriginValue, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(m => m.OriginValue, new { htmlAttributes = new { style = "width: 100%" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.SoldQuantity, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(m => m.SoldQuantity, new { htmlAttributes = new { style = "width: 100%" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.RecallQuantity, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(m => m.RecallQuantity, new { htmlAttributes = new { style = "width: 100%" } })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.BrokenQuantity, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(m => m.BrokenQuantity, new { htmlAttributes = new { style = "width: 100%" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.Serial, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            <select class="form-control" name="Serial" id="Serial" multiple="multiple" style="width: 100%"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.WarrantyCondition, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 40px" })
+                                        <div class="col-md-5">
+                                            @Html.TextBoxFor(m => m.WarrantyCondition, new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-2", @style = "text-align: left; padding-left: 40px; width: 20.8%" })
+                                <div class="col-md-9" style="width: 71%">
+                                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @style = "width: 100%" })
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="row">
+                        <fieldset class="fieldset-no-border" style="margin-bottom: 5px">
+                            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; padding-left: 40px">THÔNG TIN CHUNG</legend>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.CreatedBy, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 80px" })
+                                <div class="col-md-6">
+                                    <select id="CreatedBy" style="width: 100%"></select>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                @Html.XBaseLabelFor(m => m.CreatedDate, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 80px" })
+                                <div class="col-md-6">
+                                    @Html.EditorFor(m => m.CreatedDate, new { htmlAttributes = new { style = "width: 100%", @readonly = true, disabled = "disabled", @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                @Html.XBaseLabelFor(m => m.AllocationDate, true, new { @class = "control-label col-md-5", @style = "padding-left: 80px" })
+                                <div class="col-md-6">
+                                    @Html.EditorFor(m => m.AllocationDate, new { htmlAttributes = new { style = "width: 100%", @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                @Html.XBaseLabelFor(m => m.Reference, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 80px" })
+                                <div class="col-md-6" style="display:flex; flex-direction: column">
+                                    @if (Model.Reference?.Count > 0)
+                                    {
+                                        IEnumerable<string> RenderReference()
+                                        {
+                                            foreach (var r in Model.Reference)
+                                            {
+                                                var link = "<a href=" + r.Link + ">" + r.Text + "</a>";
+                                                yield return link;
+                                            }
+                                        }
+                                        if (RenderReference()?.Count() > 0)
+                                        {
+                                            foreach (var r in RenderReference())
+                                            {
+                                                @Html.Raw(r);
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <fieldset class="fieldset-no-border">
+                            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; padding-left: 40px">ĐƠN VỊ SỬ DỤNG</legend>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="form-group form-group-sm">
+                                    @Html.XBaseLabelFor(m => m.StationName, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 80px" }, true)
+                                    <div class="col-md-6">
+                                        <select id="StationCode" style="width: 100%"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 5px">
+                                <div class="form-group form-group-sm">
+                                    @Html.XBaseLabelFor(m => m.OrganizationUnitName, true, new { @class = "control-label col-md-5", @style = "text-align: left; padding-left: 80px" }, true)
+                                    <div class="col-md-6">
+                                        <select id="OrganizationUnitId" style="width: 100%"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-11">
+                            <fieldset class="fieldset-no-border">
+                                <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; padding-left: 40px">LỊCH SỬ</legend>
+                                <ul class="list-group-flush" style="margin-left: 40px; height: 190px; overflow-y: auto">
+                                    @{var histories = (List<HistoryModel>)ViewData["histories"];}
+                                    @if (histories?.Count > 0)
+                                    {
+                                        foreach (var h in histories)
+                                        {
+                                            if (h.Action.ToLower().Contains("cấp phát"))
+                                            {
+                                                @Html.Raw($"<li class='list-group-item'><span>{h.TimeStamp.ToString("dd/MM/yyyy")}</span>&emsp;<span style='color: forestgreen; font-weight:bold'>{h.Action}</span></li>")
+                                            }
+                                            else if (h.Action.ToLower().Contains("thu hồi") || h.Action.ToLower().Contains("thanh lý") || h.Action.ToLower().Contains("hỏng"))
+                                            {
+                                                @Html.Raw($"<li class='list-group-item'><span>{h.TimeStamp.ToString("dd/MM/yyyy")}</span>&emsp;<span style='color: red; font-weight:bold'>{h.Action}</span></li>")
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw($"<li class='list-group-item'><span>{h.TimeStamp.ToString("dd/MM/yyyy")}</span>&emsp;<span style='color: cornflowerblue; font-weight:bold'>{h.Action}</span></li>")
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section HeadScripts{
+    <script>
+        var master = {
+            urlEdit: '@Url.Action("Edit")',
+            urlBackList: '@Url.Action("Index")',
+            el: '.page-data',
+            $el: {},
+            form: {
+                el: '#form-data',
+                $el: {},
+                init: function () { }
+            },
+            btnBackList: {
+                el: '#btnBackList',
+                $el: {},
+                init: function () { }
+            },
+            btnEdit: {
+                el: '#btnEdit',
+                $el: {},
+                init: function () { }
+            },
+            warehouseItemCode: {
+                el: '#WareHouseItemCode',
+                $el: {},
+                init: function () { }
+            },
+            stationCode: {
+                el: '#StationCode',
+                $el: {},
+                init: function () { }
+            },
+            organizationUnitId: {
+                el: '#OrganizationUnitId',
+                $el: {},
+                init: function () { }
+            },
+            createdBy: {
+                el: '#CreatedBy',
+                $el: {},
+                init: function () { }
+            },
+            categoryId: {
+                el: '#CategoryId',
+                $el: {},
+                init: function () { }
+            }
+        };
+        var form = master.form;
+        var btnBackList = master.btnBackList;
+        var btnEdit = master.btnEdit;
+        var warehouseItemCode = master.warehouseItemCode;
+        var stationCode = master.stationCode;
+        var organizationUnitId = master.organizationUnitId;
+        var createdBy = master.createdBy;
+        var categoryId = master.categoryId;
+    </script>
+}
+
+@section Scripts{
+    <script>
+        master.init = function () {
+            master.$el = $(master.el);
+            form.init();
+            btnBackList.init();
+            btnEdit.init();
+            warehouseItemCode.init();
+            stationCode.init();
+            organizationUnitId.init();
+            createdBy.init();
+            categoryId.init();
+        };
+
+        form.init = function () {
+            form.$el = $(form.el);
+
+            form.$el.initFormValidation();
+        };
+
+        btnBackList.init = function () {
+            btnBackList.$el = $(btnBackList.el);
+
+            btnBackList.$el.click(function (e) {
+                $.pjax({ url: master.urlBackList });
+            });
+        };
+
+        btnEdit.init = function () {
+            btnEdit.$el = $(btnEdit.el);
+
+            btnEdit.$el.click(function (e) {
+                if (form.$el.valid()) {
+                    var objectsDataForm = form.$el.serializeObject();
+
+                    objectsDataForm.WareHouseItemCode = warehouseItemCode.$el.val();
+                    objectsDataForm.StationCode = stationCode.$el.val();
+                    objectsDataForm.OrganizationUnitId = organizationUnitId.$el.val();
+                    objectsDataForm.CreatedBy = createdBy.$el.val();
+                    objectsDataForm.CategoryId = categoryId.$el.val();
+                    objectsDataForm.Serial = _.join($('#Serial').val(), ',');
+
+                    $.ajax({
+                        type: "POST",
+                        data: objectsDataForm,
+                        dataType: "json",
+                        url: master.urlEdit,
+                        beforeSend: function (jqXhr, settings) {
+                            app.ui.loader(form.$el, true);
+                        },
+                        success: function (res) {
+                            if (res.success) {
+                                $.pjax({ url: master.urlBackList });
+                            }
+                            app.ui.loader(form.$el, false);
+                        }
+                    });
+                }
+            });
+        };
+
+        warehouseItemCode.init = function () {
+            warehouseItemCode.$el = $(warehouseItemCode.el);
+
+            warehouseItemCode.$el.select2({
+                placeholder: 'Vật tư',
+                allowClear: true,
+                ajax: {
+                    delay: 500,
+                    url: '@Url.Action("GetItems")',
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                            page: params.page || 1
+                        }
+
+                        return query;
+                    },
+                    processResults: function (data, params) {
+                        var items = [];
+                        $.each(data.data, function (index, item) {
+                            items.push({
+                                id: item.Code,
+                                text: `[${item.Code}] ${item.Name}`
+                            });
+                        });
+                        params.page = params.page || 1;
+
+                        return {
+                            results: items,
+                            pagination: {
+                                more: (params.page * 10) < data.totalCount
+                            }
+                        };
+                    }
+                }
+            });
+
+            if (!_.isNil('@Model.WareHouseItemCode')) {
+                $.ajax({
+                    url: '@Url.Action("GetItem")' + '?code=' + '@Model.WareHouseItemCode',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (item) {
+                        if (item) {
+                            // create the option and append to Select2
+                            var option = new Option(`[${item.Code}] ${item.Name}`, item.Code, true, true);
+                            warehouseItemCode.$el.append(option).trigger('change');
+
+                            // manually trigger the `select2:select` event
+                            warehouseItemCode.$el.trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: item
+                                }
+                            });
+                        }
+                        return;
+                    }
+                });
+            }
+        };
+
+        stationCode.init = function () {
+            stationCode.$el = $(stationCode.el);
+
+            stationCode.$el.select2({
+                placeholder: 'Trạm',
+                allowClear: true,
+                ajax: {
+                    delay: 500,
+                    url: '@Url.Action("GetStations")',
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                            page: params.page || 1
+                        }
+
+                        return query;
+                    },
+                    processResults: function (data, params) {
+                        var items = [];
+                        $.each(data.data, function (index, item) {
+                            items.push({
+                                id: item.Code,
+                                text: `[${item.Code}] ${item.Name}`
+                            });
+                        });
+                        params.page = params.page || 1;
+
+                        return {
+                            results: items,
+                            pagination: {
+                                more: (params.page * 10) < data.totalCount
+                            }
+                        };
+                    }
+                }
+            });
+
+            if (!_.isNil('@Model.StationCode')) {
+                $.ajax({
+                    url: '@Url.Action("GetStation")' + '?code=' + '@Model.StationCode',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (station) {
+                        if (station) {
+                            // create the option and append to Select2
+                            var option = new Option(`[${station.Code}] ${station.Name}`, station.Code, true, true);
+                            stationCode.$el.append(option).trigger('change');
+
+                            // manually trigger the `select2:select` event
+                            stationCode.$el.trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: station
+                                }
+                            });
+                        }
+                        return;
+                    }
+                });
+            }
+        };
+
+        organizationUnitId.init = function () {
+            organizationUnitId.$el = $(organizationUnitId.el);
+
+            organizationUnitId.$el.select2({
+                placeholder: 'Phòng ban',
+                allowClear: true,
+                ajax: {
+                    delay: 500,
+                    url: '@Url.Action("GetDepartments")',
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                            page: params.page || 1
+                        }
+
+                        return query;
+                    },
+                    processResults: function (data, params) {
+                        var items = [];
+                        $.each(data.data, function (index, item) {
+                            items.push({
+                                id: item.Id,
+                                text: `[${item.Code}] ${item.Name}`
+                            });
+                        });
+                        params.page = params.page || 1;
+
+                        return {
+                            results: items,
+                            pagination: {
+                                more: (params.page * 10) < data.totalCount
+                            }
+                        };
+                    }
+                }
+            });
+
+            if (!_.isNil('@Model.OrganizationUnitId')) {
+                $.ajax({
+                    url: '@Url.Action("GetDepartment")' + '?id=' + '@Model.OrganizationUnitId',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (department) {
+                        if (department) {
+                            // create the option and append to Select2
+                            var option = new Option(`[${department.Code}] ${department.Name}`, department.Id, true, true);
+                            organizationUnitId.$el.append(option).trigger('change');
+
+                            // manually trigger the `select2:select` event
+                            organizationUnitId.$el.trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: department
+                                }
+                            });
+                        }
+                        return;
+                    }
+                });
+            }
+        };
+
+        createdBy.init = function () {
+            createdBy.$el = $(createdBy.el);
+
+            createdBy.$el.select2({
+                placeholder: 'Nhân viên',
+                allowClear: true,
+                ajax: {
+                    delay: 500,
+                    url: '@Url.Action("GetUsers")',
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                            page: params.page || 1
+                        }
+
+                        return query;
+                    },
+                    processResults: function (data, params) {
+                        var items = [];
+                        $.each(data.data, function (index, item) {
+                            items.push({
+                                id: item.Id,
+                                text: `${item.FullName} - ${item.Email} (${item.UserName})`
+                            });
+                        });
+                        params.page = params.page || 1;
+
+                        return {
+                            results: items,
+                            pagination: {
+                                more: (params.page * 10) < data.totalCount
+                            }
+                        };
+                    }
+                }
+            });
+
+            if (!_.isNil('@Model.CreatedBy')) {
+                $.ajax({
+                    url: '@Url.Action("GetUser")' + '?id=' + '@Model.CreatedBy',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (user) {
+                        if (user) {
+                            // create the option and append to Select2
+                            var option = new Option(`${user.FullName} - ${user.Email} (${user.UserName})`, user.Id, true, true);
+                            createdBy.$el.append(option).trigger('change');
+
+                            // manually trigger the `select2:select` event
+                            createdBy.$el.trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: user
+                                }
+                            });
+                        }
+                        return;
+                    }
+                });
+            }
+        };
+
+        categoryId.init = function () {
+            categoryId.$el = $(categoryId.el);
+
+            categoryId.$el.select2({
+                placeholder: 'Loại tài sản',
+                allowClear: true,
+                ajax: {
+                    delay: 500,
+                    url: '@Url.Action("GetCategories")',
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                            page: params.page || 1
+                        }
+
+                        return query;
+                    },
+                    processResults: function (data, params) {
+                        var items = [];
+                        $.each(data.data, function (index, item) {
+                            items.push({
+                                id: item.Id,
+                                text: `[${item.Code}] ${item.Name}`
+                            });
+                        });
+                        params.page = params.page || 1;
+
+                        return {
+                            results: items,
+                            pagination: {
+                                more: (params.page * 10) < data.totalCount
+                            }
+                        };
+                    }
+                }
+            });
+
+            if (!_.isNil('@Model.CategoryId')) {
+                $.ajax({
+                    url: '@Url.Action("GetCategory")' + '?id=' + '@Model.CategoryId',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (category) {
+                        if (category) {
+                            // create the option and append to Select2
+                            var option = new Option(`[${category.Code}] ${category.Name}`, category.Id, true, true);
+                            categoryId.$el.append(option).trigger('change');
+
+                            // manually trigger the `select2:select` event
+                            categoryId.$el.trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: category
+                                }
+                            });
+                        }
+                        return;
+                    }
+                });
+            }
+        };
+
+        $('#WareHouseItemCode').on('select2:select', function (e) {
+            if (!_.isNil(e.params.data.text)) {
+                var lastBracket = (e.params.data.text).indexOf(']');
+                var assetNameLength = (e.params.data.text).length;
+                var assetName = (e.params.data.text).substring(lastBracket + 2, assetNameLength);
+                $('#Name').val(assetName);
+                $('#Name').trigger('change');
+
+                $.ajax({
+                    url: '@Url.Action("GetUnitIdByWareHouseItemCode")',
+                    data: { code: e.params.data.id },
+                    dataType: 'text',
+                    type: 'POST',
+                    success: function (id) {
+                        if (id != null && id != undefined) {
+                            $('#UnitId').val(id);
+                            $('#UnitId').trigger('change');
+                        }
+                    }
+                })
+            }
+        });
+
+        $('#ManufactureYear').kendoNumericTextBox({
+            format: "#",
+            decimals: 0,
+            value: '@Model.ManufactureYear'
+        });
+
+        $(function () {
+            master.init();
+
+            $("#Serial").select2({
+                tags: true,
+                multiple: true,
+                tokenSeparators: [',', ' ']
+            });
+
+            if (!_.isNil('@Model.Serial')) {
+                var tags = '@Model.Serial'.split(',');
+
+                if (tags) {
+                    $.each(tags, function (i, x) {
+                        var option = new Option(x, x, true, true);
+                        $('#Serial').append(option).trigger('change');
+                    });
+                }                               
+            }
+        });
+    </script>
+}

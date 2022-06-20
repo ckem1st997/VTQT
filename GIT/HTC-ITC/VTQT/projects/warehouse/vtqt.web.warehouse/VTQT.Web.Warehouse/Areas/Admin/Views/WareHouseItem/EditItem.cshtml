@@ -1,0 +1,44 @@
+﻿@model WareHouseItemUnitModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Sửa đơn vị</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.ItemId)
+
+                
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.UnitId, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.UnitId, Model.AvailableUnits, "Chọn đơn vị tính", new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ConvertRate, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.ConvertRate, new { htmlAttributes = new { style = "width: 100%" } })
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

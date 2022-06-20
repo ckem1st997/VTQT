@@ -1,0 +1,189 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/Content/bundles/css/admin-custom.css",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Content/admin/css/custom.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/css/app-custom.css",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Content/global/css/custom/spinner.css",
+      "wwwroot/Content/global/css/custom/throbber.css",
+      "wwwroot/Content/global/css/custom/custom.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/css/admin-theme.css",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Content/global/css/components-md.min.css",
+      "wwwroot/Content/global/css/plugins-md.min.css",
+      "wwwroot/Content/admin/css/layout.min.css",
+      "wwwroot/Content/admin/css/themes/darkblue.min.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/css/admin-plugins.css",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Content/global/plugins/OpenSans/css/OpenSans.css",
+      "wwwroot/Content/global/plugins/font-awesome/css/font-awesome.min.css",
+      "wwwroot/Content/global/plugins/flaticon/flaticon.css",
+      "wwwroot/Content/global/plugins/flaticon2/flaticon.css",
+      "wwwroot/Content/global/plugins/keenthemes-icons/font/ki.css",
+      "wwwroot/Content/global/plugins/simple-line-icons/simple-line-icons.min.css",
+      "wwwroot/Content/global/plugins/jquery-ui/jquery-ui.min.css",
+      "wwwroot/Content/global/plugins/bootstrap/css/bootstrap.min.css",
+      "wwwroot/Content/global/plugins/uniform/css/default.css",
+      "wwwroot/Content/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css",
+      "wwwroot/Content/global/plugins/animate/animate.css",
+      "wwwroot/Content/global/plugins/pnotify/pnotify.custom.min.css",
+      "wwwroot/Content/global/plugins/select2/css/select2.min.css",
+      "wwwroot/Content/global/plugins/select2/css/select2-bootstrap.min.css",
+      "wwwroot/Content/global/plugins/fancytree/skin-win8/ui.fancytree.min.css",
+      "wwwroot/Content/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css",
+      "wwwroot/Content/global/plugins/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css",
+      "wwwroot/Content/global/plugins/qTip2/jquery.qtip.min.css",
+      "wwwroot/Content/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css",
+      "wwwroot/Content/global/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css",
+      "wwwroot/Content/global/plugins/intl-tel-input/css/intlTelInput.css",
+      "wwwroot/Content/global/plugins/popModal/popModal.css",
+      "wwwroot/Content/global/plugins/jquery-splitter/jquery.splitter.css",
+      "wwwroot/Content/global/plugins/jquery-scrolling-tabs/jquery.scrolling-tabs.min.css",
+      "wwwroot/Content/global/plugins/kendo-ui/css/kendo.common-office365.min.css",
+      "wwwroot/Content/global/plugins/kendo-ui/css/kendo.office365.min.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/js/admin-head-scripts.js",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Content/global/plugins/modernizr/modernizr.js",
+      "wwwroot/Content/global/plugins/jquery/jquery.min.js",
+      // Comment để fix lỗi SpreadJS: errorCode: 1, errorMessage: "Incorrect file format."
+      //"wwwroot/Scripts/global/app.jquery.upgrade.js",
+      "wwwroot/Content/global/plugins/jquery-pjax/jquery.pjax.js",
+      "wwwroot/Content/global/plugins/kendo-ui/js/kendo.all.min.js",
+      "wwwroot/Content/global/plugins/kendo-ui/js/kendo.aspnetmvc.min.js",
+      "wwwroot/Content/global/plugins/globalize/globalize.js",
+      "wwwroot/Content/global/plugins/globalize/globalize.adapter.js",
+      "wwwroot/Content/global/plugins/js-cookie/js.cookie.min.js",
+      "wwwroot/Content/global/plugins/select2/js/select2.full.min.js",
+      "wwwroot/Content/global/plugins/select2/js/select2.multi-checkboxes.js",
+      "wwwroot/Content/global/plugins/ace/ace.js",
+      "wwwroot/Content/global/plugins/ace/ext-language_tools.js",
+      "wwwroot/Content/global/plugins/ace/ext-searchbox.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/js/admin-plugins.js",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Content/global/plugins/jquery-migrate/jquery-migrate.min.js",
+      "wwwroot/Content/global/plugins/jquery-validation/jquery.validate.min.js",
+      "wwwroot/Content/global/plugins/jquery-validation/additional-methods.min.js",
+      "wwwroot/Content/global/plugins/jquery-unobtrusive-ajax/jquery.unobtrusive-ajax.min.js",
+      "wwwroot/Content/global/plugins/jquery-validate-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "wwwroot/Content/global/plugins/jquery-mousewheel/jquery.mousewheel.min.js",
+      "wwwroot/Content/global/plugins/jquery-ui/jquery-ui.min.js",
+      "wwwroot/Content/global/plugins/bootstrap/js/bootstrap.min.js",
+      "wwwroot/Content/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js",
+      "wwwroot/Content/global/plugins/jquery-blockui/jquery.blockui.min.js",
+      "wwwroot/Content/global/plugins/uniform/js/jquery.uniform.standalone.js",
+      "wwwroot/Content/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js",
+      "wwwroot/Content/global/plugins/moment/moment-with-locales.min.js",
+      "wwwroot/Content/global/plugins/pnotify/pnotify.custom.min.js",
+      "wwwroot/Content/global/plugins/fancytree/jquery.fancytree-all.min.js",
+      "wwwroot/Content/global/plugins/bootstrap-iconpicker/js/iconset/iconset-fontawesome-4.2.0.min.js",
+      "wwwroot/Content/global/plugins/bootstrap-iconpicker/js/iconset/iconset-glyphicon.min.js",
+      "wwwroot/Content/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js",
+      "wwwroot/Content/global/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js",
+      "wwwroot/Content/global/plugins/qTip2/qtip.locales.js",
+      "wwwroot/Content/global/plugins/qTip2/jquery.qtip.min.js",
+      "wwwroot/Content/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js",
+      "wwwroot/Content/global/plugins/imagesloaded/imagesloaded.pkgd.js",
+      "wwwroot/Content/global/plugins/plupload/js/plupload.full.min.js",
+      "wwwroot/Content/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js",
+      "wwwroot/Content/global/plugins/filesize/filesize.min.js",
+      "wwwroot/Content/global/plugins/jquery-dateFormat/dateFormat.min.js",
+      "wwwroot/Content/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js",
+      "wwwroot/Content/global/plugins/intl-tel-input/js/intlTelInput.min.js",
+      "wwwroot/Content/global/plugins/jquery-transit/jquery.transit.js",
+      "wwwroot/Content/global/plugins/popModal/popModal.js",
+      "wwwroot/Content/global/plugins/jquery-splitter/jquery.splitter.js",
+      "wwwroot/Content/global/plugins/jquery-scrolling-tabs/jquery.scrolling-tabs.min.js",
+      "wwwroot/Content/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js",
+      "wwwroot/Content/global/plugins/highcharts/highcharts.js",
+      "wwwroot/Content/global/plugins/highcharts/exporting.js",
+      "wwwroot/Content/global/plugins/highcharts/export-data.js",
+      "wwwroot/Content/global/plugins/lodash/lodash.min.js",
+      "wwwroot/Content/global/plugins/pubsub/pubsub.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/js/admin-scripts.js",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Scripts/admin/admin.apps.js",
+      "wwwroot/Scripts/admin/admin.appSelector.js",
+      "wwwroot/Scripts/admin/admin.breadcrumb.js",
+      "wwwroot/Scripts/admin/admin.menus.js",
+      "wwwroot/Scripts/admin/admin.pageToolbar.js",
+      "wwwroot/Scripts/admin/admin.tooltips.js",
+      "wwwroot/Scripts/admin/admin.init.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/js/admin-declares.js",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Scripts/admin/admin.declares.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/js/app-scripts.js",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Scripts/global/app.system.js",
+      "wwwroot/Scripts/global/app.jquery.utils.js",
+      "wwwroot/Scripts/global/app.common.js",
+      "wwwroot/Scripts/global/app.selectwrapper.js",
+      "wwwroot/Scripts/global/app.throbber.js",
+      "wwwroot/Scripts/global/app.ajax.js",
+      "wwwroot/Scripts/global/app.ajaxForm.js",
+      "wwwroot/Scripts/global/app.doAjax.js",
+      "wwwroot/Scripts/global/app.form.js",
+      "wwwroot/Scripts/global/app.grid.js",
+      "wwwroot/Scripts/global/app.notification.js",
+      "wwwroot/Scripts/global/app.pjax.js",
+      "wwwroot/Scripts/global/app.plugins.js",
+      "wwwroot/Scripts/global/app.tooltips.js",
+      "wwwroot/Scripts/global/app.ui.js",
+      "wwwroot/Scripts/global/app.validation.js",
+      "wwwroot/Scripts/global/app.window.js",
+      "wwwroot/Scripts/global/app.tab.js",
+      "wwwroot/Scripts/global/app.extends.js",
+      "wwwroot/Scripts/global/app.handlers.js",
+      "wwwroot/Scripts/global/app.init.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/js/app-declares.js",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Scripts/global/app.declares.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/bundles/js/admin-theme.js",
+    "sourceMap": true,
+    "inputFiles": [
+      "wwwroot/Content/global/scripts/app.js",
+      "wwwroot/Content/admin/scripts/layout.js",
+      "wwwroot/Content/admin/scripts/demo.js"
+    ]
+  }
+]

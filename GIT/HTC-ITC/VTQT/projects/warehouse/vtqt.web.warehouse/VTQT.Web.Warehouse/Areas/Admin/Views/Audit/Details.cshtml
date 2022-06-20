@@ -1,0 +1,183 @@
+﻿@using VTQT.Core.Events
+@using VTQT.Core.Infrastructure
+@using VTQT.Web.Framework.Events
+
+@model AuditModel
+
+<script>
+        var frmEdit = {
+            grdIndex: {
+                el: '#frmEdit_grdIndex',
+                $el: {},
+                api: {},
+                data: function () { },
+                init: function () { }
+            },
+            btnCancel: {
+                selector: 'a[data-action="cancel"]',
+                $this: {},
+                init: function () { }
+            },
+            btnEdit: {
+                el: 'a[data-action="edit"]',
+                $el: {},
+                init: function () { }
+            },
+            init: function () { }
+        };
+        var grdIndex = frmEdit.grdIndex;
+        var btnCancel = frmEdit.btnCancel;
+        var btnEdit = frmEdit.btnEdit;
+
+         grdIndex.data = function () {
+            var searchModel = {
+                AuditId: '@Model.Id',
+                WareHouesId: '@Model.WareHouseId'
+            };
+            return searchModel;
+        };
+
+</script>
+
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="exportrecall" href="javascript:void(0)" class="btn btn-success btn-sm"><i class="fa fa-print"></i>@T("Common.ExportData.DoneAudit")</a>
+            <a data-action="cancel" href="javascript:void(0)" class="btn blue btn-sm"><i class="fa fa-backward"></i> @T("Common.Back")</a>
+            <a data-action="edit" href="javascript:void(0)" class="btn yellow btn-sm"><i class="flaticon2-pen"></i> @T("Common.Edit")</a>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+<div class="page-data" style="padding-top: 10px">
+    <div class="form fixed-layout-form">
+        <form id="form-data" data-form-type="ajax" class="form-horizontal">
+            <div class="row full-height" style="padding-top: 196px">
+                <div class="row" style="position: absolute; top: 10px; width: 100%">
+                    <div class="col-md-8" style="padding-left: 0">
+                        @Html.HiddenFor(x => x.Id)
+                        @Html.HiddenFor(x => x.WareHouseId)
+                        <fieldset class="fieldset-no-border">
+                            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 99%;">@T("Common.Audit")</legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.VoucherDate, true, new { @class = "control-label col-md-4" }, true)
+                                        <div class="col-md-8">
+                                            @Html.DisplayFor(m => m.VoucherDate)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.WareHouseId, true, new { @class = "control-label col-md-4" })
+                                        <div class="col-md-8">
+                                            @Html.DisplayFor(m => m.WareHouseId, new { list = Model.AvailableWareHouses })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-2" }, true)
+                                <div class="col-md-10" style="width:75%;">
+                                    @Html.DisplayFor(m => m.Description)
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4" style="padding-right: 0">
+                        <fieldset class="fieldset-no-border" style="width:98%;">
+                            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 85%;">@T("Common.InfoGroup")</legend>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.VoucherCode, true, new { @class = "control-label col-md-3" }, true)
+                                <div class="col-md-9">
+                                    @Html.DisplayFor(m => m.VoucherCode)
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.Voucher, true, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DisplayFor(m => m.Voucher)
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.CreatedBy, true, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DisplayFor(m => m.CreatedBy, new { list = Model.AvailableCreatedBy })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.CreatedDate, true, new { @class = "control-label col-md-3" }, true)
+                                <div class="col-md-9">
+                                    @Html.DisplayFor(m => m.CreatedDate)
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="full-height">
+                    @(Html.XBase().TabStrip()
+                        .Name("tabIndex")
+                        .HtmlAttributes(new { @class = "tab-top fixed-layout-tab" })
+                        .Items(async x =>
+                        {
+                            x.Add().Text(T("Common.AuditDetail"))
+                                .Name("tbAuditDetail")
+                                .LinkHtmlAttributes(new { data_tab_name = "AuditDetail" })
+                                .Content(Html.Partial("TabDetailAuditDetail", new AuditDetailSearchModel()).RenderHtmlContent())
+                                .Selected(true);
+
+                            x.Add().Text(T("Common.AuditCouncil"))
+                                .Name("tbAuditCouncil")
+                                .LinkHtmlAttributes(new { data_tab_name = "AuditCouncil" })
+                                .Action("TabDetailAuditCouncil", "Audit", null)
+                                .Ajax();
+
+                            await EngineContext.Current.Resolve<IEventPublisher>().PublishAsync(new TabStripCreated(x, "tabIndex", this.Html));
+                        }))
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+        //Inits
+        frmEdit.init = function() {
+            grdIndex.init();
+            btnCancel.init();
+            btnEdit.init();
+        }
+
+        grdIndex.init = function() {
+            grdIndex.$el = $(grdIndex.el);
+            grdIndex.api = grdIndex.$el.data('kendoGrid');
+        };
+        btnCancel.init = function() {
+            btnCancel.$this = $(btnCancel.selector);
+
+            btnCancel.$this.click(function(e) {
+                $.pjax({ url: '@Url.Action("Index", "Audit")' });
+            });
+        }
+
+        btnEdit.init = function () {
+            btnEdit.$el = $(btnEdit.el);
+            btnEdit.$el.click(function (e) {
+                $.pjax({ url: '@Url.Action("Edit", "Audit")/' + '@Model.Id' });
+            });
+        };
+
+        $('a[data-action="exportrecall"]').click(function (e) {
+            window.location = '@Url.Action("ExportDone", "Audit")/@Model.Id';
+        });
+
+        //Startup
+        $(function() {
+            frmEdit.init();
+        });
+</script>

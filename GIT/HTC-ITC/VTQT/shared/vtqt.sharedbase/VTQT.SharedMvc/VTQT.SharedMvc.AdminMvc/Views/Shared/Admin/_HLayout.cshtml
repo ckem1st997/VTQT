@@ -1,0 +1,311 @@
+﻿@* TODO-XBase: Html.Action/RenderAction => ViewComponent; UserBase *@
+
+@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@inject ILocalizationService tt
+
+@if (ViewBag.IsPjaxRequest ?? false)
+{
+    { await Html.RenderPartialAsync("_Notifications"); }
+    { await Html.RenderPartialAsync("~/Views/Shared/Admin/_PjaxStartup.cshtml"); }
+    { await RenderSectionAsync("HeadScripts", false); }
+    <script>
+        admin.breadcrumb.init(app.route.appType, app.route.appControllerName, app.route.appActionName);
+    </script>
+    @RenderBody()
+    <script>
+        admin.initPjax();
+    </script>
+    { await RenderSectionAsync("StartupScripts", false); }
+    { await RenderSectionAsync("scripts", false); }
+    return;
+}
+
+@{
+    var appContext = EngineContext.Current.Resolve<IAppContext>();
+    var workContext = EngineContext.Current.Resolve<IWorkContext>();
+
+    var currentUiCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
+    var currentApp = appContext.CurrentApp;
+    var cdn = currentApp.CdnUrl;
+    var version = AppHelper.FrameworkAssembly.Version;
+    var allApps = appContext.AllApps.Where(w => w.ShowOnMenu);
+    //var currentUser = WorkContext.UserBase;
+    //var user = WorkContext.Account != null ? WorkContext.Account.UserBase : null;
+
+    //if (user != null && user.UserType != (int)UserType.Employee)
+    //{
+    //    // ReSharper disable once AssignNullToNotNullAttribute
+    //    Response.Redirect(Url.Action("Forbidden", "ClientError"));
+    //    return;
+    //}
+    //if (currentApp.AppType.Equals(AppHelperBase.Apps.System.AppType, StringComparison.OrdinalIgnoreCase))
+    //{
+    //    if (currentUser != null && !currentUser.IsAdmin())
+    //    {
+    //        // ReSharper disable once AssignNullToNotNullAttribute
+    //        Response.Redirect(Url.Action("Forbidden", "ClientError"));
+    //        return;
+    //    }
+    //}
+}
+
+<!DOCTYPE html>
+<html lang="@currentUiCulture.TwoLetterISOLanguageName">
+<head>
+    @*
+        Fix: Tắt trình duyệt đi, sau đó mở lại (có setting open lại các tab ở phiên trước) thì trang đang giữ lại state trước đó => bị sai
+        VD: Form BC gốc > chọn kỳ T7 > close browser > open lại > bị selected T7 nhưng hiển thị là T8
+    *@
+    <script>
+        window.onload = function () {
+            if (!sessionStorage['firstLoad']) {
+                sessionStorage['firstLoad'] = true;
+                window.location.reload();
+            }
+        };
+    </script>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    @Html.MetaAcceptLanguage()
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="apple-touch-icon" href="@cdn/Content/global/img/apple-touch-icon.png?version=@version">
+    <link rel="shortcut icon" href="@cdn/Content/global/img/favicon.ico?version=@version" />
+
+    <!-- Plugins Styles -->
+    <link href="@cdn/Content/bundles/css/admin-plugins.min.css?version=@version" rel="stylesheet" />
+
+    <!-- Theme Styles -->
+    <link href="@cdn/Content/bundles/css/admin-theme.min.css?version=@version" rel="stylesheet" type="text/css" />
+    <!-- Custom Styles -->
+    <link href="@cdn/Content/bundles/css/app-custom.min.css?version=@version" rel="stylesheet" />
+    <link href="@cdn/Content/bundles/css/admin-custom.min.css?version=@version" rel="stylesheet" type="text/css" />
+
+    <!-- Head Scripts -->
+    @*<script src="@cdn/Content/bundles/js/admin-head-scripts.min.js?version=@version"></script>*@
+    <script src="@cdn/Content/bundles/js/admin-head-scripts.js?version=@version"></script>
+
+    <script src="@cdn/Content/global/plugins/kendo-ui/js/cultures/kendo.culture.@(currentUiCulture).min.js?version=@version"></script>
+    <script src="@cdn/Content/global/plugins/kendo-ui/js/messages/kendo.messages.@(currentUiCulture).min.js?version=@version"></script>
+    <script>kendo.culture("@currentUiCulture");</script>
+    <script src="@(cdn + "/Content/global/plugins/globalize/cultures/globalize.culture.{0}.js".FormatInvariant(currentUiCulture.ToString()))?version=@version"></script>
+    <script>$.fn.select2.defaults.set('theme', 'bootstrap');</script>
+    @if (!workContext.IsEnglishCulture)
+    {
+        <script src="@cdn/Content/global/plugins/select2/js/i18n/@(currentUiCulture.TwoLetterISOLanguageName).js?version=@version"></script>
+    }
+
+    @{ await Html.RenderPartialAsync("_Enums"); }
+    @{ await Html.RenderPartialAsync("_LocaleStringResources"); }
+
+    @*<script src="@cdn/Content/bundles/js/app-declares.min.js?version=@version" type="text/javascript"></script>
+    <script src="@cdn/Content/bundles/js/admin-declares.min.js?version=@version" type="text/javascript"></script>*@
+    <script src="@cdn/Content/bundles/js/app-declares.js?version=@version" type="text/javascript"></script>
+    <script src="@cdn/Content/bundles/js/admin-declares.js?version=@version" type="text/javascript"></script>
+</head>
+<body class="h-layout page-quick-sidebar-over-content page-content-white page-md page-full-width">
+    <!-- Loader -->
+    <div class="page-loader">
+        <svg class="amz-spinner" width="65px" height="65px" viewBox="0 0 66 66">
+            <circle class="path" fill="none" stroke-width="2" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+    <!-- Header -->
+    <div class="page-header navbar navbar-static-top">
+        <div class="page-header-inner">
+            @*@if (currentUser != null && currentUser.IsAdmin())
+        {
+            <div id="admin_appSelector_container">
+                <a href="javascript:;" id="admin_appSelector" title="Danh sách ứng dụng">
+                    <i class="flaticon-squares-2"></i>
+                </a>
+            </div>
+        }*@
+            <div id="admin_appSelector_content_container">
+                <div class="app-selector-content tiles">
+                    @if (allApps != null && allApps.Any())
+                    {
+                        foreach (var item in allApps)
+                        {
+                            <div class="tile" style="background: @item.BackgroundColor">
+                                <div class="tile-body">
+                                    <i class="fa @item.Icon"></i>
+                                </div>
+                                <div class="tile-object">
+                                    <div class="name">
+                                        <a href="@item.Url" target="_blank" title="@item.Description">@item.Name</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="page-logo">
+                <a href="@Url.Action("Index", "Home", new { area = AreaNames.Admin })">
+                    <img src="@cdn/Content/global/img/logo.png" alt="logo" class="logo-default" />
+                </a>
+            </div>
+            @{ await Html.RenderPartialAsync("~/Views/MvcAdminCommon/_HMenu.cshtml"); }
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse" style="display: none">
+                <span></span>
+            </a>
+            <div class="top-menu">
+                <ul class="nav navbar-nav">
+                    @{ await Html.RenderPartialAsync("~/Views/MvcAdminCommon/LanguageSelector.cshtml"); }
+                    @*@if (currentUser != null)
+                {
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            @if (!string.IsNullOrEmpty(currentUser.Avatar))
+                            {
+                                <img alt="" class="img-circle" src="@currentUser.Avatar" />
+                            }
+                            else
+                            {
+                                <i class="icon-user"></i>
+                            }
+                            <span class="username username-hide-on-mobile">
+                                @currentUser.Name
+                            </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default" style="left: -28px">
+                            <li>
+                                <a href="javascript:document.getElementById('logoutForm').submit()">
+                                    <i class="fa fa-sign-out"></i> @tt.GetResource("Common.SignOut")
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }*@
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="icon-user"></i>
+                            <span class="username username-hide-on-mobile">
+                                @User?.Identity?.Name
+                            </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default" style="left: -28px">
+                            <li>
+                                <a href="javascript:document.getElementById('logoutForm').submit()">
+                                    <i class="fa fa-sign-out"></i> @tt.GetResource("Common.SignOut")
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                @if (currentApp.Id == "4")
+            {
+                <div class="theme-panel hidden-xs hidden-sm">
+                    <div class="toggler">
+                        <i class="flaticon-cogwheel-2" style="font-size:24px;margin-top:-7px;margin-left:-7px;"></i>
+                    </div>
+                    <div class="toggler-close">
+                    </div>
+                    <div class="theme-options">
+                        <div class="theme-option">
+                            <a id="admin_btnClearCache" href="javascript:;" class="btn default btn-sm no-pjax">
+                                <i class="fa fa-fw fa-trash-o"></i>
+                                @tt.GetResource("Common.ClearCache")
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+    <!-- Container -->
+    <div class="page-container">
+        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar navbar-collapse collapse">
+                <div class="page-sidebar-wrapper">
+                    @*@{ Html.RenderAction("_MobileMenu", "Common"); }*@
+                </div>
+            </div>
+        </div>
+        <div class="page-content-wrapper">
+            <div class="page-content" style="margin-left: 0 !important">
+                @{ await Html.RenderPartialAsync("_Notifications"); }
+                @{ await RenderSectionAsync("HeadScripts", false); }
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <!-- Form Helper -->
+    @using (Html.BeginForm("SignOut", "MvcAccount", new { area = "" }, FormMethod.Post, true, new { id = "logoutForm", style = "display: none !important" })) { }
+
+    <!-- Plugins -->
+    @*<script src="@cdn/Content/bundles/js/admin-plugins.min.js?version=@version" type="text/javascript"></script>*@
+    <script src="@cdn/Content/bundles/js/admin-plugins.js?version=@version" type="text/javascript"></script>
+    <script src="@cdn/Content/global/plugins/ckeditor/ckeditor.js?version=@version" type="text/javascript"></script>
+
+    <script>moment.locale('@currentUiCulture.TwoLetterISOLanguageName');</script>
+
+    <!-- Theme Scripts -->
+    @*<script src="@cdn/Content/bundles/js/admin-theme.min.js?version=@version" type="text/javascript"></script>*@
+    <script src="@cdn/Content/bundles/js/admin-theme.js?version=@version" type="text/javascript"></script>
+    <!-- Application Script -->
+    @*<script src="@cdn/Content/bundles/js/app-scripts.min.js?version=@version"></script>*@
+    <script src="@cdn/Content/bundles/js/app-scripts.js?version=@version"></script>
+
+    @*<script src="@cdn/Content/bundles/js/admin-scripts.min.js?version=@version"></script>*@
+    <script src="@cdn/Content/bundles/js/admin-scripts.js?version=@version"></script>
+
+    @if (!workContext.IsEnglishCulture)
+    {
+        <script src="@cdn/Content/global/plugins/jquery-validation/localization/messages_@(currentUiCulture.TwoLetterISOLanguageName).min.js?version=@version"></script>
+        <script src="@cdn/Content/global/plugins/plupload/js/i18n/@(currentUiCulture.TwoLetterISOLanguageName).js?version=@version"></script>
+        <script src="@cdn/Content/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.@(currentUiCulture.TwoLetterISOLanguageName).js?version=@version"></script>
+    }
+
+    @{ await Html.RenderPartialAsync("_AppInit"); }
+
+    <script>
+        // admin.urls
+        admin.urls.clearCache = '@Url.Action("ClearCache", "AdminMvcCommon")';
+        admin.urls.breadcrumb = '@Url.Action("Breadcrumb", "AdminMvcCommon")';
+
+        app.pjax.init();
+        app.init();
+        admin.init();
+
+        $(window).on('load', function () {
+            $(".page-loader").fadeOut(1000);
+        });
+
+        // Debug Info
+        var __mapPath = '@CommonHelper.MapPath("/wwwroot/_AppFiles/Test/Test.txt")';
+        var __curDir = '@System.IO.Directory.GetCurrentDirectory()';
+        var __appRoot = '@CommonHelper.GetApplicationRoot()';
+    </script>
+
+    <div id="__scriptsSection">
+        @{ await RenderSectionAsync("StartupScripts", false); }
+        @{ await RenderSectionAsync("scripts", false); }
+    </div>
+</body>
+</html>

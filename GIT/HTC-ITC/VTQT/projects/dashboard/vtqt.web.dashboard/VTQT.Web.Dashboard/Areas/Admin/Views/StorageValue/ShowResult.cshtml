@@ -1,0 +1,580 @@
+﻿@using VTQT.Web.Dashboard.Models
+@model SelectListItem
+@{
+    Layout = null;
+}
+<script>
+    var spreadNS = GC.Spread.Sheets;
+</script>
+
+@section HeadScripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+    <link href="~/SpreadJS.12.0.7/css/gc.spread.sheets.12.0.7.css" rel="stylesheet"/>
+    <link href="~/SpreadJS.12.0.7/css/gc.spread.sheets.excel2016colorful.12.0.7.css" rel="stylesheet"/>
+    <script src="~/SpreadJS.12.0.7/scripts/gc.spread.sheets.all.12.0.7.min.js"></script>
+    <script src="~/SpreadJS.12.0.7/scripts/interop/gc.spread.excelio.12.0.7.min.js"></script>
+    <script src="~/SpreadJS.12.0.7/scripts/interop/gc.spread.sheets.migration.12.0.7.min.js"></script>
+    <script src="~/SpreadJS.12.0.7/scripts/license.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.27/jquery.autocomplete.min.js"></script>
+    <script src="~/js/pagination.min.js"></script>
+
+}
+
+<script>   
+       var numberPageCache=0;
+       var ss = new GC.Spread.Sheets.Workbook(
+                    document.getElementById("ss"),
+                    { sheetCount: 1 }
+                );
+        $(document).ready(function () {
+            excelIO = new GC.Spread.Excel.IO();
+             processFileSelected(0);
+            // $("#getData").click(function () {
+            // ExportFile();
+            // });
+            var zoomFactorDOM = document.getElementById('zoomFactor');
+            zoomFactorDOM.addEventListener('input', function() {
+                var sheet = ss.getActiveSheet();
+                if (sheet) {
+                    var zoomFactor = parseFloat(this.value);
+                    zoomFactorDOM.value = zoomFactor;
+                    sheet.zoom(zoomFactor);
+                }
+            });         
+            ss.getActiveSheet();
+            
+                            //init a table sheet
+        
+    
+        });
+         // Create importJSON()
+            function importJSON(spreadJson) {
+                if (spreadJson.version && spreadJson.sheets) {
+                    ss.fromJSON(spreadJson);
+                    ss.focus();
+                    var ssa = ss.getActiveSheet();                                
+                ssa.zoom(0.7);
+          
+            }
+                }
+        
+            // Create importSpreadFromExcel()
+            function importSpreadFromExcel(file, options) {
+                excelIO.open(
+                    file,
+                    function (json) {
+                        importJSON(json);
+                    },
+                    function (e) {
+                        console.log(e);
+                    },
+                    options
+                );
+                //   debugger;
+            }
+            // Create importSpreadFromJSON()
+            function importSpreadFromJSON(file) {
+                function importSuccessCallback(responseText) {
+                    var spreadJson = JSON.parse(responseText);
+                    importJSON(spreadJson);
+                }
+                var reader = new FileReader();
+                reader.onload = function () {
+                    importSuccessCallback(this.result);
+                };
+                reader.readAsText(file);
+                return true;
+            }
+        
+            // Create importFile() function to decide if a file is .xlsx or .JSON/.SSJSON
+            function importFile(file) {
+                var fileName = file.name;
+                var index = fileName.lastIndexOf(".");
+                var fileExt = fileName.substr(index + 1).toLowerCase();
+                if (fileExt === "json" || fileExt === "ssjson") {
+                    importSpreadFromJSON(file);
+                } else if (fileExt === "xlsx") {
+                    importSpreadFromExcel(file);
+                }
+            }
+            // Create processFileSelected()
+            function processFileSelected(numberPage) {
+                    try {
+                        const formData = new FormData($('#formAdd')[0]); 
+                        numberPage===undefined?0:numberPage;
+                        var file;
+                        $.ajax({
+                        url: "@Url.Action("GetResultPage")/?NameColumn="+$("#NameColumn").val()+""+"&start="+numberPage,
+                        type: "post",
+                        data: formData, 
+                        cache: false, 
+                        contentType: false, 
+                        processData: false,
+                        async: false,
+                        beforeSend: function (jqXhr, settings) {
+                            app.ui.loader(grdIndex.$this, true);
+                        },
+                        success:function (msg){
+                            $('#example').pagination({
+                            total:$("#countResultResponse").val(),
+                            current: numberPageCache+1,
+                            length: 100,
+                            size: 3,
+                            click: function(options,$target) {
+                                $target.next(".show").text('Current: ' + options.current);
+                                numberPageCache = options.current-1;
+                                processFileSelected(numberPageCache);
+                            }
+                            });
+                            $("#numberPage").val(numberPage+1+"/"+Math.ceil(msg.TotalCount/100));
+                        //    $("#countResult").html("Có "+msg.TotalCount+" kết quả tìm kiếm");
+                            $("#countResult").html("Có "+ msg.TotalCount+" kết quả phù hợp, có "+ $("#countResultResponse").val()+" kết quả thêm thành công !");
+                            file = new File([base64ToArrayBuffer(msg.FileConvert)], "TemplateResult.xlsx", { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                            app.ui.loader(grdIndex.$this, false);
+                    },
+                    error:function (msg){
+                         notify({ text: "Có lỗi xảy ra với trong quá trình tìm kiếm, xin vui lòng tải lại trang và thử lại hoặc liên hệ với bộ phận IT !", type: 'err' });
+                        }
+                    });
+        
+                        if (!file) 
+                            return false;
+                        //  fileSelector.innerHTML = "";
+                        return importFile(file);
+                    }
+                    catch(err) {
+                        CheckErrorToFilePjaxStorageValue();
+                    }
+        
+                }
+        
+            function  base64ToArrayBuffer  (base64)  {
+                    try
+                    {
+                        var binaryString = window.atob(base64);
+                        var binaryLen = binaryString.length;
+                        var bytes = new Uint8Array(binaryLen);
+                        for (var i = 0; i < binaryLen; i++) {
+                            var ascii = binaryString.charCodeAt(i);
+                            bytes[i] = ascii;
+                    }
+                        return bytes;
+                    }
+                    catch(err)
+                    {
+                        CheckErrorToFilePjaxStorageValue();
+        
+                    }
+        
+                }
+        
+        
+            function CheckErrorToFilePjaxStorageValue(){
+                  notify({ text: "Có lỗi xảy ra với File, xin vui lòng xem xét lại File hoặc liên hệ với bộ phận IT !", type: 'err' });
+                  $.pjax({ url: '/Admin/StorageValue' });
+            }
+
+ </script>
+
+<style>
+     /*table>thead>tr>th{*/
+     /*   background-color: #0a6332 !important;*/
+     /*   width: auto !important;*/
+     /*   height: 10px !important;       */
+     /*   }*/
+     /*   td.last {*/
+     /*       width: 1px;*/
+     /*       white-space: nowrap;*/
+     /*   }*/
+     #example th{
+         white-space: nowrap;
+     }
+          #example td{
+              white-space: nowrap;
+          } 
+                   #example thead tr{
+            background: bisque;
+            text-align: center;
+          }            
+                 #example tbody tr td{
+            border-bottom:1px solid rgba(0, 0, 0, 0.15);
+            text-align: center;
+          }
+     /*#example_info{*/
+     /*    position: absolute;*/
+     /*    bottom: 0;*/
+     /*}*/
+     /*#example_paginate{*/
+     /*     position: absolute;*/
+     /*     bottom: 0;*/
+     /*     right: 0;*/
+     /*}*/
+     /*#example_wrapper{*/
+     /*   height: 100%;*/
+     /*}*/
+</style>
+<div class="form fixed-layout-form" style="padding: 0px !important;">
+    <form class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Kết quả </h4>
+            </div>
+            <div class="modal-body" style="height: 90%">
+                <div class="full-height">
+                    <div id="ss" class="spread-container" style="height: 97%"> </div>
+                </div>
+
+            </div>
+            <div class="footer" style="display:flex;margin-top:10px; border-top:1px solid #cdcdcd;">
+                <div style="margin: auto; display: flex; align-items: center; font-weight: 500;">
+                    Phóng to/ Thu nhỏ (Excel):
+                    <input style="display: inline;width: auto;margin-left:5px" id="zoomFactor" type="range" name="points" min="0.3" max="1.5" value="0.7" step="0.01"/>
+                </div>
+                <a style="margin-left: 5px;display:none" id="searchData" data-action="search" href="javascript:void(0)" class="btn yellow btn-sm">
+                    <i class="fa fa-search"></i> Tìm kiếm
+                </a>
+                <div style="margin:auto;display:flex;align-items:center">
+                    <ul id="example" class="pagination"></ul>
+                    <div style="margin-left: 5px; font-weight: 500;" id="countResult">Có 0 kết quả tìm kiếm</div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="/DataTable/datatables.min.css"/>
+
+<script type="text/javascript" src="/DataTable/datatables.min.js"></script>
+<style>
+
+
+
+
+    .breadcrumbs {
+        border: 1px solid #cbd2d9;
+        border-radius: 0.3rem;
+        display: inline-flex;
+        overflow: hidden;
+        margin-left: 15px;
+    }
+
+    .breadcrumbs__item {
+        background: #fff;
+        color: #333;
+        outline: none;
+        padding: 0.75em 0.75em 0.75em 1.25em;
+        position: relative;
+        text-decoration: none;
+        transition: background 0.2s linear;
+    }
+
+        .breadcrumbs__item:hover:after,
+        .breadcrumbs__item:hover {
+            background: #edf1f5;
+        }
+
+        /*        .breadcrumbs__item:focus:after,
+                        .breadcrumbs__item:focus,
+                        .breadcrumbs__item.is-active:focus {
+                            background: #323f4a;
+                            color: #fff;
+                        }*/
+
+        .breadcrumbs__item:after,
+        .breadcrumbs__item:before {
+            background: white;
+            bottom: 0;
+            clip-path: polygon(50% 50%, -50% -50%, 0 100%);
+            content: "";
+            left: 100%;
+            position: absolute;
+            top: 0;
+            transition: background 0.2s linear;
+            width: 1em;
+            z-index: 1;
+        }
+
+        .breadcrumbs__item:before {
+            background: #cbd2d9;
+            margin-left: 1px;
+        }
+
+        .breadcrumbs__item:last-child {
+            border-right: none;
+        }
+
+        .breadcrumbs__item.is-active {
+            background: #323f4a;
+            color: white;
+        }
+
+
+    div .remove-opt-btn:hover {
+        background-color: rgb(0, 136, 255);
+        border-radius: 15%;
+        color: white !important;
+    }
+
+    .select2-container--bootstrap .select2-selection {
+        border-color: #0088ff !important;
+    }
+
+    .search-class input {
+        border-color: #0088ff !important;
+    }
+
+    ul .pagination li.active a {
+        border-radius: 100%;
+        background-color: #1696ad;
+        border: none;
+    }
+
+    ul.pagination li a {
+        border-radius: 100%;
+        background-color: white;
+        border: none;
+        font-weight: 500;
+    }
+
+    ul.pagination li span {
+        border: none;
+        font-weight: 500;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 191, 191, 191, .8 ) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+    }
+
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 160px;
+        overflow: hidden;
+        font-family: 'Lato', sans-serif;
+        font-size: 35px;
+        line-height: 40px;
+        color: #ecf0f1;
+    }
+
+    .content__container {
+        font-weight: 600;
+        overflow: hidden;
+        height: 40px;
+        padding: 0 40px;
+    }
+
+        .content__container:before {
+            content: '[';
+            left: 0;
+        }
+
+        .content__container:after {
+            content: ']';
+            position: absolute;
+            right: 0;
+        }
+
+        .content__container:after, .content__container:before {
+            position: absolute;
+            top: 0;
+            color: #16a085;
+            font-size: 42px;
+            line-height: 40px;
+            -webkit-animation-name: opacity;
+            -webkit-animation-duration: 2s;
+            -webkit-animation-iteration-count: infinite;
+            animation-name: opacity;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+    .content__container__text {
+        display: inline;
+        float: left;
+        margin: 0;
+    }
+
+    .content__container__list {
+        margin-top: 0;
+        padding-left: 69px;
+        text-align: left;
+        list-style: none;
+        -webkit-animation-name: change;
+        -webkit-animation-duration: 10s;
+        -webkit-animation-iteration-count: infinite;
+        animation-name: change;
+        animation-duration: 10s;
+        animation-iteration-count: infinite;
+    }
+
+    .content__container__list__item {
+        line-height: 40px;
+        margin: 0;
+    }
+
+    @@-webkit-keyframes opacity {
+        0%, 100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @@-webkit-keyframes change {
+        0%, 12.66%, 100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        16.66%, 29.32% {
+            transform: translate3d(0, -25%, 0);
+        }
+
+        33.32%, 45.98% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        49.98%, 62.64% {
+            transform: translate3d(0, -75%, 0);
+        }
+
+        66.64%, 79.3% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        83.3%, 95.96% {
+            transform: translate3d(0, -25%, 0);
+        }
+    }
+
+    @@-o-keyframes opacity {
+        0%, 100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @@-o-keyframes change {
+        0%, 12.66%, 100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        16.66%, 29.32% {
+            transform: translate3d(0, -25%, 0);
+        }
+
+        33.32%, 45.98% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        49.98%, 62.64% {
+            transform: translate3d(0, -75%, 0);
+        }
+
+        66.64%, 79.3% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        83.3%, 95.96% {
+            transform: translate3d(0, -25%, 0);
+        }
+    }
+
+    @@-moz-keyframes opacity {
+        0%, 100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @@-moz-keyframes change {
+        0%, 12.66%, 100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        16.66%, 29.32% {
+            transform: translate3d(0, -25%, 0);
+        }
+
+        33.32%, 45.98% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        49.98%, 62.64% {
+            transform: translate3d(0, -75%, 0);
+        }
+
+        66.64%, 79.3% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        83.3%, 95.96% {
+            transform: translate3d(0, -25%, 0);
+        }
+    }
+
+    @@keyframes opacity {
+        0%, 100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @@keyframes change {
+        0%, 12.66%, 100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        16.66%, 29.32% {
+            transform: translate3d(0, -25%, 0);
+        }
+
+        33.32%, 45.98% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        49.98%, 62.64% {
+            transform: translate3d(0, -75%, 0);
+        }
+
+        66.64%, 79.3% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        83.3%, 95.96% {
+            transform: translate3d(0, -25%, 0);
+        }
+    }
+
+    body.loading .modal {
+        overflow: hidden;
+    }
+
+    body.loading .modal {
+        display: block;
+    }
+</style>

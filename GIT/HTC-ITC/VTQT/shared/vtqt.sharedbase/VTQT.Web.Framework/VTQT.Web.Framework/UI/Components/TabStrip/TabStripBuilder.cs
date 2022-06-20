@@ -1,0 +1,74 @@
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace VTQT.Web.Framework.UI
+{
+    public class TabStripBuilder : ComponentBuilder<TabStrip, TabStripBuilder>
+    {
+        public TabStripBuilder(TabStrip Component, IHtmlHelper htmlHelper)
+            : base(Component, htmlHelper)
+        {
+        }
+
+        public TabStripBuilder Items(Action<TabFactory> addAction)
+        {
+            var factory = new TabFactory(base.Component.Items, this.HtmlHelper);
+            addAction(factory);
+            return this;
+        }
+
+        public TabStripBuilder Position(TabsPosition value)
+        {
+            base.Component.Position = value;
+            return this;
+        }
+
+        public TabStripBuilder Style(TabsStyle value)
+        {
+            base.Component.Style = value;
+            return this;
+        }
+
+        public TabStripBuilder Stacked(bool value)
+        {
+            base.Component.Stacked = value;
+            return this;
+        }
+
+        public TabStripBuilder Fade(bool value)
+        {
+            base.Component.Fade = value;
+            return this;
+        }
+
+        public TabStripBuilder XBaseTabSelection(bool value)
+        {
+            base.Component.XBaseTabSelection = value;
+            return this;
+        }
+
+        public TabStripBuilder OnAjaxBegin(string value)
+        {
+            base.Component.OnAjaxBegin = value;
+            return this;
+        }
+
+        public TabStripBuilder OnAjaxSuccess(string value)
+        {
+            base.Component.OnAjaxSuccess = value;
+            return this;
+        }
+
+        public TabStripBuilder OnAjaxFailure(string value)
+        {
+            base.Component.OnAjaxFailure = value;
+            return this;
+        }
+
+        public TabStripBuilder OnAjaxComplete(string value)
+        {
+            base.Component.OnAjaxComplete = value;
+            return this;
+        }
+    }
+}

@@ -1,0 +1,236 @@
+﻿@model ProblemTicketModel
+@{ 
+    Layout = null;
+}
+
+<script>
+    var noc = {
+        formNoc:{
+            el: '#form-noc',
+            $el: {},
+            init: function() { },
+            data: []
+        },
+        init: function () { }
+    }
+    
+    var formNoc = noc.formNoc;
+</script>
+
+<div class="noc-detail row full-height">
+    <form id="form-noc">
+        <div class="row" style="margin-bottom: 5px; margin-top: 20px">
+            @Html.HiddenFor(m => m.ProblemTicketId)
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TicketArea, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.TicketArea, Model.AvailableTicketAreas, "Vùng sự cố", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TicketProvince, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.TicketProvince, Model.AvailableTicketProvinces, "Tỉnh sự cố", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 5px">
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ProcessingUnit, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" }, true)
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.ProcessingUnit, Model.AvailableOrganizationUnits, "Đơn vị xử lý", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.KindOfReason, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.KindOfReason, Model.AvailableKindOfReasons, "Loại nguyên nhân", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 5px">
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.DetailReason, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        <select id="DetailReason" name="DetailReason" style="width: 100%"></select>
+                        @*@Html.DropDownListFor(m => m.DetailReason, Model.AvailableDetailReasons, "Nguyên nhân chi tiết", new { @class = "form-control", @style = "width: 100%" })*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ChannelCapacity, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(m => m.ChannelCapacity, new { htmlAttributes = new { style = "width: 100%" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 5px">
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.EcalatePosition, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(m => m.EcalatePosition, new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ProcessingDepartment, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.ProcessingDepartment, Model.AvailableOrganizationUnits, "Các bộ phận phải xử lý sự cố", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 5px">
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.SlaOver, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(m => m.SlaOver, new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ImportantTicket, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(m => m.ImportantTicket, new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 5px">
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TimeMinus, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-2" style="width: 14%">
+                        @(Html.Kendo().NumericTextBox<int>()
+                            .Name("HourTimeMinus")
+                            .Min(0)
+                            .HtmlAttributes(new {style = "width: 100%; padding: 0"})
+                            .Spinners(false)
+                            .Value(Model.HourTimeMinus)
+                        )
+                        @*@Html.EditorFor(m => m.HourTimeMinus, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%; padding: 0" } })*@
+                    </div>
+                    <div class="col-md-2" style="width: 14%">
+                        @(Html.Kendo().NumericTextBox<int>()
+                            .Name("MinuteTimeMinus")
+                            .Min(0)
+                            .HtmlAttributes(new {style = "width: 100%; padding: 0"})
+                            .Spinners(false)
+                            .Value(Model.MinuteTimeMinus)
+                        )
+                        @*@Html.EditorFor(m => m.MinuteTimeMinus, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%; padding: 0" } })*@
+                    </div>
+                    <div class="col-md-2" style="width: 14%">
+                        @(Html.Kendo().NumericTextBox<int>()
+                            .Name("SecondTimeMinus")
+                            .Min(0)
+                            .HtmlAttributes(new {style = "width: 100%; padding: 0"})
+                            .Spinners(false)
+                            .Value(Model.SecondTimeMinus)
+                        )
+                        @*@Html.EditorFor(m => m.SecondTimeMinus, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%; padding: 0" } })*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    noc.init = function(){
+        formNoc.init();
+    }
+
+    formNoc.init = function(){
+        formNoc.$el = $(formNoc.el);
+        formNoc.data = $('#ProcessingUnit').val();
+    }
+
+    $('#DetailReason').select2({
+        placeholder: 'Nguyên nhân chi tiết',
+        allowClear: true,
+        ajax: {
+            delay: 500,
+            url: '@Url.Action("GetDetailReasons")',
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1,
+                    reasonId: $('#KindOfReason').val()
+                }
+
+                return query;
+            },
+            processResults: function (data, params) {
+                var items = [];
+                $.each(data.data, function (index, item) {
+                    items.push({
+                        id: item.Value,
+                        text: item.Text
+                    });
+                });
+                params.page = params.page || 1;
+
+                return {
+                    results: items,
+                    pagination: {
+                        more: (params.page * 10) < data.totalCount
+                    }
+                };
+            }
+        }
+    });
+
+    $(function () {
+        noc.init();
+
+        if (!_.isNil('@Model.DetailReason')) {
+        $.ajax({
+            url: '@Url.Action("GetDetailReason")' + '?id=' + '@Model.DetailReason',
+            type: 'GET',
+            dataType: 'json',
+            success: function (reason) {
+                if (reason) {
+                    // create the option and append to Select2
+                    var option = new Option(`[${reason.Code}] ${reason.Description}`, reason.Id, true, true);
+                    $('#DetailReason').append(option).trigger('change');
+
+                    // manually trigger the `select2:select` event
+                    $('#DetailReason').trigger({
+                        type: 'select2:select',
+                        params: {
+                            data: reason
+                        }
+                    });
+                }                
+            }
+        });
+    }
+    });
+</script>

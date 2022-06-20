@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Core.Domain.Dashboard</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Core.Domain.Dashboard.DashboardDataConnection">
+            <summary>
+            Database       : Dashboard
+            Data Source    : 192.168.100.73
+            Server Version : 8.0.28-0ubuntu0.20.04.3
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.DashboardDataConnection.StorageValues">
+            <summary>
+            Danh mục Dữ liệu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.DashboardDataConnection.TypeValues">
+            <summary>
+            Danh mục loại dữ liệu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.DashboardDataConnection.view2">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.Report.Inactive">
+            <summary>
+            Ngừng theo dõi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.Report.ReportGroup">
+            <summary>
+            FK_Reports_PK_ReportGroup
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.ReportGroup.Inactive">
+            <summary>
+            Ngừng theo dõi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.ReportGroup.Parent">
+            <summary>
+            FK_ReportGroups_PK_Parent
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.ReportGroup.ReportGroups">
+            <summary>
+            FK_ReportGroups_PK_Parent_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.ReportGroup.Reports">
+            <summary>
+            FK_Reports_PK_ReportGroup_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Dashboard.StorageValue">
+            <summary>
+            Danh mục Dữ liệu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.Name">
+            <summary>
+            Tên dữ liệu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.TimeDay">
+            <summary>
+            Ngày
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.TimeMouth">
+            <summary>
+            Tháng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.TimeYear">
+            <summary>
+            Năm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.Status">
+            <summary>
+            Trạng thái
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.ModifiedDate">
+            <summary>
+            Ngày sửa gần nhất
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.ModifiedBy">
+            <summary>
+            Người sử gần nhất
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.FileLength">
+            <summary>
+            Kích thước File
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.FileContent">
+            <summary>
+            Định dạng File
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.FileType">
+            <summary>
+            Đuôi file
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.StorageValue.FKTypeValueId">
+            <summary>
+            FK_TypeValueId_StorageValue_PK_TypeValueId
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Dashboard.TypeValue">
+            <summary>
+            Danh mục loại dữ liệu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.TypeValue.Name">
+            <summary>
+            Tên loại dữ liệu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.TypeValue.Description">
+            <summary>
+            Mô tả
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.TypeValue.ParentId">
+            <summary>
+            fk Id của kiểu cha
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.TypeValue.Path">
+            <summary>
+            HearachyID dạng path để hỗ trợ query dữ liệu dạng tree
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.TypeValue.Inactive">
+            <summary>
+            Ngừng theo dõi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Dashboard.TypeValue.TypeValueId_StorageValues">
+            <summary>
+            FK_TypeValueId_StorageValue_PK_TypeValueId_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Dashboard.view2">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+    </members>
+</doc>

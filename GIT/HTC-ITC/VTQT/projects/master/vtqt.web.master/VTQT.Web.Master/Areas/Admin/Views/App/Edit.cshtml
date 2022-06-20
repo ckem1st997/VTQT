@@ -1,0 +1,108 @@
+﻿@model AppModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Common.AppActions.Apps.Edit")</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.AppType, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.AppType, Model.AvailableAppTypes, string.Format(T("Common.SelectObject"), T("Common.Fields.AppType")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                @(Html.LocalizedEditor<AppModel, AppLocalizedModel>("localizedApp",
+                    @<div>
+                        @Html.HiddenFor(m => m.Locales[item].LanguageId)
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Locales[item].Name, true, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Locales[item].Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>,
+                    @<div>
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-3" }, true)
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                ))
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ShortName, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.ShortName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Url, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Hosts, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Hosts, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.SslEnabled, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.SslEnabled)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.CdnUrl, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.CdnUrl, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.DefaultLanguageId, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.DefaultLanguageId, Model.AvailableLanguages, string.Format(T("Common.SelectObject"), T("Common.Language")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ShowOnMenu, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.ShowOnMenu)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.DisplayOrder, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.DisplayOrder, new { htmlAttributes = new { style = "width: 100%" } })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="icon-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="icon-close"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

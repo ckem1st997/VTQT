@@ -1,0 +1,152 @@
+﻿@model VTQT.Web.Master.Models.UserRoleModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Master.AppActions.AuthorizeUsers.Authorize")</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x=>x.UserId)
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.UserName, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @readonly = true })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.FullName, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", @readonly = true })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-md-3" for="ListRole">Chọn các vài trò</label>
+                    <div class="col-md-9">
+                        <select class="form-control" name="ListRole" id="ListRole" multiple="multiple" style="width: 100%"></select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer form-actions">
+                <button id="btn-submit" type="button" class="btn blue btn-sm ">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+
+  $("#btn-submit").click(function () {
+      var data = {
+           listRole: _.join($("#ListRole").val(), ','),
+           userId: $('#UserId').val()
+         };
+      $.ajax({
+            type: 'POST',
+            data:data,
+            dataType: 'json',
+            url: '@Url.Action("Authorize")',
+            beforeSend: function(jqXhr, settings) {
+                app.ui.loader(grdIndex.$this, true);
+            },
+            success: function(msg) {
+                console.log(msg);
+              app.ui.loader(grdIndex.$this, false);
+               if (msg && msg.success){
+                       window.frmAuthorizeItem.winForm.close();
+                          grdIndex.api.reload();
+                     }
+
+            }
+         });   
+        });
+    //#region Fields
+$( document ).ready(function() {
+       $('#ListRole').empty();
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: "@Url.Action("GetListRole")",
+            success: function (msg) {
+                if (msg && msg.Data.length > 0) {
+                    $("#ListRole").select2({
+                        data: msg.Data,
+                        tags: true,
+                        multiple: true,
+                        tokenSeparators: [',', ' '],
+                        createTag: newtag,
+                        matcher: matchCustom
+                    });
+                    var resColumn=@Html.Raw(Model.ListRole);
+                     $('#ListRole').val(resColumn).change();
+                     $('#ListRole').trigger('change');
+                }
+                else
+                    {
+                        if (!$("#menumapping").attr('class').included("hidden"))
+                            $("#menumapping").addClass("hidden");
+                      notify({ text: "Bảng không có cột dữ liệu, xin vui lòng thử lại hoặc liên hệ với bộ phận IT !", type: 'err' });
+                    }
+
+            }
+        });
+});
+
+  frmAuthorizeItem = {
+            el: 'form[data-client-form-id="@ClientFormId"]',
+            $el: {},
+            winForm: {},
+            $ListRole: $('#@Html.FieldIdFor(m => m.ListRole)'),
+            init: function () { }
+        };
+
+    frmAuthorizeItem.init = function () {
+        //Init Window
+        frmAuthorizeItem.$el = $(frmAuthorizeItem.el);
+        frmAuthorizeItem.winForm = frmAuthorizeItem.$el.data('winForm');
+
+
+    };
+     $(function () {
+            frmAuthorizeItem.init();
+        });
+
+         function newtag(params, data) {
+             var term = $.trim(params.term);
+             if (term === '') {
+                 return null;
+             }
+             return {
+                 id: term,
+                 text: term ,
+                 newTag: true // add additional parameters
+             }
+         }
+ 
+         function matchCustom(params, data) {
+             // If there are no search terms, return all of the data
+             if ($.trim(params.term) === '') {
+                 return data;
+             }
+ 
+             // Do not display the item if there is no 'text' property
+             if (typeof data.text === 'undefined') {
+                 return null;
+             }
+ 
+             // Return `null` if the term should not be displayed
+             return null;
+         }
+</script>

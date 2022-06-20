@@ -1,0 +1,231 @@
+﻿@model UserModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Master.AppActions.AuthorizeUsers.Authorize")</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+
+                <div style="position: relative; height: 100%; padding-top: 40px">
+                    <div id="appActionFilter" class="well well-sm" style="padding: 3px; position: absolute; height: 35px; width: 100%; top: 0">
+                        <label for="ddlAppId" title="@T("Common.App")">@T("Common.App")</label>
+                        @Html.DropDownList("ddlAppId", Model.AvailableApps, string.Format(T("Common.SelectObject"), T("Common.App")), new { @class = "input-sm", style = "width: 300px" })
+                    </div>
+                    <div style="position: relative; height: 100%; overflow: auto">
+                        <table id="appActionTree" style="width: 100%; display: none">
+                            <thead>
+                                <tr>
+                                    <th width="30" style="text-align: center"><input type="checkbox" data-action="checkAll" /></th>
+                                    <th width="520px">@T("Master.AppActions.Fields.Name")</th>
+                                    <th>@T("Common.Fields.Description")</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" id="btnSubmit" class="btn blue btn-sm none-events">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    //#region Fields
+
+    var frm = {
+        userId: '@Model.Id',
+        ddlAppId: {
+            selector: '#appActionFilter #ddlAppId',
+            $this: {},
+            init: function () { },
+            change: function (e) { }
+        },
+        tree: {
+            selector: '#appActionTree',
+            $this: {},
+            api: {},
+            checkAll: {
+                selector: '#appActionTree input[type="checkbox"][data-action="checkAll"]',
+                $this: {},
+                init: function () { }
+            },
+            init: function () { },
+            load: function () { },
+            getSelectedKeys: function () { },
+            treeDestroy: function () { }
+        },
+        btnSubmit: {
+            selector: '#btnSubmit',
+            $this: {},
+            init: function () { }
+        },
+        init: function () { }
+    };
+    var ddlAppId = frm.ddlAppId;
+    var tree = frm.tree;
+    var btnSubmit = frm.btnSubmit;
+
+    //#endregion
+
+    //#region Methods
+
+    //#endregion
+
+    //#region Init
+
+    frm.init = function () {
+        ddlAppId.init();
+        tree.init();
+        btnSubmit.init();
+    }
+
+    btnSubmit.init = function () {
+        btnSubmit.$this = $(btnSubmit.selector);
+    }
+
+    ddlAppId.init = function () {
+        ddlAppId.$this = $(ddlAppId.selector);
+
+        ddlAppId.$this.on('change', ddlAppId.change);
+    }
+    ddlAppId.change = function (e) {
+        var val = ddlAppId.$this.val();
+        if (val) {
+            tree.load();
+        } else {
+            tree.$this.hide();
+            tree.treeDestroy();
+            btnSubmit.$this.addClass('none-events');
+        }
+    }
+
+    tree.init = function () {
+        tree.$this = $(tree.selector);
+
+        tree.checkAll.init();
+    }
+    tree.load = function () {
+        if (_.isEmpty(tree.api)) {
+            tree.$this.fancytree({
+                source: {
+                    url: window.master.urlGetAppActionTree,
+                    data: { appId: ddlAppId.$this.val(), expandLevel: 1, userId: frm.userId },
+                    beforeSend: function (jqXhr, settings) {
+                        tree.checkAll.$this.prop('checked', false);
+                        app.plugins.uniform.update(tree.checkAll.$this);
+
+                        tree.$this.show();
+
+                        btnSubmit.$this.removeClass('none-events');
+                    }
+                },
+                checkbox: true,
+                titlesTabbable: true,
+                quicksearch: true,
+                selectMode: 2,
+                select: function (event, data) {
+                    app.plugins.fancytree.handlers.selectOnCheckAll(event, data);
+                },
+                extensions: ["table", "gridnav"],
+                table: {
+                    indentation: 20,
+                    nodeColumnIdx: 1,
+                    checkboxColumnIdx: 0
+                },
+                gridnav: {
+                    autofocusInput: false,
+                    handleCursorKeys: true
+                },
+                renderColumns: function (event, data) {
+                    var node = data.node,
+                        $tdList = $(node.tr).find(">td");
+                    $tdList.eq(0).css({ 'text-align': 'center' });
+                    $tdList.eq(1).find('.fancytree-node').attr('data-key', node.key).css({ 'text-align': 'left', 'border-right': 'none' });
+                    $tdList.eq(2).html(node.data.Description).css({ 'text-align': 'left' });
+                },
+                init: function (event, data, flag) {
+                    var selectAll = true;
+                    if (tree.api.count() === 0)
+                        selectAll = false;
+                    tree.api.visit(function (node) {
+                        if (!node.selected) {
+                            selectAll = false;
+                            return;
+                        }
+                    });
+                    if (selectAll) {
+                        var $checkAll = tree.$this.find('thead tr th input[type="checkbox"][data-action="checkAll"]');
+                        if ($checkAll.length) {
+                            $checkAll.prop('checked', true);
+                            $checkAll.parent('span').addClass('checked');
+                        }
+                    }
+                }
+            });
+            tree.api = tree.$this.fancytree("getTree");
+        } else {
+            tree.api.reload({
+                url: window.master.urlGetAppActionTree,
+                data: { appId: ddlAppId.$this.val(), expandLevel: 1, userId: frm.userId },
+                beforeSend: function (jqXhr, settings) {
+                    tree.checkAll.$this.prop('checked', false);
+                    app.plugins.uniform.update(tree.checkAll.$this);
+
+                    tree.$this.show();
+                    btnSubmit.$this.removeClass('none-events');
+                }
+            });
+        }
+    }
+    tree.getSelectedKeys = function () {
+        var selNodes = tree.api.getSelectedNodes();
+        var selKeys = $.map(selNodes, function (node) {
+            return node.key;
+        });
+
+        return selKeys;
+    }
+    tree.treeDestroy = function () {
+        if (!_.isEmpty(tree.api))
+            tree.api.treeDestroy();
+    }
+
+    tree.checkAll.init = function () {
+        tree.checkAll.$this = $(tree.checkAll.selector);
+    }
+
+    //#endregion
+
+    //#region Helpers
+
+    app.ajaxForm.extraData = function () {
+        var appActionIds = tree.getSelectedKeys();
+        return { userId: frm.userId, appActionIds: appActionIds, appId: ddlAppId.$this.val() };
+    }
+
+    //#endregion
+
+    //#region Startup
+
+    $(function () {
+        frm.init();
+    });
+
+    //#endregion
+</script>

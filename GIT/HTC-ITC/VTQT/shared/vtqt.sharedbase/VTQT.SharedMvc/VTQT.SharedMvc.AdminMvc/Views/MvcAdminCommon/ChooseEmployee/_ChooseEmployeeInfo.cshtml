@@ -1,0 +1,462 @@
+﻿@using Newtonsoft.Json
+
+@functions {
+    private string _employeeField;
+    private string EmployeeField
+    {
+        get
+        {
+            if (_employeeField != null)
+                return _employeeField;
+            var employeeField = ViewData["EmployeeField"];
+            if (employeeField != null)
+            {
+                _employeeField = Convert.ToString(employeeField);
+            }
+            return _employeeField;
+        }
+    }
+
+    private string _organizationalField;
+    private string OrganizationalField
+    {
+        get
+        {
+            if (_organizationalField != null)
+                return _organizationalField;
+            var organizationalField = ViewData["OrganizationalField"];
+            if (organizationalField != null)
+            {
+                _organizationalField = Convert.ToString(organizationalField);
+            }
+            return _organizationalField;
+        }
+    }
+
+    private string _positionTitleField;
+    private string PositionTitleField
+    {
+        get
+        {
+            if (_positionTitleField != null)
+                return _positionTitleField;
+            var positionTitleField = ViewData["PositionTitleField"];
+            if (positionTitleField != null)
+            {
+                _positionTitleField = Convert.ToString(positionTitleField);
+            }
+            return _positionTitleField;
+        }
+    }
+
+    private string _staffRankField;
+    private string StaffRankField
+    {
+        get
+        {
+            if (_staffRankField != null)
+                return _staffRankField;
+            var staffRankField = ViewData["StaffRankField"];
+            if (staffRankField != null)
+            {
+                _staffRankField = Convert.ToString(staffRankField);
+            }
+            return _staffRankField;
+        }
+    }
+
+    private EmployeeModel _chosenEmployee;
+    private EmployeeModel ChosenEmployee
+    {
+        get
+        {
+            if (_chosenEmployee != null)
+                return _chosenEmployee;
+            var chosenEmployee = ViewData["ChosenEmployee"];
+            if (chosenEmployee != null)
+                _chosenEmployee = chosenEmployee as EmployeeModel;
+            else
+                _chosenEmployee = new EmployeeModel();
+            return _chosenEmployee;
+        }
+    }
+
+    private bool? _readOnly;
+    private bool ReadOnly
+    {
+        get
+        {
+            if (_readOnly.HasValue)
+                return _readOnly.Value;
+            var readOnly = ViewData["ReadOnly"];
+            if (readOnly != null)
+                _readOnly = (bool)readOnly;
+            else
+                _readOnly = false;
+            return _readOnly.Value;
+        }
+    }
+
+    private string _selectedCallBack;
+    private string SelectedCallBack
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_selectedCallBack))
+                return _selectedCallBack;
+            var selectedCallBack = ViewData["SelectedCallBack"];
+            if (selectedCallBack != null)
+                _selectedCallBack = (string)selectedCallBack;
+            else
+                _selectedCallBack = string.Empty;
+            return _selectedCallBack;
+        }
+    }
+
+    private string _removedCallBack;
+    private string RemovedCallBack
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_removedCallBack))
+                return _removedCallBack;
+            var removedCallBack = ViewData["RemovedCallBack"];
+            if (removedCallBack != null)
+                _removedCallBack = (string)removedCallBack;
+            else
+                _removedCallBack = string.Empty;
+            return _removedCallBack;
+        }
+    }
+}
+
+@if (string.IsNullOrWhiteSpace(EmployeeField))
+{
+    return;
+}
+
+@{
+    var jEmployee = JsonConvert.SerializeObject(ChosenEmployee);
+}
+
+<div id="_chooseEmpInfo_@(EmployeeField)">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-group-sm">
+                <label class="control-label col-md-4" title="@T("Common.Employee")">
+                    @T("Common.Employee")
+                    <span class="required" aria-required="true">*</span>
+                </label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input id="@(EmployeeField)_Text" type="text" value="" class="form-control" disabled="disabled" style="border-right: none" />
+                        <a data-action="remove" class="input-group-addon hide" style="border-left: none; border-right: none; background-color: #f6f8f9" title="@T("Common.Delete")">
+                            <i class="fa fa-times font-red" style="font-size: 11px; line-height: 11px"></i>
+                        </a>
+                        <a data-action="select" class="input-group-addon" style="border-left: none" title="@string.Format(T("Common.SelectObject"), T("Common.Employee"))">
+                            <i class="fa fa-search font-blue"></i>
+                        </a>
+                        <input type="hidden" id="@(EmployeeField)_Value" name="@EmployeeField" value="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-sm">
+                <label class="control-label col-md-4" title="@T("Common.Fields.OrganizationalUnit")">@T("Common.Fields.OrganizationalUnit")</label>
+                <div class="col-md-8">
+                    <input type="text" id="@(OrganizationalField)_Text" class="form-control" disabled="disabled" value="">
+                    <input type="hidden" id="@(OrganizationalField)_Value" name="@OrganizationalField" value="" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-group-sm">
+                <label class="control-label col-md-4" title="@T("Common.PositionTitle")">@T("Common.PositionTitle")</label>
+                <div class="col-md-8">
+                    <input type="text" id="@(PositionTitleField)_Text" class="form-control" disabled="disabled" value="">
+                    <input type="hidden" id="@(PositionTitleField)_Value" name="@PositionTitleField" value="" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-sm">
+                <label class="control-label col-md-4" title="@T("Common.StaffRank")">@T("Common.StaffRank")</label>
+                <div class="col-md-8">
+                    <input type="text" id="@(StaffRankField)_Text" class="form-control" disabled="disabled" value="">
+                    <input type="hidden" id="@(StaffRankField)_Value" name="@StaffRankField" value="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    _chooseEmpInfo['@(EmployeeField)'] = {
+        chosenEmployee: JSON.parse(JSON.stringify(@Html.Raw(jEmployee))),
+        el: '#_chooseEmpInfo_@(EmployeeField)',
+        $el: {},
+        urlChoose: '@Url.Action("ChooseEmployee", "Common")',
+        selectedItem: {},
+        btnSelect: {
+            $el: {},
+            init: function () { }
+        },
+        btnRemove: {
+            $el: {},
+            init: function () { }
+        },
+        employeeText: {
+            $el: {},
+            init: function () { }
+        },
+        employeeValue: {
+            $el: {},
+            init: function () { }
+        },
+        organizationalText: {
+            $el: {},
+            init: function () { }
+        },
+        organizationalValue: {
+            $el: {},
+            init: function () { }
+        },
+        positionTitleText: {
+            $el: {},
+            init: function () { }
+        },
+        positionTitleValue: {
+            $el: {},
+            init: function () { }
+        },
+        staffRankText: {
+            $el: {},
+            init: function () { }
+        },
+        staffRankValue: {
+            $el: {},
+            init: function () { }
+        },
+        init: function () { },
+        openChoose: function () { },
+        select: function () { },
+        remove: function () { },
+        helpers: {
+            bindData: function (employee) { }
+        }
+    };
+
+    _chooseEmpInfo['@(EmployeeField)'].init = function () {
+        _chooseEmpInfo['@(EmployeeField)'].$el = $(_chooseEmpInfo['@(EmployeeField)'].el);
+
+        //Init
+        _chooseEmpInfo['@(EmployeeField)'].btnSelect.init();
+        _chooseEmpInfo['@(EmployeeField)'].btnRemove.init();
+        _chooseEmpInfo['@(EmployeeField)'].employeeText.init();
+        _chooseEmpInfo['@(EmployeeField)'].employeeValue.init();
+        _chooseEmpInfo['@(EmployeeField)'].organizationalText.init();
+        _chooseEmpInfo['@(EmployeeField)'].organizationalValue.init();
+        _chooseEmpInfo['@(EmployeeField)'].positionTitleText.init();
+        _chooseEmpInfo['@(EmployeeField)'].positionTitleValue.init();
+        _chooseEmpInfo['@(EmployeeField)'].staffRankText.init();
+        _chooseEmpInfo['@(EmployeeField)'].staffRankValue.init();
+        //BindData
+        _chooseEmpInfo['@(EmployeeField)'].helpers.bindData(_chooseEmpInfo['@(EmployeeField)'].chosenEmployee);
+    };
+    //Init btnSelect
+    _chooseEmpInfo['@(EmployeeField)'].btnSelect.init = function() {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('a[data-action="select"]');
+        _chooseEmpInfo['@(EmployeeField)'].btnSelect.$el = $el;
+
+        _chooseEmpInfo['@(EmployeeField)'].btnSelect.$el.click(function(e) {
+            _chooseEmpInfo['@(EmployeeField)'].openChoose();
+        });
+    };
+    //Init btnRemove
+    _chooseEmpInfo['@(EmployeeField)'].btnRemove.init = function() {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('a[data-action="remove"]');
+        _chooseEmpInfo['@(EmployeeField)'].btnRemove.$el = $el;
+
+        _chooseEmpInfo['@(EmployeeField)'].btnRemove.$el.click(function(e) {
+            _chooseEmpInfo['@(EmployeeField)'].remove();
+        });
+    };
+    //Init EmployeeText
+    _chooseEmpInfo['@(EmployeeField)'].employeeText.init = function() {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('#@(EmployeeField)_Text');
+        _chooseEmpInfo['@(EmployeeField)'].employeeText.$el = $el;
+    };
+    //Init EmployeeValue
+    _chooseEmpInfo['@(EmployeeField)'].employeeValue.init = function() {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('#@(EmployeeField)_Value');
+        _chooseEmpInfo['@(EmployeeField)'].employeeValue.$el = $el;
+    };
+    //Init OrganizationalText
+    _chooseEmpInfo['@(EmployeeField)'].organizationalText.init = function () {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('#@(OrganizationalField)_Text');
+        _chooseEmpInfo['@(EmployeeField)'].organizationalText.$el = $el;
+    };
+    //Init OrganizationalValue
+    _chooseEmpInfo['@(EmployeeField)'].organizationalValue.init = function () {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('#@(OrganizationalField)_Value');
+        _chooseEmpInfo['@(EmployeeField)'].organizationalValue.$el = $el;
+    };
+    //Init PositionTitleText
+    _chooseEmpInfo['@(EmployeeField)'].positionTitleText.init = function() {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('#@(PositionTitleField)_Text');
+        _chooseEmpInfo['@(EmployeeField)'].positionTitleText.$el = $el;
+    };
+    //Init PositionTitleValue
+    _chooseEmpInfo['@(EmployeeField)'].positionTitleValue.init = function() {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('#@(PositionTitleField)_Value');
+        _chooseEmpInfo['@(EmployeeField)'].positionTitleValue.$el = $el;
+    };
+    //Init StaffRankText
+    _chooseEmpInfo['@(EmployeeField)'].staffRankText.init = function() {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('#@(StaffRankField)_Text');
+        _chooseEmpInfo['@(EmployeeField)'].staffRankText.$el = $el;
+    };
+    //Init StaffRankValue
+    _chooseEmpInfo['@(EmployeeField)'].staffRankValue.init = function() {
+        var $el = $(_chooseEmpInfo['@(EmployeeField)'].el).find('#@(StaffRankField)_Value');
+        _chooseEmpInfo['@(EmployeeField)'].staffRankValue.$el = $el;
+    };
+
+    _chooseEmpInfo['@(EmployeeField)'].openChoose = function() {
+        app.window.form.open(
+            {
+                url: _chooseEmpInfo['@(EmployeeField)'].urlChoose,
+                options: { width: '60%', height: '65%' },
+                callback: function() {
+                    _chooseEmpInfo['@(EmployeeField)'].select();
+                },
+                initCallback: function() {
+                    window._chooseEmp.grdIndex.api.initDblClick(function() {
+                        _chooseEmpInfo['@(EmployeeField)'].select();
+                    });
+                }
+            });
+    };
+    _chooseEmpInfo['@(EmployeeField)'].select = function() {
+        _chooseEmpInfo['@(EmployeeField)'].selectedItem = window._chooseEmp.grdIndex.api.selectedItems()[0];
+        if (_chooseEmpInfo['@(EmployeeField)'].selectedItem) {
+            //Bind Data
+            _chooseEmpInfo['@(EmployeeField)'].helpers.bindData(_chooseEmpInfo['@(EmployeeField)'].selectedItem);
+            //Close Window
+            window._chooseEmp.winForm.close();
+            //CallBack
+            if ('@(SelectedCallBack)' !== '@string.Empty') {
+                @(SelectedCallBack)(_chooseEmpInfo['@(EmployeeField)'].selectedItem);
+            }
+        }
+    };
+    _chooseEmpInfo['@(EmployeeField)'].remove = function() {
+        _chooseEmpInfo['@(EmployeeField)'].employeeText.$el.val('');
+        _chooseEmpInfo['@(EmployeeField)'].employeeText.$el.attr('title', '');
+        _chooseEmpInfo['@(EmployeeField)'].employeeValue.$el.val('');
+
+        _chooseEmpInfo['@(EmployeeField)'].organizationalText.$el.val('');
+        _chooseEmpInfo['@(EmployeeField)'].organizationalText.$el.attr('title', '');
+        _chooseEmpInfo['@(EmployeeField)'].organizationalValue.$el.val('');
+
+        _chooseEmpInfo['@(EmployeeField)'].positionTitleText.$el.val('');
+        _chooseEmpInfo['@(EmployeeField)'].positionTitleText.$el.attr('title', '');
+        _chooseEmpInfo['@(EmployeeField)'].positionTitleValue.$el.val('');
+
+        _chooseEmpInfo['@(EmployeeField)'].staffRankText.$el.val('');
+        _chooseEmpInfo['@(EmployeeField)'].staffRankText.$el.attr('title', '');
+        _chooseEmpInfo['@(EmployeeField)'].staffRankValue.$el.val('');
+
+        if (_chooseEmpInfo['@(EmployeeField)'].employeeText.$el.val() !== '') {
+            _chooseEmpInfo['@(EmployeeField)'].btnRemove.$el.removeClass('hide');
+        } else {
+            _chooseEmpInfo['@(EmployeeField)'].btnRemove.$el.addClass('hide');
+        }
+        //CallBack
+        if ('@(RemovedCallBack)' !== '@string.Empty') {
+            @(RemovedCallBack)(_chooseEmpInfo['@(EmployeeField)'].selectedItem);
+        }
+    };
+
+    _chooseEmpInfo['@(EmployeeField)'].helpers.bindData = function (employee) {
+        if (employee.Id !== 0) {
+            _chooseEmpInfo['@(EmployeeField)'].employeeValue.$el.val(employee.Id);
+        } else {
+            _chooseEmpInfo['@(EmployeeField)'].employeeValue.$el.val('');
+        }
+
+        if (employee.EmployeeCode !== null && employee.FullName !== null) {
+            _chooseEmpInfo['@(EmployeeField)'].employeeText.$el.val('[' + employee.EmployeeCode + '] - ' + employee.FullName);
+            _chooseEmpInfo['@(EmployeeField)'].employeeText.$el.attr('title', '[' + employee.EmployeeCode + '] - ' + employee.FullName);
+        } else {
+            _chooseEmpInfo['@(EmployeeField)'].employeeText.$el.val('');
+            _chooseEmpInfo['@(EmployeeField)'].employeeText.$el.attr('title', '');
+        }
+
+        if (employee.OrganizationalUnit !== null) {
+            if (employee.OrganizationalUnit.Id !== null) {
+                _chooseEmpInfo['@(EmployeeField)'].organizationalValue.$el.val(employee.OrganizationalUnit.Id);
+            } else {
+                _chooseEmpInfo['@(EmployeeField)'].organizationalValue.$el.val('');
+            }
+            if (employee.OrganizationalUnit.Name !== null) {
+                _chooseEmpInfo['@(EmployeeField)'].organizationalText.$el.val(employee.OrganizationalUnit.Name);
+                _chooseEmpInfo['@(EmployeeField)'].organizationalText.$el.attr('title', employee.OrganizationalUnit.Name);
+            } else {
+                _chooseEmpInfo['@(EmployeeField)'].organizationalText.$el.val('');
+                _chooseEmpInfo['@(EmployeeField)'].organizationalText.$el.attr('title', '');
+            }
+        }
+
+        if (employee.PositionTitle !== null) {
+            if (employee.PositionTitle.Id !== null) {
+                _chooseEmpInfo['@(EmployeeField)'].positionTitleValue.$el.val(employee.PositionTitle.Id);
+            } else {
+                _chooseEmpInfo['@(EmployeeField)'].positionTitleValue.$el.val('');
+            }
+            if (employee.PositionTitle.Name !== null) {
+                _chooseEmpInfo['@(EmployeeField)'].positionTitleText.$el.val(employee.PositionTitle.Name);
+                _chooseEmpInfo['@(EmployeeField)'].positionTitleText.$el.attr('title', employee.PositionTitle.Name);
+            } else {
+                _chooseEmpInfo['@(EmployeeField)'].positionTitleText.$el.val('');
+                _chooseEmpInfo['@(EmployeeField)'].positionTitleText.$el.attr('title', '');
+            }
+        }
+
+        if (employee.StaffRank !== null) {
+            if (employee.StaffRank.Id !== null) {
+                _chooseEmpInfo['@(EmployeeField)'].staffRankValue.$el.val(employee.StaffRank.Id);
+            } else {
+                _chooseEmpInfo['@(EmployeeField)'].staffRankValue.$el.val('');
+            }
+            if (employee.StaffRank.Name !== null) {
+                _chooseEmpInfo['@(EmployeeField)'].staffRankText.$el.val(employee.StaffRank.Name);
+                _chooseEmpInfo['@(EmployeeField)'].staffRankText.$el.attr('title', employee.StaffRank.Name);
+            } else {
+                _chooseEmpInfo['@(EmployeeField)'].staffRankText.$el.val('');
+                _chooseEmpInfo['@(EmployeeField)'].staffRankText.$el.attr('title', '');
+            }
+        }
+        if (_chooseEmpInfo['@(EmployeeField)'].employeeText.$el.val() !== '') {
+            _chooseEmpInfo['@(EmployeeField)'].btnRemove.$el.removeClass('hide');
+        } else {
+            _chooseEmpInfo['@(EmployeeField)'].btnRemove.$el.addClass('hide');
+        }
+
+        if ('@(ReadOnly)' === 'True') {
+            _chooseEmpInfo['@(EmployeeField)'].btnSelect.$el.css("pointer-events", "none");
+            _chooseEmpInfo['@(EmployeeField)'].btnRemove.$el.css("pointer-events", "none");
+            _chooseEmpInfo['@(EmployeeField)'].btnRemove.$el.addClass('hide');
+
+            _chooseEmpInfo['@(EmployeeField)'].btnSelect.$el.find('i').removeClass('font-blue');
+            _chooseEmpInfo['@(EmployeeField)'].btnRemove.$el.find('i').removeClass('font-red');
+        }
+    };
+
+    $(function () {
+        _chooseEmpInfo['@(EmployeeField)'].init();
+    });
+</script>

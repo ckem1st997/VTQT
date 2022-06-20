@@ -1,0 +1,86 @@
+﻿@model AuditCouncilModel
+@{
+    Layout = null;
+}
+<script>
+    $('#AddAuditCouncil').click(function (e) {
+
+        var auditCouncilModels = [];
+        var item = {};
+        //AuditCouncil
+        var value = $('#EmployeeId').select2('data')[0];
+        if (value !== undefined) {
+            var item = {};
+            item.EmployeeId = value.id;
+            item.EmployeeName = value.text;
+        }
+        item.Role = $("#Role").val();
+
+        if ($("#EmployeeId").val() === undefined || $("#EmployeeId").val().length<1 || $("#Role").val().length<1) {
+                    notify({ text: '@T("Warehouse.WareHouses.Fields.EmployeeId").JavaScriptStringEncode()', type: 'warning' });
+                    return false;
+         }
+
+        auditCouncilModels.push(item);
+        grdIndex2.api.dataSource.insert(item);
+        //Close form add item
+        window.frmAddAuditCouncil1.winForm.close();
+
+    });
+</script>
+<div class="form fixed-layout-form">
+    <form class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Thêm hội đồng kiểm kê</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.EmployeeId, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.EmployeeId, Model.AvailableUsers, "Chọn nhân viên", new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Role, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.Role, new { htmlAttributes = new { style = "width: 100%" } })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button id="AddAuditCouncil" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    frmAddAuditCouncil1 = {
+        el: 'form[data-client-form-id="@ClientFormId"]',
+        $el: {},
+        winForm: {},
+        $employeeId: $('#@Html.FieldIdFor(m => m.EmployeeId)'),
+
+        init: function () { }
+    };
+
+
+    frmAddAuditCouncil1.init = function () {
+        //Init Window
+        frmAddAuditCouncil1.$el = $(frmAddAuditCouncil1.el);
+        frmAddAuditCouncil1.winForm = frmAddAuditCouncil1.$el.data('winForm');
+    };
+
+    $(function () {
+        frmAddAuditCouncil1.init();
+    });
+</script>
+

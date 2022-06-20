@@ -1,0 +1,168 @@
+﻿@using VTQT.Web.Asset.Models
+
+@model AssetSearchModel
+
+
+<script>
+    var master = {
+        grdIndexWarrantyDuration: {
+            selector: '#grdIndexWarrantyDuration',
+            $this: {},
+            api: {},
+            init: function () { },
+            edit: function (e) { },
+            create: function (e) { },
+            error: function (e) { },
+            templates: {
+                flag: function (id, flag) { },
+                name: function (id, name) { },
+                resources: function (id) { },
+                published: function (published) { }
+            },
+            data: function () { }
+
+        },
+        btnSearch: {
+            el: '#WarrantyDurationId',
+            $el: {},
+            init: function () { }
+        },
+          inputSearch: {
+              el: '#WarrantyDurationDate',
+            $el: {},
+            init: function () { }
+        },
+
+        init: function () { }
+    };
+    var grdIndexWarrantyDuration = master.grdIndexWarrantyDuration;
+    var btnSearch = master.btnSearch;
+    var inputSearch = master.inputSearch;
+
+    grdIndexWarrantyDuration.data = function () {
+        var dd = $('#WarrantyDurationId').select2('data');
+        var date = $('#WarrantyDurationDate').val();
+        var $keywords = dd[0].id;
+        if ($keywords == undefined || $keywords.length < 1)
+            $keywords = 10;
+        var searchModel = {
+            OrganizationId: date,
+            Keywords: $keywords,
+            PageIndex: $("#grdIndexWarrantyDuration").data("kendoGrid").dataSource.page(),
+            PageSize: $("#grdIndexWarrantyDuration").data("kendoGrid").dataSource.pageSize()
+        };
+        return searchModel;
+    };
+</script>
+
+
+<div class="title-home-set" style=" background-color: #00875a !important;">
+    <p class="title-p">Theo thời gian bảo hành</p>
+</div>
+<!-- #endregion -->
+<div class="search-home-set" style="border-top:0px">
+    <div>@T("common.fields.assetcategory"):</div>
+    <select name="WarrantyDurationId"
+            id="WarrantyDurationId"
+            class="autowidth"
+            style="width:30%"
+            data-placeholder='@T("Common.Select2.Select")'
+            data-select-url="@Url.Action("GetAssetCategory")">
+    </select>
+
+
+    <div style="margin-left: 5%; margin-right: 5%">Hết hạn sau khoảng (Ngày):</div>
+
+    <input class="input-type" style="width:10%" max="100" min="1" value="30" type="number" id="WarrantyDurationDate" />
+
+</div>
+
+
+
+
+<div class="result-home-set full-height" style="border:none">
+
+    @Html.AntiForgeryToken()
+    @(Html.Kendo().Grid<WarrantyDurationModel>()
+            .Name("grdIndexWarrantyDuration")
+          //   .Scrollable(s => s.Height("10vh"))
+            .HtmlAttributes(new {style = "border-top:none;height:65%;border: 1px solid #d9d9d9" })
+            .Columns(columns =>
+            {
+                  columns.Bound(x => x.Code).Width(59);
+                  columns.Bound(x => x.Name).Width(79);
+                  columns.Bound(x => x.CategoryId).Width(39);
+                  columns.Bound(x => x.BalanceQuantity).Width(50);
+                  columns.Bound(x => x.WhereAsset).Width(50);
+                  columns.Bound(x => x.LimitDate).Width(50);
+
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .ServerOperation(true)
+                .Read(read => read.Action("GetWarrantyDuration", "Home").Data("grdIndexWarrantyDuration.data"))
+                )
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PreviousNext(true).Refresh(true))
+            .Navigatable())
+</div>
+
+
+<style>
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+
+    .me-3 {
+        margin-right: 1rem !important;
+    }
+</style>
+<script>
+
+    master.init = function () {
+        grdIndexWarrantyDuration.init();
+        btnSearch.init();
+        inputSearch.init();
+        $(btnSearch.el).select2().select2('val', 10);
+    }
+
+    grdIndexWarrantyDuration.init = function () {
+        grdIndexWarrantyDuration.$this = $(grdIndexWarrantyDuration.selector);
+        grdIndexWarrantyDuration.api = grdIndexWarrantyDuration.$this.data('kendoGrid');
+    }
+    btnSearch.init = function () {
+        btnSearch.$el = $(btnSearch.el);
+        const search = _.debounce(() => {
+            grdIndexWarrantyDuration.api.resetPage();
+        }, app.ui.def.debounce.timeout);
+        btnSearch.$el.on("select2:select", function (e) {
+            var data = e.params.data;
+            search();
+            return false;
+        });
+    };
+
+    inputSearch.init = function () {
+        inputSearch.$el = $(inputSearch.el);
+        const search = _.debounce(() => {
+            grdIndexWarrantyDuration.api.resetPage();
+        }, app.ui.def.debounce.timeout);
+        
+        inputSearch.$el.keyup(function (e) {
+            search();
+            return false;
+        });
+    };
+    $(function () {
+        master.init();
+
+    });
+
+</script>
+

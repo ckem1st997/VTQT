@@ -1,0 +1,89 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@functions {
+    private object _value;
+    private object Value
+    {
+        get
+        {
+            if (_value != null)
+                return _value;
+            if (ViewData.Model != null)
+            {
+                if (ViewData.Model is int)
+                    _value = Convert.ToInt32(ViewData.Model, System.Globalization.CultureInfo.InvariantCulture);
+                else if (ViewData.Model is string)
+                    _value = Convert.ToString(ViewData.Model, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            return _value;
+        }
+    }
+
+    private List<SelectListItem> _list = new List<SelectListItem>();
+    private List<SelectListItem> List
+    {
+        get
+        {
+            if (_list.Any())
+                return _list;
+            var list = ViewData["list"];
+            if (list != null)
+                _list = (List<SelectListItem>)list;
+            else
+                _list = new List<SelectListItem>();
+            return _list;
+        }
+    }
+
+    private string _style;
+    private string Style
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_style))
+                return _style;
+            var style = ViewData["style"];
+            if (style != null)
+            {
+                _style = Convert.ToString(style);
+            }
+            return _style;
+        }
+    }
+}
+
+@{
+    var id = Html.IdForModel();
+}
+
+<select class="form-control" id="DisplayTemplates_DropDownList_Container_@id" style="@(!string.IsNullOrEmpty(Style) ? Style : "width: 100%")" disabled="disabled">
+    <option></option>
+    @foreach (var x in List)
+    {
+        if (Value != null && x.Value.Equals(Value.ToString()))
+        {
+            <option value="@x.Value" selected="selected">@x.Text</option>
+        }
+        else
+        {
+            <option value="@x.Value">@x.Text</option>
+        }
+    }
+</select>

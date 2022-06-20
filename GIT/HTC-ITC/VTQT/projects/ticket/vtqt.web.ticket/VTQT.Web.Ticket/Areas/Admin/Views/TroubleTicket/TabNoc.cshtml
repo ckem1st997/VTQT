@@ -1,0 +1,203 @@
+﻿@model TroubleTicketModel
+@{ 
+    Layout = null;
+}
+
+<script>
+    var noc = {
+        formNoc:{
+            el: '#form-noc',
+            $el: {},
+            init: function() { },
+            data: []
+        },
+        init: function () { }
+    }
+    
+    var formNoc = noc.formNoc;
+</script>
+
+<div class="noc-detail row full-height">
+    <form id="form-noc">
+        <div class="row" style="margin-bottom: 5px; margin-top: 20px">
+            @Html.HiddenFor(m => m.TroubleTicketId)
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TicketArea, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.TicketArea, Model.AvailableTicketAreas, "Vùng sự cố", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TicketProvince, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.TicketProvince, Model.AvailableTicketProvinces, "Tỉnh sự cố", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 5px">            
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ManagementUnit, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.ManagementUnit, Model.AvailableOrganizationUnits, "Đơn vị quản lý", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ProcessingUnit, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        <select name="ProcessingUnit" id="ProcessingUnit" style="width: 100%"></select>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 5px">
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TicketProgressId, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.TicketProgressId, Model.AvailableTicketProgress, "Tiến độ sự cố", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TimeMinus, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-2" style="width: 14%">
+                        @(Html.Kendo().NumericTextBox<int>()
+                            .Name("HourTimeMinus")
+                            .Min(0)
+                            .HtmlAttributes(new {style = "width: 100%; padding: 0"})
+                            .Spinners(false)
+                            .Value(Model.HourTimeMinus)
+                        )
+                        @*@Html.EditorFor(m => m.HourTimeMinus, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%; padding: 0" } })*@
+                    </div>
+                    <div class="col-md-2" style="width: 14%">
+                        @(Html.Kendo().NumericTextBox<int>()
+                            .Name("MinuteTimeMinus")
+                            .Min(0)
+                            .HtmlAttributes(new {style = "width: 100%; padding: 0"})
+                            .Spinners(false)
+                            .Value(Model.MinuteTimeMinus)
+                        )
+                        @*@Html.EditorFor(m => m.MinuteTimeMinus, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%; padding: 0" } })*@
+                    </div>
+                    <div class="col-md-2" style="width: 14%">
+                        @(Html.Kendo().NumericTextBox<int>()
+                            .Name("SecondTimeMinus")
+                            .Min(0)
+                            .HtmlAttributes(new {style = "width: 100%; padding: 0"})
+                            .Spinners(false)
+                            .Value(Model.SecondTimeMinus)
+                        )
+                        @*@Html.EditorFor(m => m.SecondTimeMinus, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%; padding: 0" } })*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 5px">
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.SlaOver, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(m => m.SlaOver, new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ImportantTicket, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(m => m.ImportantTicket, new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    noc.init = function(){
+        formNoc.init();
+    }
+
+    formNoc.init = function(){
+        formNoc.$el = $(formNoc.el);
+    }
+
+    $('#ProcessingUnit').select2({
+        placeholder: 'Đơn vị xử lý',
+        allowClear: true,
+        ajax: {
+            delay: 500,
+            url: '@Url.Action("GetProcessingUnits")',
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1,
+                    unitId: $('#ManagementUnit').val()
+                }
+
+                return query;
+            },
+            processResults: function (data, params) {
+                var items = [];
+                $.each(data.data, function (index, item) {
+                    items.push({
+                        id: item.Value,
+                        text: item.Text
+                    });
+                });
+                params.page = params.page || 1;
+
+                return {
+                    results: items,
+                    pagination: {
+                        more: (params.page * 10) < data.totalCount
+                    }
+                };
+            }
+        }
+    });
+    
+    $(function () {
+        noc.init();
+
+        if (!_.isNil('@Model.ProcessingUnit')) {
+            $.ajax({
+                url: '@Url.Action("GetProcessingUnit")' + '?id=' + '@Model.ProcessingUnit',
+                type: 'GET',
+                dataType: 'json',
+                success: function (org) {
+                    if (org) {
+                        // create the option and append to Select2
+                        var option = new Option(`${org.Name}`, org.Id, true, true);
+                        $('#ProcessingUnit').append(option).trigger('change');
+
+                        // manually trigger the `select2:select` event
+                        $('#ProcessingUnit').trigger({
+                            type: 'select2:select',
+                            params: {
+                                data: org
+                            }
+                        });
+                    }                
+                }
+            });
+        }
+    });
+</script>

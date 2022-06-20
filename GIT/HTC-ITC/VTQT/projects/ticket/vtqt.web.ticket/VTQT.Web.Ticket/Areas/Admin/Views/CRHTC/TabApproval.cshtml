@@ -1,0 +1,149 @@
+﻿@model ApprovalCRSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var approval = {
+        grd: {
+            el: '#approval_grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            tmp: {
+                activate: function (activate) { }
+            },
+            data: function () { }
+        },
+        btnAdd: {
+            el: '#btnAddApproval',
+            $el: {},
+            init: function () { }
+        },
+        btnRemove: {
+            el: '#btnRemoveApproval',
+            $el: {},
+            init: function () { }
+        },
+        init: function () { },
+        activates: function (activate, ids) { }
+    }
+
+    var approvalGrd = approval.grd;
+    var btnAddApproval = approval.btnAdd;
+    var btnRemoveApproval = approval.btnRemove;
+
+    approvalGrd.data = function () {
+        var searchModel = {
+            CrId: '@Model.CrId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-approval" type="text/x-kendo-template">
+        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+            <span style="padding-left: 20px">Danh sách phê duyệt</span>
+        </div>
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+            <a id="btnAddApproval" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm phê duyệt</a>
+            <a id="btnRemoveApproval" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+        </div>
+    </script>
+    @(Html.Kendo().Grid<ApprovalCRModel>()
+        .Name("approval_grd")
+        .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+        .Columns(columns =>
+        {
+            columns.Select().Locked().Width(30);
+            columns.ForeignKey(x => x.Approver, (System.Collections.IEnumerable)ViewData["approvers"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.ForeignKey(x => x.Progress, (System.Collections.IEnumerable)ViewData["progress"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.Bound(x => x.ReasonDetail).Width(350);
+        })
+        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-approval"); })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(int.MaxValue)
+            .ServerOperation(false)
+            .Read(read => read.Action("GetApprovalCR", "CRHTC").Data("approvalGrd.data"))
+        )
+        .NoRecords()
+        .Scrollable(scr => scr.Enabled(true))
+        .Pageable(pageable => pageable.Enabled(false))
+        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+        .Navigatable())
+</div>
+
+<script>
+    approval.init = function () {
+        approvalGrd.init();
+        btnAddApproval.init();
+        btnRemoveApproval.init();
+    };
+
+    approvalGrd.init = function () {
+        approvalGrd.$el = $(approvalGrd.el);
+        approvalGrd.api = approvalGrd.$el.data('kendoGrid');
+    };
+
+    approval.activates = function(activate, ids) {
+        ids = ids || approvalGrd.api.selectedIds();
+        if (ids.length > 0) {
+                      
+        } else {
+            notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+        }
+    };
+
+    btnAddApproval.init = function () {
+        btnAddApproval.$el = $(btnAddApproval.el);
+        btnAddApproval.$el.click(function (e) {
+            app.window.form.open({
+                url: '@Url.Action("AddApproval")', options: {width: '500px'}, callback: function (){
+                    var approvalCR = window.frmAddApproval.$el.serializeObject();
+                    var accepted = $('#Confirm').is(':checked');
+                    approvalCR.Confirm = accepted;
+
+                    approvalGrd.api.dataSource.insert(approvalCR);                  
+
+                    //Close form add item
+                    window.frmAddApproval.winForm.close();
+                }
+            });
+        });
+    };
+
+    btnRemoveApproval.init = function () {
+        btnRemoveApproval.$el = $(btnRemoveApproval.el);
+        btnRemoveApproval.$el.click(function (e) {
+            var selectedItems = approvalGrd.api.selectedRows();
+            if (selectedItems.length > 0) {
+                app.window.confirm.open({
+                    callback: function () {
+                        $.each(selectedItems,
+                            function(i, x) {
+                                if (x) {
+                                    approvalGrd.api.removeRow(x);
+                                }
+                            });
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                return false;
+            }
+        });
+    };
+
+    approvalGrd.tmp.activate = function (activate) {
+        return activate ? '<i class="fa fa-check green"></i>' : '<i class="fa fa-times" style="color: red"></i>';
+    };
+
+    $(function () {
+        approval.init();
+    });
+</script>
+

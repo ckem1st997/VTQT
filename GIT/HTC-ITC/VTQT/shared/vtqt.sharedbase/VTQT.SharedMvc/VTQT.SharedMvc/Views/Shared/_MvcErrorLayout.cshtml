@@ -1,0 +1,50 @@
+﻿@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@{
+    var appContext = EngineContext.Current.Resolve<IAppContext>();
+    var cdn = (appContext.CurrentApp).CdnUrl;
+    var version = AppHelper.FrameworkAssembly.Version;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    @Html.MetaAcceptLanguage()
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="@cdn/Content/global/plugins/OpenSans/css/OpenSans.css?version=@version" rel="stylesheet" />
+    <link href="@cdn/Content/global/plugins/font-awesome/css/font-awesome.min.css?version=@version" rel="stylesheet" type="text/css" />
+    <link href="@cdn/Content/global/plugins/bootstrap/css/bootstrap.min.css?version=@version" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="@cdn/Content/admin/css/errors/error.css?version=@version" rel="stylesheet" type="text/css" />
+    <link href="@cdn/Content/admin/css/errors/error-custom.css?version=@version" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="@cdn/Content/global/css/components-md.min.css?version=@version" id="style_components" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+    <link rel="apple-touch-icon" href="@cdn/Content/global/img/apple-touch-icon.png?version=@version">
+    <link rel="shortcut icon" href="@cdn/Content/global/img/favicon.ico?version=@version" />
+</head>
+<!-- BEGIN BODY -->
+@RenderBody()
+<!-- END BODY -->
+</html>

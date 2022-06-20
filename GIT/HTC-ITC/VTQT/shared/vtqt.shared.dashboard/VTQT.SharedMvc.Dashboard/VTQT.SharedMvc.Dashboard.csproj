@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\VTQT.SharedMvc.Dashboard.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="FluentValidation" Version="10.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VTQT.Core.Domain.Dashboard\VTQT.Core.Domain.Dashboard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="VTQT.Core">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Services">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.SharedMvc">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.SharedMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.SharedMvc.Master">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.SharedMvc.Master.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Web.Framework">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Web.Framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll.config&quot; &quot;$(ProjectDir)..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.pdb&quot; &quot;$(ProjectDir)..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.xml&quot; &quot;$(ProjectDir)..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt" />
+  </Target>
+
+</Project>

@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\VTQT.Services.Asset.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EasyCaching.Bus.Redis" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.Core" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.HybridCache" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.InMemory" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.Redis" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.Serialization.Json" Version="0.9.0" />
+    <PackageReference Include="linq2db" Version="3.4.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="VTQT.Caching.Helpers">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Caching.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Caching.Manager">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Caching.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Asset">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Asset.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Master">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Master.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Warehouse">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Warehouse.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Data">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Services">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Services.Warehouse">
+      <HintPath>..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Services.Warehouse.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

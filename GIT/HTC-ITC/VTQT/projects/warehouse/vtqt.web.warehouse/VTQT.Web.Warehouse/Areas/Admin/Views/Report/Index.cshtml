@@ -1,0 +1,49 @@
+﻿@model ReportValueSearchModel
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+</div>
+<div class="splitter fixed-layout-split" data-position="230px">
+    <div class="leftPane" style="border: 1px solid lightgray; border-right: 5px solid lightgray">
+        <div style="border-bottom: 1px solid lightgray;
+                    padding: 9.40px 10px">
+            <b style="font-size: 18px; color: #0277BD">Danh sách báo cáo</b>
+        </div>
+        <div id="treeReport">
+
+        </div>
+    </div>
+    <div class="rightPane" style="border: 1px solid lightgray">        
+        <div class="page-data" style="padding-top: 5px; overflow: hidden">
+            <div class="form fixed-layout-form" id="data-partial">
+                @{ 
+                    await Html.RenderPartialAsync("ReportTotal", Model);
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#treeReport').fancytree({
+            source: {
+                url: '@Url.Action("GetTree", "Report")',
+                complete: function () {
+                    $("#treeReport").fancytree("getTree").getNodeByKey("/report/summary-warehouse").setActive();
+                }
+            },
+            postProcess: function (event, data) {
+                data.result = data.response.data;
+            },
+            activate: function (event, data) {
+                var node = data.node;
+                if (node.statusNodeType !== 'loading') {
+                    $.get('/Admin/Report/ListenTreeSelect/?key=' + node.key, function (data) {
+                        $('#data-partial').empty();
+                        $('#data-partial').append(data);
+                    });
+                }
+            }
+        });
+    });
+</script>

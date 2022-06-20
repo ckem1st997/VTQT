@@ -1,0 +1,265 @@
+﻿@{
+    var cdn = AppContext.CurrentApp.CdnUrl;
+}
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="create" href="javascript:void(0)" class="btn blue btn-sm"><i class="flaticon2-plus"></i> @T("Common.AddNew")</a>
+            <a data-action="edit" href="javascript:void(0)" class="btn yellow btn-sm"><i class="flaticon2-pen"></i> @T("Common.Edit")</a>
+            <a data-action="deletes" href="javascript:void(0)" class="btn red btn-sm"><i class="flaticon-delete"></i> @T("Common.Deletes")</a>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+<div class="page-data" style="padding-top: 10px">
+    <div class="row full-height">
+        @(Html.Kendo().Grid<LanguageModel>()
+            .Name("grdIndex")
+            .HtmlAttributes(new { style = "height: 100%" })
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.FlagImageFileName).ClientTemplate("#=grdIndex.templates.flag(FlagImageFileName)#").Width(100).Centered();
+                columns.Bound(x => x.Name).ClientTemplate("#=grdIndex.templates.name(Name)#").Width(550);
+                columns.Bound(x => x.UniqueSeoCode).Width(120).Centered();
+                columns.Bound("").ClientTemplate("#=grdIndex.templates.resources(Id)#").Title(T("Common.ViewResource")).Width(220).Centered();
+                columns.Bound(x => x.Published).ClientTemplate("#=grdIndex.templates.published(Published)#").Width(120).Centered();
+                columns.Bound(x => x.DisplayOrder).Width(110).Centered();
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .ServerOperation(true)
+                .Read(read => read.Action("Languages_Read", "Language"))
+            )
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(true))
+            .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Single))
+            .Navigatable())
+    </div>
+</div>
+
+<ul id="mnuIndex" style="display: none">
+    <li data-action="details">
+        <i class="icon-magnifier"></i> @T("Common.Details")
+    </li>
+    <li data-action="create">
+        <i class="icon-plus"></i> @T("Common.AddNew")
+    </li>
+    <li data-action="edit">
+        <i class="icon-pencil"></i> @T("Common.Edit")
+    </li>
+    <li class="k-separator"></li>
+    <li data-action="refresh">
+        <i class="icon-refresh"></i> @T("Common.Refresh")
+    </li>
+    <li data-action="deletes">
+        <i class="icon-trash"></i> @T("Common.Delete")
+    </li>
+</ul>
+<!-- #endregion -->
+<!-- #region Scripts -->
+@section Scripts {
+    <script>
+        //#region Fields
+
+        var master = {
+            urlDetails: '@Url.Action("Details")',
+            urlCreate: '@Url.Action("Create")',
+            urlEdit: '@Url.Action("Edit")',
+            urlDeletes: '@Url.Action("Deletes")',
+            urlResources: '@Url.Action("Resources")',
+            toolbar: {
+                selector: '.page-toolbar',
+                $this: {},
+                actions: {
+                    init: function () { }
+                },
+                init: function () { }
+            },
+            grdIndex: {
+                selector: '#grdIndex',
+                $this: {},
+                api: {},
+                actions: {
+                    init: function () { }
+                },
+                templates: {
+                    flag: function (id, flag) { },
+                    name: function (id, name) { },
+                    resources: function (id) { },
+                    published: function (published) { }
+                },
+                init: function () { }
+            },
+            mnuIndex: {
+                selector: '#mnuIndex',
+                $this: {},
+                api: {},
+                init: function () { }
+            },
+            init: function () { },
+            details: function (id) { },
+            create: function () { },
+            edit: function (id) { },
+            deletes: function () { },
+            refresh: function () { },
+            actionCallback: function () { }
+        };
+        var toolbar = master.toolbar;
+        var grdIndex = master.grdIndex;
+        var mnuIndex = master.mnuIndex;
+
+        //#endregion
+
+        //#region Methods
+
+        master.details = function () {
+            var id = grdIndex.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({ url: master.urlDetails + '/' + id, options: { width: '55%' } });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        }
+        master.create = function () {
+            app.window.form.open({ url: master.urlCreate, options: { width: '55%' }, callback: master.actionCallback });
+        }
+        master.edit = function () {
+            var id = grdIndex.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({ url: master.urlEdit + '/' + id, options: { width: '55%' }, callback: master.actionCallback });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        }
+        master.deletes = function () {
+            var ids = grdIndex.api.selectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: master.urlDeletes, ids: ids, options: { width: '450px' }, callback: master.actionCallback });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        }
+        master.refresh = function () {
+            grdIndex.api.reload();
+        }
+
+        //#endregion
+
+        //#region Init
+
+        master.init = function () {
+            toolbar.init();
+            grdIndex.init();
+            mnuIndex.init();
+        }
+
+        toolbar.init = function () {
+            toolbar.$this = $(toolbar.selector);
+
+            toolbar.actions.init();
+        }
+        toolbar.actions.init = function () {
+            var $toolbar = toolbar.$this;
+
+            admin.pageToolbar.actions.initCreate($toolbar, master.create);
+            admin.pageToolbar.actions.initEdit($toolbar, master.edit);
+            admin.pageToolbar.actions.initDeletes($toolbar, master.deletes);
+        }
+
+        grdIndex.init = function () {
+            grdIndex.$this = $(grdIndex.selector);
+            grdIndex.api = grdIndex.$this.data('kendoGrid');
+
+            grdIndex.actions.init();
+        }
+        grdIndex.actions.init = function () {
+            grdIndex.api.initDblClick(master.edit);
+            grdIndex.api.initEdit(master.edit);
+        }
+
+        mnuIndex.init = function () {
+            mnuIndex.$this = $(mnuIndex.selector);
+            mnuIndex.$this.kendoContextMenu({
+                orientation: 'vertical',
+                target: master.grdIndex.selector,
+                filter: 'tbody tr[role="row"]',
+                animation: {
+                    open: { effects: "fadeIn" },
+                    duration: 0
+                },
+                open: function (e) {
+                    var $row = $(e.target);
+                    var selected = master.grdIndex.api.select().length;
+                    if (selected === 0 || (!$row.hasClass('k-state-selected') && selected > 0)) {
+                        master.grdIndex.api.clearSelection();
+                        master.grdIndex.api.select($row);
+                    }
+                },
+                select: function (e) {
+                    var action = $(e.item).attr('data-action');
+                    switch (action) {
+                        case 'details':
+                            master.details();
+                            break;
+                        case 'create':
+                            master.create();
+                            break;
+                        case 'edit':
+                            master.edit();
+                            break;
+                        case 'deletes':
+                            master.deletes();
+                            break;
+                        case 'refresh':
+                            master.refresh();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            mnuIndex.api = mnuIndex.$this.data("kendoContextMenu");
+        }
+
+        //#endregion
+
+        //#region Events
+
+        master.actionCallback = function () {
+            grdIndex.api.reload();
+        }
+
+        //#endregion
+
+        //#region Templates
+        grdIndex.templates.flag = function (flag) {
+            if (flag)
+                return '<img src="@cdn/Content/global/img/flags/' + flag + '" width="15" />';
+            return '';
+        }
+        grdIndex.templates.name = function (name) {
+            return '<a data-action="edit" href="javascript:void(0)">{0}</a>'.format(window.htmlEncode(name));
+        }
+        grdIndex.templates.resources = function (id) {
+            var url = master.urlResources + '?languageId=' + id;
+            return '<a href="{0}">{1}</a>'.format(url, '@T("Common.ViewResource").JavaScriptStringEncode()');
+        }
+        grdIndex.templates.published = function (published) {
+            return published ? '<i class="fa fa-check green pointer"></i>' : '<i class="fa fa-lock yellow pointer"></i>';
+        };
+
+        //#region Startup
+
+        $(function () {
+            master.init();
+        });
+
+        //#endregion
+    </script>
+}
+<!-- #endregion -->

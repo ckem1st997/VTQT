@@ -1,0 +1,309 @@
+﻿@model CRModel
+
+<script>
+    var master = {
+        urlCreate: '@Url.Action("Create")',
+        urlBackList: '@Url.Action("Index")',
+        el: '.page-data',
+        $el: {},
+        tab: {
+            el: '#tabIndex',
+            $el: {},
+            init: function () { },
+            change: function () { }
+        },
+        file: {
+            el: '#FilesUpload',
+            $el: {},
+            init: function () { },
+            change: function () { },
+            data: []
+        },
+        form: {
+            el: '#form-data',
+            $el: {},
+            init: function () { }
+        },
+        btnCreate: {
+            el: '#btnCreate',
+            $el: {},
+            init: function () { }
+        },
+        btnBackList: {
+            el: '#btnBackList',
+            $el: {},
+            init: function () { }
+        },
+        init: function () { }
+    };
+    var form = master.form;
+    var btnBackList = master.btnBackList;
+    var btnCreate = master.btnCreate;
+    var tab = master.tab;
+    var file = master.file;
+</script>
+
+<style>
+    div.k-grid-content.k-auto-scrollable {
+        height: auto !important;
+    }
+</style>
+
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right" style="display:flex">
+            <div class="btn-toolbar" role="toolbar" aria-label="Right group">
+                <a href="javascript:void(0)" class="btn btn-primary btn-sm" id="btnCreate"><i class="fa fa-check" aria-hidden="true"></i>Lưu</a>
+                <a href="javascript:void(0)" class="btn btn-danger btn-sm" id="btnBackList"><i class="fa fa-times" aria-hidden="true"></i>Hủy</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+
+<div class="page-data" style="padding-top: 10px; overflow-y: auto">
+    <div class="form fixed-layout-form">
+        <form id="form-data" class="form-horizontal" data-form-type="ajax">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row" style="margin-bottom: 30px">
+                            <fieldset class="fieldset-no-border">
+                                <legend style="color: #23527c; border-bottom: none; text-transform: uppercase">THÔNG TIN CHUNG</legend>
+                                @Html.HiddenFor(m => m.ProjectId)
+
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="col-md-6" style="padding: 0">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" }, true)
+                                            <div class="col-md-5">
+                                                @Html.TextAreaFor(m => m.Name, new { @class = "form-control", @style = "width: 100%; height: 28px;" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="col-md-6" style="padding: 0">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.Category, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                                            <div class="col-md-5">
+                                                @Html.DropDownListFor(m => m.Category, Model.AvailableCRCategores, "Loại CR", new { @class = "form-control", @style = "width: 100%" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" style="padding: 0">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.Status, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                                            <div class="col-md-5">
+                                                @Html.DropDownListFor(m => m.Status, Model.AvailableStatus, "Trạng thái", new { @class = "form-control", @style = "width: 100%" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm" style="margin-bottom: 10px">
+                                    @Html.XBaseLabelFor(m => m.Detail, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" })
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.Detail, new { @class = "form-control", @style = "width: 100%", @rows = "1" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm" style="margin-bottom: 10px">
+                                    @Html.XBaseLabelFor(m => m.Note, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" })
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.Note, new { @class = "form-control", @style = "width: 100%", @rows = "1" })
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-sm" style="margin-bottom: 10px">
+                                    @Html.XBaseLabelFor(m => m.FieldHandler, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" })
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.FieldHandler, new { @class = "form-control", @style = "width: 100%", @rows = "1" })
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    @Html.XBaseLabelFor(m => m.ImplementationSteps, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" })
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.ImplementationSteps, new { @class = "form-control", @style = "width: 100%", @rows = "1" })
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    @Html.XBaseLabelFor(m => m.CrReason, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" })
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.CrReason, new { @class = "form-control", @style = "width: 100%", @rows = "1" })
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="row" style="width: 91.5%; overflow: hidden">
+                            <fieldset class="fieldset-no-border" style="margin-bottom: 5px">
+                                <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; padding-left: 20px; padding-bottom: 10px">THÔNG TIN CHI TIẾT</legend>
+                                @(Html.XBase().TabStrip()
+                                    .Name("tabIndex")
+                                    .HtmlAttributes(new {style = "padding-left: 30px"})
+                                    .Items(async x =>
+                                    {
+                                        x.Add().Text("NOC")
+                                            .Name("tbNoc")
+                                            .LinkHtmlAttributes(new {data_tab_name = "Noc"})
+                                            .Content(Html.PartialAsync("TabNoc", Model.CRPartnerModel).Result.RenderHtmlContent())
+                                            .Selected(true);
+
+                                        await EngineContext.Current.Resolve<IEventPublisher>().PublishAsync(new TabStripCreated(x, "tabIndex", this.Html));
+                                    }))
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="row">
+                            <fieldset class="fieldset-no-border" style="margin-bottom: 5px">
+                                <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; padding-left: 40px">TIẾN ĐỘ</legend>
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.CreatedBy, true, new { @class = "control-label col-md-5", @style = "padding-left: 80px" })
+                                        <div class="col-md-6">
+                                            @Html.DropDownListFor(m => m.CreatedBy, Model.AvailableUsers, "Người tạo", new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.StartDate, true, new { @class = "control-label col-md-5", @style = "padding-left: 80px" },true)
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(m => m.StartDate, new { pickTime = true, htmlAttributes = new { style = "width: 100%", @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                        @Html.XBaseLabelFor(m => m.FinishDate, true, new { @class = "control-label col-md-5", @style = "padding-left: 80px" })
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(m => m.FinishDate, new { pickTime = true, htmlAttributes = new { style = "width: 100%", @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                        @Html.XBaseLabelFor(m => m.CreatedDate, true, new { @class = "control-label col-md-5", @style = "padding-left: 80px" }, true)
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(m => m.CreatedDate, new { pickTime = true, htmlAttributes = new { style = "width: 100%", @disabled = "disabled", @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    master.init = function () {
+        master.$el = $(master.el);
+        form.init();
+        btnBackList.init();
+        btnCreate.init();
+        tab.init();
+        file.init();
+    };
+
+    tab.init = function () {
+        tab.change();
+    };
+
+    tab.change = function () {
+        tab.$el = $(tab.el);
+        tab.$el.on('shown.bs.tab', function () {
+            app.plugins.uniform.handles();
+            app.grid.handlers.resize();
+        });
+    };
+
+    file.init = function () {
+        file.change();
+    };
+
+    file.change = function () {
+        file.$el = $(file.el);
+        if (file.$el[0])
+            file.data = file.$el[0].files;
+        file.$el.change(function () {
+            if (file.data) {
+                $('.list-files-data').empty();
+                $.each(file.data, function (i, f) {
+                    $('.list-files-data').append(`<li class="list-group-item-light">${f.name} - ${Math.round(f.size / 1024)} KB</li>`)
+                });
+            }
+        });
+    };
+
+    form.init = function () {
+        form.$el = $(form.el);
+
+        form.$el.initFormValidation();
+    };
+
+    btnBackList.init = function () {
+        btnBackList.$el = $(btnBackList.el);
+
+        btnBackList.$el.click(function (e) {
+            $.pjax({ url: master.urlBackList });
+        });
+    };
+
+    btnCreate.init = function () {
+        btnCreate.$el = $(btnCreate.el);
+
+        btnCreate.$el.click(function (e) {
+
+            if (form.$el.valid()) {
+                var objectsDataForm = form.$el.serializeObject();
+                var crPartnerModel = {};
+
+                crPartnerModel.RestoreTimeService = $('#RestoreTimeService').val();
+                crPartnerModel.MinuteTimeMinus = $('#MinuteTimeMinus').val();
+                crPartnerModel.SecondTimeMinus = $('#SecondTimeMinus').val();
+                crPartnerModel.OverTimeRegister = $('#OverTimeRegister').is(':checked');
+                crPartnerModel.Supervisor = $('#Supervisor').val();
+                crPartnerModel.StartTimeAction = $('#StartTimeAction').val();
+                crPartnerModel.HourTimeMinus = $('#HourTimeMinus').val();
+
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        model: objectsDataForm,
+                        crPartnerModel: crPartnerModel,
+                        __RequestVerificationToken: getToken()
+                    },
+                    dataType: "json",
+                    url: master.urlCreate,
+                    beforeSend: function (jqXhr, settings) {
+                        app.ui.loader(form.$el, true);
+                    },
+                    success: function (res) {
+                        if (res.success) {
+                            $.pjax({ url: '@Url.Action("Details")/' + res.data });
+                        }
+                        app.ui.loader(form.$el, false);
+                    }
+                });
+            }
+        });
+    };
+
+    function getToken() {
+        var token = '@Html.AntiForgeryToken()';
+        token = $(token).val();
+        return token;
+    }
+
+    $(function () {
+        master.init();
+    });
+</script>
+

@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+    var cdn = CommonHelper.GetAppSetting<string>("App:Cdn:Url");
+}
+
+<form data-form-type="ajax" class="form-horizontal" action="ImportExcel" method="POST" accept-charset="utf-8" id="import-form">
+    <div class="form-body">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">@T("Asset.Execl.AppActions.Create")</h4>
+        </div>
+    </div>
+    <div class="modal-body position-rel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-content">
+                    <p>Kết quả nhập dữ liệu từ tệp excel</p>
+                    <p>Số dòng dữ liệu trên tệp excel: @TempData["Sum"] </p>
+                    <p>Số dòng dữ liệu nhập thành công: @TempData["success"] </p>
+                    <p>Số dòng dữ liệu nhập không thành công:  @TempData["err"]- <a id="errFile">Tải tệp kết quả</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer form-actions">
+        <button type="button" onclick="restart()" class="btn btn-default btn-sm" data-dismiss="modal" style="width:73px; height:22px;">
+            <i class="fa fa-times"></i> @T("Common.Close")
+        </button>
+    </div>
+
+    <script>
+        $("#errFile").click(function () {
+             window.location = '@Url.Action("DownloadExcel")' + '?fileGuid=DowloadFileToError&fileName=LỗiKiểmKêTàiSảnDựÁn.xlsx';
+
+        })
+        function restart() {
+            location.reload();
+        }
+    </script>
+    <style>
+        p a {
+            color: red;
+        }
+    </style>
+    <script src="~/js/libs-xlsx-0.8.0-jszip.js"></script>
+    <script src="~/js/libs-xlsx-0.8.0-xlsx.js"></script>
+</form>

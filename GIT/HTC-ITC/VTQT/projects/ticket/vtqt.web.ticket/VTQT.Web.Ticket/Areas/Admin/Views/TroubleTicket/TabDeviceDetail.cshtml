@@ -1,0 +1,88 @@
+﻿@model DeviceTicketSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var device = {
+        grd: {
+            el: '#device_grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            data: function () { }
+        },
+        init: function () { }
+    }
+
+    var deviceGrd = device.grd;
+
+    deviceGrd.data = function () {
+        var searchModel = {
+            TicketId: '@Model.TicketId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-device" type="text/x-kendo-template">
+
+    </script>
+    @(Html.Kendo().Grid<DeviceTicketModel>()
+        .Name("device_grd")
+        .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+        .Columns(columns =>
+        {
+            columns.Bound(x => x.DeviceName).Locked().Width(450);
+            columns.ForeignKey(x => x.CategoryId, (System.Collections.IEnumerable)ViewData["categories"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+            columns.ForeignKey(x => x.PhenomenaId, (System.Collections.IEnumerable)ViewData["phenomenas"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+            columns.Bound(x => x.StartDateToString).Width(150);
+            columns.Bound(x => x.FinishDateToString).Width(150);
+        })
+        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-device"); })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(int.MaxValue)
+            .ServerOperation(false)
+            .Read(read => read.Action("GetDeviceTicket", "TroubleTicket").Data("deviceGrd.data"))
+        )
+        .NoRecords()
+        .Scrollable(scr => scr.Enabled(true))
+        .Pageable(pageable => pageable.Enabled(false))
+        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+        .Navigatable())
+</div>
+
+<script>
+    device.init = function () {
+        deviceGrd.init();
+    };
+
+    deviceGrd.init = function () {
+        deviceGrd.$el = $(deviceGrd.el);
+        deviceGrd.api = deviceGrd.$el.data('kendoGrid');
+    };
+
+    deviceGrd.startdate = function(startdate) {
+        var date = new Date(startdate);
+        var day = date.getDate();       // yields date
+        var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
+        var year = date.getFullYear();  // yields year
+        var hour = date.getHours();     // yields hours
+        var minute = date.getMinutes(); // yields minutes
+        var second = date.getSeconds(); // yields seconds
+
+        // After this construct a string with the above results as below
+        var time = day + "/" + month + "/" + year + " " + hour + ':' + minute + ':' + second;
+        date.toString()
+        return time;
+    };
+
+    $(function () {
+        device.init();
+    });
+</script>
+

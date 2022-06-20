@@ -1,0 +1,82 @@
+﻿@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@{
+    var appContext = EngineContext.Current.Resolve<IAppContext>();
+}
+
+<div id="pjax_app_form_antiForgeryToken_container">
+    @Html.AntiForgeryToken()
+</div>
+
+<script>
+    //#region Pjax: Xóa vùng chứa các Script cũ ở request trước
+
+    var __$appInitScript = $(app.layout.appInitScriptSelector);
+    if (__$appInitScript.length)
+        __$appInitScript.remove();
+
+    var __$scriptsSection = $(app.layout.scriptsSectionSelector);
+    if (__$scriptsSection.length)
+        __$scriptsSection.remove();
+
+    // Xóa các vùng Html được gen ra từ Kendo ở cuối body
+    // Xóa Kendo ContextMenu để tránh mở sai (chỉ nhận ContextMenu được mở đầu tiên) khi có nhiều Menu có id trùng nhau ở trong winForm
+    var __$kListContainer = $('.k-list-container');
+    if (__$kListContainer.length)
+        __$kListContainer.remove();
+    var __$kContextMenu = $('ul.k-context-menu');
+    if (__$kContextMenu.length)
+        __$kContextMenu.remove();
+    var __$kAnimationContainer = $('.k-animation-container');
+    if (__$kAnimationContainer.length)
+        __$kAnimationContainer.remove();
+
+    //#endregion
+
+    //#region Regenerate "__appInitScript" script
+
+    app.route.appId = parseInt('@appContext.CurrentApp.Id');
+    app.route.appType = '@appContext.CurrentApp.AppType';
+    app.route.appAssemblyAreaName = '@ViewContext.RouteData.GetAppAssemblyAreaName()';
+    app.route.areaName = '@ViewContext.RouteData.GetAreaName()';
+    app.route.appControllerName = '@(ViewContext.RouteData.GetControllerName() + "Controller")';
+    app.route.appActionName = '@ViewContext.RouteData.GetActionName()';
+
+    //#endregion
+
+    //#region UserControls: Dispose UserControls ở request trước
+
+    // Employee
+    _chooseEmpsList = [];
+    _chooseEmpInput = [];
+    _chooseEmpInfo = [];
+    _chooseSignerInfo = [];
+
+    _chooseEmp = {};
+    _chooseEmps = {};
+
+    // Organizational Unit
+    _chooseOrgInput = [];
+
+    _chooseOrg = {};
+
+    //#endregion
+
+    // Init ajax
+    App.initAjax();
+    app.initAjax();
+
+    app.form.antiForgeryToken.value = $(app.form.antiForgeryToken.pjaxSelector).find('input[name="' + app.form.antiForgeryToken.cookieName + '"]').val();
+</script>

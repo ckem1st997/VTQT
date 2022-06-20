@@ -1,0 +1,340 @@
+﻿@model InwardModel
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="cancel" href="javascript:void(0)" class="btn blue btn-sm">
+                <i class="fa fa-backward"></i> @T("Common.Back")
+            </a>
+            <a data-action="edit" href="javascript:void(0)" class="btn yellow btn-sm">
+                <i class="flaticon2-pen"></i> @T("Common.Edit")
+            </a>
+            <button type="button" class="btn purple btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="flaticon-more"></i> @T("Common.OtherActions") <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a data-action="texport1" href="javascript:void(0)">
+                        <i class="fa fa-print"></i>@T("Common.ExportDatakhosaigon.Pdf")
+                    </a>
+                </li>
+                <li>
+                    <a data-action="texport" href="javascript:void(0)">
+                        <i class="fa fa-print"></i>@T("Common.ExportData.Pdf")
+                    </a>
+                </li>
+                <li>
+                    <a data-action="exportrecall" href="javascript:void(0)">
+                        <i class="fa fa-file-excel-o"></i>@T("Common.ExportData.Recall")
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+<div class="page-data" style="padding-top: 10px">
+<div class="form fixed-layout-form">
+<form id="form-data" data-form-type="ajax" class="form-horizontal">
+    <div class="row full-height" style="padding-top: 196px">
+        <div class="row" style="position: absolute; top: 10px; width: 100%">
+            <div class="col-md-8" style="padding-left: 0">
+                <fieldset class="fieldset-no-border">
+                    <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 84%;">@T("Common.InWard")</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.WareHouseID, true, new { @class = "control-label col-md-4" }, true)
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.WareHouseID, new { list = Model.AvailableWareHouses })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.AccObjectId, true, new { @class = "control-label col-md-4" }, true)
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(m => m.AccObjectId, Model.AvailableAccObject, string.Format(T("Common.SelectObject"), T("Common.AccObject")), new { @class = "form-control", style = "width: 100%" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.Deliver, true, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.Deliver)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.Receiver, true, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.Receiver)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.DeliverPhone, true, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.DeliverPhone)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.ReceiverPhone, true, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.ReceiverPhone)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.DeliverAddress, true, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.DeliverAddress)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.ReceiverAddress, true, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.ReceiverAddress)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.DeliverDepartment, true, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.DeliverDepartment)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.ReceiverDepartment, true, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.ReceiverDepartment)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.VendorId, true, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(m => m.VendorId, new { list = Model.AvailableVendors })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.XBaseLabelFor(m => m.Reason, true, new { @class = "control-label col-md-4" }, true)
+                                <div class="col-md-8">
+                                    @*@Html.DisplayFor(m => m.Reason, new { list = Model.AvailableReasons })*@
+                                    @Html.DisplayFor(m => m.ReasonDescription)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(m => m.Description, new { isTextArea = true })
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-4" style="padding-right: 0">
+                <fieldset class="fieldset-no-border" style="width:98%;">
+                    <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 73%;">@T("Common.InfoGroup")</legend>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.VoucherCode, true, new { @class = "control-label col-md-3" }, true)
+                        <div class="col-md-9">
+                            @Html.DisplayFor(m => m.VoucherCode)
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Voucher, true, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DisplayFor(m => m.Voucher)
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.VoucherDate, true, new { @class = "control-label col-md-3" }, true)
+                        <div class="col-md-9">
+                            @Html.DisplayFor(m => m.VoucherDate)
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CreatedBy, true, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DisplayFor(m => m.CreatedBy, new { list = Model.AvailableCreatedBy })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CreatedDate, true, new { @class = "control-label col-md-3" }, true)
+                        <div class="col-md-9">
+                            @Html.DisplayFor(m => m.CreatedDate)
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row full-height" style="padding-top:7%;">
+            @(Html.Kendo().Grid<InwardDetailModel>()
+                .Name("frmEdit_grdIndex")
+                .HtmlAttributes(new { style = "height: 98%;margin-left: 10px;margin-right: 10px;margin-top: 10px;border-left: 2px solid #cddaeb !important; border-right: 2px solid #cddaeb !important" })
+                .Columns(columns =>
+                {
+                    columns.Bound(x => x.ItemId).Hidden();
+                    columns.Bound(x => x.ItemName).Width(320).Locked(true);
+                    columns.Bound(x => x.UnitId).Hidden();
+                    columns.Bound(x => x.UnitName).Width(110).Locked(true);
+                    columns.Bound(x => x.Quantity).Hidden();
+                    columns.Bound(x => x.UIQuantity).Width(110).RightAlign();
+                    columns.Bound(x => x.UIPrice).Width(110).RightAlign();
+                    columns.Bound(x => x.Price).Hidden();
+                    columns.Bound(x => x.Amount).Width(110).RightAlign();
+                    columns.Bound(x => x.Status).Width(200).RightAlign();
+                    columns.Bound(x => x.DepartmentId).Hidden();
+                    columns.Bound(x => x.DepartmentName).Width(200);
+                    columns.Bound(x => x.EmployeeId).Hidden();
+                    columns.Bound(x => x.EmployeeName).Width(200);
+                    columns.Bound(x => x.StationId).Hidden();
+                    columns.Bound(x => x.StationName).Width(200);
+                    columns.Bound(x => x.ProjectId).Hidden();
+                    columns.Bound(x => x.ProjectName).Width(200);
+                    columns.Bound(x => x.CustomerId).Hidden();
+                    columns.Bound(x => x.CustomerName).Width(300);
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .PageSize(int.MaxValue)
+                    .ServerOperation(true)
+                    .Read(read => read.Action("Details_Read", "Inward").Data("grdIndex.data"))
+                )
+                .NoRecords()
+                .Scrollable(scr => scr.Enabled(true))
+                .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(true))
+                .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Single))
+                .Navigatable())
+        </div>
+    </div>
+</form>
+</div>
+</div>
+
+<!-- #endregion -->
+<!-- #region Scripts -->
+
+@section HeadScripts {
+    <script>
+        var frmEdit = {
+            grdIndex: {
+                el: '#frmEdit_grdIndex',
+                $el: {},
+                api: {},
+                data: function () { },
+                init: function () { }
+            },
+            btnCancel: {
+                selector: 'a[data-action="cancel"]',
+                $this: {},
+                init: function () { }
+            },
+            btnEdit: {
+                el: 'a[data-action="edit"]',
+                $el: {},
+                init: function () { }
+            },
+            init: function () { }
+        };
+        var grdIndex = frmEdit.grdIndex;
+        var btnCancel = frmEdit.btnCancel;
+        var btnEdit = frmEdit.btnEdit;
+
+        grdIndex.data = function () {
+            var searchModel = {
+                InwardId: '@Model.Id'
+            };
+            return searchModel;
+        };
+    </script>
+}
+
+@section Scripts {
+    <script>
+
+        //Inits
+        frmEdit.init = function() {
+            grdIndex.init();
+            btnCancel.init();
+            btnEdit.init();
+        }
+
+        grdIndex.init = function() {
+            grdIndex.$el = $(grdIndex.el);
+            grdIndex.api = grdIndex.$el.data('kendoGrid');
+        };
+        btnCancel.init = function() {
+            btnCancel.$this = $(btnCancel.selector);
+
+            btnCancel.$this.click(function(e) {
+                $.pjax({ url: '@Url.Action("Index", "WareHouseBook")' });
+            });
+        }
+
+        btnEdit.init = function () {
+            btnEdit.$el = $(btnEdit.el);
+            btnEdit.$el.click(function (e) {
+                $.pjax({ url: '@Url.Action("Edit", "Inward")/' + '@Model.Id' });
+            });
+        };
+        $('a[data-action="texport1"]').click(function (e) {
+            window.location = '@Url.Action("ExportInwardWHsaigon", "WareHouseBook")/@Model.Id';
+        });
+        $('a[data-action="texport"]').click(function (e) {
+            window.location = '@Url.Action("ExportInward", "WareHouseBook")/@Model.Id';
+        });
+        $('a[data-action="texport2"]').click(function (e) {
+            window.location = '@Url.Action("ExportInwardTest", "WareHouseBook")/@Model.Id';
+        });
+        $('a[data-action="exportrecall"]').click(function (e) {
+            window.location = '@Url.Action("ExportRecall", "WareHouseBook")/@Model.Id';
+            @*$.ajax({
+                url: '@Url.Action("ExportRecall", "WareHouseBook")',
+                data: { id: '@Model.Id' },
+                success: function(data) {
+                    window.location = '@Url.Action("DownloadExcel", "WareHouseBook")' +
+                        '?fileGuid=' +
+                        data.FileGuid +
+                        '&fileName=' +
+                        data.FileName;
+                }
+            })*@
+        });
+
+        //Startup
+        $(function() {
+            frmEdit.init();
+        });
+    </script>
+}
+
+<!-- #endregion -->

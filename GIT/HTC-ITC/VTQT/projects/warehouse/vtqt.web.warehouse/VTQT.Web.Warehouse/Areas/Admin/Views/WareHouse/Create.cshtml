@@ -1,0 +1,82 @@
+﻿@model WareHouseModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Warehouse.Warehouses.AppActions.Create")</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+
+                @(Html.LocalizedEditor<WareHouseModel, WareHouseLocalizedModel>("lpWareHouse",
+                    @<div>
+                        @Html.HiddenFor(m => m.Locales[item].LanguageId)
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Locales[item].Name, true, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Locales[item].Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>,
+                    @<div>
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-3" }, true)
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    ))
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Code, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ParentId, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.ParentId, Model.AvailableWareHouses, string.Format(T("Common.SelectObject"), T("Common.Warehouse")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Address, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Inactive, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.Inactive)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="submit" class="btn blue btn-sm" data-action="continueAdding">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-plus"></i> @T("Common.ContinueAdding")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

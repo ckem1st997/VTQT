@@ -1,0 +1,221 @@
+﻿@model NetworkLinkTicketSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var networklink = {
+        grd: {
+            el: '#networklink_grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            data: function () { }
+        },
+        btnAdd: {
+            el: '#btnAddNetworkLink',
+            $el: {},
+            init: function () { }
+        },
+        btnRemove: {
+            el: '#btnRemoveNetworkLink',
+            $el: {},
+            init: function () { }
+        },
+        btnEdit: {
+            el: '#btnEditNetworkLink',
+            $el: {},
+            init: function () { }
+        },
+        init: function () { }
+    }
+
+    var networklinkGrd = networklink.grd;
+    var btnAddNetworkLink = networklink.btnAdd;
+    var btnRemoveNetworkLink = networklink.btnRemove;
+    var btnEditNetworkLink = networklink.btnEdit;
+
+    networklinkGrd.data = function () {
+        var searchModel = {
+            TicketId: '@Model.TicketId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-networklink" type="text/x-kendo-template">
+        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+            <span style="padding-left: 20px">Danh sách link mạng</span>
+        </div>
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+            <a id="btnAddNetworkLink" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm link mạng</a>
+            <a id="btnEditNetworkLink" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>
+            <a id="btnRemoveNetworkLink" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+        </div>
+    </script>
+    @(Html.Kendo().Grid<NetworkLinkTicketModel>()
+        .Name("networklink_grd")
+        .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+        .Columns(columns =>
+        {
+            columns.Select().Locked().Width(30);
+            columns.Bound(x => x.NetworkLinkName).Locked().Width(450);
+            columns.ForeignKey(x => x.CategoryId, (System.Collections.IEnumerable)ViewData["categories"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+            columns.ForeignKey(x => x.PhenomenaId, (System.Collections.IEnumerable)ViewData["phenomenas"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+            columns.ForeignKey(x => x.CableId, (System.Collections.IEnumerable)ViewData["cables"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+           // columns.Bound(x => x.StartDate).Format("{0:dd/MM/yyyy hh:mm:ss tt}").ClientTemplate("#=networklinkGrd.startdate(StartDate)#").Width(150);
+            columns.Bound(x => x.StartDateToString).Width(150);
+            columns.Bound(x => x.FinishDateToString).Width(150);
+        })
+        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-networklink"); })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(int.MaxValue)
+            .ServerOperation(false)
+            .Read(read => read.Action("GetNetworkLinkTicket", "ProblemTicket").Data("networklinkGrd.data"))
+        )
+        .NoRecords()
+        .Scrollable(scr => scr.Enabled(true))
+        .Pageable(pageable => pageable.Enabled(false))
+        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+        .Navigatable())
+</div>
+
+<script>
+    networklink.init = function () {
+        networklinkGrd.init();
+        btnAddNetworkLink.init();
+        btnRemoveNetworkLink.init();
+        btnEditNetworkLink.init();
+    };
+
+    networklinkGrd.init = function () {
+        networklinkGrd.$el = $(networklinkGrd.el);
+        networklinkGrd.api = networklinkGrd.$el.data('kendoGrid');
+    };
+
+    btnAddNetworkLink.init = function () {
+        btnAddNetworkLink.$el = $(btnAddNetworkLink.el);
+        btnAddNetworkLink.$el.click(function (e) {
+            var date = new Date();
+                var day = date.getDate();       // yields date
+                var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
+                var year = date.getFullYear();  // yields year
+                var hour = date.getHours();     // yields hours
+                var minute = date.getMinutes(); // yields minutes
+                var second = date.getSeconds(); // yields seconds
+
+                // After this construct a string with the above results as below
+                var time = day + "-" + month + "-" + year + "-" + hour + '-' + minute + '-' + second;
+            app.window.form.open({
+                url: '@Url.Action("AddNetworkLink")?date=' + time, options: { width: '500px' }, callback: function () {
+                    var networkLinkTicket = window.frmAddNetworkLink.$el.serializeObject();
+                    var networkLinkTicketModel = {};
+                    networkLinkTicketModel.NetworkLinkId = networkLinkTicket.NetworkLinkId;
+                    networkLinkTicketModel.CableId = networkLinkTicket.CableId;
+                    networkLinkTicketModel.NetworkLinkId = networkLinkTicket.NetworkLinkId;
+                    networkLinkTicketModel.TicketId = '@Model.TicketId';
+                    networkLinkTicketModel.CategoryId = networkLinkTicket.CategoryId;
+                    networkLinkTicketModel.StartDate = networkLinkTicket.StartDate;
+                    networkLinkTicketModel.FinishDate = networkLinkTicket.FinishDate;
+                    networkLinkTicketModel.PhenomenaId = networkLinkTicket.PhenomenaId;
+                    networkLinkTicketModel.NetworkLinkName = networkLinkTicket.NetworkLinkName;
+
+                    $.ajax({
+                    url: '@Url.Action("AddNetworkLink")',
+                        data: { addNetworkLinkTicket: networkLinkTicketModel },
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.success) {
+                            networklinkGrd.api.reload();
+                        }
+                    }
+                });
+                    //Close form add item
+                    window.frmAddNetworkLink.winForm.close();
+                }
+            });
+
+        });
+    };
+
+    btnEditNetworkLink.init = function () {
+        btnEditNetworkLink.$el = $(btnEditNetworkLink.el);
+        btnEditNetworkLink.$el.click(function (e) {
+
+            var id = networklinkGrd.api.selectedIds()[0];
+                if (id) {
+                    app.window.form.open({
+                        url: '@Url.Action("EditNetworkLink")/' + '?id=' + id, options: { width: '500px' }, callback: function () {
+                            var networkLinkTicket = window.frmEditNetworkLink.$el.serializeObject();
+                            var networkLinkTicketModel = {};
+                            networkLinkTicketModel.Id = id;
+                            networkLinkTicketModel.NetworkLinkId = networkLinkTicket.NetworkLinkId;
+                            networkLinkTicketModel.CableId = networkLinkTicket.CableId;
+                            networkLinkTicketModel.TicketId = '@Model.TicketId';
+                            networkLinkTicketModel.CategoryId = networkLinkTicket.CategoryId;
+                            networkLinkTicketModel.StartDate = networkLinkTicket.StartDate;
+                            networkLinkTicketModel.FinishDate = networkLinkTicket.FinishDate;
+                            networkLinkTicketModel.PhenomenaId = networkLinkTicket.PhenomenaId;
+                            networkLinkTicketModel.NetworkLinkName = networkLinkTicket.NetworkLinkName;
+
+                            $.ajax({
+                            url: '@Url.Action("EditNetworkLink")',
+                                data: { networkLinkTicket: networkLinkTicketModel },
+                            dataType: 'json',
+                            type: 'POST',
+                            success: function (res) {
+                                if (res.success) {
+                                    networklinkGrd.api.reload();
+                                }
+                            }
+                        });
+                            //Close form add item
+                            window.frmEditNetworkLink.winForm.close();
+                        }
+                    });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                }
+
+        });
+    };
+
+    btnRemoveNetworkLink.init = function () {
+        btnRemoveNetworkLink.$el = $(btnRemoveNetworkLink.el);
+        btnRemoveNetworkLink.$el.click(function (e) {
+            var ids = networklinkGrd.api.selectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: '@Url.Action("DeleteNetworkLink")', ids: ids, options: { width: '450px' }, callback: function () { networklinkGrd.api.reload(); } });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                }
+        });
+    };
+
+    networklinkGrd.startdate = function(startdate) {
+        var date = new Date(startdate);
+        var day = date.getDate();       // yields date
+        var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
+        var year = date.getFullYear();  // yields year
+        var hour = date.getHours();     // yields hours
+        var minute = date.getMinutes(); // yields minutes
+        var second = date.getSeconds(); // yields seconds
+
+        // After this construct a string with the above results as below
+        var time = day + "/" + month + "/" + year + " " + hour + ':' + minute + ':' + second;
+        date.toString();
+        console.log(startdate);
+        console.log(date.toString());
+        console.log(time);
+        return time;
+    };
+
+    $(function () {
+        networklink.init();
+    });
+</script>

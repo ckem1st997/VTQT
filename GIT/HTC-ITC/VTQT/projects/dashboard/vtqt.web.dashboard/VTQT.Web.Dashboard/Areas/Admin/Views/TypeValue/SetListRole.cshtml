@@ -1,0 +1,275 @@
+﻿@model TypeValueModel
+@{
+    Layout = null;
+}
+<script>
+                // Fields
+            var masterWareHouseUser = {
+                urlDetails: '@Url.Action("Details")',
+                urlCreate: '@Url.Action("Create")',
+                urlEdit: '@Url.Action("Edit")',
+                urlDeletes: '@Url.Action("Deletes")',
+                urlActivates: '@Url.Action("SetRole")',
+                urlExport: '@Url.Action("ExportOrder")',
+                urlImportExcel: '@Url.Action("ImportExcel")',
+                urlSetListRole: '@Url.Action("SetListRole")',
+                urlCheckRole: '@Url.Action("CheckRole")',
+                urlDeRole: '@Url.Action("DeSetRole")',
+                toolbarWareHouseUser: {
+                    el: '.page-toolbar',
+                    $el: {},
+                    actions: {
+                        init: function () { }
+                    },
+                    init: function () { }
+                },
+                grdWareHouseUser: {
+                    el: '#grdWareHouseUser',
+                    $el: {},
+                    api: {},
+                    actions: {
+                        init: function () { }
+                    },
+                    tmp: {
+                        name: function (name) { },
+                        role: function (role) { },
+                        activate: function (activate) { }
+                    },
+                    data: function () { },
+                    init: function () { }
+                },
+                btnSearchWareHouseUser: {
+                    el: '#btnSearch',
+                    $el: {},
+                    init: function () { }
+                },
+                init: function () { },
+                details: function () { },
+                create: function () { },
+                deletes: function () { },
+                refresh: function () { },
+                actionCallback: function () { },
+                export: function () { }
+            };
+            var toolbarWareHouseUser = masterWareHouseUser.toolbarWareHouseUser;
+            var grdWareHouseUser = masterWareHouseUser.grdWareHouseUser;
+            var btnSearchWareHouseUser = masterWareHouseUser.btnSearchWareHouseUser;
+
+            grdWareHouseUser.data = function () {
+                var idTypeValue = $('#@Html.FieldIdFor(m => m.Id)');
+
+                var searchModel = {
+                    Keywords: idTypeValue.val(),
+                    Status: ''
+                };
+                return searchModel;
+            };
+    
+
+</script>
+<div class="form fixed-layout-form" style="height:650px">
+    @Html.HiddenFor(x => x.Id)
+    <form data-form-type="ajax" class="form-horizontal full-height">
+        <div class="form-body full-height">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Thêm mới quyền</h4>
+            </div>
+            @*<div style="display: flex; align-items: flex-end;">
+                <label>Tìm kiếm: </label>
+                <div class="form-group form-group-sm" style="margin-right:10px;width:35%">
+                    <input value=""  class="form-control" placeholder="Nhập họ và tên" />
+                </div>
+            </div>*@
+            <div class="modal-body full-height">
+                <div class="row full-height" style="padding:10px">
+                    @(Html.Kendo().Grid<UserModel>()
+            .Name("grdWareHouseUser")
+            .HtmlAttributes(new { style = "height: 100%" })
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.Active).Filterable(ftb => ftb.Enabled(false)).Locked().ClientTemplate("#=grdWareHouseUser.tmp.activate(Active)#").Width(130).Centered();
+                columns.Bound(x => x.FullName).Locked().Width(250).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").SuggestionOperator(FilterType.Contains)));;
+                columns.Bound(x => x.Email).Width(300);
+                columns.Bound(x => x.PhoneNumber).Width(200);
+                columns.Bound(x => x.Id).Hidden();
+
+            })
+             .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(50)
+                .ServerOperation(false)
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .Read(read => read.Action("GetUser", "TypeValue").Data("grdWareHouseUser.data"))
+            )
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PreviousNext(true).Refresh(true))
+            .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+            .Navigatable())
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+
+
+        // Methods
+        masterWareHouseUser.details = function() {
+            var id = grd.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({ url: `${master.urlDetails}/${id}`, options: { width: '450px' } });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        };
+        masterWareHouseUser.create = function() {
+            app.window.form.open({ url: master.urlCreate, options: { width: '450px' }, callback: master.actionCallback });
+        };
+        masterWareHouseUser.deletes = function() {
+            var ids = grd.api.selectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: master.urlDeletes, ids: ids, options: { width: '450px' }, callback: master.actionCallback });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+           };
+
+         masterWareHouseUser.activates = function (activate, ids) {
+                   var idTypeValue = $('#@Html.FieldIdFor(m => m.Id)');
+console.log(idTypeValue);
+console.log(ids);
+             ids = ids || grdWareHouseUser.api.selectedIds();
+             if (ids.length > 0 && activate) {
+            $.ajax({
+                type: 'POST',
+                data: { idUser: ids, idTypeValue: idTypeValue.val(), __RequestVerificationToken: app.form.antiForgeryToken.value },
+                dataType: 'json',
+                url: masterWareHouseUser.urlActivates,
+                beforeSend: function (jqXhr, settings) {
+                    app.ui.loader(grdWareHouseUser.api.element, true);
+                },
+                success: function (msg) {
+                    console.log(msg);
+                    if (!msg)
+                        return;
+                    if (!msg.HasError) {
+                        masterWareHouseUser.actionCallback();
+                    }
+                    app.ui.loader(grdWareHouseUser.api.element, false);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    app.ui.loader(grdWareHouseUser.api.element, false);
+                }
+            });
+             }
+             else if (ids.length > 0 && !activate) {
+                 $.ajax({
+                     type: 'POST',
+                     data: { idUser: ids[0], idTypeValue: idTypeValue.val(), __RequestVerificationToken: app.form.antiForgeryToken.value },
+                     dataType: 'json',
+                     url: masterWareHouseUser.urlDeRole,
+                     beforeSend: function (jqXhr, settings) {
+                         app.ui.loader(grdWareHouseUser.api.element, true);
+                     },
+                     success: function (msg) {
+                         if (!msg)
+                             return;
+                         if (!msg.HasError) {
+                             masterWareHouseUser.actionCallback();
+                         }
+                         app.ui.loader(grdWareHouseUser.api.element, false);
+                     },
+                     error: function (jqXhr, textStatus, errorThrown) {
+                         app.ui.loader(grdWareHouseUser.api.element, false);
+                     }
+                 });
+             }
+             else {
+            notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+        }
+    };
+        masterWareHouseUser.refresh = function() {
+            grdWareHouseUser.api.reload();
+        };
+        masterWareHouseUser.actionCallback = function() {
+            grdWareHouseUser.api.reload();
+        };
+        // Inits
+        masterWareHouseUser.init = function() {
+            toolbarWareHouseUser.init();
+            grdWareHouseUser.init();
+            btnSearchWareHouseUser.init();
+            //$('i[data-action="activate"]').click(function (e) {
+            //    masterWareHouseUser.activate();
+            //});
+            //$('i[data-action="deactivate"]').click(function (e) {
+            //    masterWareHouseUser.activate();
+            //});
+        };
+
+        toolbarWareHouseUser.init = function() {
+            toolbarWareHouseUser.$el = $(toolbarWareHouseUser.el);
+
+            toolbarWareHouseUser.actions.init();
+        };
+        toolbarWareHouseUser.actions.init = function() {
+            var $toolbarWareHouseUser = toolbarWareHouseUser.$el;
+            admin.pageToolbar.actions.initCreate($toolbarWareHouseUser, masterWareHouseUser.create);
+            admin.pageToolbar.actions.initDeletes($toolbarWareHouseUser, masterWareHouseUser.deletes);
+            admin.pageToolbar.actions.initActivate($toolbarWareHouseUser, masterWareHouseUser.activates);
+        };
+        grdWareHouseUser.init = function() {
+            grdWareHouseUser.$el = $(grdWareHouseUser.el);
+            grdWareHouseUser.api = grdWareHouseUser.$el.data('kendoGrid');
+
+            grdWareHouseUser.actions.init();
+        };
+        grdWareHouseUser.actions.init = function () {
+            grdWareHouseUser.api.initDblClick(masterWareHouseUser.details);
+            grdWareHouseUser.api.initEdit(masterWareHouseUser.edit);
+            grdWareHouseUser.api.initActivate(masterWareHouseUser.activates);
+        };
+
+        btnSearchWareHouseUser.init = function() {
+            btnSearchWareHouseUser.$el = $(btnSearchWareHouseUser.el);
+
+            const search = _.debounce(() => {
+                grdWareHouseUser.api.resetPage();
+            }, app.ui.def.debounce.timeout);
+            btnSearchWareHouseUser.$el.click(function (e) {
+                search();
+                return false;
+            });
+        };
+
+        //// Templates
+        //grd.tmp.name = function(name) {
+        //    return `<a data-action="edit" href="javascript:void(0)">${name}</a>`;
+        //};
+        //grd.tmp.role = function(role) {
+        //     return `<a class="button-61" role="button" data-action="set-role" href="javascript:void(0)"><i class="flaticon2-user"></i></a>`;
+//};
+
+    grdWareHouseUser.tmp.activate= function (active) {
+        return !active ? '<i data-action="deactivate" style="color: red;"><span style="margin-right: 17px;" _ngcontent-twu-c741="" class="k-icon k-i-login ng-star-inserted" role="presentation"></span>Gỡ quyền</i>' : '<i data-action="activate" style="color: green;"><span style="margin-right: 10px;" _ngcontent-twu-c741="" class="k-icon k-i-logout k-flip-h ng-star-inserted" role="presentation"></span>Gán quyền</i>';
+
+        };
+
+
+        // Startup
+    $(function() {
+        masterWareHouseUser.init();
+    });
+</script>
+<style>
+    i:hover{
+        cursor:pointer;
+        border-bottom:1px solid;
+        padding-bottom:2px;
+    }
+</style>

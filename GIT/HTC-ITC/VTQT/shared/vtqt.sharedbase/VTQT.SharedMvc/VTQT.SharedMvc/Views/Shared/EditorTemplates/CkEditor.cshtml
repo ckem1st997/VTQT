@@ -1,0 +1,82 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@functions {
+    private string _value;
+    private string Value
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_value))
+                return _value;
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToString(ViewData.Model, System.Globalization.CultureInfo.CurrentCulture);
+            }
+            return _value;
+        }
+    }
+
+    private string _imageUploadPath;
+    private string ImageUploadPath
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_imageUploadPath))
+                return _imageUploadPath;
+            var imageUploadPath = ViewData["imageUploadPath"];
+            _imageUploadPath = imageUploadPath != null ? imageUploadPath.ToString() : string.Empty;
+
+            return _imageUploadPath;
+        }
+    }
+
+}
+
+@{
+    var appContext = EngineContext.Current.Resolve<IAppContext>();
+    var cdn = appContext.CurrentApp.CdnUrl;
+    var id = "EditorTemplates_CkEditor_" + Html.IdForModel();
+    var value = string.Empty;
+    var imageUploadPath = string.Empty;
+
+    if (!string.IsNullOrEmpty(Value))
+    {
+        value = Value;
+    }
+    if (!string.IsNullOrEmpty(ImageUploadPath))
+    {
+        imageUploadPath = cdn + ImageUploadPath;
+    }
+}
+
+@Html.TextArea(string.Empty, value, new { id = id, rows = "10" })
+
+<script>
+    var removeButtons = 'Source,Save,NewPage,Preview,Print,Templates,Cut,Paste,Copy,PasteText,PasteFromWord,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,RemoveFormat,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,Flash,Smiley,SpecialChar,PageBreak,Iframe,Styles,Format,Font,ShowBlocks,About';
+    if ('@imageUploadPath' === '')
+        removeButtons = removeButtons + ',Image';
+    else if ('@imageUploadPath' !== '') {
+
+    }
+
+    CKEDITOR.replace('@id', {
+        removeButtons: removeButtons
+    });
+</script>

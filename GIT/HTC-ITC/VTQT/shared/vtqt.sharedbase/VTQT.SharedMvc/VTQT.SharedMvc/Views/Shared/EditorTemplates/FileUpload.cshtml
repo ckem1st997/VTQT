@@ -1,0 +1,233 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@inject ILocalizationService tt
+@inject IAppContext appContext
+
+@{
+    var cdn = appContext.CurrentApp.CdnUrl;
+}
+
+@functions {
+    private string _id;
+    private string Id
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_id))
+                return _id;
+            var id = ViewData["id"];
+            if (id != null)
+            {
+                _id = Convert.ToString(id);
+            }
+            return _id;
+        }
+    }
+
+    private string _value;
+    private string Value
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_value))
+                return _value;
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToString(ViewData.Model);
+            }
+            return _value;
+        }
+    }
+
+    private string _uploadUrl;
+    private string UploadUrl
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_uploadUrl))
+                return _uploadUrl;
+            var uploadUrl = ViewData["uploadUrl"];
+            if (uploadUrl != null)
+            {
+                _uploadUrl = Convert.ToString(uploadUrl);
+            }
+            return _uploadUrl;
+        }
+    }
+
+    private string _uploadCallback;
+    private string UploadCallback
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_uploadCallback))
+                return _uploadCallback;
+            var selectedCallBack = ViewData["UploadCallback"];
+            if (selectedCallBack != null)
+                _uploadCallback = (string)selectedCallBack;
+            else
+                _uploadCallback = string.Empty;
+            return _uploadCallback;
+        }
+    }
+}
+
+@{
+    var id = !string.IsNullOrEmpty(Id) ? Id : Html.IdForModel();
+    var filePath = !string.IsNullOrEmpty(Value) ? Value : "";
+    var fileName = System.IO.Path.GetFileName(filePath);
+
+    const string containerCssClass = "fileupload-container";
+    const string dragoverCssClass = "fileupload-container dragover";
+}
+
+@if (!string.IsNullOrEmpty(UploadUrl))
+{
+    <div id="@(id)_Container" class="@containerCssClass">
+        @Html.Hidden("", Value, new { id = id })
+        <table>
+            <tbody>
+                <tr>
+                    <td style="width:100%">
+                        <div class="fileupload-actions">
+                            <button id="btnUpload_@id" type="button" class="btn btn-default btn-sm"><i class="fa fa-upload font-blue"></i> @tt.GetResource("Common.Upload")</button>
+                            <button id="btnCancel_@id" type="button" class="btn btn-default btn-sm" style="display: none;"><i class="fa fa-times font-red"></i> @tt.GetResource("Common.Cancel")</button>
+                            <div id="progressContainer_@id" class="fileupload-progress" style="display: none;">
+                                <div class="progress progress-striped active">
+                                    <div id="progress_@id" class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 0;">
+                                        0%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fileupload-filename">
+                            @*<a id="filename_@id" class="no-pjax" href="@(!string.IsNullOrEmpty(Value) ? Value : "")" download>@fileName</a>*@
+                            <a id="filename_@id" class="no-pjax" href="javascript: void(0);">@fileName</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(function () {
+            var $file = $('#@id');
+            var filePath = '@filePath';
+            var fileName = '@fileName';
+            var $fileName = $('#filename_@id');
+            var $btnUpload = $('#btnUpload_@id');
+            var $btnCancel = $('#btnCancel_@id');
+            var $progressContainer = $('#progressContainer_@id');
+            var $progress = $('#progress_@id');
+            var $uploadContainer = $('#@(id)_Container');
+
+            var uploader = new plupload.Uploader({
+                multi_selection: false,
+                dragdrop: true,
+                drop_element: '@(id)_Container',
+                unique_names: true,
+                runtimes: 'html5,flash,silverlight,html4',
+                browse_button: 'btnUpload_@id',
+                container: document.getElementById('@(id)_Container'),
+                url: '@UploadUrl',
+                //filters: {
+                //    max_file_size: '30mb'
+                //},
+                multipart_params: {
+                },
+                file_data_name: 'file',
+                flash_swf_url: '@cdn/Content/assets/global/plugins/plupload/Moxie.swf',
+                silverlight_xap_url: '@cdn/Content/assets/global/plugins/plupload/Moxie.xap',
+                init: {
+                    PostInit: function () {
+                    },
+                    FilesAdded: function (up, files) {
+                        $btnUpload.hide();
+                        $btnCancel.show();
+
+                        $progress.css('width', '0');
+                        $progress.html('0%');
+                        $progressContainer.show('fade');
+
+                        uploader.start();
+                    },
+                    UploadProgress: function (up, file) {
+                        $progress.css('width', file.percent + '%');
+                        $progress.html(file.percent + '%');
+                    },
+                    FileUploaded: function (up, file, res) {
+                        $btnCancel.hide();
+                        $progressContainer.fadeOut(2000);
+                        $btnUpload.fadeIn(1000);
+
+                        var msg = $.parseJSON(res.response);
+                        if (!msg.HasError) {
+                            $file.val(msg.Data.Path);
+                            if ('@filePath'.toString() === '')
+                                filePath = msg.Data.Path;
+                            if ('@fileName'.toString() === '')
+                                fileName = msg.Data.Name;
+                            //$fileName.attr('href', msg.Data.Path);
+                            $fileName.text(msg.Data.Name);
+
+                            if ('@(UploadCallback)' !== '@string.Empty') {
+                                @(UploadCallback)(msg.Data);
+                            }
+                        }
+                        else
+                            alert(msg.Message);
+                    },
+                    Error: function (up, err) {
+                        alert('#' + err.code + ': ' + err.message);
+                    }
+                }
+            });
+
+            uploader.bind('Init', function (up, params) {
+                if (uploader.features.dragdrop) {
+                    $uploadContainer.on('dragover', function (e) {
+                        this.className = "@dragoverCssClass";
+                        e.originalEvent.dataTransfer.dropEffect = "copy";
+                    });
+                    $uploadContainer.on('dragenter', function (e) {
+                        this.className = "@dragoverCssClass";
+                    });
+                    $uploadContainer.on('dragleave', function (e) {
+                        this.className = "@containerCssClass";
+                    });
+                    $uploadContainer.on('drop', function (e) {
+                        this.className = "@containerCssClass";
+                    });
+                }
+            });
+
+            uploader.init();
+
+            $btnCancel.click(function (e) {
+                uploader.stop();
+
+                $btnCancel.hide();
+                $progressContainer.fadeOut(2000);
+                $btnUpload.fadeIn(1000);
+            });
+        });
+    </script>
+}

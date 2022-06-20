@@ -1,0 +1,107 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@inject ILocalizationService tt
+
+@model int?
+
+@functions {
+    private int? _fromYear;
+    private int FromYear
+    {
+        get
+        {
+            if (_fromYear.HasValue)
+                return _fromYear.Value;
+            var fromYear = ViewData["fromYear"];
+            if (fromYear != null)
+                _fromYear = (int)fromYear;
+            else
+                _fromYear = 1905;
+            return _fromYear.Value;
+        }
+    }
+
+    private int? _toYear;
+    private int ToYear
+    {
+        get
+        {
+            if (_toYear.HasValue)
+                return _toYear.Value;
+            var toYear = ViewData["toYear"];
+            if (toYear != null)
+                _toYear = (int)toYear;
+            else
+                _toYear = DateTime.Now.Year;
+            return _toYear.Value;
+        }
+    }
+
+    private int? _value;
+    private int? Value
+    {
+        get
+        {
+            if (_value.HasValue)
+                return _value;
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToInt32(ViewData.Model, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            return _value;
+        }
+    }
+
+    private string _style;
+    private string Style
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_style))
+                return _style;
+            var style = ViewData["style"];
+            if (style != null)
+            {
+                _style = Convert.ToString(style);
+            }
+            return _style;
+        }
+    }
+}
+
+@{
+    var fieldName = Html.NameForModel();
+    var style = !string.IsNullOrEmpty(Style) ? Style : "width: 100%";
+}
+
+<select id="@fieldName" name="@fieldName" class="form-control" placeholder="@string.Format(tt.GetResource("Common.SelectObject"), tt.GetResource("Common.Year"))" disabled="disabled" style="@style">
+    <option></option>
+    @for (var i = ToYear; i >= FromYear; i--)
+    {
+        if (Value.HasValue && Value.Value == i)
+        {
+            <option value="@i" selected="selected">@i</option>
+        }
+        else
+        {
+            <option value="@i">@i</option>
+        }
+    }
+</select>

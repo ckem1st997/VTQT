@@ -1,0 +1,155 @@
+﻿@model ChannelTicketSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var channel = {
+        grd: {
+            el: '#channel_grd',
+            $el: {},
+            init: function() { },
+            api: {},
+            data: function() { }
+        },
+        btnAdd: {
+            el: '#btnAddChannel',
+            $el: {},
+            init: function() { }
+        },
+        btnRemove: {
+            el: '#btnRemoveChannel',
+            $el: {},
+            init: function() { }
+        },
+        init: function() { }
+    }
+
+    var channelGrd = channel.grd;
+    var btnAddChannel = channel.btnAdd;
+    var btnRemoveChannel = channel.btnRemove;
+
+    channelGrd.data = function() {
+        var searchModel = {
+            TicketId: '@Model.TicketId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-channel" type="text/x-kendo-template">
+        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+            <span style="padding-left: 20px">Danh sách kênh</span>
+        </div>
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+            <a id="btnAddChannel" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm kênh</a>
+        @*<a id="btnEdit" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>*@
+            <a id="btnRemoveChannel" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+        </div>
+    </script>
+    @(Html.Kendo().Grid<ChannelTicketModel>()
+    .Name("channel_grd")
+    .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+    .Columns(columns =>
+    {
+    columns.Select().Locked().Width(30);
+    columns.Bound(x => x.ChannelName).Locked().Width(450);
+    columns.ForeignKey(x => x.CategoryId, (System.Collections.IEnumerable)ViewData["categories"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+    columns.ForeignKey(x => x.PhenomenaId, (System.Collections.IEnumerable)ViewData["phenomenas"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+    columns.ForeignKey(x => x.CableId, (System.Collections.IEnumerable)ViewData["cables"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+    columns.Bound(x => x.StartDate).Format("{0:dd/MM/yyyy hh:mm:ss tt}").Width(150);
+    columns.Bound(x => x.FinishDate).Format("{0:dd/MM/yyyy hh:mm:ss tt}").Width(150);
+    })
+    .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-channel"); })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .PageSize(int.MaxValue)
+    .ServerOperation(false)
+    .Read(read => read.Action("GetChannelTicket", "ProblemTicket").Data("channelGrd.data"))
+    )
+    .NoRecords()
+    .Scrollable(scr => scr.Enabled(true))
+    .Pageable(pageable => pageable.Enabled(false))
+    .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+    .Navigatable())
+</div>
+
+<script>
+    channel.init = function() {
+        channelGrd.init();
+        btnAddChannel.init();
+        btnRemoveChannel.init();
+    };
+
+    channelGrd.init = function() {
+        channelGrd.$el = $(channelGrd.el);
+        channelGrd.api = channelGrd.$el.data('kendoGrid');
+    };
+
+    btnAddChannel.init = function() {
+        btnAddChannel.$el = $(btnAddChannel.el);
+        btnAddChannel.$el.click(function(e) {
+            var date = new Date();
+            var day = date.getDate();       // yields date
+            var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
+            var year = date.getFullYear();  // yields year
+            var hour = date.getHours();     // yields hours
+            var minute = date.getMinutes(); // yields minutes
+            var second = date.getSeconds(); // yields seconds
+
+            // After this construct a string with the above results as below
+            var time = day + "-" + month + "-" + year + "-" + hour + '-' + minute + '-' + second;
+            app.window.form.open({
+                url: '@Url.Action("AddChannel")?date=' + time, options: { width: '500px' }, callback: function() {
+                    var channelTicket = window.frmAddChannel.$el.serializeObject();
+
+                    $.ajax({
+                        url: '@Url.Action("GetChannel")',
+                        data: { id: channelTicket.ChannelId },
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function(res) {
+                            if (res.success && res.data) {
+                                var item = res.data;
+                                channelTicket.ChannelName = item.Name;
+                                channelGrd.api.dataSource.insert(channelTicket);
+                            }
+                        }
+                    });
+
+                    //Close form add item
+                    window.frmAddChannel.winForm.close();
+                }
+            });
+        });
+    };
+
+    btnRemoveChannel.init = function() {
+        btnRemoveChannel.$el = $(btnRemoveChannel.el);
+        btnRemoveChannel.$el.click(function(e) {
+            var selectedItems = channelGrd.api.selectedRows();
+            if (selectedItems.length > 0) {
+                app.window.confirm.open({
+                    callback: function() {
+                        $.each(selectedItems,
+                            function(i, x) {
+                                if (x) {
+                                    channelGrd.api.removeRow(x);
+                                }
+                            });
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                return false;
+            }
+        });
+    };
+
+    $(function() {
+        channel.init();
+    });
+</script>

@@ -1,0 +1,2235 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Web.Framework</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Web.Framework.AreaNames">
+            <summary>
+            Represents a list of area names
+            </summary>
+        </member>
+        <member name="F:VTQT.Web.Framework.AreaNames.Admin">
+            <summary>
+            Admin area
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Controllers.FormValueRequiredAttribute">
+            <summary>
+            Attribute to validate whether a certain form name (or value) was submitted
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.FormValueRequiredAttribute.#ctor(System.String[])">
+            <summary>
+            Ctor
+            </summary>
+            <param name="submitButtonNames">Submit button names</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.FormValueRequiredAttribute.#ctor(VTQT.Web.Framework.Controllers.FormValueRequirement,System.String[])">
+            <summary>
+            Ctor
+            </summary>
+            <param name="requirement">Requirement</param>
+            <param name="submitButtonNames">Submit button names</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.FormValueRequiredAttribute.#ctor(VTQT.Web.Framework.Controllers.FormValueRequirement,System.Boolean,System.String[])">
+            <summary>
+            Ctor
+            </summary>
+            <param name="requirement">Requirement</param>
+            <param name="validateNameOnly">A value indicating whether we should check "name" attribute only (not "value")</param>
+            <param name="submitButtonNames">Submit button names</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.FormValueRequiredAttribute.IsValidForRequest(Microsoft.AspNetCore.Routing.RouteContext,Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor)">
+            <summary>
+            Is valid?
+            </summary>
+            <param name="routeContext">Route context</param>
+            <param name="action">Action descriptor</param>
+            <returns>Result</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Controllers.FormValueRequirement">
+            <summary>
+            Requirement
+            </summary>
+        </member>
+        <member name="F:VTQT.Web.Framework.Controllers.FormValueRequirement.Equal">
+            <summary>
+            Equal
+            </summary>
+        </member>
+        <member name="F:VTQT.Web.Framework.Controllers.FormValueRequirement.StartsWith">
+            <summary>
+            Starts with
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseApiController.AddApiLocales``1(VTQT.Services.Localization.ILanguageService,System.Collections.Generic.IList{``0},System.Collections.Generic.IDictionary{System.String,System.String},System.Action{System.Collections.Generic.IDictionary{System.String,System.String},System.String})">
+            <summary>
+            Add locales for localizable entities
+            </summary>
+            <typeparam name="T">Localizable model</typeparam>
+            <param name="languageService">Language service</param>
+            <param name="locales">Locales</param>
+            <param name="localeLabels">Locale labels</param>
+            <param name="actionLabels">(labels, languageId)</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseApiController.AddApiLocales``1(VTQT.Services.Localization.ILanguageService,System.Collections.Generic.IList{``0},System.Collections.Generic.IDictionary{System.String,System.String},System.Action{System.Collections.Generic.IDictionary{System.String,System.String},System.String},System.Action{``0,System.String})">
+            <summary>
+            Add locales for localizable entities
+            </summary>
+            <typeparam name="T">Localizable model</typeparam>
+            <param name="languageService">Language service</param>
+            <param name="locales">Locales</param>
+            <param name="localeLabels">Locale labels</param>
+            <param name="actionLabels">(labels, languageId)</param>
+            <param name="configure">Configure action (locale, languageId)</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseApiController.AddMvcLocales``1(VTQT.Services.Localization.ILanguageService,System.Collections.Generic.IList{``0})">
+            <summary>
+            Add locales for localizable entities
+            </summary>
+            <typeparam name="TLocalizedModelLocal">Localizable model</typeparam>
+            <param name="languageService">Language service</param>
+            <param name="locales">Locales</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseApiController.AddMvcLocales``1(VTQT.Services.Localization.ILanguageService,System.Collections.Generic.IList{``0},System.Action{``0,System.String})">
+            <summary>
+            Add locales for localizable entities
+            </summary>
+            <typeparam name="TLocalizedModelLocal">Localizable model</typeparam>
+            <param name="languageService">Language service</param>
+            <param name="locales">Locales</param>
+            <param name="configure">Configure action</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.RenderViewComponentToStringAsync(System.String,System.Object)">
+            <summary>
+            Render component to string
+            </summary>
+            <param name="componentName">Component name</param>
+            <param name="arguments">Arguments</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result
+            </returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.RenderPartialViewToStringAsync(System.String,System.Object)">
+            <summary>
+            Render partial view to string
+            </summary>
+            <param name="viewName">View name</param>
+            <param name="model">Model</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result
+            </returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.NotifyInfo(System.String,System.Boolean)">
+            <summary>
+            Pushes an info message to the notification queue
+            </summary>
+            <param name="message">Message</param>
+            <param name="durable">A value indicating whether the message should be persisted for the next request</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.NotifyWarning(System.String,System.Boolean)">
+            <summary>
+            Pushes a warning message to the notification queue
+            </summary>
+            <param name="message">Message</param>
+            <param name="durable">A value indicating whether the message should be persisted for the next request</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.NotifySuccess(System.String,System.Boolean)">
+            <summary>
+            Pushes a success message to the notification queue
+            </summary>
+            <param name="message">Message</param>
+            <param name="durable">A value indicating whether the message should be persisted for the next request</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.NotifyError(System.String,System.Boolean)">
+            <summary>
+            Pushes an error message to the notification queue
+            </summary>
+            <param name="message">Message</param>
+            <param name="durable">A value indicating whether the message should be persisted for the next request</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.NotifyError(System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Pushes an error message to the notification queue
+            </summary>
+            <param name="exception">Exception</param>
+            <param name="durable">A value indicating whether a message should be persisted for the next request</param>
+            <param name="logException">A value indicating whether the exception should be logged</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.NotifyAccessDenied(System.Boolean,System.Boolean)">
+            <summary>
+            Pushes an error message to the notification queue that the access to a resource has been denied
+            </summary>
+            <param name="durable">A value indicating whether a message should be persisted for the next request</param>
+            <param name="log">A value indicating whether the message should be logged</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.AddApiLocalesAsync``1(VTQT.Services.Localization.ILanguageService,System.Collections.Generic.IList{``0},System.Collections.Generic.IDictionary{System.String,System.String},System.Action{System.Collections.Generic.IDictionary{System.String,System.String},System.String})">
+            <summary>
+            Add locales for localizable entities
+            </summary>
+            <typeparam name="T">Localizable model</typeparam>
+            <param name="languageService">Language service</param>
+            <param name="locales">Locales</param>
+            <param name="localeLabels">Locale labels</param>
+            <param name="actionLabels">(labels, languageId)</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.AddApiLocalesAsync``1(VTQT.Services.Localization.ILanguageService,System.Collections.Generic.IList{``0},System.Collections.Generic.IDictionary{System.String,System.String},System.Action{System.Collections.Generic.IDictionary{System.String,System.String},System.String},System.Action{``0,System.String})">
+            <summary>
+            Add locales for localizable entities
+            </summary>
+            <typeparam name="T">Localizable model</typeparam>
+            <param name="languageService">Language service</param>
+            <param name="locales">Locales</param>
+            <param name="localeLabels">Locale labels</param>
+            <param name="actionLabels">(labels, languageId)</param>
+            <param name="configure">Configure action (locale, languageId)</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.AddMvcLocalesAsync``1(VTQT.Services.Localization.ILanguageService,System.Collections.Generic.IList{``0})">
+            <summary>
+            Add locales for localizable entities
+            </summary>
+            <typeparam name="TLocalizedModelLocal">Localizable model</typeparam>
+            <param name="languageService">Language service</param>
+            <param name="locales">Locales</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.AddMvcLocalesAsync``1(VTQT.Services.Localization.ILanguageService,System.Collections.Generic.IList{``0},System.Action{``0,System.String})">
+            <summary>
+            Add locales for localizable entities
+            </summary>
+            <typeparam name="TLocalizedModelLocal">Localizable model</typeparam>
+            <param name="languageService">Language service</param>
+            <param name="locales">Locales</param>
+            <param name="configure">Configure action</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.AccessDeniedView">
+            <summary>
+            Access denied view
+            </summary>
+            <returns>Access denied view</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.AccessDeniedDataTablesJson">
+            <summary>
+            Access denied JSON data for DataTables
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the access denied JSON data
+            </returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.ErrorJson(System.String)">
+            <summary>
+            Error's JSON data
+            </summary>
+            <param name="error">Error text</param>
+            <returns>Error's JSON data</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.ErrorJson(System.Object)">
+            <summary>
+            Error's JSON data
+            </summary>
+            <param name="errors">Error messages</param>
+            <returns>Error's JSON data</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Controllers.XBaseMvcController.DisplayEditLink(System.String)">
+            <summary>
+            Display "Edit" (manage) link (in public store)
+            </summary>
+            <param name="editPageUrl">Edit page URL</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.NullView.RenderAsync(Microsoft.AspNetCore.Mvc.Rendering.ViewContext)">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Events.GenericRoutingEvent">
+            <summary>
+            Represents an event that occurs when a generic route is processed and no default handlers are found
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Events.GenericRoutingEvent.#ctor(Microsoft.AspNetCore.Routing.RouteValueDictionary,VTQT.Core.Domain.Master.UrlRecord)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="values">Route values</param>
+            <param name="urlRecord">Found URL record</param>
+        </member>
+        <member name="P:VTQT.Web.Framework.Events.GenericRoutingEvent.RouteValues">
+            <summary>
+            Gets route values
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Events.GenericRoutingEvent.UrlRecord">
+            <summary>
+            Gets URL record found by the route slug
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Events.TabStripCreated">
+            <summary>
+            Tabstrip created event
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Events.TabStripCreated.AddWidget(VTQT.RouteInfo)">
+            <summary>
+            Renders a child action into a dynamically created special tab called 'Plugins' 
+            </summary>
+            <param name="routeInfo"></param>
+            <remarks>Should only be called for admin tabstrips</remarks>
+        </member>
+        <member name="T:VTQT.Web.Framework.Extensions.CommonExtensions">
+            <summary>
+            Extensions
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Extensions.CommonExtensions.SelectionIsNotPossible(System.Collections.Generic.IList{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Boolean)">
+            <summary>
+            Returns a value indicating whether real selection is not possible
+            </summary>
+            <param name="items">Items</param>
+            <param name="ignoreZeroValue">A value indicating whether we should ignore items with "0" value</param>
+            <returns>A value indicating whether real selection is not possible</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Extensions.CommonExtensions.RelativeFormat(System.DateTime,System.String)">
+            <summary>
+            Relative formatting of DateTime (e.g. 2 hours ago, a month ago)
+            </summary>
+            <param name="source">Source (UTC format)</param>
+            <param name="languageCode">Language culture code</param>
+            <returns>Formatted date and time string</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Extensions.HtmlExtensions">
+            <summary>
+            HTML extensions
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Extensions.HtmlExtensions.RenderHtmlContentAsync(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <summary>
+            Convert IHtmlContent to string
+            </summary>
+            <param name="htmlContent">HTML content</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result
+            </returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Extensions.HtmlExtensions.RenderHtmlContent(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <summary>
+            Convert IHtmlContent to string
+            </summary>
+            <param name="htmlContent">HTML content</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result
+            </returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.AdminValidateIpAddressAttribute">
+            <summary>
+            Represents filter attribute that validates IP address
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.AdminValidateIpAddressAttribute.#ctor">
+            <summary>
+            Create instance of the filter attribute
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.AdminValidateIpAddressAttribute.ValidateIpAddressFilter">
+            <summary>
+            Represents a filter that validates IP address
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.AdminValidateIpAddressAttribute.ValidateIpAddressFilter.ValidateIpAddress(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.AdminValidateIpAddressAttribute.ValidateIpAddressFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <param name="next">A delegate invoked to execute the next action filter or the action itself</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.CheckLanguageSeoCodeAttribute">
+            <summary>
+            Represents filter attribute that checks SEO friendly URLs for multiple languages and properly redirect if necessary
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.CheckLanguageSeoCodeAttribute.#ctor(System.Boolean)">
+            <summary>
+            Create instance of the filter attribute
+            </summary>
+            <param name="ignore">Whether to ignore the execution of filter actions</param>
+        </member>
+        <member name="P:VTQT.Web.Framework.Filters.CheckLanguageSeoCodeAttribute.IgnoreFilter">
+            <summary>
+            Gets a value indicating whether to ignore the execution of filter actions
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.CheckLanguageSeoCodeAttribute.CheckLanguageSeoCodeFilter">
+            <summary>
+            Represents a filter that checks SEO friendly URLs for multiple languages and properly redirect if necessary
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.CheckLanguageSeoCodeAttribute.CheckLanguageSeoCodeFilter.CheckLanguageSeoCodeAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.CheckLanguageSeoCodeAttribute.CheckLanguageSeoCodeFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <param name="next">A delegate invoked to execute the next action filter or the action itself</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.HttpsRequirementAttribute">
+            <summary>
+            Represents a filter attribute that checks whether current connection is secured and properly redirect if necessary
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.HttpsRequirementAttribute.#ctor">
+            <summary>
+            Create instance of the filter attribute
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.HttpsRequirementAttribute.HttpsRequirementFilter">
+            <summary>
+            Represents a filter confirming that checks whether current connection is secured and properly redirect if necessary
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.HttpsRequirementAttribute.HttpsRequirementFilter.CheckHttpsRequirementAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Called early in the filter pipeline to confirm request is authorized
+            </summary>
+            <param name="context">Authorization filter context</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.HttpsRequirementAttribute.HttpsRequirementFilter.OnAuthorizationAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Called early in the filter pipeline to confirm request is authorized
+            </summary>
+            <param name="context">Authorization filter context</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAndValueAttribute">
+            <summary>
+            Represents a filter attribute that check whether form parameter value equals passed value and return result as an action parameter
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAndValueAttribute.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Create instance of the filter attribute 
+            </summary>
+            <param name="formKeyName">The name of the form key</param>
+            <param name="formValue">The value of the form parameter with specified key name</param>
+            <param name="actionParameterName">The name of the action parameter to which the result will be passed</param>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAndValueAttribute.ParameterBasedOnFormNameAndValueFilter">
+            <summary>
+            Represents a filter that check whether form parameter value equals passed value and return result as an action parameter
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAndValueAttribute.ParameterBasedOnFormNameAndValueFilter.CheckParameterBasedOnFormNameAndValueAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAndValueAttribute.ParameterBasedOnFormNameAndValueFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <param name="next">A delegate invoked to execute the next action filter or the action itself</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAttribute">
+            <summary>
+            Represents a filter attribute that check existence of passed form key and return result as an action parameter 
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Create instance of the filter attribute 
+            </summary>
+            <param name="formKeyName">The name of the form key whose existence is to be checked</param>
+            <param name="actionParameterName">The name of the action parameter to which the result will be passed</param>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAttribute.ParameterBasedOnFormNameFilter">
+            <summary>
+            Represents a filter that check existence of passed form key and return result as an action parameter
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAttribute.ParameterBasedOnFormNameFilter.CheckParameterBasedOnFormNameAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ParameterBasedOnFormNameAttribute.ParameterBasedOnFormNameFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <param name="next">A delegate invoked to execute the next action filter or the action itself</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.ValidateCaptchaAttribute">
+            <summary>
+            Represents a filter attribute enabling CAPTCHA validation
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ValidateCaptchaAttribute.#ctor(System.String)">
+            <summary>
+            Create instance of the filter attribute 
+            </summary>
+            <param name="actionParameterName">The name of the action parameter to which the result will be passed</param>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.ValidateCaptchaAttribute.ValidateCaptchaFilter">
+            <summary>
+            Represents a filter enabling CAPTCHA validation
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ValidateCaptchaAttribute.ValidateCaptchaFilter.ValidateCaptchaAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ValidateCaptchaAttribute.ValidateCaptchaFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            Called asynchronously before the action, after model binding is complete.
+            </summary>
+            <param name="context">A context for action filters</param>
+            <param name="next">A delegate invoked to execute the next action filter or the action itself</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.ValidateHoneypotAttribute">
+            <summary>
+            Represents a filter attribute enabling honeypot validation
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ValidateHoneypotAttribute.#ctor">
+            <summary>
+            Create instance of the filter attribute
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.ValidateHoneypotAttribute.ValidateHoneypotFilter">
+            <summary>
+            Represents a filter enabling honeypot validation
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ValidateHoneypotAttribute.ValidateHoneypotFilter.ValidateHoneypotAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Called early in the filter pipeline to confirm request is authorized
+            </summary>
+            <param name="context">Authorization filter context</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.ValidateHoneypotAttribute.ValidateHoneypotFilter.OnAuthorizationAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Called early in the filter pipeline to confirm request is authorized
+            </summary>
+            <param name="context">Authorization filter context</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.WwwRequirementAttribute">
+            <summary>
+            Represents a filter attribute that checks WWW at the beginning of the URL and properly redirect if necessary
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.WwwRequirementAttribute.#ctor">
+            <summary>
+            Create instance of the filter attribute
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Filters.WwwRequirementAttribute.WwwRequirementFilter">
+            <summary>
+            Represents a filter that checks WWW at the beginning of the URL and properly redirect if necessary
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.WwwRequirementAttribute.WwwRequirementFilter.RedirectRequest(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext,System.Boolean)">
+            <summary>
+            Check WWW prefix at the beginning of the URL and properly redirect if necessary
+            </summary>
+            <param name="context">Authorization filter context</param>
+            <param name="withWww">Whether URL must start with WWW</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.WwwRequirementAttribute.WwwRequirementFilter.CheckWwwRequirementAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Called early in the filter pipeline to confirm request is authorized
+            </summary>
+            <param name="context">Authorization filter context</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Filters.WwwRequirementAttribute.WwwRequirementFilter.OnAuthorizationAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Called early in the filter pipeline to confirm request is authorized
+            </summary>
+            <param name="context">Authorization filter context</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Globalization.XBaseRequestCultureProvider">
+            <summary>
+            Determines the culture information for a request
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Globalization.XBaseRequestCultureProvider.DetermineProviderCultureResult(Microsoft.AspNetCore.Http.HttpContext)">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Helpers.PathHelper.Helpers.Delete(System.String)">
+            <summary>Safe way to delete a file.</summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Helpers.PathHelper.Helpers.Copy(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>Safe way to copy a file.</summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Infrastructure.DependencyRegistrar">
+            <summary>
+            Dependency registrar
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.DependencyRegistrar.Register(Autofac.ContainerBuilder,VTQT.Core.Infrastructure.ITypeFinder,VTQT.Core.Configuration.XBaseConfig)">
+            <summary>
+            Register services and interfaces
+            </summary>
+            <param name="builder">Container builder</param>
+            <param name="typeFinder">Type finder</param>
+            <param name="config">Config</param>
+        </member>
+        <member name="P:VTQT.Web.Framework.Infrastructure.DependencyRegistrar.Order">
+            <summary>
+            Gets order of this dependency registrar implementation
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Infrastructure.SettingsSource">
+            <summary>
+            Setting source
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.SettingsSource.RegistrationsFor(Autofac.Core.Service,System.Func{Autofac.Core.Service,System.Collections.Generic.IEnumerable{Autofac.Core.ServiceRegistration}})">
+            <summary>
+            Registrations for
+            </summary>
+            <param name="service">Service</param>
+            <param name="registrations">Registrations</param>
+            <returns>Registrations</returns>
+        </member>
+        <member name="P:VTQT.Web.Framework.Infrastructure.SettingsSource.IsAdapterForIndividualComponents">
+            <summary>
+            Is adapter for individual components
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Infrastructure.ErrorHandlerStartup">
+            <summary>
+            Represents object for the configuring exceptions and errors handling on application startup
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.ErrorHandlerStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Add and configure any of the middleware
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+            <param name="configuration">Configuration of the application</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.ErrorHandlerStartup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure the using of added middleware
+            </summary>
+            <param name="application">Builder for configuring an application's request pipeline</param>
+        </member>
+        <member name="P:VTQT.Web.Framework.Infrastructure.ErrorHandlerStartup.Order">
+            <summary>
+            Gets order of this startup configuration implementation
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Infrastructure.Extensions.ApplicationBuilderExtensions">
+            <summary>
+            Represents extensions of IApplicationBuilder
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ApplicationBuilderExtensions.ConfigureRequestPipeline(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure the application HTTP request pipeline
+            </summary>
+            <param name="application">Builder for configuring an application's request pipeline</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ApplicationBuilderExtensions.UseXBaseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Add exception handling
+            </summary>
+            <param name="application">Builder for configuring an application's request pipeline</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ApplicationBuilderExtensions.UseXBaseResponseCompression(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure middleware for dynamically compressing HTTP responses
+            </summary>
+            <param name="application">Builder for configuring an application's request pipeline</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ApplicationBuilderExtensions.UseXBaseRequestLocalization(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configure the request localization feature
+            </summary>
+            <param name="application">Builder for configuring an application's request pipeline</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ApplicationBuilderExtensions.UseXBaseApi(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configure API routing
+            </summary>
+            <param name="application">Builder for configuring an application's request pipeline</param>
+        </member>
+        <member name="F:VTQT.Web.Framework.Infrastructure.Extensions.SameSiteCookiesServiceCollectionExtensions.Unspecified">
+            <summary>
+            -1 defines the unspecified value, which tells ASPNET Core to NOT
+            send the SameSite attribute. With ASPNET Core 3.1 the
+            <seealso cref="T:Microsoft.AspNetCore.Http.SameSiteMode" /> enum will have a definition for
+            Unspecified.
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.SameSiteCookiesServiceCollectionExtensions.ConfigureNonBreakingSameSiteCookies(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures a cookie policy to properly set the SameSite attribute
+            for Browsers that handle unknown values as Strict. Ensure that you
+            add the <seealso cref="T:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware" />
+            into the pipeline before sending any cookies!
+            </summary>
+            <remarks>
+            Minimum ASPNET Core Version required for this code:
+              - 2.1.14
+              - 2.2.8
+              - 3.0.1
+              - 3.1.0-preview1
+            Starting with version 80 of Chrome (to be released in February 2020)
+            cookies with NO SameSite attribute are treated as SameSite=Lax.
+            In order to always get the cookies send they need to be set to
+            SameSite=None. But since the current standard only defines Lax and
+            Strict as valid values there are some browsers that treat invalid
+            values as SameSite=Strict. We therefore need to check the browser
+            and either send SameSite=None or prevent the sending of SameSite=None.
+            Relevant links:
+            - https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-4.1
+            - https://tools.ietf.org/html/draft-west-cookie-incrementalism-00
+            - https://www.chromium.org/updates/same-site
+            - https://devblogs.microsoft.com/aspnet/upcoming-samesite-cookie-changes-in-asp-net-and-asp-net-core/
+            - https://bugs.webkit.org/show_bug.cgi?id=198181
+            </remarks>
+            <param name="services">The service collection to register <see cref="T:Microsoft.AspNetCore.Builder.CookiePolicyOptions" /> into.</param>
+            <returns>The modified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.SameSiteCookiesServiceCollectionExtensions.DisallowsSameSiteNone(System.String)">
+            <summary>
+            Checks if the UserAgent is known to interpret an unknown value as Strict.
+            For those the <see cref="P:Microsoft.AspNetCore.Http.CookieOptions.SameSite" /> property should be
+            set to <see cref="F:VTQT.Web.Framework.Infrastructure.Extensions.SameSiteCookiesServiceCollectionExtensions.Unspecified" />.
+            </summary>
+            <remarks>
+            This code is taken from Microsoft:
+            https://devblogs.microsoft.com/aspnet/upcoming-samesite-cookie-changes-in-asp-net-and-asp-net-core/
+            </remarks>
+            <param name="userAgent">The user agent string to check.</param>
+            <returns>Whether the specified user agent (browser) accepts SameSite=None or not.</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions">
+            <summary>
+            Represents extensions of IServiceCollection
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.ConfigureApplicationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Add services to the application and configure service provider
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+            <param name="configuration">Configuration of the application</param>
+            <param name="webHostEnvironment">Hosting environment</param>
+            <returns>Configured service provider</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.AddConfig``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Create, bind and register as service the specified configuration parameters 
+            </summary>
+            <typeparam name="TConfig">Configuration parameters</typeparam>
+            <param name="services">Collection of service descriptors</param>
+            <param name="configuration">Set of key/value application configuration properties</param>
+            <returns>Instance of configuration parameters</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.AddHttpContextAccessor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Register HttpContextAccessor
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.AddXBaseAntiForgery(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds services required for anti-forgery support
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.AddXBaseSession(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds services required for application session state
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.AddXBaseDataProtection(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds data protection services
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.AddXBaseMvcAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds authentication service
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.AddXBaseRedirectResultExecutor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Register custom RedirectResultExecutor
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.AddXBaseApi(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add and configure API for the application
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+            <returns>A builder for configuring API services</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.Extensions.ServiceCollectionExtensions.AddXBaseMvc(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add and configure MVC for the application
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+            <returns>A builder for configuring MVC services</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Infrastructure.XBaseCommonStartup">
+            <summary>
+            Represents object for the configuring common features and middleware on application startup
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.XBaseCommonStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Add and configure any of the middleware
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+            <param name="configuration">Configuration of the application</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.XBaseCommonStartup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure the using of added middleware
+            </summary>
+            <param name="application">Builder for configuring an application's request pipeline</param>
+        </member>
+        <member name="P:VTQT.Web.Framework.Infrastructure.XBaseCommonStartup.Order">
+            <summary>
+            Gets order of this startup configuration implementation
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Infrastructure.XBaseWebStartup">
+            <summary>
+            Represents object for the configuring API/MVC on application startup
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.XBaseWebStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Add and configure any of the middleware
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+            <param name="configuration">Configuration of the application</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Infrastructure.XBaseWebStartup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure the using of added middleware
+            </summary>
+            <param name="application">Builder for configuring an application's request pipeline</param>
+        </member>
+        <member name="P:VTQT.Web.Framework.Infrastructure.XBaseWebStartup.Order">
+            <summary>
+            Gets order of this startup configuration implementation
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Localization.SetWorkingCultureAttribute">
+            <summary>
+            Attribute which determines and sets the working culture
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.XBaseResourceDisplayName">
+            <summary>
+            Represents model attribute that specifies the display name by passed key of the locale resource
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.BaseEntityModel.Id">
+            <summary>
+            Gets or sets model identifier
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.BaseIntEntity.Id">
+            <summary>
+            Gets or sets model identifier
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.BaseIntLowercaseEntity.id">
+            <summary>
+            Gets or sets model identifier
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.BaseModel">
+            <summary>
+            Represents base nopCommerce model
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Modelling.BaseModel.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Modelling.BaseModel.BindModel(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext)">
+            <summary>
+            Perform additional actions for binding the model
+            </summary>
+            <param name="bindingContext">Model binding context</param>
+            <remarks>Developers can override this method in custom partial classes in order to add some custom model binding</remarks>
+        </member>
+        <member name="M:VTQT.Web.Framework.Modelling.BaseModel.PostInitialize">
+            <summary>
+            Perform additional actions for the model initialization
+            </summary>
+            <remarks>Developers can override this method in custom partial classes in order to add some custom initialization code to constructors</remarks>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.BaseModel.CustomProperties">
+            <summary>
+            Gets or sets property to store any custom values for models 
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.FancytreeItem">
+            <summary>
+            Data object passed to FancytreeNode() constructor. Note: typically these attributes are accessed by class methods, e.g. `node.isExpanded()` and `node.setTitle("foo")`.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.active">
+            <summary>
+            (Initialization only, but will not be stored with the node.)
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.children">
+            <summary>
+            Optional array of child nodes.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.data">
+            <summary>
+            All unknown properties from constructor will be copied to `node.data`.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.expanded">
+            <summary>
+            Initial expansion state. Use `node.setExpanded()` or `node.isExpanded()` to access.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.extraClasses">
+            <summary>
+            Class names added to the node markup (separate with space).
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.focus">
+            <summary>
+            (Initialization only, but will not be stored with the node.)
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.folder">
+            <summary>
+            Folders have different default icons and honor the `clickFolderMode` option.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.hideCheckbox">
+            <summary>
+            Remove checkbox for this node.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.icon">
+            <summary>
+            Class names added to the node icon markup to allow custom icons or glyphs (separate with space, e.g. `ui-icon ui-icon-heart`).
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.key">
+            <summary>
+            Unique key for this node (auto-generated if omitted)
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.lazy">
+            <summary>
+            Lazy folders call the `lazyLoad` on first expand to load their children.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.refKey">
+            <summary>
+            (Reserved, used by 'clones' extension.)
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.selected">
+            <summary>
+            Initial selection state. Use `node.setSelected()` or `node.isSelected()` to access.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.title">
+            <summary>
+            Node text (may contain HTML tags). Use `node.setTitle()` to modify.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.tooltip">
+            <summary>
+            Will be added as `title` attribute, thus enabling a tooltip.
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.FancytreeItem.unselectable">
+            <summary>
+            Prevent selection using mouse or keyboard.
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.ILocalizedModel">
+            <summary>
+            Represents localized model
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.ILocalizedApiModel`1">
+            <summary>
+            Represents generic localized model
+            </summary>
+            <typeparam name="T">Localized model type</typeparam>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.ILocalizedApiLocaleModel">
+            <summary>
+            Represents localized locale model
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.ILocalizedApiLocaleModel.LanguageId">
+            <summary>
+            Gets or sets the language identifier
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.ILocalizedApiLocaleModel._LanguageCode">
+            <summary>
+            ISO two-letter language code
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.ILocalizedApiLocaleModel._FlagCode">
+            <summary>
+            ISO two-letter country code
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.ILocalizedMvcModel`1">
+            <summary>
+            Represents generic localized model
+            </summary>
+            <typeparam name="T">Localized model type</typeparam>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.ILocalizedMvcLocaleModel">
+            <summary>
+            Represents localized locale model
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.ILocalizedMvcLocaleModel.LanguageId">
+            <summary>
+            Gets or sets the language identifier
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.IModelAttribute">
+            <summary>
+            Represents custom model attribute
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Modelling.IModelAttribute.Name">
+            <summary>
+            Gets name of the attribute
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.ModelStateExtensions">
+            <summary>
+            ModelState extensions
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Modelling.ModelStateExtensions.SerializeErrors(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+            <summary>
+            Serialize errors
+            </summary>
+            <param name="modelStateDictionary">ModelStateDictionary</param>
+            <returns>Result</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Modelling.XBaseMetadataProvider">
+            <summary>
+            Represents metadata provider that adds custom attributes to the model's metadata, so it can be retrieved later
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Modelling.XBaseMetadataProvider.CreateDisplayMetadata(Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DisplayMetadataProviderContext)">
+            <summary>
+            Sets the values for properties of isplay metadata
+            </summary>
+            <param name="context">Display metadata provider context</param>
+        </member>
+        <member name="T:VTQT.Web.Framework.Mvc.Razor.XBaseRazorPage`1">
+            <summary>
+            Web view page
+            </summary>
+            <typeparam name="TModel">Model</typeparam>
+        </member>
+        <member name="P:VTQT.Web.Framework.Mvc.Razor.XBaseRazorPage`1.T">
+            <summary>
+            Get a localized resources
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Mvc.Razor.XBaseRazorPage`1.ClientFormId">
+            <summary>
+            Unique client form Id per user request.
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Mvc.Razor.XBaseAdminRazorPage`1">
+            <summary>
+            Admin web view page
+            </summary>
+            <typeparam name="TModel">Model</typeparam>
+        </member>
+        <member name="T:VTQT.Web.Framework.Mvc.Razor.XBaseRazorPage">
+            <summary>
+            Web view page
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Routing.BaseRouteProvider">
+            <summary>
+            Represents base provider
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Routing.BaseRouteProvider.GetLanguageRoutePattern">
+            <summary>
+            Get pattern used to detect routes with language code
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Routing.IRouteProvider">
+            <summary>
+            Route provider
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Routing.IRouteProvider.RegisterRoutes(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+            <summary>
+            Register routes
+            </summary>
+            <param name="endpointRouteBuilder">Route builder</param>
+        </member>
+        <member name="P:VTQT.Web.Framework.Routing.IRouteProvider.Priority">
+            <summary>
+            Gets a priority of route provider
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Routing.IRoutePublisher">
+            <summary>
+            Represents route publisher
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Routing.IRoutePublisher.RegisterRoutes(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+            <summary>
+            Register routes
+            </summary>
+            <param name="endpointRouteBuilder">Route builder</param>
+        </member>
+        <member name="T:VTQT.Web.Framework.Routing.LanguageParameterTransformer">
+            <summary>
+            Represents class language parameter transformer
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Routing.LanguageParameterTransformer.TransformOutbound(System.Object)">
+            <summary>
+            Transforms the specified route value to a string for inclusion in a URI
+            </summary>
+            <param name="value">The route value to transform</param>
+            <returns>The transformed value</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Routing.RoutePublisher">
+            <summary>
+            Represents implementation of route publisher
+            </summary>
+        </member>
+        <member name="F:VTQT.Web.Framework.Routing.RoutePublisher._typeFinder">
+            <summary>
+            Type finder
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Routing.RoutePublisher.#ctor(VTQT.Core.Infrastructure.ITypeFinder)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="typeFinder">Type finder</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.Routing.RoutePublisher.RegisterRoutes(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+            <summary>
+            Register routes
+            </summary>
+            <param name="endpointRouteBuilder">Route builder</param>
+        </member>
+        <member name="T:VTQT.Web.Framework.Routing.SlugRouteTransformer">
+            <summary>
+            Represents slug route transformer
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Routing.XBasePathRouteDefaults.ActionFieldKey">
+            <summary>
+            Gets default key for action field
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Routing.XBasePathRouteDefaults.ControllerFieldKey">
+            <summary>
+            Gets default key for controller field
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Routing.XBasePathRouteDefaults.PermanentRedirectFieldKey">
+            <summary>
+            Gets default key for permanent redirect field
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Routing.XBasePathRouteDefaults.UrlFieldKey">
+            <summary>
+            Gets default key for url field
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Routing.XBasePathRouteDefaults.SeNameFieldKey">
+            <summary>
+            Gets default key for se name field
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Routing.XBasePathRouteDefaults.LanguageRouteValue">
+            <summary>
+            Gets language route value
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Routing.XBasePathRouteDefaults.LanguageParameterTransformer">
+            <summary>
+            Gets language parameter transformer
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Routing.XBaseRedirectResultExecutor">
+            <summary>
+            Represents custom overridden redirect result executor
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Routing.XBaseRedirectResultExecutor.ExecuteAsync(Microsoft.AspNetCore.Mvc.ActionContext,Microsoft.AspNetCore.Mvc.RedirectResult)">
+            <summary>
+            Execute passed redirect result
+            </summary>
+            <param name="context">Action context</param>
+            <param name="result">Redirect result</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Security.Captcha.CaptchaHttpClient">
+            <summary>
+            Represents the HTTP client to request reCAPTCHA service
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Security.Captcha.CaptchaHttpClient.ValidateCaptchaAsync(System.String)">
+            <summary>
+            Validate reCAPTCHA
+            </summary>
+            <param name="responseValue">Response value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the asynchronous task whose result contains response from the reCAPTCHA service
+            </returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Security.Captcha.CaptchaResponse">
+            <summary>
+            Google reCAPTCHA response
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Security.Captcha.CaptchaResponse.Action">
+            <summary>
+            Gets or sets the action name for this request (important to verify)
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Security.Captcha.CaptchaResponse.IsValid">
+            <summary>
+            Gets or sets a value indicating whether validation is success
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Security.Captcha.CaptchaResponse.ChallengeDateTime">
+            <summary>
+            Gets or sets a date and time of the challenge load
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Security.Captcha.CaptchaResponse.Hostname">
+            <summary>
+            Gets or sets the hostname of the site where the reCAPTCHA was solved
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Security.Captcha.CaptchaResponse.Errors">
+            <summary>
+            Gets or sets errors
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Security.Captcha.HtmlExtensions">
+            <summary>
+            HTML extensions
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Security.Captcha.HtmlExtensions.GetReCaptchaLanguageAsync(VTQT.Core.Domain.Security.CaptchaSettings)">
+            <summary>
+            Get the reCAPTCHA language
+            </summary>
+            <param name="captchaSettings">Captcha settings</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the language code
+            </returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Security.Captcha.HtmlExtensions.GenerateLoadApiScriptTag(VTQT.Core.Domain.Security.CaptchaSettings,System.String,System.String,System.String)">
+            <summary>
+            Generate API script tag
+            </summary>
+            <param name="captchaSettings">Captcha settings</param>
+            <param name="captchaId">Captcha ID</param>
+            <param name="render">Render</param>
+            <param name="language">Language</param>
+            <returns>Script tag</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Security.Captcha.HtmlExtensions.GenerateCheckBoxReCaptchaV2Async(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Core.Domain.Security.CaptchaSettings)">
+            <summary>
+            Generate reCAPTCHA Control
+            </summary>
+            <param name="helper">HTML helper</param>
+            <param name="captchaSettings">Captcha settings</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result
+            </returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.Security.Captcha.HtmlExtensions.GenerateReCaptchaV3Async(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Core.Domain.Security.CaptchaSettings)">
+            <summary>
+            Generate reCAPTCHA v3 Control
+            </summary>
+            <param name="helper">HTML helper</param>
+            <param name="captchaSettings">Captcha settings</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result
+            </returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.Security.Honeypot.HtmlExtensions">
+            <summary>
+            HTML extensions
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.Security.Honeypot.HtmlExtensions.GenerateHoneypotInput(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            Generate honeypot input
+            </summary>
+            <param name="helper">HTML helper</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.NavigationItemtWithContentBuilder`2.Ajax(System.Boolean)">
+            <summary>
+            Specifies whether the content should be loaded per AJAX into the content pane.
+            </summary>
+            <param name="value">value</param>
+            <returns>builder</returns>
+            <remarks>
+            	This setting has no effect when no route is specified OR
+            	static content was set.
+            </remarks>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.NavigationItemtWithContentBuilder`2.Content(System.String,System.String,System.Object)">
+            <summary>
+            Renders child action as content
+            </summary>
+            <param name="action">Action name</param>
+            <param name="controller">Controller name</param>
+            <param name="routeValues">Route values</param>
+            <returns>builder instance</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.NavigationItemtWithContentBuilder`2.Content(System.String,System.String,Microsoft.AspNetCore.Routing.RouteValueDictionary)">
+            <summary>
+            Renders child action as content
+            </summary>
+            <param name="action">Action name</param>
+            <param name="controller">Controller name</param>
+            <param name="routeValues">Route values</param>
+            <returns>builder instance</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.UI.IPageHeadBuilder">
+            <summary>
+            Page head builder
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddTitleParts(System.String)">
+            <summary>
+            Add title element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Title part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AppendTitleParts(System.String)">
+            <summary>
+            Append title element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Title part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GenerateTitle(System.Boolean)">
+            <summary>
+            Generate all title parts
+            </summary>
+            <param name="addDefaultTitle">A value indicating whether to insert a default title</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddMetaDescriptionParts(System.String)">
+            <summary>
+            Add meta description element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Meta description part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AppendMetaDescriptionParts(System.String)">
+            <summary>
+            Append meta description element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Meta description part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GenerateMetaDescription">
+            <summary>
+            Generate all description parts
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddMetaKeywordParts(System.String)">
+            <summary>
+            Add meta keyword element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Meta keyword part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AppendMetaKeywordParts(System.String)">
+            <summary>
+            Append meta keyword element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Meta keyword part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GenerateMetaKeywords">
+            <summary>
+            Generate all keyword parts
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddScriptParts(VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Add script element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+            <param name="isAsync">A value indicating whether to add an attribute "async" or not for js files</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AppendScriptParts(VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Append script element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+            <param name="isAsync">A value indicating whether to add an attribute "async" or not for js files</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GenerateScripts(VTQT.Web.Framework.UI.ResourceLocation,System.Nullable{System.Boolean})">
+            <summary>
+            Generate all script parts
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="bundleFiles">A value indicating whether to bundle script elements</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddInlineScriptParts(VTQT.Web.Framework.UI.ResourceLocation,System.String)">
+            <summary>
+            Add inline script element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="script">Script</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AppendInlineScriptParts(VTQT.Web.Framework.UI.ResourceLocation,System.String)">
+            <summary>
+            Append inline script element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="script">Script</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GenerateInlineScripts(VTQT.Web.Framework.UI.ResourceLocation)">
+            <summary>
+            Generate all inline script parts
+            </summary>
+            <param name="location">A location of the script element</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddCssFileParts(VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean)">
+            <summary>
+            Add CSS element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AppendCssFileParts(VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean)">
+            <summary>
+            Append CSS element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GenerateCssFiles(VTQT.Web.Framework.UI.ResourceLocation,System.Nullable{System.Boolean})">
+            <summary>
+            Generate all CSS parts
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="bundleFiles">A value indicating whether to bundle script elements</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddCanonicalUrlParts(System.String)">
+            <summary>
+            Add canonical URL element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Canonical URL part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AppendCanonicalUrlParts(System.String)">
+            <summary>
+            Append canonical URL element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Canonical URL part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GenerateCanonicalUrls">
+            <summary>
+            Generate all canonical URL parts
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddHeadCustomParts(System.String)">
+            <summary>
+            Add any custom element to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="part">The entire element. For example, <![CDATA[<meta name="msvalidate.01" content="123121231231313123123" />]]></param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AppendHeadCustomParts(System.String)">
+            <summary>
+            Append any custom element to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="part">The entire element. For example, <![CDATA[<meta name="msvalidate.01" content="123121231231313123123" />]]></param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GenerateHeadCustom">
+            <summary>
+            Generate all custom elements
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddPageCssClassParts(System.String)">
+            <summary>
+            Add CSS class to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="part">CSS class</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AppendPageCssClassParts(System.String)">
+            <summary>
+            Append CSS class to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="part">CSS class</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GeneratePageCssClasses">
+            <summary>
+            Generate all title parts
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.AddEditPageUrl(System.String)">
+            <summary>
+            Specify "edit page" URL
+            </summary>
+            <param name="url">URL</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GetEditPageUrl">
+            <summary>
+            Get "edit page" URL
+            </summary>
+            <returns>URL</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.SetActiveMenuItemSystemName(System.String)">
+            <summary>
+            Specify system name of admin menu item that should be selected (expanded)
+            </summary>
+            <param name="systemName">System name</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.IPageHeadBuilder.GetActiveMenuItemSystemName">
+            <summary>
+            Get system name of admin menu item that should be selected (expanded)
+            </summary>
+            <returns>System name</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.UI.LayoutExtensions">
+            <summary>
+            Layout extensions
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddTitleParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Add title element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Title part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendTitleParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Append title element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Title part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.XBaseTitle(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Boolean,System.String)">
+            <summary>
+            Generate all title parts
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="addDefaultTitle">A value indicating whether to insert a default title</param>
+            <param name="part">Title part</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddMetaDescriptionParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Add meta description element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Meta description part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendMetaDescriptionParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Append meta description element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Meta description part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.XBaseMetaDescription(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Generate all description parts
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Meta description part</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddMetaKeywordParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Add meta keyword element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Meta keyword part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendMetaKeywordParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Append meta keyword element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Meta keyword part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.XBaseMetaKeywords(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Generate all keyword parts
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Meta keyword part</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddScriptParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Add script element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+            <param name="isAsync">A value indicating whether to add an attribute "async" or not for js files</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddScriptParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Add script element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+            <param name="isAsync">A value indicating whether to add an attribute "async" or not for js files</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendScriptParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Append script element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+            <param name="isAsync">A value indicating whether to add an attribute "async" or not for js files</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendScriptParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Append script element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+            <param name="isAsync">A value indicating whether to add an attribute "async" or not for js files</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.XBaseScripts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Web.Framework.UI.ResourceLocation,System.Nullable{System.Boolean})">
+            <summary>
+            Generate all script parts
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="location">A location of the script element</param>
+            <param name="bundleFiles">A value indicating whether to bundle script elements</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddInlineScriptParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Web.Framework.UI.ResourceLocation,System.String)">
+            <summary>
+            Add inline script element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="location">A location of the script element</param>
+            <param name="script">Script</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendInlineScriptParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Web.Framework.UI.ResourceLocation,System.String)">
+            <summary>
+            Append inline script element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="location">A location of the script element</param>
+            <param name="script">Script</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.XBaseInlineScripts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Web.Framework.UI.ResourceLocation)">
+            <summary>
+            Generate all inline script parts
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="location">A location of the script element</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddCssFileParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Boolean)">
+            <summary>
+            Add CSS element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddCssFileParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean)">
+            <summary>
+            Add CSS element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendCssFileParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Boolean)">
+            <summary>
+            Append CSS element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendCssFileParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean)">
+            <summary>
+            Append CSS element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.XBaseCssFiles(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,VTQT.Web.Framework.UI.ResourceLocation,System.Nullable{System.Boolean})">
+            <summary>
+            Generate all CSS parts
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="location">A location of the script element</param>
+            <param name="bundleFiles">A value indicating whether to bundle script elements</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddCanonicalUrlParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Boolean)">
+            <summary>
+            Add canonical URL element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Canonical URL part</param>
+            <param name="withQueryString">Whether to use canonical URLs with query string parameters</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendCanonicalUrlParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Append canonical URL element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Canonical URL part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.XBaseCanonicalUrls(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Generate all canonical URL parts
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">Canonical URL part</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddHeadCustomParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Add any custom element to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">The entire element. For example, <![CDATA[<meta name="msvalidate.01" content="123121231231313123123" />]]></param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendHeadCustomParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Append any custom element to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">The entire element. For example, <![CDATA[<meta name="msvalidate.01" content="123121231231313123123" />]]></param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.XBaseHeadCustom(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            Generate all custom elements
+            </summary>
+            <param name="html">HTML helper</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AddPageCssClassParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Add CSS class to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">CSS class</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.AppendPageCssClassParts(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Append CSS class to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">CSS class</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.XBasePageCssClasses(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Boolean)">
+            <summary>
+            Generate all title parts
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="part">CSS class</param>
+            <param name="includeClassElement">A value indicating whether to include "class" attributes</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.SetActiveMenuItemSystemName(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Specify system name of admin menu item that should be selected (expanded)
+            </summary>
+            <param name="html">HTML helper</param>
+            <param name="systemName">System name</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.LayoutExtensions.GetActiveMenuItemSystemName(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            Get system name of admin menu item that should be selected (expanded)
+            </summary>
+            <param name="html">HTML helper</param>
+            <returns>System name</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.UI.PageHeadBuilder">
+            <summary>
+            Page head builder
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GetBundleFileName(System.String[])">
+            <summary>
+            Get bundled file name
+            </summary>
+            <param name="parts">Parts to bundle</param>
+            <returns>File name</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddTitleParts(System.String)">
+            <summary>
+            Add title element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Title part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AppendTitleParts(System.String)">
+            <summary>
+            Append title element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Title part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GenerateTitle(System.Boolean)">
+            <summary>
+            Generate all title parts
+            </summary>
+            <param name="addDefaultTitle">A value indicating whether to insert a default title</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddMetaDescriptionParts(System.String)">
+            <summary>
+            Add meta description element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Meta description part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AppendMetaDescriptionParts(System.String)">
+            <summary>
+            Append meta description element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Meta description part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GenerateMetaDescription">
+            <summary>
+            Generate all description parts
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddMetaKeywordParts(System.String)">
+            <summary>
+            Add meta keyword element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Meta keyword part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AppendMetaKeywordParts(System.String)">
+            <summary>
+            Append meta keyword element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Meta keyword part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GenerateMetaKeywords">
+            <summary>
+            Generate all keyword parts
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddScriptParts(VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Add script element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+            <param name="isAsync">A value indicating whether to add an attribute "async" or not for js files</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AppendScriptParts(VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Append script element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+            <param name="isAsync">A value indicating whether to add an attribute "async" or not for js files</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GenerateScripts(VTQT.Web.Framework.UI.ResourceLocation,System.Nullable{System.Boolean})">
+            <summary>
+            Generate all script parts
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="bundleFiles">A value indicating whether to bundle script elements</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddInlineScriptParts(VTQT.Web.Framework.UI.ResourceLocation,System.String)">
+            <summary>
+            Add inline script element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="script">Script</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AppendInlineScriptParts(VTQT.Web.Framework.UI.ResourceLocation,System.String)">
+            <summary>
+            Append inline script element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="script">Script</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GenerateInlineScripts(VTQT.Web.Framework.UI.ResourceLocation)">
+            <summary>
+            Generate all inline script parts
+            </summary>
+            <param name="location">A location of the script element</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddCssFileParts(VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean)">
+            <summary>
+            Add CSS element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AppendCssFileParts(VTQT.Web.Framework.UI.ResourceLocation,System.String,System.String,System.Boolean)">
+            <summary>
+            Append CSS element
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="src">Script path (minified version)</param>
+            <param name="debugSrc">Script path (full debug version). If empty, then minified version will be used</param>
+            <param name="excludeFromBundle">A value indicating whether to exclude this script from bundling</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GenerateCssFiles(VTQT.Web.Framework.UI.ResourceLocation,System.Nullable{System.Boolean})">
+            <summary>
+            Generate all CSS parts
+            </summary>
+            <param name="location">A location of the script element</param>
+            <param name="bundleFiles">A value indicating whether to bundle script elements</param>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddCanonicalUrlParts(System.String)">
+            <summary>
+            Add canonical URL element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Canonical URL part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AppendCanonicalUrlParts(System.String)">
+            <summary>
+            Append canonical URL element to the <![CDATA[<head>]]>
+            </summary>
+            <param name="part">Canonical URL part</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GenerateCanonicalUrls">
+            <summary>
+            Generate all canonical URL parts
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddHeadCustomParts(System.String)">
+            <summary>
+            Add any custom element to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="part">The entire element. For example, <![CDATA[<meta name="msvalidate.01" content="123121231231313123123" />]]></param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AppendHeadCustomParts(System.String)">
+            <summary>
+            Append any custom element to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="part">The entire element. For example, <![CDATA[<meta name="msvalidate.01" content="123121231231313123123" />]]></param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GenerateHeadCustom">
+            <summary>
+            Generate all custom elements
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddPageCssClassParts(System.String)">
+            <summary>
+            Add CSS class to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="part">CSS class</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AppendPageCssClassParts(System.String)">
+            <summary>
+            Append CSS class to the <![CDATA[<head>]]> element
+            </summary>
+            <param name="part">CSS class</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GeneratePageCssClasses">
+            <summary>
+            Generate all title parts
+            </summary>
+            <returns>Generated string</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.AddEditPageUrl(System.String)">
+            <summary>
+            Specify "edit page" URL
+            </summary>
+            <param name="url">URL</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GetEditPageUrl">
+            <summary>
+            Get "edit page" URL
+            </summary>
+            <returns>URL</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.SetActiveMenuItemSystemName(System.String)">
+            <summary>
+            Specify system name of admin menu item that should be selected (expanded)
+            </summary>
+            <param name="systemName">System name</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.GetActiveMenuItemSystemName">
+            <summary>
+            Get system name of admin menu item that should be selected (expanded)
+            </summary>
+            <returns>System name</returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.UI.PageHeadBuilder.ScriptReferenceMeta">
+            <summary>
+            JS file meta data
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.UI.PageHeadBuilder.ScriptReferenceMeta.ExcludeFromBundle">
+            <summary>
+            A value indicating whether to exclude the script from bundling
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.UI.PageHeadBuilder.ScriptReferenceMeta.IsAsync">
+            <summary>
+            A value indicating whether to load the script asynchronously 
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.UI.PageHeadBuilder.ScriptReferenceMeta.Src">
+            <summary>
+            Src for production
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.UI.PageHeadBuilder.ScriptReferenceMeta.DebugSrc">
+            <summary>
+            Src for debugging
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.ScriptReferenceMeta.Equals(VTQT.Web.Framework.UI.PageHeadBuilder.ScriptReferenceMeta)">
+            <summary>
+            Equals
+            </summary>
+            <param name="item">Other item</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.ScriptReferenceMeta.GetHashCode">
+            <summary>
+            Get hash code
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.UI.PageHeadBuilder.CssReferenceMeta">
+            <summary>
+            CSS file meta data
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.UI.PageHeadBuilder.CssReferenceMeta.Src">
+            <summary>
+            Src for production
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.UI.PageHeadBuilder.CssReferenceMeta.DebugSrc">
+            <summary>
+            Src for debugging
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.CssReferenceMeta.Equals(VTQT.Web.Framework.UI.PageHeadBuilder.CssReferenceMeta)">
+            <summary>
+            Equals
+            </summary>
+            <param name="item">Other item</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.UI.PageHeadBuilder.CssReferenceMeta.GetHashCode">
+            <summary>
+            Get hash code
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VTQT.Web.Framework.UI.ResourceLocation">
+            <summary>
+            Resource location
+            </summary>
+        </member>
+        <member name="F:VTQT.Web.Framework.UI.ResourceLocation.Head">
+            <summary>
+            Header
+            </summary>
+        </member>
+        <member name="F:VTQT.Web.Framework.UI.ResourceLocation.Footer">
+            <summary>
+            Footer
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.Validators.XBaseValidationDefaults">
+            <summary>
+            Represents default values related to validation
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Validators.XBaseValidationDefaults.ValidationRuleSet">
+            <summary>
+            Gets the name of a rule set used to validate model
+            </summary>
+        </member>
+        <member name="P:VTQT.Web.Framework.Validators.XBaseValidationDefaults.NotNullValidationLocaleName">
+            <summary>
+            Gets the name of a locale used in not-null validation
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.WebAppContext">
+            <summary>
+            App context for web application
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.WebAppContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,VTQT.Services.Apps.IAppService)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="httpContextAccessor">HTTP context accessor</param>
+            <param name="appService">App service</param>
+        </member>
+        <member name="M:VTQT.Web.Framework.WebAppContext.GetCurrentAppAsync">
+            <summary>
+            Gets the current app
+            </summary>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.WebAppContext.GetCurrentApp">
+            <summary>
+            Gets the current app
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Framework.WebWorkContext">
+            <summary>
+            Represents work context for web application or web api
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Framework.WebWorkContext.GetWorkingLanguageAsync">
+            <summary>
+            Gets current user working language
+            </summary>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.WebWorkContext.GetWorkingLanguage">
+            <summary>
+            Gets current user working language
+            </summary>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.WebWorkContext.SetWorkingLanguageAsync(VTQT.Core.Domain.Localization.LanguageSvcEntity)">
+            <summary>
+            Sets current user working language
+            </summary>
+            <param name="language">Language</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Framework.WebWorkContext.SetWorkingLanguage(VTQT.Core.Domain.Localization.LanguageSvcEntity)">
+            <summary>
+            Sets current user working language
+            </summary>
+            <param name="language">Language</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.RouteExtensions.GenerateRouteIdentifier(Microsoft.AspNetCore.Routing.RouteData)">
+            <summary>
+            Generates an identifier for the given route in the form "[{area}.]{controller}.{action}"
+            </summary>
+        </member>
+        <member name="M:VTQT.RouteExtensions.GenerateAppAssemblyRouteIdentifier(Microsoft.AspNetCore.Routing.RouteData)">
+            <summary>
+            Generates an identifier for the given route in the form "[{area}.]{controller}.{action}"
+            </summary>
+        </member>
+    </members>
+</doc>

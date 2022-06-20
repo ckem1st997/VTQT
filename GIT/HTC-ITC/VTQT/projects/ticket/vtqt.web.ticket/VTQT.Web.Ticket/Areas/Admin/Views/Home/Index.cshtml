@@ -1,0 +1,116 @@
+﻿<div class="page-data" style="padding-top:0px;">
+    <div class="row full-height" style="padding-top: 381px">
+        <div class="row" style="position: absolute; top: 10px; width: 100%">
+            <div class="col-md-6">
+                @{ await Html.RenderPartialAsync("ChartPie"); }
+            </div>
+            <div class="col-md-6">
+                @{ await Html.RenderPartialAsync("ChartColumn"); }
+
+            </div>
+        </div>
+
+        <div class="full-height" style="display:flex;margin-top: 15px">
+            <div class="" style=" padding-right: 15px; padding-left: 15px;width:50%">
+                @{ await Html.RenderPartialAsync("ChartWarrantyDuration"); }
+            </div>
+            <div class="" style=" padding-right: 15px; padding-left: 15px; width: 50%">
+                @{ await Html.RenderPartialAsync("ChartProjectBase"); }
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .page-container .page-content-wrapper {
+        padding-top: 20px !important;
+    }
+
+    @@media only screen and (min-height: 800px) {
+        #grdIndexWarrantyDuration {
+            height: 83% !important;
+        }
+
+        #grdIndexProjectBase {
+            height: 83% !important;
+        }
+    }
+
+    .SearchInventory {
+        transition: transform 250ms;
+    }
+
+    .icon-loading {
+        font-size: 16px;
+        position: absolute;
+        right: 30px;
+        transform: rotate(-180deg);
+        transition: all 0.5s ease-in-out;
+    }
+
+    .height-2 {
+        height: 50%;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+
+    .title-home-set {
+        background-color: #756de0;
+        height: 30px;
+        padding: 5px;
+        color: white;
+        font-weight: bold;
+        border-top-left-radius: 3px;
+        -moz-border-radius-topright: 3px;
+        border-top-right-radius: 3px;
+        display: flex;
+        align-items: baseline;
+    }
+
+    .search-home-set {
+        height: 45px;
+        border: 1px solid #d9d9d9;
+        display: flex;
+        align-items: center;
+        padding-left: 25px;
+        color: #7a869a !important;
+        font-weight: bold !important;
+    }
+
+        .search-home-set div:first-child {
+            width: 50px;
+        }
+
+    .input-type {
+        -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+        box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+        background-color: #fff;
+        border: 1px solid #c2cad8;
+        color: #555;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        outline: 0;
+        height: 34px;
+        line-height: 1.42857;
+        padding: 6px 24px 6px 12px;
+    }
+
+    .result-home-set {
+        border: 1px solid #d9d9d9;
+        border-top: none;
+    }
+
+    .portlet.light {
+        padding: 1px 1px 0px !important;
+    }
+
+    .portlet {
+        margin-bottom: 0px !important;
+    }
+</style>

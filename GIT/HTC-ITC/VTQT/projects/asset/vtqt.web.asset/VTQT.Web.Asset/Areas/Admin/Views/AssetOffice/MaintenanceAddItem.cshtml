@@ -1,0 +1,205 @@
+﻿@model MaintenanceDetailSearchModel
+@{
+    Layout = null;
+}
+
+<script>
+    var grdDetails = {
+        el: '#grdDetails',
+        $el: {},
+        init: function () { },
+        data: function () { },
+        api: {}
+    };
+
+    var btnSearchGrdDetails = {
+        el: '#btnSearchGrdDetails',
+        $el: {},
+        init: function () {}
+    };
+
+    grdDetails.data = function () {
+        var $keywords = $('#@Html.FieldIdFor(m => m.KeywordsMaintenanceDetail)');
+        var $assetCategoryId = $('#@Html.FieldIdFor(m => m.AssetCategoryId)');
+        var $organizationId = $('#@Html.FieldIdFor(m => m.OrganizationMaintenanceDetailId)');
+        var $stationCode = $('#@Html.FieldIdFor(m => m.StationMaintenanceDetailCode)');
+        var $projectCode = $('#@Html.FieldIdFor(m => m.ProjectMaintenanceDetailCode)');
+
+        var searchModel = {
+            AssetCategoryId: $assetCategoryId.val(),
+            OrganizationMaintenanceDetailId: $organizationId.val(),
+            StationMaintenanceDetailCode: $stationCode.val(),
+            ProjectMaintenanceDetailCode: $projectCode.val(),
+            KeywordsMaintenanceDetail: $keywords.val()
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="form fixed-layout-form">
+    <form class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Thêm tài sản</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row search-form" style="margin: 10px 0 0 10px;">
+                    <div class="search-label col-md-2" style="padding: 6px;margin-right: 4px;">
+                        @T("Common.Search")
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-group-sm">
+                            <div class="input-icon right">
+                                <i class="fa fa-angle-down search-extend tooltips" data-container="body" data-original-title="@T("Common.ShowSearchOptions")" data-toggle="dropdown" data-close-others="true" aria-expanded="true"></i>
+                                @Html.TextBoxFor(m => m.KeywordsMaintenanceDetail, new { @class = "form-control", placeholder = T("Common.Fields.EnterKeywords") })
+                                <div class="search-extend-bd dropdown-menu hold-on-click" style="width: 400px; padding: 10px">
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.AssetCategoryId, true, new { @class = "col-md-3", @style = "padding: 0" })
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.AssetCategoryId, (IEnumerable<SelectListItem>)ViewData["categories"], "Loại tài sản", new { @class = "form-control", @style = "width: 100%" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.OrganizationMaintenanceDetailId, true, new { @class = "col-md-3", @style = "padding: 0" })
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.OrganizationMaintenanceDetailId, (IEnumerable<SelectListItem>)ViewData["organizations"], "Đơn vị", new { @class = "form-control", @style = "width: 100%" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.StationMaintenanceDetailCode, true, new { @class = "col-md-3", @style = "padding: 0" })
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.StationMaintenanceDetailCode, (IEnumerable<SelectListItem>)ViewData["stations"], "Trạm", new { @class = "form-control", @style = "width: 100%" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.ProjectMaintenanceDetailCode, true, new { @class = "col-md-3", @style = "padding: 0" })
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.ProjectMaintenanceDetailCode, (IEnumerable<SelectListItem>)ViewData["projects"], "Dự án", new { @class = "form-control", @style = "width: 100%" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group form-group-sm">
+                            <button type="submit" id="btnSearchGrdDetails" class="btn btn-default btn-sm">
+                                <i class="fa fa-search"></i> @T("Common.GetData")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin: 0 0 0 10px;padding-left: 5px;">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ReasonDescriptionMaintenanceDetail, true, new { @class = "col-md-2", @style = "padding: 0" })
+                        <div class="col-md-9">
+                            @Html.TextAreaFor(m => m.ReasonDescriptionMaintenanceDetail, new { @class = "form-control", @style = "width: 100%" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin: 0 0 10px 10px;padding-left: 5px;">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.MaintenanceLocationMaintenanceDetail, true, new { @class = "col-md-2", @style = "padding: 0" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(m => m.MaintenanceLocationMaintenanceDetail, new { @class = "form-control", @style = "width: 100%" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding: 10px">
+                    <script id="toolbarDetails" type="text/x-kendo-template">
+                        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+                            <span>CHỌN TÀI SẢN</span>
+                        </div>
+                    </script>
+                    @(Html.Kendo().Grid<AssetModel>()
+                        .Name("grdDetails")
+                        .HtmlAttributes(new { style = "height: 450px; border: 1px solid lightgray" })
+                        .Columns(columns =>
+                        {
+                            columns.Select().Locked().Width(30);
+                            columns.Bound(x => x.Code).Width(100).Locked();
+                            columns.Bound(x => x.Name).Width(150).Locked();
+                            columns.ForeignKey(x => x.CategoryId, (System.Collections.IEnumerable)ViewData["categories"], "Value", "Text").Width(150);
+                            columns.Bound(x => x.StationName).Width(150);
+                            columns.Bound(x => x.OriginQuantity).Format("{0:n2}").Width(150).RightAlign();
+                            columns.Bound(x => x.RecallQuantity).Format("{0:n2}").Width(150).RightAlign();
+                            columns.Bound(x => x.BrokenQuantity).Format("{0:n2}").Width(150).RightAlign();
+                            columns.Bound(x => x.SoldQuantity).Format("{0:n2}").Width(150).RightAlign();
+                            columns.Bound(x => x.BalanceQuantity).Format("{0:n2}").Width(150).RightAlign();
+                            columns.Bound(x => x.UnitName).Width(100);
+                        })
+                        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbarDetails"); })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .ServerOperation(true)
+                            .PageSize(AdminAreaSettings.GridPageSize)
+                            .Read(read => read.Action("GetDetailsCreate", "AssetOffice").Data("grdDetails.data"))
+                        )
+                        .NoRecords()
+                        .Scrollable(scr => scr.Enabled(true))
+                        .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(true))
+                        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+                        .Navigatable())
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    frmAddItem = {
+        el: 'form[data-client-form-id="@ClientFormId"]',
+        $el: {},
+        winForm: {},
+        init: function () { }
+    };
+
+    grdDetails.init = function () {
+        grdDetails.$el = $(grdDetails.el);
+
+        grdDetails.api = grdDetails.$el.data('kendoGrid');
+    };
+
+    btnSearchGrdDetails.init = function () {
+        btnSearchGrdDetails.$el = $(btnSearchGrdDetails.el);
+
+        const search = _.debounce(() => {
+            grdDetails.api.resetPage();
+        }, app.ui.def.debounce.timeout);
+        btnSearchGrdDetails.$el.click(function (e) {
+            search();
+            return false;
+        });
+    };
+
+    frmAddItem.init = function () {
+        //Init Window
+        frmAddItem.$el = $(frmAddItem.el);
+        frmAddItem.winForm = frmAddItem.$el.data('winForm');
+    };
+
+    $(function () {
+        frmAddItem.init();
+        grdDetails.init();
+        btnSearchGrdDetails.init();
+    });
+</script>

@@ -1,0 +1,46 @@
+﻿@model TypeValueModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Dashboard.TypeValue.AppActions.Details")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DisplayFor(m => m.Name,new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-3" }, false)
+                    <div class="col-md-9">
+                        @Html.DisplayFor(m => m.Description, new { isTextArea = true })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ParentId, true, new { @class = "control-label col-md-3" }, false)
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.ParentId, Model.AvailableTypeValue, string.Format(T("Common.SelectObject"), T("Common.TypeValue")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Inactive, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DisplayFor(m => m.Inactive,new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

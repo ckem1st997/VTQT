@@ -1,0 +1,2485 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Core.Domain.Ticket</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Core.Domain.Ticket.TicketDataConnection">
+            <summary>
+            Database       : TicketManagement
+            Data Source    : 192.168.100.73
+            Server Version : 8.0.29-0ubuntu0.20.04.2
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Assignments">
+            <summary>
+            Phân công
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Crs">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.CR_Htcs">
+            <summary>
+            CR HTC
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.CRCategories">
+            <summary>
+            Loại CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.CRMxes">
+            <summary>
+            CR xin tác động MX lấy tuyến
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.CRPartners">
+            <summary>
+            CR Đối tác
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Ftths">
+            <summary>
+            FTTH
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.ParitcularFtths">
+            <summary>
+            Sự cố FTTH lẻ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Priorities">
+            <summary>
+            Phân cấp sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Projects">
+            <summary>
+            Danh sách các Project
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.ProjectPriorities">
+            <summary>
+            Bản quan hệ n-n
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.ProjectStatus">
+            <summary>
+            Bản quan hệ n-n
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.ProjectTicketCategories">
+            <summary>
+            Bản quan hệ n-n
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Ratings">
+            <summary>
+            Đánh giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.RatingTickets">
+            <summary>
+            CS đánh giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.SlaLevels">
+            <summary>
+            Định mức SLA
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Status">
+            <summary>
+            Tình trạng của ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.StatusCategories">
+            <summary>
+            Phân nhóm trạng thái
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Tickets">
+            <summary>
+            Danh sách ticket: Gồm các thông tin tổng quan
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Ticket_Trams">
+            <summary>
+            Thông tin chi tiết ticket trạm (quan hệ 1-1 với bảng ticket)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.Ticket_VanDes">
+            <summary>
+            Ticket vấn đề
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.TicketCategories">
+            <summary>
+            Loại Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.TicketProgresses">
+            <summary>
+            Tiến độ sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketDataConnection.WideFtths">
+            <summary>
+            Sự cố FTTH diện rộng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalCR.CrId">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalCR.Confirm">
+            <summary>
+            Xác nhận
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalCR.ReasonDetail">
+            <summary>
+            Lý do
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalCR.Approver">
+            <summary>
+            Người phê duyệt (Enum)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalCRMx.CrMxId">
+            <summary>
+            CRMx
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalCRMx.Confirm">
+            <summary>
+            Xác nhận
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalCRMx.ReasonDetail">
+            <summary>
+            Lý do
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalCRMx.Approver">
+            <summary>
+            Người phê duyệt (Enum)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalProgress.Code">
+            <summary>
+            Mã tiến độ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalProgress.Name">
+            <summary>
+            Tên tiến độ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalProgress.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalProgress.ProjectId">
+            <summary>
+            Dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalTicket.TicketId">
+            <summary>
+            Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalTicket.Confirm">
+            <summary>
+            Xác nhận
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalTicket.ReasonDetail">
+            <summary>
+            Lý do
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalTicket.Approver">
+            <summary>
+            Người phê duyệt (Enum)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ApprovalTicket.Ticket">
+            <summary>
+            FK_ApprovalTicket_PK_Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Area.Name">
+            <summary>
+            Tên khu vực
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Area.TicketProvinces">
+            <summary>
+            FK_TicketProvince_PK_Area_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.Assignment">
+            <summary>
+            Phân công
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Assignment.Performer">
+            <summary>
+            Người thực hiện
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Assignment.Assignee">
+            <summary>
+            Người được phân công
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Assignment.AssignmentReason">
+            <summary>
+            Lý do
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Assignment.AssignmentContent">
+            <summary>
+            Nội dung
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Assignment.TicketId">
+            <summary>
+            Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Assignment.AssignmentDate">
+            <summary>
+            Thời gian phân công
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Cable.Name">
+            <summary>
+            Tên cáp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Cable.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Cable.Code">
+            <summary>
+            Mã cáp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.Code">
+            <summary>
+            Mã kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.Name">
+            <summary>
+            Tên kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CustomerName">
+            <summary>
+            Tên khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CustomerCode">
+            <summary>
+            Mã khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CustomerChannel">
+            <summary>
+            Kênh khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CategoryId">
+            <summary>
+            Loại kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.HtcCid">
+            <summary>
+            HTC CID
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.HicCidOld">
+            <summary>
+            HTC Old CID
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.StartPoint">
+            <summary>
+            Điểm đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.EndPoint">
+            <summary>
+            Điểm cuối
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.DistanceKilometer">
+            <summary>
+            Khoảng cách KM
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.DistanceTimesBandwidth">
+            <summary>
+            Khoảng cách x băng thông
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.ChannelStatusId">
+            <summary>
+            Trạng thái kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.TotalBandwidth">
+            <summary>
+            Tổng băng thông
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.DomesticBandwidth">
+            <summary>
+            Băng thông trong nước
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.OverseasBandwidth">
+            <summary>
+            Băng thông quốc tế
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.Vlan">
+            <summary>
+            VLAN
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.Vcid">
+            <summary>
+            VCID
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.Vrf">
+            <summary>
+            VRF
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.IpAddress">
+            <summary>
+            Địa chỉ IP
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.StartPointDevicePop">
+            <summary>
+            POP thiết bị điểm đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.StartPointPortPop">
+            <summary>
+            POP port điểm đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.EndPointDevicePop">
+            <summary>
+            POP thiết bị điểm cuối
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.EndPointPortPop">
+            <summary>
+            POP port điểm cuối
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.ChannelAreaId">
+            <summary>
+            Kênh khu vực
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.ContractCode">
+            <summary>
+            Mã hợp đồng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.ModifiedBandwidthNote">
+            <summary>
+            Ghi chú điều chỉnh băng thông
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.StartDate">
+            <summary>
+            Ngày up kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.EndDate">
+            <summary>
+            Ngày dừng kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.UpRole">
+            <summary>
+            Role up
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.EndRole">
+            <summary>
+            Role end
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CurrentCoreStatus">
+            <summary>
+            Hiện trạng core
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CurrentLastmileStatus">
+            <summary>
+            Hiện trạng Lastmile
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CustomerContact">
+            <summary>
+            Liên hệ khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.ModifiedBy">
+            <summary>
+            Người sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.AreaA">
+            <summary>
+            Khu vực a
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.AreaB">
+            <summary>
+            Khu vực b
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.CustomerClass">
+            <summary>
+            Hạng khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.ProvinceA">
+            <summary>
+            Tỉnh a
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.ProvinceB">
+            <summary>
+            Tỉnh b
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.LinkId">
+            <summary>
+            Loại link
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.Sla">
+            <summary>
+            SLA
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Channel.ChannelTickets">
+            <summary>
+            FK_ChannelTicket_PK_Channel_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelArea.Name">
+            <summary>
+            Tên khu vực kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelArea.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelArea.Code">
+            <summary>
+            Mã khu vực kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelCategory.Code">
+            <summary>
+            Mã loại kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelCategory.Name">
+            <summary>
+            Tên loại kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelCategory.Color">
+            <summary>
+            Mã màu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelCategory.ParentId">
+            <summary>
+            Thuộc loại
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelCategory.Path">
+            <summary>
+            Đường dẫn cây cha con
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelCategory.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelCategory.ChannelAreaId">
+            <summary>
+            Kênh khu vực
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelStatus.Name">
+            <summary>
+            Tên trạng thái kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelStatus.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelStatus.Code">
+            <summary>
+            Mã trạng thái kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelTicket.CableId">
+            <summary>
+            Cáp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelTicket.ChannelId">
+            <summary>
+            Kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelTicket.ChannelName">
+            <summary>
+            Tên kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelTicket.StartDate">
+            <summary>
+            Thời gian bắt đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelTicket.FinishDate">
+            <summary>
+            Thời gian kết thúc
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelTicket.PhenomenaId">
+            <summary>
+            Hiện tượng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelTicket.Channel">
+            <summary>
+            FK_ChannelTicket_PK_Channel
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ChannelTicket.Ticket">
+            <summary>
+            FK_ChannelTicket_PK_Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Comment.TicketId">
+            <summary>
+            Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Comment.UserId">
+            <summary>
+            Người comment
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Comment.Content">
+            <summary>
+            Nội dung comment
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Comment.CreatedDate">
+            <summary>
+            Thời gian comment
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Comment.CrId">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Comment.CrMxId">
+            <summary>
+            CrMx
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Comment.CrPartnerId">
+            <summary>
+            CrPartner
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Comment.FtthId">
+            <summary>
+            Ftth
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Comment.WideFtthId">
+            <summary>
+            WideFtth
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ConfirmCR.crId">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ConfirmCR.Confirm">
+            <summary>
+            Xác nhận
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ConfirmCR.ReasonDetail">
+            <summary>
+            Lý do
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ConfirmCR.Approver">
+            <summary>
+            Người phê duyệt (Enum)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ConfirmCRMx.crMxId">
+            <summary>
+            CRMx
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ConfirmCRMx.Confirm">
+            <summary>
+            Xác nhận
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ConfirmCRMx.ReasonDetail">
+            <summary>
+            Lý do
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ConfirmCRMx.Approver">
+            <summary>
+            Người phê duyệt (Enum)
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.CR">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.Code">
+            <summary>
+            Mã CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.Name">
+            <summary>
+            Tên CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.Category">
+            <summary>
+            Loại CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.Status">
+            <summary>
+            Trạng thái
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.ModifiedBy">
+            <summary>
+            Người sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.Detail">
+            <summary>
+            Chi tiết
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.Note">
+            <summary>
+            Ghi chú
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.StartDate">
+            <summary>
+            Thời gian bắt đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.FinishDate">
+            <summary>
+            Thời gian kết thúc
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.ImplementationSteps">
+            <summary>
+            Các bước thực hiện CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.CrReason">
+            <summary>
+            Lý do thực hiện CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.FieldHandler">
+            <summary>
+            Người xử lý hiện trường
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.AffectService">
+            <summary>
+            Dịch vụ ảnh hưởng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.TotalTime">
+            <summary>
+            Tổng thời gian thực hiện
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.CrHtcs">
+            <summary>
+            FK_CrHTC_PK_CR_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.CrMxes">
+            <summary>
+            FK_CrMx_PK_CR_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.CrPartners">
+            <summary>
+            FK_CrPartner_PK_CR_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR.Project">
+            <summary>
+            FK_CRs_PK_Project
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.CR_HTC">
+            <summary>
+            CR HTC
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.CrId">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.CrArea">
+            <summary>
+            Vùng tác động
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.CrProvince">
+            <summary>
+            Tỉnh tác động
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.StartTimeAction">
+            <summary>
+            Thời gian bắt đầu tác động
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.RestoreTimeService">
+            <summary>
+            Thời gian khôi phục dịch vụ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.HourTimeMinus">
+            <summary>
+            Giờ giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.MinuteTimeMinus">
+            <summary>
+            Phút giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.SecondTimeMinus">
+            <summary>
+            Giây giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.OverTimeRegister">
+            <summary>
+            Vượt thời gian đăng ký
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.Supervisor">
+            <summary>
+            Người giám sát
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CR_HTC.CR">
+            <summary>
+            FK_CrHTC_PK_CR
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.CRCategory">
+            <summary>
+            Loại CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRCategory.Code">
+            <summary>
+            Mã
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRCategory.Name">
+            <summary>
+            Tên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRCategory.ProjectId">
+            <summary>
+            Dự án (FK: Project)
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.CRMx">
+            <summary>
+            CR xin tác động MX lấy tuyến
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.CrId">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.CrArea">
+            <summary>
+            Vùng tác động
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.CrProvince">
+            <summary>
+            Tỉnh tác động
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.StartTimeAction">
+            <summary>
+            Thời gian bắt đầu tác động
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.RestoreTimeService">
+            <summary>
+            Thời gian khôi phục dịch vụ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.HourTimeMinus">
+            <summary>
+            Giờ giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.MinuteTimeMinus">
+            <summary>
+            Phút giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.SecondTimeMinus">
+            <summary>
+            Giây giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.OverTimeRegister">
+            <summary>
+            Vượt thời gian đăng ký
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.Supervisor">
+            <summary>
+            Người giám sát
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRMx.CR">
+            <summary>
+            FK_CrMx_PK_CR
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.CRPartner">
+            <summary>
+            CR Đối tác
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRPartner.CrId">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRPartner.StartTimeAction">
+            <summary>
+            Thời gian bắt đầu tác động
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRPartner.RestoreTimeService">
+            <summary>
+            Thời gian khôi phục dịch vụ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRPartner.HourTimeMinus">
+            <summary>
+            Giờ giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRPartner.MinuteTimeMinus">
+            <summary>
+            Phút giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRPartner.SecondTimeMinus">
+            <summary>
+            Giây giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRPartner.OverTimeRegister">
+            <summary>
+            Vượt thời gian đăng ký
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRPartner.Supervisor">
+            <summary>
+            Người giám sát
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CRPartner.CR">
+            <summary>
+            FK_CrPartner_PK_CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CustomerClass.Name">
+            <summary>
+            Tên hạng khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CustomerClass.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.CustomerClass.Code">
+            <summary>
+            Mã hạng khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Device.CategoryId">
+            <summary>
+            Loại thiết bị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Device.Code">
+            <summary>
+            Mã thiết bị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Device.DeviceTickets">
+            <summary>
+            FK_DeviceTicket_PK_Device_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceCategory.Code">
+            <summary>
+            Mã loại thiết bị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceCategory.Name">
+            <summary>
+            Tên loại thiết bị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceCategory.ParentId">
+            <summary>
+            Loại thiết bị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceCategory.Path">
+            <summary>
+            Đường dẫn đệ quy
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceCategory.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceTicket.TicketId">
+            <summary>
+            Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceTicket.DeviceId">
+            <summary>
+            Thiết bị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceTicket.DeviceName">
+            <summary>
+            Tên thiết bị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceTicket.StartDate">
+            <summary>
+            Thời gian bắt đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceTicket.FinishDate">
+            <summary>
+            Thời gian kết thúc
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceTicket.PhenomenaId">
+            <summary>
+            Hiện tượng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceTicket.Device">
+            <summary>
+            FK_DeviceTicket_PK_Device
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.DeviceTicket.Ticket">
+            <summary>
+            FK_DeviceTicket_PK_Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.File.TicketId">
+            <summary>
+            Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.File.CrId">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.File.FtthId">
+            <summary>
+            Ftth
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.File.Ticket">
+            <summary>
+            FK_File_PK_Ticket
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.Ftth">
+            <summary>
+            FTTH
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.Code">
+            <summary>
+            Mã FTTH
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.Subject">
+            <summary>
+            Chủ đề
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.ModifiedBy">
+            <summary>
+            Người sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.StartDate">
+            <summary>
+            Thời gian bắt đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.FinishDate">
+            <summary>
+            Thời gian kết thúc
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.CID">
+            <summary>
+            Mã khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.ProjectId">
+            <summary>
+            Loại ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.ProjectCode">
+            <summary>
+            Mã dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.ComplaintContent">
+            <summary>
+            Nội dung khiếu nại
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.SlaStartTime">
+            <summary>
+            Thời gian bắt đầu tính SLA
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.TotalTime">
+            <summary>
+            Tổng thời gian thực hiện
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.ParitcularFtths">
+            <summary>
+            FK_ParitcularFtth_PK_Ftth_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.Project">
+            <summary>
+            FK_Ftth_PK_Project
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ftth.WideFtths">
+            <summary>
+            FK_WideFtth_PK_Ftth_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFee.TicketId">
+            <summary>
+            Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFee.Code">
+            <summary>
+            Mã vật tư/ chi phí
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFee.Name">
+            <summary>
+            Tên vật tư/ chi phí
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFee.Description">
+            <summary>
+            Mô tả nhân công thay thế
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFee.Fee">
+            <summary>
+            Chi phí
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFee.WareHouseItemCode">
+            <summary>
+            Mã vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFee.WareHouseItemName">
+            <summary>
+            Tên vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFee.Ticket">
+            <summary>
+            FK_InfrastructorFee_PK_Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFeeCR.CrId">
+            <summary>
+            CR
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFeeCR.Code">
+            <summary>
+            Mã vật tư/ chi phí
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFeeCR.Name">
+            <summary>
+            Tên vật tư/ chi phí
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFeeCR.Description">
+            <summary>
+            Mô tả nhân công thay thế
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFeeCR.Fee">
+            <summary>
+            Chi phí
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFeeCR.WareHouseItemCode">
+            <summary>
+            Mã vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.InfrastructorFeeCR.WareHouseItemName">
+            <summary>
+            Tên vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Link.Name">
+            <summary>
+            Tên link
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Link.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Link.Code">
+            <summary>
+            Mã link
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLink.Code">
+            <summary>
+            Mã link mạng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLink.Name">
+            <summary>
+            Tên link mạng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLink.StartPoint">
+            <summary>
+            Điểm đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLink.EndPoint">
+            <summary>
+            Điểm cuối
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLink.CableId">
+            <summary>
+            Loại cáp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLink.AreaA">
+            <summary>
+            Vùng a
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLink.AreaB">
+            <summary>
+            Vùng b
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLink.CategoryId">
+            <summary>
+            Loại link mạng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLink.NetworkLinkTickets">
+            <summary>
+            FK_NetworkLinkTicket_PK_NetworkLink_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkCategory.Code">
+            <summary>
+            Mã loại link mạng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkCategory.Name">
+            <summary>
+            Tên loại link mạng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkCategory.ParentId">
+            <summary>
+            Loại link mạng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkCategory.Path">
+            <summary>
+            Đường dẫn đệ quy
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkCategory.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkTicket.CableId">
+            <summary>
+            Cáp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkTicket.NetworkLinkId">
+            <summary>
+            Link mạng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkTicket.NetworkLinkName">
+            <summary>
+            Tên link mạng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkTicket.StartDate">
+            <summary>
+            Thời gian bắt đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkTicket.FinishDate">
+            <summary>
+            Thời gian kết thúc
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkTicket.PhenomenaId">
+            <summary>
+            Hiện tượng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkTicket.NetworkLink">
+            <summary>
+            FK_NetworkLinkTicket_PK_NetworkLink
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.NetworkLinkTicket.Ticket">
+            <summary>
+            FK_NetworkLinkTicket_PK_Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.OrganizationUnit.Code">
+            <summary>
+            Mã đơn vị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.OrganizationUnit.Name">
+            <summary>
+            Tên đơn vị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.OrganizationUnit.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.OrganizationUnit.ProjectId">
+            <summary>
+            Dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.OrganizationUnit.ParentId">
+            <summary>
+            Đơn vị quản lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.OrganizationUnit.Path">
+            <summary>
+            Đường dẫn đệ quy
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.OrganizationUnit.Project">
+            <summary>
+            FK_OrganizationUnit_PK_Project
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.ParitcularFtth">
+            <summary>
+            Sự cố FTTH lẻ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ParitcularFtth.FtthId">
+            <summary>
+            FTTH
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ParitcularFtth.ReasonId">
+            <summary>
+            Nguyên nhân
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ParitcularFtth.PhenomenaId">
+            <summary>
+            Hiện tượng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ParitcularFtth.DetailReason">
+            <summary>
+            Nguyên nhân chi tiết
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ParitcularFtth.StatusId">
+            <summary>
+            Tình trạng sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ParitcularFtth.Treatment">
+            <summary>
+            Cách xử lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ParitcularFtth.Ftth">
+            <summary>
+            FK_ParitcularFtth_PK_Ftth
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Phenomenon.Code">
+            <summary>
+            Mã hiện tượng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Phenomenon.Name">
+            <summary>
+            Tên hiện tượng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Phenomenon.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.Priority">
+            <summary>
+            Phân cấp sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Priority.Code">
+            <summary>
+            Mã
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Priority.Name">
+            <summary>
+            Tên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Priority.ProjectId">
+            <summary>
+            Dự án (FK: Project)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Priority.Project">
+            <summary>
+            FK_Priority_PK_Project
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Priority.ProjectPriorities">
+            <summary>
+            FK_ProjectPriority_PK_Priority_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.Project">
+            <summary>
+            Danh sách các Project
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.Code">
+            <summary>
+            Mã dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.Name">
+            <summary>
+            Tên dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.CRs">
+            <summary>
+            FK_CRs_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.Ftths">
+            <summary>
+            FK_Ftth_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.OrganizationUnits">
+            <summary>
+            FK_OrganizationUnit_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.Priorities">
+            <summary>
+            FK_Priority_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.ProjectPriorities">
+            <summary>
+            FK_ProjectPriority_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.ProjectStatus">
+            <summary>
+            FK_ProjectStatus_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.ProjectTicketCategories">
+            <summary>
+            FK_ProjectTicketCategory_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.Status">
+            <summary>
+            FK_Status_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.TicketCategories">
+            <summary>
+            FK_TicketCategory_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.TicketReasons">
+            <summary>
+            FK_TicketReason_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Project.Tickets">
+            <summary>
+            FK_Tickets_PK_Project_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.ProjectPriority">
+            <summary>
+            Bản quan hệ n-n
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectPriority.ProjectId">
+            <summary>
+            Dự án (FK: Project)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectPriority.PriorityId">
+            <summary>
+            Độ ưu tiên (FK: Priority)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectPriority.Priority">
+            <summary>
+            FK_ProjectPriority_PK_Priority
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectPriority.Project">
+            <summary>
+            FK_ProjectPriority_PK_Project
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.ProjectStatus">
+            <summary>
+            Bản quan hệ n-n
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectStatus.Project">
+            <summary>
+            FK_ProjectStatus_PK_Project
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectStatus.Status">
+            <summary>
+            FK_ProjectStatus_PK_Status
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.ProjectTicketCategory">
+            <summary>
+            Bản quan hệ n-n
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectTicketCategory.ProjectId">
+            <summary>
+            Dự án (FK: Project)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectTicketCategory.TicketCategoryId">
+            <summary>
+            Loại ticket (FK: TicketCategory)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectTicketCategory.Project">
+            <summary>
+            FK_ProjectTicketCategory_PK_Project
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectTicketCategory.ProjectTicketCategories">
+            <summary>
+            FK_ProjectTicketCategory_PK_TicketCategory_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.ProjectTicketCategory.TicketCategory">
+            <summary>
+            FK_ProjectTicketCategory_PK_TicketCategory
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.Rating">
+            <summary>
+            Đánh giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Rating.Code">
+            <summary>
+            Mã đánh giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Rating.Name">
+            <summary>
+            Tên trạng thái đánh giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Rating.Star">
+            <summary>
+            Sao quy đổi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Rating.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.RatingTicket">
+            <summary>
+            CS đánh giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.RatingTicket.TicketId">
+            <summary>
+            Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.RatingTicket.Note">
+            <summary>
+            Ghi chú
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.RatingTicket.StarRating">
+            <summary>
+            Số sao đánh giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.RatingTicket.CreatedDate">
+            <summary>
+            Thời gian đánh giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.RatingTicket.RatingBy">
+            <summary>
+            Người đánh giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.RatingTicket.ModifiedDate">
+            <summary>
+            Thời gian sửa đổi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.RatingTicket.ModifiedBy">
+            <summary>
+            Người sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.RatingTicket.Ticket">
+            <summary>
+            FK_RatingTicket_PK_Ticket
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.SlaLevel">
+            <summary>
+            Định mức SLA
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.SlaLevel.SlaCable">
+            <summary>
+            SLA cáp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.SlaLevel.SlaDevice">
+            <summary>
+            SLA thiết bị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.SlaLevel.SlaLogic">
+            <summary>
+            SLA Logic
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.SlaLevel.SlaPrivate">
+            <summary>
+            SLA riêng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.SlaLevel.CustomerClass">
+            <summary>
+            Hạng khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.Code">
+            <summary>
+            Mã trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.Name">
+            <summary>
+            Tên trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.CodeVnm">
+            <summary>
+            Mã trạm VNM
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.AreaId">
+            <summary>
+            Khu vực
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.ProvinceName">
+            <summary>
+            Tên tỉnh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.StationLevel">
+            <summary>
+            Phân cấp trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.Address">
+            <summary>
+            Địa chỉ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.Longitude">
+            <summary>
+            Kinh độ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.Latitude">
+            <summary>
+            Vĩ độ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.Note">
+            <summary>
+            Ghi chú
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.StationCategory">
+            <summary>
+            Loại trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Station.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StationCategory.Code">
+            <summary>
+            Mã loại trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StationCategory.Name">
+            <summary>
+            Tên loại trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StationCategory.ParentId">
+            <summary>
+            Cha
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StationCategory.Path">
+            <summary>
+            Đường dẫn khử đệ quy
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StationCategory.Color">
+            <summary>
+            Mã màu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StationCategory.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StationLevel.Name">
+            <summary>
+            Tên phân cấp
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.Status">
+            <summary>
+            Tình trạng của ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Status.Code">
+            <summary>
+            Mã
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Status.Name">
+            <summary>
+            Tên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Status.StatusCategoryId">
+            <summary>
+            Nhóm trạng thái (FK: StatusCategory)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Status.ProjectId">
+            <summary>
+            Dự án (FK: Project)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Status.Color">
+            <summary>
+            Mã màu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Status.Project">
+            <summary>
+            FK_Status_PK_Project
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Status.ProjectStatus">
+            <summary>
+            FK_ProjectStatus_PK_Status_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Status.StatusCategory">
+            <summary>
+            FK_Status_PK_StatusCategory
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.StatusCategory">
+            <summary>
+            Phân nhóm trạng thái
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StatusCategory.Code">
+            <summary>
+            Mã
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StatusCategory.Name">
+            <summary>
+            Tên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.StatusCategory.Status">
+            <summary>
+            FK_Status_PK_StatusCategory_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.Ticket">
+            <summary>
+            Danh sách ticket: Gồm các thông tin tổng quan
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Code">
+            <summary>
+            Mã ticket tự sinh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Subject">
+            <summary>
+            Tiêu đề của ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Detail">
+            <summary>
+            Mô tả chi tiết của ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.StartDate">
+            <summary>
+            Ngày bắt đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.FinishDate">
+            <summary>
+            Ngày kết thúc
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Deadline">
+            <summary>
+            Thời hạn xử lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Duration">
+            <summary>
+            Thời gian xử lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Assignee">
+            <summary>
+            Giao cho
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Status">
+            <summary>
+            Trạng thái
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Priority">
+            <summary>
+            Mức độ nghiêm trọng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.ProjectId">
+            <summary>
+            Dự án (FK: Project)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Category">
+            <summary>
+            Phân loại sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Inactive">
+            <summary>
+            Ngừng theo dõi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.CreatedBy">
+            <summary>
+            Tên người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.ModifiedDate">
+            <summary>
+            Ngày sủa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.ModifiedBy">
+            <summary>
+            Tên người sủa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.FirstReason">
+            <summary>
+            Nguyên nhân sơ bộ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.LastReason">
+            <summary>
+            Nguyên nhân kết luận
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Note">
+            <summary>
+            Ghi chú
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Solution">
+            <summary>
+            Giải pháp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.PendingHourTime">
+            <summary>
+            Thời gian pending
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.StationId">
+            <summary>
+            Trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.ApprovalTickets">
+            <summary>
+            FK_ApprovalTicket_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.ChannelTickets">
+            <summary>
+            FK_ChannelTicket_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.DeviceTickets">
+            <summary>
+            FK_DeviceTicket_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Files">
+            <summary>
+            FK_File_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.InfrastructorFees">
+            <summary>
+            FK_InfrastructorFee_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.NetworkLinkTickets">
+            <summary>
+            FK_NetworkLinkTicket_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.Project">
+            <summary>
+            FK_Tickets_PK_Project
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.RatingTickets">
+            <summary>
+            FK_RatingTicket_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.TicketSuCoes">
+            <summary>
+            FK_TicketSuCo_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.TicketTrams">
+            <summary>
+            FK_TicketTram_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket.TicketVanDes">
+            <summary>
+            FK_TicketVanDe_PK_Ticket_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.TicketArea">
+            <summary>
+            Vùng sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.TicketProvince">
+            <summary>
+            Tỉnh sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.ChannelCapacity">
+            <summary>
+            Dung lượng kênh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.EcalatePosition">
+            <summary>
+            Các vị trí nhận ecalate
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.ProcessingUnit">
+            <summary>
+            Đơn vị xử lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.KindOfReason">
+            <summary>
+            Loại nguyên nhân
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.DetailReason">
+            <summary>
+            Nguyên nhân chi tiết
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.ProcessingDepartment">
+            <summary>
+            Các bộ phận phải xử lý sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.HourTimeMinus">
+            <summary>
+            Giờ giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.MinuteTimeMinus">
+            <summary>
+            Phút giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.SecondTimeMinus">
+            <summary>
+            Giây giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_SuCo.Ticket">
+            <summary>
+            FK_TicketSuCo_PK_Ticket
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.Ticket_Tram">
+            <summary>
+            Thông tin chi tiết ticket trạm (quan hệ 1-1 với bảng ticket)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_Tram.TicketArea">
+            <summary>
+            Vùng sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_Tram.TicketProvince">
+            <summary>
+            Tỉnh sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_Tram.HourTimeMinus">
+            <summary>
+            Giờ giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_Tram.MinuteTimeMinus">
+            <summary>
+            Phút giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_Tram.SecondTimeMinus">
+            <summary>
+            Giây giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_Tram.EngineStartTime">
+            <summary>
+            Thời gian bắt đầu chạy máy nổ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_Tram.EngineFinishTime">
+            <summary>
+            Thời gian kết thúc chạy máy nổ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_Tram.StationId">
+            <summary>
+            Trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_Tram.Ticket">
+            <summary>
+            FK_TicketTram_PK_Ticket
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.Ticket_VanDe">
+            <summary>
+            Ticket vấn đề
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.TicketArea">
+            <summary>
+            Vùng sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.TicketProvince">
+            <summary>
+            Tỉnh sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.ProcessingUnit">
+            <summary>
+            Đơn vị xử lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.ManagementUnit">
+            <summary>
+            Đơn vị quản lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.SlaOver">
+            <summary>
+            Vượt SLA
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.ImportantTicket">
+            <summary>
+            Sự cố đáng lưu ý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.Sla">
+            <summary>
+            SLA
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.HourTimeMinus">
+            <summary>
+            Giờ giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.MinuteTimeMinus">
+            <summary>
+            Phút giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.SecondTimeMinus">
+            <summary>
+            Giây giảm trừ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.TicketProgressId">
+            <summary>
+            Tiến độ sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.TicketCategoryId">
+            <summary>
+            Loại ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.Ticket_VanDe.Ticket">
+            <summary>
+            FK_TicketVanDe_PK_Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketArea.Name">
+            <summary>
+            Tên vùng sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketArea.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketArea.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketArea.Code">
+            <summary>
+            Mã vùng sự cố
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.TicketCategory">
+            <summary>
+            Loại Ticket
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketCategory.Code">
+            <summary>
+            Mã
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketCategory.Name">
+            <summary>
+            Tên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketCategory.ProjectId">
+            <summary>
+            Dự án (FK: Project)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketCategory.Project">
+            <summary>
+            FK_TicketCategory_PK_Project
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.TicketProgress">
+            <summary>
+            Tiến độ sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketProgress.Code">
+            <summary>
+            Mã tiến độ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketProgress.Name">
+            <summary>
+            Tên tiến độ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketProgress.ProjectId">
+            <summary>
+            Dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketProgress.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketProvince.Code">
+            <summary>
+            Mã tỉnh thành
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketProvince.Name">
+            <summary>
+            Tên tỉnh thành
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketProvince.AreaId">
+            <summary>
+            Khu vực
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketProvince.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketProvince.Area">
+            <summary>
+            FK_TicketProvince_PK_Area
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketReason.Code">
+            <summary>
+            Mã nguyên nhân
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketReason.Description">
+            <summary>
+            Mô tả
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketReason.ParentId">
+            <summary>
+            Loại nguyên nhân
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketReason.Path">
+            <summary>
+            Đường dẫn đệ quy
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketReason.ProjectId">
+            <summary>
+            Dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketReason.Inactive">
+            <summary>
+            Ngừng kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.TicketReason.Project">
+            <summary>
+            FK_TicketReason_PK_Project
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Ticket.WideFtth">
+            <summary>
+            Sự cố FTTH diện rộng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.WideFtth.FtthId">
+            <summary>
+            FTTH
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.WideFtth.ReasonId">
+            <summary>
+            Nguyên nhân
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.WideFtth.PhenomenaId">
+            <summary>
+            Hiện tượng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.WideFtth.DetailReason">
+            <summary>
+            Nguyên nhân chi tiết
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.WideFtth.StatusId">
+            <summary>
+            Tình trạng sự cố
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.WideFtth.Treatment">
+            <summary>
+            Cách xử lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Ticket.WideFtth.Ftth">
+            <summary>
+            FK_WideFtth_PK_Ftth
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Ticket.Enum.ApproverTicket.DeputyGeneralManagerTechnical">
+            <summary>
+            Phó tổng giám đốc kỹ thuật
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Ticket.Enum.ApproverTicket.DeputyGeneralManagerNetworkInfrastructor">
+            <summary>
+            Phó giám đốc hạ tầng mạng lưới
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Ticket.Enum.ApproverCRMx.DeputyGeneralManagerTechnical">
+            <summary>
+            Phó tổng giám đốc kỹ thuật
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Ticket.Enum.ApproverCR.DeputyGeneralManagerTechnical">
+            <summary>
+            Phó tổng giám đốc kỹ thuật
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Ticket.Enum.AssignReason.Escalate">
+            <summary>
+            Vị trí Escalate
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Ticket.Enum.AssignReason.Assign">
+            <summary>
+            Phân công
+            </summary>
+        </member>
+    </members>
+</doc>

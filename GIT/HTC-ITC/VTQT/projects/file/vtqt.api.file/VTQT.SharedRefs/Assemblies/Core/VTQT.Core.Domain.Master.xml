@@ -1,0 +1,1472 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Core.Domain.Master</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Core.Domain.FbmContract.FbmContractDataConnection">
+            <summary>
+            Database       : ITC_FBM_Contracts
+            Data Source    : 192.168.100.32
+            Server Version : 5.7.33-36-57-log
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.AttachmentFile.AttachmentFiles_InContracts_InContractId">
+            <summary>
+            FK_AttachmentFiles_InContracts_InContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.AttachmentFile.AttachmentFiles_OutContracts_OutContractId">
+            <summary>
+            FK_AttachmentFiles_OutContracts_OutContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.AttachmentFile.AttachmentFiles_Transactions_TransactionId">
+            <summary>
+            FK_AttachmentFiles_Transactions_TransactionId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ChannelPriceBusTable.ChannelPriceBusTables_OutContractServicePackages_ChannelId">
+            <summary>
+            FK_ChannelPriceBusTables_OutContractServicePackages_ChannelId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContactInfo.ContactInfos_InContracts_InContractId">
+            <summary>
+            FK_ContactInfos_InContracts_InContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContactInfo.ContactInfos_OutContracts_OutContractId">
+            <summary>
+            FK_ContactInfos_OutContracts_OutContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractContent.ContractContents_InContracts_InContractId">
+            <summary>
+            FK_ContractContents_InContracts_InContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractContent.ContractContents_OutContracts_OutContractId">
+            <summary>
+            FK_ContractContents_OutContracts_OutContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractContent.ContractContents_Pictures_ContractFormSignatureId">
+            <summary>
+            FK_ContractContents_Pictures_ContractFormSignatureId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractContent.ContractContents_Pictures_DigitalSignatureId">
+            <summary>
+            FK_ContractContents_Pictures_DigitalSignatureId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractEquipment.ContractEquipments_EquipmentStatuses_EquipmentStatusId">
+            <summary>
+            FK_ContractEquipments_EquipmentStatuses_EquipmentStatusId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractEquipment.ContractEquipments_OutputChannelPoints_OutputChannelPointId">
+            <summary>
+            FK_ContractEquipments_OutputChannelPoints_OutputChannelPointId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractEquipment.ContractEquipments_TransactionEquipments_TransactionEquipmen_">
+            <summary>
+            FK_ContractEquipments_TransactionEquipments_TransactionEquipmen~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractForm.ContractForms_Pictures_DigitalSignatureId">
+            <summary>
+            FK_ContractForms_Pictures_DigitalSignatureId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Contractor.FK_ContractorProperties_Contractors_ContractorId_BackReferences">
+            <summary>
+            FK_ContractorProperties_Contractors_ContractorId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Contractor.FK_InContracts_Contractors_ContractorHTCId_BackReferences">
+            <summary>
+            FK_InContracts_Contractors_ContractorHTCId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Contractor.FK_InContracts_Contractors_ContractorId_BackReferences">
+            <summary>
+            FK_InContracts_Contractors_ContractorId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Contractor.FK_OutContracts_Contractors_ContractorHTCId_BackReferences">
+            <summary>
+            FK_OutContracts_Contractors_ContractorHTCId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Contractor.FK_OutContracts_Contractors_ContractorId_BackReferences">
+            <summary>
+            FK_OutContracts_Contractors_ContractorId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Contractor.FK_OutContractServicePackages_Contractors_PaymentTargetId_BackReferences">
+            <summary>
+            FK_OutContractServicePackages_Contractors_PaymentTargetId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Contractor.FK_TransactionServicePackages_Contractors_PaymentTargetId_BackReferences">
+            <summary>
+            FK_TransactionServicePackages_Contractors_PaymentTargetId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractorProperty.ContractorProperties_Contractors_ContractorId">
+            <summary>
+            FK_ContractorProperties_Contractors_ContractorId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractSharingRevenue.ContractSharingRevenues_InContracts_InContractId">
+            <summary>
+            FK_ContractSharingRevenues_InContracts_InContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractSharingRevenue.ContractSharingRevenues_OutContracts_OutContractId">
+            <summary>
+            FK_ContractSharingRevenues_OutContracts_OutContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractSharingRevenue.ContractSharingRevenues_OutContractServicePackages_OutContra_">
+            <summary>
+            FK_ContractSharingRevenues_OutContractServicePackages_OutContra~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractSharingRevenue.FK_ContractSharingRevenueLines_ContractSharingRevenues_CsrId_BackReferences">
+            <summary>
+            FK_ContractSharingRevenueLines_ContractSharingRevenues_CsrId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractSharingRevenueLine.ContractSharingRevenueLines_ContractSharingRevenues_CsrId">
+            <summary>
+            FK_ContractSharingRevenueLines_ContractSharingRevenues_CsrId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractSharingRevenueLine.ContractSharingRevenueLines_OutContractServicePackages_OutSe_">
+            <summary>
+            FK_ContractSharingRevenueLines_OutContractServicePackages_OutSe~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractStatus.FK_InContracts_ContractStatus_ContractStatusId_BackReferences">
+            <summary>
+            FK_InContracts_ContractStatus_ContractStatusId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractStatus.FK_OutContracts_ContractStatus_ContractStatusId_BackReferences">
+            <summary>
+            FK_OutContracts_ContractStatus_ContractStatusId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractTotalByCurrency.ContractTotalByCurrencies_InContracts_InContractId">
+            <summary>
+            FK_ContractTotalByCurrencies_InContracts_InContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ContractTotalByCurrency.ContractTotalByCurrencies_OutContracts_OutContractId">
+            <summary>
+            FK_ContractTotalByCurrencies_OutContracts_OutContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.EquipmentStatus.FK_ContractEquipments_EquipmentStatuses_EquipmentStatusId_BackReferences">
+            <summary>
+            FK_ContractEquipments_EquipmentStatuses_EquipmentStatusId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.EquipmentStatus.FK_TransactionEquipments_EquipmentStatuses_EquipmentStatusId_BackReferences">
+            <summary>
+            FK_TransactionEquipments_EquipmentStatuses_EquipmentStatusId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.FlexiblePricingType.FK_OutContractServicePackages_FlexiblePricingType_FlexiblePrici__BackReferences">
+            <summary>
+            FK_OutContractServicePackages_FlexiblePricingType_FlexiblePrici~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.FK_AttachmentFiles_InContracts_InContractId_BackReferences">
+            <summary>
+            FK_AttachmentFiles_InContracts_InContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.FK_ContactInfos_InContracts_InContractId_BackReferences">
+            <summary>
+            FK_ContactInfos_InContracts_InContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.FK_ContractContents_InContracts_InContractId_BackReferences">
+            <summary>
+            FK_ContractContents_InContracts_InContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.FK_ContractSharingRevenues_InContracts_InContractId_BackReferences">
+            <summary>
+            FK_ContractSharingRevenues_InContracts_InContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.FK_ContractTotalByCurrencies_InContracts_InContractId_BackReferences">
+            <summary>
+            FK_ContractTotalByCurrencies_InContracts_InContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.FK_InContractServices_InContracts_InContractId_BackReferences">
+            <summary>
+            FK_InContractServices_InContracts_InContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.FK_InContractTaxes_InContracts_InContractId_BackReferences">
+            <summary>
+            FK_InContractTaxes_InContracts_InContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.FK_OutContractServicePackages_InContracts_InContractId_BackReferences">
+            <summary>
+            FK_OutContractServicePackages_InContracts_InContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.InContracts_Contractors_ContractorHTCId">
+            <summary>
+            FK_InContracts_Contractors_ContractorHTCId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.InContracts_Contractors_ContractorId">
+            <summary>
+            FK_InContracts_Contractors_ContractorId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContract.InContracts_ContractStatus_ContractStatusId">
+            <summary>
+            FK_InContracts_ContractStatus_ContractStatusId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContractService.InContractServices_InContracts_InContractId">
+            <summary>
+            FK_InContractServices_InContracts_InContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.InContractTax.InContractTaxes_InContracts_InContractId">
+            <summary>
+            FK_InContractTaxes_InContracts_InContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.MarketArea.FK_Projects_MarketAreas_MarketAreaId_BackReferences">
+            <summary>
+            FK_Projects_MarketAreas_MarketAreaId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.FK_AttachmentFiles_OutContracts_OutContractId_BackReferences">
+            <summary>
+            FK_AttachmentFiles_OutContracts_OutContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.FK_ContactInfos_OutContracts_OutContractId_BackReferences">
+            <summary>
+            FK_ContactInfos_OutContracts_OutContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.FK_ContractContents_OutContracts_OutContractId_BackReferences">
+            <summary>
+            FK_ContractContents_OutContracts_OutContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.FK_ContractSharingRevenues_OutContracts_OutContractId_BackReferences">
+            <summary>
+            FK_ContractSharingRevenues_OutContracts_OutContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.FK_ContractTotalByCurrencies_OutContracts_OutContractId_BackReferences">
+            <summary>
+            FK_ContractTotalByCurrencies_OutContracts_OutContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.FK_OutContractServicePackages_OutContracts_OutContractId_BackReferences">
+            <summary>
+            FK_OutContractServicePackages_OutContracts_OutContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.FK_Transactions_OutContracts_OutContractId_BackReferences">
+            <summary>
+            FK_Transactions_OutContracts_OutContractId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.OutContracts_Contractors_ContractorHTCId">
+            <summary>
+            FK_OutContracts_Contractors_ContractorHTCId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.OutContracts_Contractors_ContractorId">
+            <summary>
+            FK_OutContracts_Contractors_ContractorId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContract.OutContracts_ContractStatus_ContractStatusId">
+            <summary>
+            FK_OutContracts_ContractStatus_ContractStatusId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.FK_ChannelPriceBusTables_OutContractServicePackages_ChannelId_BackReferences">
+            <summary>
+            FK_ChannelPriceBusTables_OutContractServicePackages_ChannelId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.FK_ContractSharingRevenueLines_OutContractServicePackages_OutSe__BackReferences">
+            <summary>
+            FK_ContractSharingRevenueLines_OutContractServicePackages_OutSe~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.FK_ContractSharingRevenues_OutContractServicePackages_OutContra__BackReferences">
+            <summary>
+            FK_ContractSharingRevenues_OutContractServicePackages_OutContra~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.FK_OutContractServicePackageClearings_OutContractServicePackage__BackReferences">
+            <summary>
+            FK_OutContractServicePackageClearings_OutContractServicePackage~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.FK_OutContractServicePackageTaxes_OutContractServicePackages_Ou__BackReferences">
+            <summary>
+            FK_OutContractServicePackageTaxes_OutContractServicePackages_Ou~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.FK_PromotionForContracts_OutContractServicePackages_OutContract__BackReferences">
+            <summary>
+            FK_PromotionForContracts_OutContractServicePackages_OutContract~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.FK_ServiceLevelAgreements_OutContractServicePackages_OutContrac__BackReferences">
+            <summary>
+            FK_ServiceLevelAgreements_OutContractServicePackages_OutContrac~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.FK_ServicePackageSuspensionTimes_OutContractServicePackages_Out__BackReferences">
+            <summary>
+            FK_ServicePackageSuspensionTimes_OutContractServicePackages_Out~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.OutContractServicePackages_Contractors_PaymentTargetId">
+            <summary>
+            FK_OutContractServicePackages_Contractors_PaymentTargetId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.OutContractServicePackages_FlexiblePricingType_FlexiblePrici_">
+            <summary>
+            FK_OutContractServicePackages_FlexiblePricingType_FlexiblePrici~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.OutContractServicePackages_InContracts_InContractId">
+            <summary>
+            FK_OutContractServicePackages_InContracts_InContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.OutContractServicePackages_OutContracts_OutContractId">
+            <summary>
+            FK_OutContractServicePackages_OutContracts_OutContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.OutContractServicePackages_OutputChannelPoints_EndPointChann_">
+            <summary>
+            FK_OutContractServicePackages_OutputChannelPoints_EndPointChann~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.OutContractServicePackages_OutputChannelPoints_StartPointCha_">
+            <summary>
+            FK_OutContractServicePackages_OutputChannelPoints_StartPointCha~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackage.OutContractServicePackages_TransactionServicePackages_Transa_">
+            <summary>
+            FK_OutContractServicePackages_TransactionServicePackages_Transa~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackageClearing.OutContractServicePackageClearings_OutContractServicePackage_">
+            <summary>
+            FK_OutContractServicePackageClearings_OutContractServicePackage~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackageTax.OutContractServicePackageTaxes_OutContractServicePackages_Ou_">
+            <summary>
+            FK_OutContractServicePackageTaxes_OutContractServicePackages_Ou~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutContractServicePackageTax.OutContractServicePackageTaxes_TaxCategories_TaxCategoryId">
+            <summary>
+            FK_OutContractServicePackageTaxes_TaxCategories_TaxCategoryId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutputChannelPoint.FK_ContractEquipments_OutputChannelPoints_OutputChannelPointId_BackReferences">
+            <summary>
+            FK_ContractEquipments_OutputChannelPoints_OutputChannelPointId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutputChannelPoint.FK_OutContractServicePackages_OutputChannelPoints_EndPointChann__BackReferences">
+            <summary>
+            FK_OutContractServicePackages_OutputChannelPoints_EndPointChann~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.OutputChannelPoint.FK_OutContractServicePackages_OutputChannelPoints_StartPointCha__BackReferences">
+            <summary>
+            FK_OutContractServicePackages_OutputChannelPoints_StartPointCha~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Picture.FK_ContractContents_Pictures_ContractFormSignatureId_BackReferences">
+            <summary>
+            FK_ContractContents_Pictures_ContractFormSignatureId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Picture.FK_ContractContents_Pictures_DigitalSignatureId_BackReferences">
+            <summary>
+            FK_ContractContents_Pictures_DigitalSignatureId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Picture.FK_ContractForms_Pictures_DigitalSignatureId_BackReferences">
+            <summary>
+            FK_ContractForms_Pictures_DigitalSignatureId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Project.FK_ProjectTechnicians_Projects_ProjectId_BackReferences">
+            <summary>
+            FK_ProjectTechnicians_Projects_ProjectId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Project.Projects_MarketAreas_MarketAreaId">
+            <summary>
+            FK_Projects_MarketAreas_MarketAreaId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ProjectTechnician.ProjectTechnicians_Projects_ProjectId">
+            <summary>
+            FK_ProjectTechnicians_Projects_ProjectId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.PromotionForContract.PromotionForContracts_OutContractServicePackages_OutContract_">
+            <summary>
+            FK_PromotionForContracts_OutContractServicePackages_OutContract~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Service.FK_ServicePackages_Services_ServiceId_BackReferences">
+            <summary>
+            FK_ServicePackages_Services_ServiceId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Service.Services_ServiceGroups_GroupId">
+            <summary>
+            FK_Services_ServiceGroups_GroupId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServiceGroup.FK_Services_ServiceGroups_GroupId_BackReferences">
+            <summary>
+            FK_Services_ServiceGroups_GroupId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServiceLevelAgreement.ServiceLevelAgreements_OutContractServicePackages_OutContrac_">
+            <summary>
+            FK_ServiceLevelAgreements_OutContractServicePackages_OutContrac~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServicePackage.FK_ServicePackagePrice_ServicePackages_ChannelId_BackReferences">
+            <summary>
+            FK_ServicePackagePrice_ServicePackages_ChannelId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServicePackage.FK_ServicePackageRadiusServices_ServicePackages_ServicePackageId_BackReferences">
+            <summary>
+            FK_ServicePackageRadiusServices_ServicePackages_ServicePackageId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServicePackage.ServicePackages_Services_ServiceId">
+            <summary>
+            FK_ServicePackages_Services_ServiceId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServicePackage.ServicePackages_UnitOfMeasurement_DomesticBandwidthUomId">
+            <summary>
+            FK_ServicePackages_UnitOfMeasurement_DomesticBandwidthUomId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServicePackage.ServicePackages_UnitOfMeasurement_InternationalBandwidthUomId">
+            <summary>
+            FK_ServicePackages_UnitOfMeasurement_InternationalBandwidthUomId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServicePackagePrice.ServicePackagePrice_ServicePackages_ChannelId">
+            <summary>
+            FK_ServicePackagePrice_ServicePackages_ChannelId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServicePackageRadiusService.ServicePackageRadiusServices_ServicePackages_ServicePackageId">
+            <summary>
+            FK_ServicePackageRadiusServices_ServicePackages_ServicePackageId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.ServicePackageSuspensionTime.ServicePackageSuspensionTimes_OutContractServicePackages_Out_">
+            <summary>
+            FK_ServicePackageSuspensionTimes_OutContractServicePackages_Out~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TaxCategory.FK_OutContractServicePackageTaxes_TaxCategories_TaxCategoryId_BackReferences">
+            <summary>
+            FK_OutContractServicePackageTaxes_TaxCategories_TaxCategoryId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TaxCategory.FK_TransactionChannelTaxes_TaxCategories_TaxCategoryId_BackReferences">
+            <summary>
+            FK_TransactionChannelTaxes_TaxCategories_TaxCategoryId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Transaction.FK_AttachmentFiles_Transactions_TransactionId_BackReferences">
+            <summary>
+            FK_AttachmentFiles_Transactions_TransactionId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Transaction.FK_TransactionServicePackages_Transactions_TransactionId_BackReferences">
+            <summary>
+            FK_TransactionServicePackages_Transactions_TransactionId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Transaction.Transactions_OutContracts_OutContractId">
+            <summary>
+            FK_Transactions_OutContracts_OutContractId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.Transaction.Transactions_TransactionReasons_ReasonType">
+            <summary>
+            FK_Transactions_TransactionReasons_ReasonType
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionChannelPoint.FK_TransactionEquipments_TransactionChannelPoints_OutputChannel__BackReferences">
+            <summary>
+            FK_TransactionEquipments_TransactionChannelPoints_OutputChannel~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionChannelPoint.FK_TransactionServicePackages_TransactionChannelPoints_EndPoint__BackReferences">
+            <summary>
+            FK_TransactionServicePackages_TransactionChannelPoints_EndPoint~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionChannelPoint.FK_TransactionServicePackages_TransactionChannelPoints_StartPoi__BackReferences">
+            <summary>
+            FK_TransactionServicePackages_TransactionChannelPoints_StartPoi~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionChannelTax.TransactionChannelTaxes_TaxCategories_TaxCategoryId">
+            <summary>
+            FK_TransactionChannelTaxes_TaxCategories_TaxCategoryId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionChannelTax.TransactionChannelTaxes_TransactionServicePackages_Transacti_">
+            <summary>
+            FK_TransactionChannelTaxes_TransactionServicePackages_Transacti~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionEquipment.FK_ContractEquipments_TransactionEquipments_TransactionEquipmen__BackReferences">
+            <summary>
+            FK_ContractEquipments_TransactionEquipments_TransactionEquipmen~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionEquipment.TransactionEquipments_EquipmentStatuses_EquipmentStatusId">
+            <summary>
+            FK_TransactionEquipments_EquipmentStatuses_EquipmentStatusId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionEquipment.TransactionEquipments_TransactionChannelPoints_OutputChannel_">
+            <summary>
+            FK_TransactionEquipments_TransactionChannelPoints_OutputChannel~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionPriceBusTable.TransactionPriceBusTables_TransactionServicePackages_Transac_">
+            <summary>
+            FK_TransactionPriceBusTables_TransactionServicePackages_Transac~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionPromotionForContract.TransactionPromotionForContracts_TransactionServicePackages__">
+            <summary>
+            FK_TransactionPromotionForContracts_TransactionServicePackages_~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionReason.FK_Transactions_TransactionReasons_ReasonType_BackReferences">
+            <summary>
+            FK_Transactions_TransactionReasons_ReasonType_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionServicePackage.FK_OutContractServicePackages_TransactionServicePackages_Transa__BackReferences">
+            <summary>
+            FK_OutContractServicePackages_TransactionServicePackages_Transa~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionServicePackage.FK_TransactionChannelTaxes_TransactionServicePackages_Transacti__BackReferences">
+            <summary>
+            FK_TransactionChannelTaxes_TransactionServicePackages_Transacti~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionServicePackage.FK_TransactionPriceBusTables_TransactionServicePackages_Transac__BackReferences">
+            <summary>
+            FK_TransactionPriceBusTables_TransactionServicePackages_Transac~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionServicePackage.FK_TransactionPromotionForContracts_TransactionServicePackages___BackReferences">
+            <summary>
+            FK_TransactionPromotionForContracts_TransactionServicePackages_~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionServicePackage.FK_TransactionSLAs_TransactionServicePackages_TransactionServic__BackReferences">
+            <summary>
+            FK_TransactionSLAs_TransactionServicePackages_TransactionServic~_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionServicePackage.TransactionServicePackages_Contractors_PaymentTargetId">
+            <summary>
+            FK_TransactionServicePackages_Contractors_PaymentTargetId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionServicePackage.TransactionServicePackages_TransactionChannelPoints_EndPoint_">
+            <summary>
+            FK_TransactionServicePackages_TransactionChannelPoints_EndPoint~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionServicePackage.TransactionServicePackages_TransactionChannelPoints_StartPoi_">
+            <summary>
+            FK_TransactionServicePackages_TransactionChannelPoints_StartPoi~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionServicePackage.TransactionServicePackages_Transactions_TransactionId">
+            <summary>
+            FK_TransactionServicePackages_Transactions_TransactionId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.TransactionSLA.TransactionSLAs_TransactionServicePackages_TransactionServic_">
+            <summary>
+            FK_TransactionSLAs_TransactionServicePackages_TransactionServic~
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.UnitOfMeasurement.FK_ServicePackages_UnitOfMeasurement_DomesticBandwidthUomId_BackReferences">
+            <summary>
+            FK_ServicePackages_UnitOfMeasurement_DomesticBandwidthUomId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmContract.UnitOfMeasurement.FK_ServicePackages_UnitOfMeasurement_InternationalBandwidthUomId_BackReferences">
+            <summary>
+            FK_ServicePackages_UnitOfMeasurement_InternationalBandwidthUomId_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.FbmCrm.FbmCrmDataConnection">
+            <summary>
+            Database       : ITC_FBM_CRM
+            Data Source    : 192.168.100.32
+            Server Version : 5.7.33-36-57-log
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUser.ApplicationUsers_CustomerCategories_CustomerCategoryId">
+            <summary>
+            FK_ApplicationUsers_CustomerCategories_CustomerCategoryId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUser.ApplicationUsers_CustomerStructure_CustomerStructureId">
+            <summary>
+            FK_ApplicationUsers_CustomerStructure_CustomerStructureId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUser.ApplicationUsers_CustomerTypes_CustomerTypeId">
+            <summary>
+            FK_ApplicationUsers_CustomerTypes_CustomerTypeId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUser.ApplicationUsers_Pictures_AvatarId">
+            <summary>
+            FK_ApplicationUsers_Pictures_AvatarId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUser.FK_ApplicationUserIndustries_ApplicationUsers_UserId_BackReferences">
+            <summary>
+            FK_ApplicationUserIndustries_ApplicationUsers_UserId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUser.FK_ApplicationUserUserGroups_ApplicationUsers_UserId_BackReferences">
+            <summary>
+            FK_ApplicationUserUserGroups_ApplicationUsers_UserId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUser.FK_Industries_ApplicationUsers_ApplicationUserId_BackReferences">
+            <summary>
+            FK_Industries_ApplicationUsers_ApplicationUserId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUserGroup.FK_ApplicationUserUserGroups_ApplicationUserGroups_GroupId_BackReferences">
+            <summary>
+            FK_ApplicationUserUserGroups_ApplicationUserGroups_GroupId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUserIndustry.ApplicationUserIndustries_ApplicationUsers_UserId">
+            <summary>
+            FK_ApplicationUserIndustries_ApplicationUsers_UserId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUserIndustry.ApplicationUserIndustries_Industries_IndustryId">
+            <summary>
+            FK_ApplicationUserIndustries_Industries_IndustryId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUserUserGroup.ApplicationUserUserGroups_ApplicationUserGroups_GroupId">
+            <summary>
+            FK_ApplicationUserUserGroups_ApplicationUserGroups_GroupId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.ApplicationUserUserGroup.ApplicationUserUserGroups_ApplicationUsers_UserId">
+            <summary>
+            FK_ApplicationUserUserGroups_ApplicationUsers_UserId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.CustomerCategory.FK_ApplicationUsers_CustomerCategories_CustomerCategoryId_BackReferences">
+            <summary>
+            FK_ApplicationUsers_CustomerCategories_CustomerCategoryId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.CustomerStructure.FK_ApplicationUsers_CustomerStructure_CustomerStructureId_BackReferences">
+            <summary>
+            FK_ApplicationUsers_CustomerStructure_CustomerStructureId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.CustomerType.FK_ApplicationUsers_CustomerTypes_CustomerTypeId_BackReferences">
+            <summary>
+            FK_ApplicationUsers_CustomerTypes_CustomerTypeId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.Industry.FK_ApplicationUserIndustries_Industries_IndustryId_BackReferences">
+            <summary>
+            FK_ApplicationUserIndustries_Industries_IndustryId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.Industry.Industries_ApplicationUsers_ApplicationUserId">
+            <summary>
+            FK_Industries_ApplicationUsers_ApplicationUserId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmCrm.Picture.FK_ApplicationUsers_Pictures_AvatarId_BackReferences">
+            <summary>
+            FK_ApplicationUsers_Pictures_AvatarId_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.FbmOrganization.FbmOrganizationDataConnection">
+            <summary>
+            Database       : ITC_FBM_Organizations
+            Data Source    : 192.168.100.32
+            Server Version : 5.7.33-36-57-log
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.ConfigurationPersonalAccount.ConfigurationPersonalAccounts_Users_UserId">
+            <summary>
+            FK_ConfigurationPersonalAccounts_Users_UserId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.ContactInfo.ContactInfos_Users_UserId">
+            <summary>
+            FK_ContactInfos_Users_UserId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.OrganizationUnit.FK_Users_OrganizationUnits_OrganizationUnitId_BackReferences">
+            <summary>
+            FK_Users_OrganizationUnits_OrganizationUnitId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.Permission.FK_RolePermissions_Permissions_PermissionId_BackReferences">
+            <summary>
+            FK_RolePermissions_Permissions_PermissionId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.Picture.FK_Users_Pictures_AvatarId_BackReferences">
+            <summary>
+            FK_Users_Pictures_AvatarId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.Role.FK_RolePermissions_Roles_RoleId_BackReferences">
+            <summary>
+            FK_RolePermissions_Roles_RoleId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.Role.FK_UserRoles_Roles_RoleId_BackReferences">
+            <summary>
+            FK_UserRoles_Roles_RoleId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.RolePermission.RolePermissions_Permissions_PermissionId">
+            <summary>
+            FK_RolePermissions_Permissions_PermissionId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.RolePermission.RolePermissions_Roles_RoleId">
+            <summary>
+            FK_RolePermissions_Roles_RoleId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.User.FK_ConfigurationPersonalAccounts_Users_UserId_BackReferences">
+            <summary>
+            FK_ConfigurationPersonalAccounts_Users_UserId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.User.FK_ContactInfos_Users_UserId_BackReferences">
+            <summary>
+            FK_ContactInfos_Users_UserId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.User.FK_UserBankAccounts_Users_UserId_BackReferences">
+            <summary>
+            FK_UserBankAccounts_Users_UserId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.User.FK_UserRoles_Users_UserId_BackReferences">
+            <summary>
+            FK_UserRoles_Users_UserId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.User.Users_OrganizationUnits_OrganizationUnitId">
+            <summary>
+            FK_Users_OrganizationUnits_OrganizationUnitId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.User.Users_Pictures_AvatarId">
+            <summary>
+            FK_Users_Pictures_AvatarId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.UserBankAccount.UserBankAccounts_Users_UserId">
+            <summary>
+            FK_UserBankAccounts_Users_UserId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.UserRole.UserRoles_Roles_RoleId">
+            <summary>
+            FK_UserRoles_Roles_RoleId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.FbmOrganization.UserRole.UserRoles_Users_UserId">
+            <summary>
+            FK_UserRoles_Users_UserId
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.File.FileDataConnection">
+            <summary>
+            Database       : File
+            Data Source    : 192.168.100.43
+            Server Version : 8.0.27-0ubuntu0.20.04.1
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.MasterDataConnection">
+            <summary>
+            Database       : MasterData
+            Data Source    : 192.168.100.43
+            Server Version : 8.0.26-0ubuntu0.20.04.2
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.Apps">
+            <summary>
+            Danh sách Ứng dụng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.AppMappings">
+            <summary>
+            App Mapping
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.AutoCodes">
+            <summary>
+            Bảng cấu hình mã tự tăng dạng [Prefix] + [NumberPart] + [Sufix]
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.Currencies">
+            <summary>
+            Danh sách Đơn vị tiền tệ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.Languages">
+            <summary>
+            Danh sách Ngôn ngữ hệ thống
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.LocaleStringResources">
+            <summary>
+            Tài nguyên đa ngôn ngữ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.LocalizedProperties">
+            <summary>
+            Trường dữ liệu đa ngôn ngữ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.Reports">
+            <summary>
+            Danh sách báo cáo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.Roles">
+            <summary>
+            Danh sách Vai trò người dùng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.Settings">
+            <summary>
+            Thiết lập hệ thống
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.MasterDataConnection.UrlRecords">
+            <summary>
+            Danh sách Url tùy chỉnh, SEO
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.App">
+            <summary>
+            Danh sách Ứng dụng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.AppType">
+            <summary>
+            Loại ứng dụng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.Name">
+            <summary>
+            Tên ứng dụng (đa ngôn ngữ)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.ShortName">
+            <summary>
+            Tên viết tắt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.Description">
+            <summary>
+            Mô tả (đa ngôn ngữ)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.Icon">
+            <summary>
+            Icon
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.BackgroundColor">
+            <summary>
+            Màu nền
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.Url">
+            <summary>
+            Đường dẫn
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.Hosts">
+            <summary>
+            Hosts
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.SslEnabled">
+            <summary>
+            Kích hoạt SSL
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.CdnUrl">
+            <summary>
+            Cdn Url
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.DefaultLanguageId">
+            <summary>
+            Ngôn ngữ mặc định (Ref: Language)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.ShowOnMenu">
+            <summary>
+            Hiển thị lên menu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.DisplayOrder">
+            <summary>
+            Thứ tự hiển thị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.AppActions">
+            <summary>
+            FK_AppActions_PK_App_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.AppMappings">
+            <summary>
+            FK_AppMappings_PK_App_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.App.FK_Report_AppId_BackReferences">
+            <summary>
+            FK_Report_AppId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppAction.App">
+            <summary>
+            FK_AppActions_PK_App
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppAction.AppActionChildren">
+            <summary>
+            FK_AppActionChildren_PK_Parent_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppAction.AppActionRoles">
+            <summary>
+            FK_AppActionRoles_PK_AppAction_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppAction.AppActionUserExclusions">
+            <summary>
+            FK_AppActionUserExclusions_PK_AppAction_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppAction.AppActionUserInclusions">
+            <summary>
+            FK_AppActionUserInclusions_PK_AppAction_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppAction.Parent">
+            <summary>
+            FK_AppActionChildren_PK_Parent
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppActionRole.AppAction">
+            <summary>
+            FK_AppActionRoles_PK_AppAction
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppActionRole.Role">
+            <summary>
+            FK_AppActionRoles_PK_Role
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppActionUserExclusion.AppAction">
+            <summary>
+            FK_AppActionUserExclusions_PK_AppAction
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppActionUserInclusion.AppAction">
+            <summary>
+            FK_AppActionUserInclusions_PK_AppAction
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.AppMapping">
+            <summary>
+            App Mapping
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppMapping.EntityName">
+            <summary>
+            Tên Entity
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppMapping.AppId">
+            <summary>
+            App (FK: App)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppMapping.EntityId">
+            <summary>
+            Entity (Ref: BaseEntity)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AppMapping.App">
+            <summary>
+            FK_AppMappings_PK_App
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.AutoCode">
+            <summary>
+            Bảng cấu hình mã tự tăng dạng [Prefix] + [NumberPart] + [Sufix]
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AutoCode.TableName">
+            <summary>
+            Tên bảng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AutoCode.Prefix">
+            <summary>
+            Tiền tố của mã code
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AutoCode.Suffix">
+            <summary>
+            Hậu tố của mã code
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AutoCode.CodeProperty">
+            <summary>
+            Tên cột dữ liệu chứa mã code
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.AutoCode.NumberPartMinLength">
+            <summary>
+            Độ dài phần số
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.Currency">
+            <summary>
+            Danh sách Đơn vị tiền tệ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.Name">
+            <summary>
+            Tên tiền tệ (đa ngôn ngữ)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.CurrencyCode">
+            <summary>
+            Mã tiền tệ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.DisplayLocale">
+            <summary>
+            Mã ngôn ngữ địa phương (VD: en-US, vi-VN)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.CustomFormatting">
+            <summary>
+            Định dạng tùy chỉnh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.Rate">
+            <summary>
+            Tỷ giá
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.LimitedToApps">
+            <summary>
+            Giới hạn cho các App
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.Published">
+            <summary>
+            Phát hành
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.DisplayOrder">
+            <summary>
+            Thứ tự hiển thị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.CreatedOnUtc">
+            <summary>
+            Ngày giờ tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Currency.UpdatedOnUtc">
+            <summary>
+            Ngày giờ sửa
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.Language">
+            <summary>
+            Danh sách Ngôn ngữ hệ thống
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.Name">
+            <summary>
+            Tên ngôn ngữ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.LanguageCulture">
+            <summary>
+            Mã ngôn ngữ địa phương (VD: en-US, vi-VN)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.UniqueSeoCode">
+            <summary>
+            Mã ngôn ngữ ISO 2 ký tự (VD: en, vi)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.FlagImageFileName">
+            <summary>
+            Tên file cờ quốc gia
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.Rtl">
+            <summary>
+            Bố cục phải-qua-trái
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.LimitedToApps">
+            <summary>
+            Giới hạn cho các App
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.DefaultCurrencyId">
+            <summary>
+            Tiền tệ mặc định (Ref: Currency)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.Published">
+            <summary>
+            Phát hành
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.DisplayOrder">
+            <summary>
+            Thứ tự hiển thị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.LocaleStringResources">
+            <summary>
+            FK_LocaleStringResources_PK_Language_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Language.LocalizedProperties">
+            <summary>
+            FK_LocalizedProperties_PK_Language_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.LocaleStringResource">
+            <summary>
+            Tài nguyên đa ngôn ngữ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocaleStringResource.ResourceName">
+            <summary>
+            Tên tài nguyên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocaleStringResource.ResourceValue">
+            <summary>
+            Giá trị tài nguyên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocaleStringResource.LanguageId">
+            <summary>
+            Ngôn ngữ (FK: Language)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocaleStringResource.Language">
+            <summary>
+            FK_LocaleStringResources_PK_Language
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.LocalizedProperty">
+            <summary>
+            Trường dữ liệu đa ngôn ngữ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocalizedProperty.LocaleKeyGroup">
+            <summary>
+            Tên Entity
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocalizedProperty.LocaleKey">
+            <summary>
+            Entity Property
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocalizedProperty.LocaleValue">
+            <summary>
+            Giá trị Property
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocalizedProperty.LanguageId">
+            <summary>
+            Ngôn ngữ (FK: Language)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocalizedProperty.EntityId">
+            <summary>
+            Entity (Ref: BaseEntity)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.LocalizedProperty.Language">
+            <summary>
+            FK_LocalizedProperties_PK_Language
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.Report">
+            <summary>
+            Danh sách báo cáo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Report.Name">
+            <summary>
+            Tên báo cáo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Report.Description">
+            <summary>
+            Mô tả báo cáo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Report.AppId">
+            <summary>
+            Ứng dụng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Report.Type">
+            <summary>
+            Loại: 1 - báo cáo ; 2 - phiếu in
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Report.Route">
+            <summary>
+            Đường dẫn đến Route của report
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Report.ReportTemplate">
+            <summary>
+            Đường dẫn đến file mẫu báo cáo -&gt; dùng để render ra nội dung báo cáo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Report.ExcelTemplate">
+            <summary>
+            File mẫu excel -&gt; dùng để làm báo cáo theo mẫu excel để xuất ra
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Report.Order">
+            <summary>
+            Thứ tự hiển thị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Report.Report_AppId">
+            <summary>
+            FK_Report_AppId
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.Role">
+            <summary>
+            Danh sách Vai trò người dùng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Role.Name">
+            <summary>
+            Tên vai trò (SystemName)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Role.DisplayName">
+            <summary>
+            Tên hiển thị (đa ngôn ngữ)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Role.Description">
+            <summary>
+            Mô tả (đa ngôn ngữ)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Role.Active">
+            <summary>
+            Kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Role.DisplayOrder">
+            <summary>
+            Thứ tự hiển thị
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Role.AppActionRoles">
+            <summary>
+            FK_AppActionRoles_PK_Role_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Role.UserRoles">
+            <summary>
+            FK_UserRoles_PK_Role_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.Setting">
+            <summary>
+            Thiết lập hệ thống
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Setting.Name">
+            <summary>
+            Tên thiết lập
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Setting.Value">
+            <summary>
+            Giá trị thiết lập
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.Setting.AppId">
+            <summary>
+            App (Ref: App)
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Master.UrlRecord">
+            <summary>
+            Danh sách Url tùy chỉnh, SEO
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.UrlRecord.EntityName">
+            <summary>
+            Tên Entity
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.UrlRecord.Slug">
+            <summary>
+            Url tùy chỉnh, SEO
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.UrlRecord.EntityId">
+            <summary>
+            Entity (Ref: BaseEntity)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.UrlRecord.IsActive">
+            <summary>
+            Kích hoạt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.UrlRecord.LanguageId">
+            <summary>
+            Ngôn ngữ (Ref: Language)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Master.UserRole.Role">
+            <summary>
+            FK_UserRoles_PK_Role
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Notify.NotifyDataConnection">
+            <summary>
+            Database       : Notify
+            Data Source    : 192.168.100.43
+            Server Version : 8.0.27-0ubuntu0.20.04.1
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Qlsc.QlscDataConnection">
+            <summary>
+            Database       : qlsc_2021
+            Data Source    : 192.168.100.43
+            Server Version : 8.0.26-0ubuntu0.20.04.2
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Qlsc.cr_doi_tac.noc_total_time">
+            <summary>
+            noc_total_time = noc_time_res - noc_time_s
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Qlsc.cr_doi_tac.ot">
+            <summary>
+            = noc_time_res - thoi_gian_ket_thuc
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Qlsc.xin_cr.noc_total_time">
+            <summary>
+            noc_total_time = noc_time_res - noc_time_s
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Qlsc.xin_cr.ot">
+            <summary>
+            = noc_time_res - thoi_gian_ket_thuc
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Qlsc.xin_cr_mx.noc_total_time">
+            <summary>
+            noc_total_time = noc_time_res - noc_time_s
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Qlsc.xin_cr_mx.ot">
+            <summary>
+            = noc_time_res - thoi_gian_ket_thuc
+            </summary>
+        </member>
+    </members>
+</doc>

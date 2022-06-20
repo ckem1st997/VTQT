@@ -1,0 +1,205 @@
+﻿@model RoleSearchModel
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="authorize" href="javascript: void(0);" class="btn btn-primary btn-sm"><i class="fa fa-shield"></i> @T("Common.Authorize")</a>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+<div class="page-data">
+    <div class="row search-form">
+        <form>
+            <div class="search-label">
+                @T("Common.Search"):
+            </div>
+            <div class="col-md-4">
+                <div class="form-group form-group-sm">
+                    <div class="input-icon right">
+                        @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = T("Common.Fields.EnterKeywords") })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group form-group-sm">
+                    <button type="submit" id="btnSearch" class="btn btn-default btn-sm">
+                        <i class="fa fa-search"></i> @T("Common.GetData")
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="row full-height">
+        @(Html.Kendo().Grid<RoleModel>()
+            .Name("grdIndex")
+            .HtmlAttributes(new { style = "height: 100%" })
+            .Columns(columns =>
+            {
+                columns.Template(
+                        "<div class=\"grid-actions-container\">" +
+                            "<a data-action=\"authorize\" href=\"javascript:void(0)\" class=\"grid-action\" title=\"" + T("Common.Authorize").JavaScriptStringEncode() + "\"><i class=\"fa fa-shield font-blue\"></i></a>" +
+                        "</div>"
+                    ).Width(60).Centered();
+                columns.Bound(x => x.Name).Width(250);
+                columns.Bound(x => x.DisplayName).Width(300);
+                columns.Bound(x => x.Description).Width(600);
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .ServerOperation(true)
+                .Read(read => read.Action("Get", "AuthorizeRole").Data("grdIndex.data"))
+            )
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(true))
+            .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Single))
+            .Navigatable())
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Scripts -->
+@section HeadScripts {
+    <script>
+        //#region Fields
+
+        var master = {
+            urlAuthorize: '@Url.Action("Authorize")',
+            urlGetAppActionTree: '@Url.Action("GetAppActionTree")',
+            toolbar: {
+                selector: '.page-toolbar',
+                $this: {},
+                actions: {
+                    init: function () { },
+                    authorize: function (e) { }
+                },
+                init: function () { }
+            },
+            grdIndex: {
+                selector: '#grdIndex',
+                $this: {},
+                api: {},
+                actions: {
+                    init: function () { },
+                    authorize: function (e) { }
+                },
+                init: function () { }
+            },
+            btnSearch: {
+                selector: '#btnSearch',
+                $this: {},
+                init: function () { }
+            },
+            init: function () { },
+            authorize: function () { },
+            actionCallback: function () { }
+        };
+        var toolbar = master.toolbar;
+        var grdIndex = master.grdIndex;
+        var btnSearch = master.btnSearch;
+
+        //#endregion
+
+        grdIndex.data = function () {
+            var $keywords = $('#@Html.FieldIdFor(m => m.Keywords)');
+
+            var searchModel = {
+                Keywords: $keywords.val()
+            };
+            return searchModel;
+        };
+    </script>
+}
+@section Scripts {
+    <script>
+        //#region Methods
+
+        master.authorize = function () {
+            var id = grdIndex.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({ url: master.urlAuthorize + '?roleId=' + id, options: { width: '65%', height: '85%'}, callback: master.actionCallback });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        }
+
+        //#endregion
+
+        //#region Init
+
+        master.init = function () {
+            toolbar.init();
+            grdIndex.init();
+            btnSearch.init();
+        }
+
+        toolbar.init = function () {
+            toolbar.$this = $(toolbar.selector);
+
+            toolbar.actions.init();
+        }
+        toolbar.actions.init = function () {
+            toolbar.$this.find('a[data-action="authorize"]').click(toolbar.actions.authorize);
+        }
+        toolbar.actions.authorize = function (e) {
+            master.authorize();
+        }
+
+        grdIndex.init = function () {
+            grdIndex.$this = $(grdIndex.selector);
+            grdIndex.api = grdIndex.$this.data('kendoGrid');
+
+            grdIndex.actions.init();
+        }
+        grdIndex.actions.init = function () {
+            grdIndex.api.initDblClick(master.authorize);
+            grdIndex.api.tbody.on('click', 'tr td a[data-action="authorize"]', grdIndex.actions.authorize);
+        }
+        grdIndex.actions.authorize = function (e) {
+            grdIndex.api.selectRow($(this));
+
+            master.authorize();
+        }
+
+        btnSearch.init = function () {
+            btnSearch.$this = $(btnSearch.selector);
+
+            const search = _.debounce(() => {
+                grdIndex.api.resetPage();
+            }, app.ui.def.debounce.timeout);
+            btnSearch.$this.click(function (e) {
+                search();
+                return false;
+            });
+        };
+
+        //#endregion
+
+        //#region Events
+
+        master.actionCallback = function () {
+            grdIndex.api.reload();
+        }
+
+        //#endregion
+
+        //#region Templates
+
+        
+
+        //#endregion
+
+        //#region Startup
+
+        $(function () {
+            master.init();
+        });
+
+        //#endregion
+    </script>
+}
+<!-- #endregion -->

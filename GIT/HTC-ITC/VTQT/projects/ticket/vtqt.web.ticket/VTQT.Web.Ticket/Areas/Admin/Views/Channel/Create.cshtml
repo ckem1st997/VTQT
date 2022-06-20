@@ -1,0 +1,322 @@
+﻿@model ChannelModel
+@{
+    Layout = null;
+}
+
+<div class="page-data">
+    <div class="form fixed-layout-form">
+        <form id="form-data" data-form-type="ajax" class="form-horizontal">
+            <div class="form-body">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">@T("Ticket.Channel.AppActions.Create")</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    @(Html.LocalizedEditor<ChannelModel, ChannelLocalizedModel>("lpChannel",
+                    @<div>
+                        @Html.HiddenFor(m => m.Locales[item].LanguageId)
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Locales[item].Name, true, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.Locales[item].Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>,
+                    @<div>
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-4" }, true)
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    ))
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Code, true, new { @class = "control-label col-md-4" }, true)
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CustomerName, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.CustomerName, Model.AvailableCustomer, "Tên khách hàng", new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CustomerChannel, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.CustomerChannel, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CategoryId, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.CategoryId, Model.AvailableChannelCategory, "Loại kênh", new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.HtcCid, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.HtcCid, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.HicCidOld, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.HicCidOld, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.StartPoint, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.StartPoint, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.EndPoint, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.EndPoint, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.DistanceKilometer, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.DistanceKilometer, new { htmlAttributes = new { style = "width: 100%" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.DistanceTimesBandwidth, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.DistanceTimesBandwidth, new { htmlAttributes = new { style = "width: 100%" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ChannelStatusId, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.ChannelStatusId, Model.AvailableChannelStatus, "Trạng thái kênh", new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.TotalBandwidth, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.TotalBandwidth, new { htmlAttributes = new { style = "width: 100%" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.DomesticBandwidth, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.DomesticBandwidth, new { htmlAttributes = new { style = "width: 100%" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.OverseasBandwidth, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.OverseasBandwidth, new { htmlAttributes = new { style = "width: 100%" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Vlan, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Vlan, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Vcid, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Vcid, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Vrf, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Vrf, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.IpAddress, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.IpAddress, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.StartPointDevicePop, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.StartPointDevicePop, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.StartPointPortPop, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.StartPointPortPop, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.EndPointDevicePop, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.EndPointDevicePop, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.EndPointPortPop, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.EndPointPortPop, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ChannelAreaId, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.ChannelAreaId, Model.AvailableChannelArea, "Kênh khu vực", new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ContractCode, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.ContractCode, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ModifiedBandwidthNote, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.ModifiedBandwidthNote, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.StartDate, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.EndDate, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.UpRole, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.UpRole, new { htmlAttributes = new { style = "width: 100%" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.EndRole, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.EndRole, new { htmlAttributes = new { style = "width: 100%" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Note, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Note, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CurrentCoreStatus, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.CurrentCoreStatus, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CurrentLastmileStatus, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.CurrentLastmileStatus, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CustomerContact, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.CustomerContact, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CreatedDate, true, new { @class = "control-label col-md-4" }, true)
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.CreatedDate, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CreatedBy, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.CreatedBy, Model.AvailableCreatedBy, string.Format(T("Common.SelectObject"), T("Common.Fields.CreatedBy")), new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.AreaA, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.AreaA, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.AreaB, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.AreaB, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CustomerClass, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.CustomerClass, Model.AvailableCustomerClass, "Hạng khách hàng", new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ProvinceA, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.ProvinceA, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ProvinceB, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.ProvinceB, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.LinkId, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.LinkId, Model.AvailableNetworkLinkCategory, "Loại link", new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Sla, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.Sla, new { htmlAttributes = new { style = "width: 100%" } })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Inactive, true, new { @class = "control-label col-md-4" }, true)
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.Inactive)
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer form-actions">
+                    <button type="submit" class="btn blue btn-sm" id="btnWHItem">
+                        <i class="fa fa-spinner fa-spin spin-submit"></i>
+                        <i class="fa fa-check"></i> @T("Common.Save")
+                    </button>
+                    <button type="submit" class="btn blue btn-sm" data-action="continueAdding">
+                        <i class="fa fa-spinner fa-spin spin-submit"></i>
+                        <i class="fa fa-plus"></i> @T("Common.ContinueAdding")
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                        <i class="fa fa-times"></i> @T("Common.Close")
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $("#DistanceKilometer").keyup(function () {
+        var $salaryTotal = $('#@Html.FieldIdFor(m => m.DistanceTimesBandwidth)');
+        $salaryTotal.data("kendoNumericTextBox").value(parseFloat($(this).val().replace(",", ".")) * parseFloat($("#TotalBandwidth").val().replace(",", ".")));
+    });
+
+    $("#TotalBandwidth").keyup(function () {
+        var $salaryTotal = $('#@Html.FieldIdFor(m => m.DistanceTimesBandwidth)');
+        $salaryTotal.data("kendoNumericTextBox").value(parseFloat($(this).val().replace(",", ".")) * parseFloat($("#DistanceKilometer").val().replace(",", ".")));
+    });
+</script>

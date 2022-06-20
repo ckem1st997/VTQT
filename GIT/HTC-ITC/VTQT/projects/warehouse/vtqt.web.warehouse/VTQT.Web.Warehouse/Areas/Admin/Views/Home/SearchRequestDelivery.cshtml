@@ -1,0 +1,144 @@
+﻿@using VTQT.Web.Warehouse.Models
+
+@model WarehouseBalanceSearchModel
+
+<script>
+      var master2 = {
+        grdIndex2: {
+            selector: '#grdIndexLimit123',
+            $this: {},
+            api: {},
+            init: function () { },
+            edit: function (e) { },
+            create: function (e) { },
+            error: function (e) { },
+            templates: {
+                flag: function (id, flag) { },
+                name: function (id, name) { },
+                resources: function (id) { },
+                published: function (published) { }
+            },
+            data: function () {}
+
+        },
+        btnSearch111: {
+            el: '#btnSearch',
+            $el: {},
+            init: function () { }
+        },
+
+        init: function () { }
+    };
+    var grdIndex2 = master2.grdIndex2;
+    var btnSearch111 = master2.btnSearch111;
+
+    grdIndex2.data = function () {
+                      var $keywords = $('#@Html.FieldIdFor(m => m.Keywords)');
+
+        var searchModel = {
+            Keywords: $keywords.val(),
+            PageIndex: $("#grdIndexLimit123").data("kendoGrid").dataSource.page(),
+            PageSize: $("#grdIndexLimit123").data("kendoGrid").dataSource.pageSize()
+        };
+        return searchModel;
+    };
+</script>
+<div class="title-home-set" style=" background-color: #FF9700 !important;">
+    @*<div class="dot me-3 bg-indigo" style="background-color: #0C5AA6;"></div>*@
+
+    <p>@T("Common.Search.RequestDelivery")</p>
+    @*<div class="icon-loading">
+            <i class="fa fa-spinner" aria-hidden="true"></i>
+        </div>*@
+</div>
+<div class="search-home-set" style="border-top:0px">
+    <div class="search-form " style="display:flex;align-items:center; width:50%">
+        <div class="search-label" style="width: 150px">
+            @T("Common.Search"):
+        </div>
+        <div class="form-group form-group-sm" style="margin-left:8px;width:50% !important">
+            <div class="input-icon right" style="width:100% !important">
+                @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = T("Common.Fields.EnterKeywords") })
+            </div>
+        </div>
+        <div class="form-group form-group-sm" style="margin-left:8px;">
+            <button type="submit" id="btnSearch" class="btn btn-default btn-sm">
+                <i class="fa fa-search"></i> @T("Common.GetData")
+            </button>
+        </div>
+    </div>
+</div>
+<div class="result-home-set full-height" style="border:none">
+    @Html.AntiForgeryToken()
+    @(Html.Kendo().Grid<JiraGetValue>()
+            .Name("grdIndexLimit123")
+            // .Scrollable(s => s.Height("30vh"))
+            .HtmlAttributes(new {style = "border-top:none;height: 70%;border: 1px solid #d9d9d9" })
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.Key).Width(39);
+                columns.Bound(x => x.IssueType).Width(100);
+                columns.Bound(x => x.Reason).Width(80);
+                columns.Bound(x => x.Status).Width(39).ClientTemplate("#=GetColorStatus(AssignBy,Status)#"); ;
+                columns.Bound(x => x.Summary).Width(200);
+                columns.Bound(x => x.Creator).Width(50);
+                columns.Bound(x => x.Assignee).Width(50);
+                columns.Bound(x => x.Link).Width(50).ClientTemplate("#=test(Link)#");
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .ServerOperation(true)
+                .Read(read => read.Action("GetIssueJira", "WareHouseRequest").Data("grdIndex2.data")))
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PreviousNext(true).Refresh(true))
+            .Navigatable())
+</div>
+
+<script>
+
+    //#endregion
+
+    //#region Events
+
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+    master2.init = function () {
+        grdIndex2.init();
+    }
+
+    grdIndex2.init = function () {
+        grdIndex2.$this = $(grdIndex2.selector);
+        grdIndex2.api = grdIndex2.$this.data('kendoGrid');
+    }
+
+    $("#btnSearch").click(function (e) {
+            const search = _.debounce(() => {
+                grdIndex2.api.resetPage();
+            }, app.ui.def.debounce.timeout)
+
+            search();
+            return false;
+    });
+
+    function test(parameters) {
+        return `<a data-link="${parameters}" rel="nofollow noopener" role="link" tabindex="0" target="_blank" class="linknewtab" href="${parameters}">@T("Common.Details")</a>`;
+    }
+
+
+
+    //$(document).on("click", ".linknewtab", function () {
+    //    window.open($(this).attr("data-link"));
+    //});
+
+
+    $(function () {
+        master2.init();
+
+    });
+
+                                                                                     //#endregion
+</script>
+<!-- #endregion -->

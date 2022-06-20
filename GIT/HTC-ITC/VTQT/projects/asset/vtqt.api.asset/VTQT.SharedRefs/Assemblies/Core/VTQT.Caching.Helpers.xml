@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Caching.Helpers</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Caching.Helpers.CacheKeys.AppCacheKeys">
+            <summary>
+            Represents default values related to apps services
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.Helpers.CacheKeys.AppCacheKeys.AppsAllCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.Helpers.CacheKeys.AppCacheKeys.AppsAllPrefix">
+            <summary>
+            Gets a key pattern to clear cache
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.Helpers.CacheKeys.AppCacheKeys.AppMappingIdsCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : entity ID
+            {1} : entity name
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.Helpers.CacheKeys.AppCacheKeys.AppMappingsCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : entity ID
+            {1} : entity name
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.Helpers.CacheKeys.AppCacheKeys.AppMappingExistsCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : entity name
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.Helpers.CacheKeys.AppCacheKeys.AppMappingsAllPrefix">
+            <summary>
+            Gets a key pattern to clear cache
+            </summary>
+        </member>
+        <member name="F:VTQT.Caching.FrameworkCacheKeys.UserCacheKey">
+            <summary>
+            Key for user
+            </summary>
+            <remarks>
+            {0} : Current User Id
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.FrameworkCacheKeys.UserTokenCacheKey">
+            <summary>
+            Key for user token
+            </summary>
+            <remarks>
+            {0} : Current User Id
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.FrameworkCacheKeys.UserPermissionsCacheKey">
+            <summary>
+            Key for user permissions
+            </summary>
+            <remarks>
+            {0} : Current User Id
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.EnumLocaleStringResourcesPrefix">
+            <summary>
+            Gets a prefix of locale resources for enumerations 
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LanguagesAllCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : app ID
+            {1} : show hidden records?
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LanguagesByAppPrefix">
+            <summary>
+            Gets a key pattern to clear cache
+            </summary>
+            <remarks>
+            {0} : app ID
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LanguagesAllPrefix">
+            <summary>
+            Gets a key pattern to clear cache
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LocaleStringResourcesAllCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : language ID
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LocaleStringResourcesByNameCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : language ID
+            {1} : resource key
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LocaleStringResourcesByNamePrefix">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : language ID
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LocaleStringResourcesAllPrefix">
+            <summary>
+            Gets a key pattern to clear cache
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LocalizedPropertyCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : language ID
+            {1} : entity ID
+            {2} : locale key group
+            {3} : locale key
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LocalizedPropertyAllCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.LocalizationCacheKeys.LocalizedPropertyAllPrefix">
+            <summary>
+            Gets a key pattern to clear cache
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.MasterCacheKeys.Settings.AllAsDictionaryCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.MasterCacheKeys.Settings.AllCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.MasterCacheKeys.Settings.Prefix">
+            <summary>
+            Gets a key pattern to clear cache
+            </summary>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.AppsModelCacheKey">
+            <summary>
+            Key for all apps
+            </summary>
+            <remarks>
+            {0} : Language Id
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.ModelCacheKeys.AppActionsModelCacheKey">
+            <summary>
+            Key for available app actions
+            </summary>
+            <remarks>
+            {0} : App Id
+            {1} : Language Id
+            {2} : Show hidden
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.ModelCacheKeys.AppActionTreeModelCacheKey">
+            <summary>
+            Key for available app actions
+            </summary>
+            <remarks>
+            {0} : App Id
+            {1} : Language Id
+            {2} : Expand level
+            {3} : Show hidden
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.CurrenciesModelCacheKey">
+            <summary>
+            Key for available currencies
+            </summary>
+            <remarks>
+            {0} : Language Id
+            {1} : Current app Id
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.LanguagesModelCacheKey">
+            <summary>
+            Key for available languages
+            </summary>
+            <remarks>
+            {0} : Current app Id
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.OrganizationalUnitsModelCacheKey">
+            <summary>
+            Key for available organizational units
+            </summary>
+            <remarks>
+            {0} : Language Id
+            {1} : Show hidden
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.OrganizationalUnitTreeModelCacheKey">
+            <summary>
+            Key for available organizational units
+            </summary>
+            <remarks>
+            {0} : Language Id
+            {1} : Expand level
+            {2} : Show hidden
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.OtherListsModelCacheKey">
+            <summary>
+            Key for available other lists
+            </summary>
+            <remarks>
+            {0} : Language Id
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.OtherListItemsByOtherListCodeModelCacheKey">
+            <summary>
+            Key for available other list items
+            </summary>
+            <remarks>
+            {0} : OtherList code
+            {1} : Language Id
+            {2} : Show hidden
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.AdminMenusModelCacheKey">
+            <summary>
+            Key for admin menus
+            </summary>
+            <remarks>
+            {0} : Current account Id
+            {1} : Current app Id
+            {2} : Language Id
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.AdminMenusByAccountPrefix">
+            <summary>
+            Key for admin menus by account
+            </summary>
+            <remarks>
+            {0} : Current account Id
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.AdminBreadcrumbsModelCacheKey">
+            <summary>
+            Key for admin breadcrumbs
+            </summary>
+            <remarks>
+            {0} : App Type
+            {1} : App controller
+            {2} : App action
+            {3} : Language Id
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.DepartmentsTreeModelCacheKey">
+            <summary>
+            Key for departments tree
+            </summary>
+            <remarks>
+            {0} : App Id
+            {1} : User Id
+            {2} : Path
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.DepartmentsTreeAllModelCacheKey">
+            <summary>
+            Key for departments tree all
+            </summary>
+            <remarks>
+            {0} : showHidden
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.WarehousesTreeModelCacheKey">
+            <summary>
+            Key for warehouses tree
+            </summary>
+            <remarks>
+            {0} : App Id
+            {1} : User Id
+            {2} : Path
+            </remarks>
+        </member>
+        <member name="F:VTQT.Caching.ModelCacheKeys.WarehousesTreeAllModelCacheKey">
+            <summary>
+            Key for warehouses tree all
+            </summary>
+            <remarks>
+            {0} : showHidden
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.SeoCacheKeys.UrlRecordAllCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+        </member>
+        <member name="P:VTQT.Caching.SeoCacheKeys.UrlRecordCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : entity ID
+            {1} : entity name
+            {2} : language ID
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.SeoCacheKeys.UrlRecordBySlugCacheKey">
+            <summary>
+            Gets a key for caching
+            </summary>
+            <remarks>
+            {0} : slug
+            </remarks>
+        </member>
+        <member name="P:VTQT.Caching.SeoCacheKeys.UrlRecordAllPrefix">
+            <summary>
+            Gets a key pattern to clear cache
+            </summary>
+        </member>
+    </members>
+</doc>

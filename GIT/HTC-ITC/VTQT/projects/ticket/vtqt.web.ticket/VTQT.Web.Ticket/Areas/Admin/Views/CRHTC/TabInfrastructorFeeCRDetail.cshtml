@@ -1,0 +1,73 @@
+﻿@model InfrastructorFeeCRSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var fee = {
+        grd: {
+            el: '#fee_grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            data: function () { }
+        },
+        init: function () { }
+    }
+
+    var feeGrd = fee.grd;
+
+    feeGrd.data = function () {
+        var searchModel = {
+            CrId: '@Model.CrId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-fee" type="text/x-kendo-template">
+
+    </script>
+    @(Html.Kendo().Grid<InfrastructorFeeCRModel>()
+        .Name("fee_grd")
+        .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+        .Columns(columns =>
+        {
+            columns.Bound(x => x.Name).Locked().Width(250);
+            columns.Bound(x => x.Fee).Locked().Width(100).RightAlign();
+            columns.Bound(x => x.Description).Width(350);
+            columns.ForeignKey(x => x.WareHouseItemCode, (System.Collections.IEnumerable)ViewData["items"] ?? new List<SelectListItem>(), "Value", "Text").Width(250);
+        })
+        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-fee"); })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(int.MaxValue)
+            .ServerOperation(false)
+            .Read(read => read.Action("GetInfrastructorFeeCR", "CRHTC").Data("feeGrd.data"))
+        )
+        .NoRecords()
+        .Scrollable(scr => scr.Enabled(true))
+        .Pageable(pageable => pageable.Enabled(false))
+        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+        .Navigatable())
+</div>
+
+<script>
+    fee.init = function () {
+        feeGrd.init();
+    };
+
+    feeGrd.init = function () {
+        feeGrd.$el = $(feeGrd.el);
+        feeGrd.api = feeGrd.$el.data('kendoGrid');
+    };
+
+    $(function () {
+        fee.init();
+    });
+</script>
+
+

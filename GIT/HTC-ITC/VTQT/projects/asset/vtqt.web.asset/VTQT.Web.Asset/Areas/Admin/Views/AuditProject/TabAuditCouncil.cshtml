@@ -1,0 +1,146 @@
+﻿@model AuditCouncilSearchModel
+@{
+    Layout = null;
+}
+
+<script>
+    var frmAuditCouncil = {
+        urlAddAuditCouncil: '@Url.Action("AddAuditCouncil")',
+            selector: '.page-data',
+            $this: {},
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { }
+            },
+              grdIndex2: {
+                el: '#frmCreate1_grdIndex1',
+                $el: {},
+                api: {},
+                init: function () { }
+
+              },
+        btnAddAuditCouncil: {
+                selector: '#btnAdd1',
+                $this: {},
+                init: function () { }
+            },
+        btnEditAuditCouncil: {
+                selector: '#btnEdit1',
+                $this: {},
+                init: function () { }
+            },
+        btnRemoveAuditCouncil: {
+                selector: '#btnRemove1',
+                $this: {},
+                init: function () { }
+            },
+    };
+    var form = frmAuditCouncil.form;
+    var grdIndex2 = frmAuditCouncil.grdIndex2;
+    var btnAddAuditCouncil = frmAuditCouncil.btnAddAuditCouncil;
+    var btnEditAuditCouncil = frmAuditCouncil.btnEditAuditCouncil;
+    var btnRemoveAuditCouncil = frmAuditCouncil.btnRemoveAuditCouncil;
+
+</script>
+<div class="row full-height">
+    <script id="toolbar1" type="text/x-kendo-template">
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+            <a id="btnAdd1" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm</a>
+            <a id="btnRemove1" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+        </div>
+    </script>
+    @(Html.Kendo().Grid<AuditCouncilModel>()
+                            .Name("frmCreate1_grdIndex1")
+                            .HtmlAttributes(new { style = "height: 100%; border-top: none" })
+                            .Columns(columns =>
+                            {
+                                columns.Select().Width(30);
+                                columns.Bound(x => x.EmployeeId).Hidden();
+                                columns.Bound(x => x.EmployeeName).Width(400);
+                                columns.Bound(x => x.Role).Width(300);
+                            })
+                            .ToolBar(toolbar =>
+                            {
+                                toolbar.ClientTemplateId("toolbar1");
+                            })
+                            .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(int.MaxValue)
+                            .ServerOperation(false)
+                            )
+                            .NoRecords()
+                            .Scrollable(scr => scr.Enabled(true))
+                            .Pageable(pageable => pageable.Enabled(false))
+                            .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+                            .Navigatable())
+</div>
+
+<script>
+        //Methods
+    btnAddAuditCouncil.init = function () {
+        btnAddAuditCouncil.$this = $(btnAddAuditCouncil.selector);
+
+        btnAddAuditCouncil.$this.click(function (e) {
+                app.window.form.open({
+                    url: frmAuditCouncil.urlAddAuditCouncil, options: { width: '450px' }, callback: function () {
+
+                    }
+                });
+            });
+        }
+    btnEditAuditCouncil.init = function () {
+        btnEditAuditCouncil.$this = $(btnEditAuditCouncil.selector);
+
+        btnEditAuditCouncil.$this.click(function (e) {
+        });
+    }
+    btnRemoveAuditCouncil.init = function () {
+        btnRemoveAuditCouncil.$this = $(btnRemoveAuditCouncil.selector);
+
+        btnRemoveAuditCouncil.$this.click(function (e) {
+                var selectedItems = grdIndex2.api.selectedRows();
+                if (selectedItems.length > 0) {
+                    app.window.confirm.open({
+                        callback: function () {
+                            $.each(selectedItems,
+                                function(i, x) {
+                                    if (x) {
+                                        grdIndex2.api.removeRow(x);
+                                    }
+                                });
+                        }
+                    });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                    return false;
+                }
+            });
+        }
+
+        //Inits
+    frmAuditCouncil.init = function() {
+        frmAuditCouncil.$this = $(frmAuditCouncil.selector);
+            form.init();
+            grdIndex2.init();
+            btnAddAuditCouncil.init();
+            btnEditAuditCouncil.init();
+        btnRemoveAuditCouncil.init();
+    }
+
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex2.init = function () {
+            grdIndex2.$el = $(grdIndex2.el);
+            grdIndex2.api = grdIndex2.$el.data('kendoGrid');
+    };
+
+        //Startup
+        $(function() {
+            frmAuditCouncil.init();
+        });
+</script>

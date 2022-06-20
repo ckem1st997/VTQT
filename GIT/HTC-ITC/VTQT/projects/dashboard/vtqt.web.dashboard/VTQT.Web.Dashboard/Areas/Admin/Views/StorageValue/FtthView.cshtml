@@ -1,0 +1,591 @@
+﻿@model StorageValueModel
+
+<script>
+        var spreadNS = GC.Spread.Sheets; 
+</script>
+@section HeadScripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+    <link href="~/SpreadJS.12.0.7/css/gc.spread.sheets.12.0.7.css" rel="stylesheet" />
+    <link href="~/SpreadJS.12.0.7/css/gc.spread.sheets.excel2016colorful.12.0.7.css" rel="stylesheet" />
+    <script src="~/SpreadJS.12.0.7/scripts/gc.spread.sheets.all.12.0.7.min.js"></script>
+    <script src="~/SpreadJS.12.0.7/scripts/interop/gc.spread.excelio.12.0.7.min.js"></script>
+    <script src="~/SpreadJS.12.0.7/scripts/interop/gc.spread.sheets.migration.12.0.7.min.js"></script>
+    <script src="~/SpreadJS.12.0.7/scripts/license.js"></script>
+}
+
+
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a id="update" data-action="importexcel" href="javascript:void(0)" class="btn blue btn-sm">
+                <i class="fa fa-file-excel-o"></i> @T("Common.Save")
+            </a>
+            <a id="getData" data-action="export" href="javascript:void(0)" class="btn purple btn-sm">
+                <i class="fa fa-print"></i> @T("Common.ExportData")
+            </a>
+        </div>
+    </div>
+</div>
+<div class="page-data">
+    <div class="row full-height">
+        <div class="sample-container" style="height:100%">
+            <div id="ss" class="spread-container" style="height: 100%"> </div>
+        </div>
+    </div>
+</div>
+<div class="modal"><div class="content">
+                     <div class="content__container">
+                       <p class="content__container__text">
+                        Xin 
+                       </p>
+                       
+                       <ul class="content__container__list">
+                         <li class="content__container__list__item">vui lòng chờ đợi !</li>
+                         <li class="content__container__list__item">vui lòng thả lỏng !</li>
+                         <li class="content__container__list__item">bạn chút thời gian !</li>
+                         <li class="content__container__list__item">là xin... !</li>
+                       </ul>
+                     </div>
+                   </div></div>
+<style>
+    .modal {
+        display:    none;
+        position:   fixed;
+        z-index:    1000;
+        top:        0;
+        left:       0;
+        height:     100%;
+        width:      100%;
+        background: rgba( 191, 191, 191, .8 ) 
+                    url('http://i.stack.imgur.com/FhHRx.gif') 
+                    50% 50% 
+                    no-repeat;
+    }
+.content {
+	 position: absolute;
+	 top: 50%;
+	 left: 50%;
+	 transform: translate(-50%, -50%);
+	 height: 160px;
+	 overflow: hidden;
+	 font-family: 'Lato', sans-serif;
+	 font-size: 35px;
+	 line-height: 40px;
+	 color: #ecf0f1;
+}
+ .content__container {
+	 font-weight: 600;
+	 overflow: hidden;
+	 height: 40px;
+	 padding: 0 40px;
+}
+ .content__container:before {
+	 content: '[';
+	 left: 0;
+}
+ .content__container:after {
+	 content: ']';
+	 position: absolute;
+	 right: 0;
+}
+ .content__container:after, .content__container:before {
+	 position: absolute;
+	 top: 0;
+	 color: #16a085;
+	 font-size: 42px;
+	 line-height: 40px;
+	 -webkit-animation-name: opacity;
+	 -webkit-animation-duration: 2s;
+	 -webkit-animation-iteration-count: infinite;
+	 animation-name: opacity;
+	 animation-duration: 2s;
+	 animation-iteration-count: infinite;
+}
+ .content__container__text {
+	 display: inline;
+	 float: left;
+	 margin: 0;
+}
+ .content__container__list {
+	 margin-top: 0;
+	 padding-left: 69px;
+	 text-align: left;
+	 list-style: none;
+	 -webkit-animation-name: change;
+	 -webkit-animation-duration: 10s;
+	 -webkit-animation-iteration-count: infinite;
+	 animation-name: change;
+	 animation-duration: 10s;
+	 animation-iteration-count: infinite;
+}
+ .content__container__list__item {
+	 line-height: 40px;
+	 margin: 0;
+}
+  @@-webkit-keyframes opacity {
+	 0%, 100% {
+		 opacity: 0;
+	}
+	 50% {
+		 opacity: 1;
+	}
+}
+  @@-webkit-keyframes change {
+	 0%, 12.66%, 100% {
+		 transform: translate3d(0, 0, 0);
+	}
+	 16.66%, 29.32% {
+		 transform: translate3d(0, -25%, 0);
+	}
+	 33.32%, 45.98% {
+		 transform: translate3d(0, -50%, 0);
+	}
+	 49.98%, 62.64% {
+		 transform: translate3d(0, -75%, 0);
+	}
+	 66.64%, 79.3% {
+		 transform: translate3d(0, -50%, 0);
+	}
+	 83.3%, 95.96% {
+		 transform: translate3d(0, -25%, 0);
+	}
+}
+ @@-o-keyframes opacity {
+	 0%, 100% {
+		 opacity: 0;
+	}
+	 50% {
+		 opacity: 1;
+	}
+}
+ @@-o-keyframes change {
+	 0%, 12.66%, 100% {
+		 transform: translate3d(0, 0, 0);
+	}
+	 16.66%, 29.32% {
+		 transform: translate3d(0, -25%, 0);
+	}
+	 33.32%, 45.98% {
+		 transform: translate3d(0, -50%, 0);
+	}
+	 49.98%, 62.64% {
+		 transform: translate3d(0, -75%, 0);
+	}
+	 66.64%, 79.3% {
+		 transform: translate3d(0, -50%, 0);
+	}
+	 83.3%, 95.96% {
+		 transform: translate3d(0, -25%, 0);
+	}
+}
+ @@-moz-keyframes opacity {
+	 0%, 100% {
+		 opacity: 0;
+	}
+	 50% {
+		 opacity: 1;
+	}
+}
+ @@-moz-keyframes change {
+	 0%, 12.66%, 100% {
+		 transform: translate3d(0, 0, 0);
+	}
+	 16.66%, 29.32% {
+		 transform: translate3d(0, -25%, 0);
+	}
+	 33.32%, 45.98% {
+		 transform: translate3d(0, -50%, 0);
+	}
+	 49.98%, 62.64% {
+		 transform: translate3d(0, -75%, 0);
+	}
+	 66.64%, 79.3% {
+		 transform: translate3d(0, -50%, 0);
+	}
+	 83.3%, 95.96% {
+		 transform: translate3d(0, -25%, 0);
+	}
+}
+  @@keyframes opacity {
+	 0%, 100% {
+		 opacity: 0;
+	}
+	 50% {
+		 opacity: 1;
+	}
+}
+ @@keyframes change {
+	 0%, 12.66%, 100% {
+		 transform: translate3d(0, 0, 0);
+	}
+	 16.66%, 29.32% {
+		 transform: translate3d(0, -25%, 0);
+	}
+	 33.32%, 45.98% {
+		 transform: translate3d(0, -50%, 0);
+	}
+	 49.98%, 62.64% {
+		 transform: translate3d(0, -75%, 0);
+	}
+	 66.64%, 79.3% {
+		 transform: translate3d(0, -50%, 0);
+	}
+	 83.3%, 95.96% {
+		 transform: translate3d(0, -25%, 0);
+	}
+}
+ 
+    /* When the body has the loading class, we turn
+       the scrollbar off with overflow:hidden */
+    body.loading .modal {
+        overflow: hidden;   
+    }
+    
+    /* Anytime the body has the loading class, our
+       modal element will be visible */
+    body.loading .modal {
+        display: block;
+    }p
+</style>
+
+<script>
+                        $body = $("body");
+                        
+                        $(document).on({
+                            ajaxStart: function() { $body.addClass("loading");    },
+                            ajaxStop: function() { $body.removeClass("loading"); }    
+                        });
+   
+                       var ss = new GC.Spread.Sheets.Workbook(
+                            document.getElementById("ss"),
+                            { sheetCount: 1 }
+                        ); 
+                        $(document).ready(function () {
+                             excelIO = new GC.Spread.Excel.IO();    
+                             processFileSelected();
+                              $("#getData").click(function () {
+								  console.log($body.addClass("loading")); 
+                               ExportFile();
+                             });
+                        });
+                        // Create importJSON()
+                        function importJSON(spreadJson) {
+                            $("#update").click(function () {
+                                  // updatedata(ss.getActiveSheet(), 'updateall', function () {
+                                  //       alert("update successfully.");
+                                  //  });
+                                });
+                           if (spreadJson.version && spreadJson.sheets) {
+                                ss.fromJSON(spreadJson);
+                                ss.focus();                          
+                                var ssa=ss.getActiveSheet();
+                
+                           var url='@Url.Action("GetExcelToMasterVTCNTT", "StorageValue")'
+                                  $.getJSON(url, function (event) {
+                                      if(event && event.data){
+                                             ssa.suspendPaint();
+                                              var getData=event.data;
+                                              var res=getData.map((m) => { return Object.values(m); });
+                                              ssa.setRowCount(getData.length+100,GC.Spread.Sheets.SheetArea.viewport);
+                                              ssa.setArray (8, 0, res, false );   
+                                              ssa.resumePaint();
+                                              ssa.clearPendingChanges();            
+                                      }                                              
+                                  });             
+                            }
+                        }
+                        
+                        
+                        // Create importSpreadFromExcel()
+                        function importSpreadFromExcel(file, options) {
+                            excelIO.open(
+                                file,
+                                function (json) {                
+                                    importJSON(json);
+                                },
+                                function (e) {
+                                    console.log(e);
+                                },
+                                options
+                            );
+                         //   debugger;
+                        }
+                        // Create importSpreadFromJSON()
+                        function importSpreadFromJSON(file) {
+                            function importSuccessCallback(responseText) {
+                                var spreadJson = JSON.parse(responseText);
+                                importJSON(spreadJson);
+                            }
+                            var reader = new FileReader();
+                            reader.onload = function () {
+                                importSuccessCallback(this.result);
+                            };                     
+                            reader.readAsText(file);
+                            return true;
+                        }
+                
+                        // Create importFile() function to decide if a file is .xlsx or .JSON/.SSJSON
+                        function importFile(file) {
+                            var fileName = file.name;
+                            var index = fileName.lastIndexOf(".");
+                            var fileExt = fileName.substr(index + 1).toLowerCase();
+                            if (fileExt === "json" || fileExt === "ssjson") {
+                                importSpreadFromJSON(file);
+                            } else if (fileExt === "xlsx") {
+                                importSpreadFromExcel(file);
+                            }
+                        }
+                        // Create processFileSelected()
+                        function processFileSelected() {
+                            // var fileSelector = document.getElementById("fileSelector");
+                            // var file1 = fileSelector.files[0];
+                            // console.log(file1); 
+                            var file;
+                         $.ajax({
+                            url: "@Url.Action("GetFileTemplateToAddOrUpdate")",
+                            type: "get",
+                            async: false,
+                             success:function (msg){
+                               //  console.log(msg);
+                                 file = new File([base64ToArrayBuffer(msg)], "TemplateMasterVTCNTT.xlsx",{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                             },
+                             error:function (msg){
+                                console.log(msg);
+                             }
+                         });
+    
+                            if (!file) return false;
+                          //  fileSelector.innerHTML = "";
+                            return importFile(file);
+                        }
+                
+                         base64ToArrayBuffer = (base64) => {
+                            var binaryString = window.atob(base64);
+                            var binaryLen = binaryString.length;
+                            var bytes = new Uint8Array(binaryLen);
+                            for (var i = 0; i < binaryLen; i++) {
+                              var ascii = binaryString.charCodeAt(i);
+                              bytes[i] = ascii;
+                            }
+                            return bytes;
+                          }
+                        
+                        
+                        function ExportFile() {
+							 
+                            var today = new Date();
+                            var dd = String(today.getDate()).padStart(2, '0');
+                            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                            var yyyy = today.getFullYear();
+                            
+                            today = mm + '/' + dd + '/' + yyyy;
+                            var fileName = 'MasterVTCNTT-'+today+'.xlsx';
+                            var json = JSON.stringify(ss.toJSON());                 
+                            excelIO.save(json, function (blob) {
+                                saveAs(blob, fileName);
+						 $body.removeClass("loading");
+                            }, function (e) {
+                                console.log(e);
+                            });
+                        }
+                
+                        function  SetValueToNull(item){
+                              for (const property in item) {
+                                  item[property]=null;
+                                  }
+                            }
+                        
+                        function SetValueToObjet(item,i,value){
+                            var tem=0;
+                             for (const property in item) {
+                                 if (tem === i)
+                                     {
+                                   item[property]=value;
+                                   break;
+                                         }
+                                 else
+                                     tem++;
+                             }
+                        }
+                        function updatedata(sheet, url, callback) {
+                            var dirtyrows = sheet.getDirtyRows();
+                            let details = [];
+                            let modelsAdd=[];
+                            var listId=[];
+                           // debugger;
+                          $.ajax({
+                                 url: "@Url.Action("GetGuid")",
+                                 type: "get",
+                                 async: false,
+                                 data: { Count:dirtyrows.length },
+                                 datatype: "json",
+                                 //contenttype: "application/json,charset=utf-8",
+                                 success:function (msg){
+                                     
+                                     if (msg && msg.success)
+                                           {
+                                            for(let i = 0; i < msg.data.length; i++) {
+                                              listId.push(msg.data[i]);
+                                            }                    
+                                           }
+                                     else
+                                         console.log("That bai !");
+                           
+                                     }
+                                     });
+                            for (var i = 0; i < dirtyrows.length; i++) {
+                                 var item={
+                                                      tuầnBáoCáo: null,
+                                                      kHNền_0HayMới_1:  null,
+                                                      quaĐạiLý_KHCuối:null,
+                                                      khuVực: null,
+                                                      danhMụcKháchHàng:null,
+                                                      nhómKháchHàng: null,
+                                                      loạiHìnhCơCấuKh: null,
+                                                      kiểuKháchHàng: null,
+                                                      hạngKháchHàng: null,
+                                                      tênKháchHàng: null,
+                                                      mãKháchHàng: null,
+                                                      sốHợpĐồng: null,
+                                                      ngàyKýHĐ: null,
+                                                      ngàyNghiệmThuTínhCước: null,
+                                                      nămKýHợpĐồng: null,
+                                                      nămNTTínhCước: null,
+                                                      ngàyKýHĐ_nângCấp_: null,
+                                                      ngàyNghiệmThuTínhCước_nângCấp_: null,
+                                                      chiTiếtTriểnKhaiCCDV: null,
+                                                      tìnhTrạngCCDV: null,
+                                                      ngàyThanhLý_giảmGiá: null,
+                                                      lýDoThanhLý_giảmGiá_tạmNgưng: null,
+                                                      phânLoạiThanhLý_giảmGiá_tạmNgưng: null,
+                                                      tìnhTrạngHĐ: null,
+                                                      loạiTrừKPI: null,
+                                                      thanhLýTrướcHạn: null,
+                                                      doanhThuMấtĐiDoThanhLý_theoTermHĐ_: null,
+                                                      thờiHạnHĐ: null,
+                                                      loạiHĐ_1LầnHayHàngTháng_: null,
+                                                      cID_User: null,
+                                                      ĐiểmĐầu: null,
+                                                      ĐiểmCuối: null,
+                                                      chiTiếtDịchVụ: null,
+                                                      băngThôngTrongNước_M_: null,
+                                                      băngThôngQuốcTế_M_: null,
+                                                      phạmViKênh: null,
+                                                      loạiDoanhThu: null,
+                                                      loạiDịchVụ: null,
+                                                      tranding_Yes_No_: null,
+                                                      cướcCàiĐặt_USD_: null,
+                                                      cướcCàiĐặt_VNĐ_: null,
+                                                      cướcHàngTháng_USD_2020: null,
+                                                      cướcHàngTháng_VNĐ__trướcVAT_2020: null,
+                                                      cướcHàngTháng_USD_2021: null,
+                                                      cướcHàngTháng_VNĐ__trướcVAT_2021: null,
+                                                      cướcHàngTháng_VNĐ__ĐãBaoGồmVAT_2021: null,
+                                                      chiPhíĐầuVào_cướcTháng_: null,
+                                                      sốHợpĐồngĐầuVàoLiênQuan: null,
+                                                      ĐốiTác_TỷLệPhânChiaDT: null,
+                                                      tỷLệPhânChíDoanhThu: null,
+                                                      tỷLệHoaHồng: null,
+                                                      ghiChú: null,
+                                                      cSPhụTrách: null,
+                                                      kDPhụTrách: null,
+                                                      bộPhậnKíHĐ: null,
+                                                      banQLKH: null,
+                                                      nền2020ChuyểnSang2021ChốtTạiThờiĐiểm31_12_2020: null,
+                                                      giảmNềnDoThanhLý_giảmGiá_tạmNgưng: null,
+                                                      phátTriểnMớiNăm2021: null,
+                                                      giảmGiáDoDịch: null,
+                                                      năm2021: null,
+                                                      tháng1_GTHợpĐồng: null,
+                                                      tháng1_GTPhátTriểnMới: null,
+                                                      tháng1_GTGiảmNền: null,
+                                                      tháng2_GTHợpĐồng: null,
+                                                      tháng2_GTPhátTriểnMới: null,
+                                                      tháng2_GTGiảmNền: null,
+                                                      tháng3_GTHợpĐồng: null,
+                                                      tháng3_GTPhátTriểnMới: null,
+                                                      tháng3_GTGiảmNền: null,
+                                                      tháng4_GTHợpĐồng: null,
+                                                      tháng4_GTPhátTriểnMới: null,
+                                                      tháng4_GTGiảmNền: null,
+                                                      tháng5_GTHợpĐồng: null,
+                                                      tháng5_GTPhátTriểnMới: null,
+                                                      tháng5_GTGiảmNền: null,
+                                                      tháng6_GTHợpĐồng: null,
+                                                      tháng6_GTPhátTriểnMới: null,
+                                                      tháng6_GTGiảmNền: null,
+                                                      tháng7_GTHợpĐồng: null,
+                                                      tháng7_GTPhátTriểnMới: null,
+                                                      tháng7_GTGiảmNền: null,
+                                                      tháng8_GTHợpĐồng: null,
+                                                      tháng8_GTPhátTriểnMới: null,
+                                                      tháng8_GTGiảmNền: null,
+                                                      tháng9_GTHợpĐồng: null,
+                                                      tháng9_GTPhátTriểnMới: null,
+                                                      tháng9_GTGiảmNền: null,
+                                                      tháng10_GTHợpĐồng: null,
+                                                      tháng10_GTPhátTriểnMới: null,
+                                                      tháng10_GTGiảmNền: null,
+                                                      tháng11_GTHợpĐồng: null,
+                                                      tháng11_GTPhátTriểnMới: null,
+                                                      tháng11_GTGiảmNền: null,
+                                                      tháng12_GTHợpĐồng: null,
+                                                      tháng12_GTPhátTriểnMới: null,
+                                                      tháng12_GTGiảmNền: null,
+                                                      tổngGTHĐ__term12Tháng__USD: null,
+                                                      tổngGTHĐ__term12Tháng__VND: null,
+                                                      tổngCàiĐặt_USD_: null,
+                                                      tổngCàiĐặtVND: null,
+                                                      tổngPTMĐãKýTrongNăm2021: null,
+                                                      tổngPTMĐãNTTrongNăm2021: null,
+                                                      tổngCộngHĐĐãKý: null,
+                                                      tổngHĐĐãNT: null,
+                                                      ktraCôngThức: null,
+                                                      thángTínhKPI: null,
+                                                      ghiChúChoKPI: null,
+                                                      thanhLýNăm: null,
+                                                      id:null
+                                                      
+                                                  };
+                                  var rowIndex=dirtyrows[i].row;
+                                 for(var j = 0; j < 110; j++) {
+                                     SetValueToObjet(item,j,sheet.getValue(rowIndex,j));              
+                                 }
+                                 if (item.id===null || item.id===undefined)
+                                     {
+                                       item.id=listId[i];                      
+                                       modelsAdd.push(item);
+                                       sheet.setValue(rowIndex,j-1, listId[i]);
+                                     }
+                
+                                 else 
+                                     details.push(item);
+                            }
+                            if (details.length+modelsAdd.length > 0) {
+                                $.ajax({
+                                    url: "@Url.Action("UpdateMasterVTCNTT")",
+                                    type: "post",
+                                    data: { models: details,modelsAdd:modelsAdd },
+                                    datatype: "json",
+                                    //contenttype: "application/json,charset=utf-8",
+                                    success:function (msg){
+                                        if (msg && msg.success)
+                                            {
+                                              //  alert("Thanh cong !");
+                                                sheet.clearPendingChanges();                               
+                                            }
+                                        else
+                                            notify({ text: "Thao tác thất bại, xin vui lòng thử lại !", type: 'info' });
+
+                                         //   alert("Thao tác thất bại, xin vui lòng thử lại !");            
+                                    }
+                                });
+                            } else {
+                              //  alert("Không có sự thay đổi !");
+                                notify({ text: "Không có sự thay đổi !", type: 'info' });
+
+                            }
+                        }                                        
+                </script>

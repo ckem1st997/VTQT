@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Services.Master</name>
+    </assembly>
+    <members>
+        <member name="M:VTQT.Services.Master.ReportService.GetReport(VTQT.Services.Master.ReportValueSearchContext,System.String)">
+            <summary>
+            Sinh báo cáo
+            </summary>
+            <param name="ctx"></param>
+            <param name="route"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Services.Master.ReportService.GetReportExcel(VTQT.Services.Master.ReportValueSearchContext,System.String)">
+            <summary>
+            Sinh báo cáo excel
+            </summary>
+            <param name="ctx"></param>
+            <param name="route"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Services.Master.ReportService.GetReportListByAppId(System.String,System.Boolean)">
+            <summary>
+            Sinh dữ liệu cây báo cáo
+            </summary>
+            <param name="appid"></param>
+            <param name="inactive"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Web.Master</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Web.Master.Infrastructure.Cache.ModelCacheEventConsumer">
+            <summary>
+            Model cache event consumer (used for caching of presentation layer models)
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Master.Infrastructure.Cache.ModelCacheEventConsumer.HandleEventAsync(VTQT.Core.Events.EntityInsertedEvent{VTQT.Core.Domain.Master.Language})">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Master.Infrastructure.Cache.ModelCacheEventConsumer.HandleEventAsync(VTQT.Core.Events.EntityUpdatedEvent{VTQT.Core.Domain.Master.Language})">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Master.Infrastructure.Cache.ModelCacheEventConsumer.HandleEventAsync(VTQT.Core.Events.EntityDeletedEvent{VTQT.Core.Domain.Master.Language})">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Web.Master.Infrastructure.Cache.ModelCacheEventConsumer.HandleEventAsync(VTQT.Core.Events.EntityUpdatedEvent{VTQT.Core.Domain.Master.Setting})">
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Web.Master.Infrastructure.DependencyRegistrar">
+            <summary>
+            Dependency registrar
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Master.Infrastructure.DependencyRegistrar.Register(Autofac.ContainerBuilder,VTQT.Core.Infrastructure.ITypeFinder,VTQT.Core.Configuration.XBaseConfig)">
+            <summary>
+            Register services and interfaces
+            </summary>
+            <param name="builder">Container builder</param>
+            <param name="typeFinder">Type finder</param>
+            <param name="config">Config</param>
+        </member>
+        <member name="P:VTQT.Web.Master.Infrastructure.DependencyRegistrar.Order">
+            <summary>
+            Gets order of this dependency registrar implementation
+            </summary>
+        </member>
+        <member name="T:VTQT.Web.Master.Infrastructure.GenericUrlRouteProvider">
+            <summary>
+            Represents provider that provided generic routes
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Master.Infrastructure.GenericUrlRouteProvider.RegisterRoutes(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+            <summary>
+            Register routes
+            </summary>
+            <param name="endpointRouteBuilder">Route builder</param>
+        </member>
+        <member name="P:VTQT.Web.Master.Infrastructure.GenericUrlRouteProvider.Priority">
+            <summary>
+            Gets a priority of route provider
+            </summary>
+            <remarks>
+            it should be the last route. we do not set it to -int.MaxValue so it could be overridden (if required)
+            </remarks>
+        </member>
+        <member name="T:VTQT.Web.Master.Infrastructure.RouteProvider">
+            <summary>
+            Represents provider that provided basic routes
+            </summary>
+        </member>
+        <member name="M:VTQT.Web.Master.Infrastructure.RouteProvider.RegisterRoutes(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+            <summary>
+            Register routes
+            </summary>
+            <param name="endpointRouteBuilder">Route builder</param>
+        </member>
+        <member name="P:VTQT.Web.Master.Infrastructure.RouteProvider.Priority">
+            <summary>
+            Gets a priority of route provider
+            </summary>
+        </member>
+    </members>
+</doc>

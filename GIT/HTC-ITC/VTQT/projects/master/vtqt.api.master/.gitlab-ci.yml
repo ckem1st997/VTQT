@@ -1,0 +1,55 @@
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+  - build-prod
+  - deploy-prod
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  tags:
+    - dev # Tag for Runner
+  script:
+    - echo "Update submodule"
+    - git submodule sync --recursive
+    - git submodule update --init --recursive --remote
+    - echo "Build dotnet project ..."
+    - dotnet publish Apis/VTQT.Api.Master/VTQT.Api.Master.csproj -c Release -o  ./Deploy/
+    - echo "Build docker image ...."
+    - docker build -t 192.168.100.43:5000/vtqt.master.api:1.0.3 --rm=true -f "Apis/VTQT.Api.Master/Dockerfile1" .
+  except:
+    - prod # Branch
+
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  tags:
+    - dev
+  script:
+    - echo "Push docker image to registry ..."
+    - docker push 192.168.100.43:5000/vtqt.master.api:1.0.3
+  except:
+    - prod
+
+build-prod-job:       # This job runs in the build stage, which runs first.
+  stage: build-prod
+  tags:
+    - prod
+  script:
+    - echo "Update submodule"
+    - git submodule sync --recursive
+    - git submodule update --init --recursive --remote
+    - echo "Build dotnet project ..."
+    - dotnet publish Apis/VTQT.Api.Master/VTQT.Api.Master.csproj -c Release -o  ./Deploy/
+    - echo "Build docker image ...."
+    - docker build -t 192.168.100.43:5000/prod.vtqt.master.api:1.0.3 --rm=true -f "Apis/VTQT.Api.Master/Dockerfile1" .
+  only:
+    - prod
+
+deploy-prod-job:      # This job runs in the deploy stage.
+  stage: deploy-prod  # It only runs when *both* jobs in the test stage complete successfully.
+  tags:
+    - prod
+  script:
+    - echo "Push docker image to registry ..."
+    - docker push 192.168.100.43:5000/prod.vtqt.master.api:1.0.3
+  only:
+    - prod

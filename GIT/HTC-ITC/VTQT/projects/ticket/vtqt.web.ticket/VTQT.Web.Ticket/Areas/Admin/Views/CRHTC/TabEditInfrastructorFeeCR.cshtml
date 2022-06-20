@@ -1,0 +1,190 @@
+﻿@model InfrastructorFeeCRSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var fee = {
+        grd: {
+            el: '#fee_grd',
+            $el: {},
+            init: function() { },
+            api: {},
+            data: function() { }
+        },
+        btnAdd: {
+            el: '#btnAddFee',
+            $el: {},
+            init: function() { }
+        },
+        btnRemove: {
+            el: '#btnRemoveFee',
+            $el: {},
+            init: function() { }
+        },
+        btnEditFee: {
+            el: '#btnEditFee',
+            $el: {},
+            init: function() { }
+        },
+        init: function() { }
+    }
+
+    var feeGrd = fee.grd;
+    var btnAddFee = fee.btnAdd;
+    var btnRemoveFee = fee.btnRemove;
+    var btnEditFee = fee.btnEditFee;
+
+    feeGrd.data = function() {
+        var searchModel = {
+            CrId: '@Model.CrId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-fee" type="text/x-kendo-template">
+        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+            <span style="padding-left: 20px">Danh sách chi phí</span>
+        </div>
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+            <a id="btnAddFee" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm chi phí</a>
+            <a id="btnEditFee" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>
+            <a id="btnRemoveFee" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+        </div>
+    </script>
+    @(Html.Kendo().Grid<InfrastructorFeeCRModel>()
+    .Name("fee_grd")
+    .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+    .Columns(columns =>
+    {
+    columns.Select().Locked().Width(30);
+    columns.Bound(x => x.Name).Locked().Width(250);
+    columns.Bound(x => x.Fee).Locked().Width(100).RightAlign();
+    columns.Bound(x => x.Description).Width(350);
+    columns.ForeignKey(x => x.WareHouseItemCode, (System.Collections.IEnumerable)ViewData["items"] ?? new List<SelectListItem>(), "Value", "Text").Width(250);
+    })
+    .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-fee"); })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .PageSize(int.MaxValue)
+    .ServerOperation(false)
+    .Read(read => read.Action("GetInfrastructorFeeCR", "CRHTC").Data("feeGrd.data"))
+    )
+    .NoRecords()
+    .Scrollable(scr => scr.Enabled(true))
+    .Pageable(pageable => pageable.Enabled(false))
+    .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+    .Navigatable())
+</div>
+
+<script>
+    fee.init = function() {
+        feeGrd.init();
+        btnAddFee.init();
+        btnRemoveFee.init();
+        btnEditFee.init();
+    };
+
+    feeGrd.init = function() {
+        feeGrd.$el = $(feeGrd.el);
+        feeGrd.api = feeGrd.$el.data('kendoGrid');
+    };
+
+    btnAddFee.init = function() {
+        btnAddFee.$el = $(btnAddFee.el);
+        btnAddFee.$el.click(function(e) {
+
+            app.window.form.open({
+                url: '@Url.Action("AddInfrastructorFeeCR")', options: { width: '500px' }, callback: function() {
+                    var fee = window.frmAddFee.$el.serializeObject();
+                    var feeModel = {};
+                    feeModel.Code = fee.Code;
+                    feeModel.Name = fee.Name;
+                    feeModel.CrId = '@Model.CrId';
+                    feeModel.Description = fee.Description;
+                    feeModel.Fee = fee.Fee;
+                    feeModel.WareHouseItemCode = fee.WareHouseItemCode;
+                    feeModel.WareHouseItemName = fee.WareHouseItemName;
+
+                    $.ajax({
+                        url: '@Url.Action("AddInfrastructorFeeCR")',
+                        data: { infrastructorFeeCR: feeModel },
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function(res) {
+                            if (res.success) {
+                                feeGrd.api.reload();
+                            }
+                        }
+                    });
+                    //Close form add item
+                    window.frmAddFee.winForm.close();
+                }
+            });
+
+        });
+    };
+
+    btnEditFee.init = function() {
+        btnEditFee.$el = $(btnEditFee.el);
+        btnEditFee.$el.click(function(e) {
+
+            var id = feeGrd.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({
+                    url: '@Url.Action("EditInfrastructorFeeCR")/' + '?id=' + id, options: { width: '500px' }, callback: function() {
+                        var editFee = window.frmEditFee.$el.serializeObject();
+                        var editFeeTicketModel = {};
+                        editFeeTicketModel.Id = id;
+                        editFeeTicketModel.Code = editFee.Code;
+                        editFeeTicketModel.Name = editFee.Name;
+                        editFeeTicketModel.CrId = '@Model.CrId';
+                        editFeeTicketModel.Description = editFee.Description;
+                        editFeeTicketModel.Fee = editFee.Fee;
+                        editFeeTicketModel.WareHouseItemCode = editFee.WareHouseItemCode;
+                        editFeeTicketModel.WareHouseItemName = editFee.WareHouseItemName;
+
+                        $.ajax({
+                            url: '@Url.Action("EditInfrastructorFeeCR")',
+                            data: { editInfrastructorFeeCR: editFeeTicketModel },
+                            dataType: 'json',
+                            type: 'POST',
+                            success: function(res) {
+                                if (res.success) {
+                                    feeGrd.api.reload();
+                                }
+                            }
+                        });
+                        //Close form add item
+                        window.frmEditFee.winForm.close();
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+
+        });
+    };
+
+    btnRemoveFee.init = function () {
+        btnRemoveFee.$el = $(btnRemoveFee.el);
+        btnRemoveFee.$el.click(function (e) {
+            var ids = feeGrd.api.selectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: '@Url.Action("DeleteInfrastructorFeeCR")', ids: ids, options: { width: '450px' }, callback: function () { feeGrd.api.reload(); } });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                }
+        });
+    };
+
+    $(function() {
+        fee.init();
+    });
+</script>
+
+

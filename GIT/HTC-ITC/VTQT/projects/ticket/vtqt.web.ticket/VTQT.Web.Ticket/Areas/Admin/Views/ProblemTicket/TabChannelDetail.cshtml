@@ -1,0 +1,89 @@
+﻿@model ChannelTicketSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var channel = {
+        grd: {
+            el: '#channel_grd',
+            $el: {},
+            init: function() { },
+            api: {},
+            data: function() { }
+        },
+        init: function() { }
+    }
+
+    var channelGrd = channel.grd;
+
+    channelGrd.data = function() {
+        var searchModel = {
+            TicketId: '@Model.TicketId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-channel" type="text/x-kendo-template">
+
+    </script>
+    @(Html.Kendo().Grid<ChannelTicketModel>()
+    .Name("channel_grd")
+    .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+    .Columns(columns =>
+    {
+    columns.Bound(x => x.ChannelName).Locked().Width(450);
+    columns.ForeignKey(x => x.CategoryId, (System.Collections.IEnumerable)ViewData["categories"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+    columns.ForeignKey(x => x.PhenomenaId, (System.Collections.IEnumerable)ViewData["phenomenas"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+    columns.ForeignKey(x => x.CableId, (System.Collections.IEnumerable)ViewData["cables"] ?? new List<SelectListItem>(), "Value", "Text").Width(150);
+    //columns.Bound(x => x.StartDate).Format("{0:dd/MM/yyyy hh:mm:ss tt}").ClientTemplate("#=channelGrd.startdate(StartDate)#").Width(150);
+    columns.Bound(x => x.StartDateToString).Width(150);
+    columns.Bound(x => x.FinishDateToString).Width(150);
+    })
+    .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-channel"); })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .PageSize(int.MaxValue)
+    .ServerOperation(false)
+    .Read(read => read.Action("GetChannelTicket", "ProblemTicket").Data("channelGrd.data"))
+    )
+    .NoRecords()
+    .Scrollable(scr => scr.Enabled(true))
+    .Pageable(pageable => pageable.Enabled(false))
+    .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+    .Navigatable())
+</div>
+
+<script>
+    channel.init = function() {
+        channelGrd.init();
+    };
+
+    channelGrd.init = function() {
+        channelGrd.$el = $(channelGrd.el);
+        channelGrd.api = channelGrd.$el.data('kendoGrid');
+    };
+
+    channelGrd.startdate = function(startdate) {
+        var date = new Date(startdate);
+        var day = date.getDate();       // yields date
+        var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
+        var year = date.getFullYear();  // yields year
+        var hour = date.getHours();     // yields hours
+        var minute = date.getMinutes(); // yields minutes
+        var second = date.getSeconds(); // yields seconds
+
+        // After this construct a string with the above results as below
+        var time = day + "/" + month + "/" + year + " " + hour + ':' + minute + ':' + second;
+        date.toString()
+        return time;
+    };
+
+    $(function() {
+        channel.init();
+    });
+</script>

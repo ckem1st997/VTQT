@@ -1,0 +1,9 @@
+﻿@model string
+
+@(Html.Kendo().DropDownListFor(x => x)
+    .DataTextField("Name")
+    .DataValueField("Id")
+    .Filter("contains")
+    .BindTo((System.Collections.IEnumerable)ViewData["warehouseItems"])
+    .HtmlAttributes(new { style = "width: 100%" })
+    )

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.SharedMvc.Warehouse</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.SharedMvc.Warehouse.EnumExtensionMethods">
+            <summary>
+            Hàm mở rộng phương thức Enum 
+            </summary>
+        </member>
+        <member name="M:VTQT.SharedMvc.Warehouse.EnumExtensionMethods.GetEnumDescription(System.Enum)">
+            <summary>
+            Hàm trả về Description Enum
+            </summary>
+            <param name="enumValue"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

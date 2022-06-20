@@ -1,0 +1,898 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Api.Warehouse</name>
+    </assembly>
+    <members>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditController.Create(VTQT.SharedMvc.Warehouse.Models.AuditModel)">
+            <summary>
+            Tạo mới phiếu kiểm kê
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditController.Edit(VTQT.SharedMvc.Warehouse.Models.AuditModel)">
+            <summary>
+            Cập nhật phiếu kiểm kê
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa phiếu kiểm kê theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditController.Get(VTQT.SharedMvc.Warehouse.Models.AuditSearchModel)">
+            <summary>
+            Lấy danh sách phiếu kiểm kê phân trang
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu phiếu kiểm kê theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditCouncilController.Create(VTQT.SharedMvc.Warehouse.Models.AuditCouncilModel)">
+            <summary>
+            Tạo mới hội đồng kiểm kê
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditCouncilController.Edit(VTQT.SharedMvc.Warehouse.Models.AuditCouncilModel)">
+            <summary>
+            Cập nhật hội đồng kiểm kê
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditCouncilController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa hội đồng kiểm kê theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditCouncilController.Deletes(System.String)">
+            <summary>
+            Xóa danh sách hội đồng kiểm kê theo Id
+            </summary>
+            <param name="idAuditCouncil"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditCouncilController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu hội đồng kiểm kê theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditCouncilController.GetListById(System.String)">
+            <summary>
+            Lấy danh sách hội đồng kiểm kê kho theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailController.Create(VTQT.SharedMvc.Warehouse.Models.AuditDetailModel)">
+            <summary>
+            Thêm mới chi tiết kiểm kê kho
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailController.Edit(VTQT.SharedMvc.Warehouse.Models.AuditDetailModel)">
+            <summary>
+            Cập nhật chi tiết kiểm kê kho
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa chi tiết kiểm kê kho nhập theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailController.Deletes(System.String)">
+            <summary>
+            Xóa danh sách chi tiết kiểm kê theo Id
+            </summary>
+            <param name="idAudit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailController.Get(VTQT.SharedMvc.Warehouse.Models.AuditDetailPagingModel)">
+            <summary>
+            Lấy danh sách chi tiết kiểm kê kho phân trang
+            </summary>
+            <param name="pagingModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu chi tiết kiểm kê kho theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailController.GetListById(System.String)">
+            <summary>
+            Lấy danh sách chi tiết kiểm kê kho theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailSerialController.Create(VTQT.SharedMvc.Warehouse.Models.AuditDetailSerialModel)">
+            <summary>
+            Thêm mới Serial chi tiết kiểm kê
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailSerialController.Edit(VTQT.SharedMvc.Warehouse.Models.AuditDetailSerialModel)">
+            <summary>
+            Cập nhật Serial chi tiết kiểm kê
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailSerialController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa Serial chi tiết kiểm kê theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailSerialController.Deletes(System.String)">
+            <summary>
+            Xóa danh sách Chi tiết  serial theo Id phiếu nhập
+            </summary>
+            <param name="idAuditDetailSerial"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailSerialController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu Serial chi tiết kiểm kê theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.AuditDetailSerialController.GetListById(System.String)">
+            <summary>
+            Lấy danh sách  Serial chi tiết kiểm kê theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.BeginningWareHouseController.Create(VTQT.SharedMvc.Warehouse.Models.BeginningWareHouseModel)">
+            <summary>
+            Insert a newly BeginningWareHouse item
+            </summary>
+            <param name="model">BeginningWareHouseModel - skip CustomProperties</param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.BeginningWareHouseController.Edit(VTQT.SharedMvc.Warehouse.Models.BeginningWareHouseModel)">
+            <summary>
+            Update a BeginningWareHouse item
+            </summary>
+            <param name="id">PRIMARY KEY BeginningWareHouse</param>
+            <param name="model"> BeginningWareHouseModel - skip CustomProperties</param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.BeginningWareHouseController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Delete a list BeginningWareHouse by list id
+            </summary>
+            <param name="ids">list id PRIMARY KEY</param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.BeginningWareHouseController.Get(VTQT.SharedMvc.Warehouse.Models.BeginningWareHouseSearchModel)">
+            <summary>
+            Get a list BeginningWareHouse
+            </summary>
+            <param name="searchModel"> BeginningWareHouseSearchModel</param>
+            <returns></returns>
+            <response code="200">Got successfully - list BeginningWareHouseModel - PageIndex - PageSize - TotalCount </response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.BeginningWareHouseController.GetById(System.String)">
+            <summary>
+            Get a BeginningWareHouse item by id
+            </summary>
+            <param name="id">PRIMARY KEY</param>
+            <returns></returns>
+            <response code="200">Got successfully - BeginningWareHouseModel </response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardController.Create(VTQT.SharedMvc.Warehouse.Models.InwardModel)">
+            <summary>
+            Thêm mới phiếu nhập
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardController.Edit(VTQT.SharedMvc.Warehouse.Models.InwardModel)">
+            <summary>
+            Cập nhật phiếu nhập
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa phiếu nhập theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardController.Get(VTQT.SharedMvc.Warehouse.Models.InwardSearchModel)">
+            <summary>
+            Lấy danh sách phiếu nhập phân trang
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu phiếu nhập theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardDetailController.Create(VTQT.SharedMvc.Warehouse.Models.InwardDetailModel)">
+            <summary>
+            Thêm mới chi tiết phiếu nhập
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardDetailController.Edit(VTQT.SharedMvc.Warehouse.Models.InwardDetailModel)">
+            <summary>
+            Cập nhật chi tiết phiếu nhập
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardDetailController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa chi tiết phiếu nhập theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardDetailController.Deletes(System.String)">
+            <summary>
+            Xóa danh sách chi tiết phiếu nhập theo Id phiếu nhập
+            </summary>
+            <param name="idInward"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardDetailController.Get(VTQT.SharedMvc.Warehouse.Models.InwardDetailPagingModel)">
+            <summary>
+            Lấy danh sách chi tiết phiếu nhập phân trang
+            </summary>
+            <param name="pagingModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardDetailController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu chi tiết phiếu nhập theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.InwardDetailController.GetListById(System.String)">
+            <summary>
+            Lấy danh sách chi tiết phiếu nhập theo Id phiếu nhập
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutWardController.Create(VTQT.SharedMvc.Warehouse.Models.OutwardModel)">
+            <summary>
+            Insert a newly Outward item
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutWardController.Edit(VTQT.SharedMvc.Warehouse.Models.OutwardModel)">
+            <summary>
+            Update an Outward item
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutWardController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Delete a list Outward
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutWardController.Get(VTQT.SharedMvc.Warehouse.Models.OutwardSearchModel)">
+            <summary>
+            Get a list Outward
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutWardController.GetById(System.String)">
+            <summary>
+            Get an Outward item by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutwardDetailController.Create(VTQT.SharedMvc.Warehouse.Models.OutwardDetailModel)">
+            <summary>
+            Insert a newly OutwardDetail item
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutwardDetailController.Edit(VTQT.SharedMvc.Warehouse.Models.OutwardDetailModel)">
+            <summary>
+            Update an OutwardDetail item
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutwardDetailController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Delete a list OutwardDetails
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutwardDetailController.Deletes(System.String)">
+            <summary>
+            deletes list by id
+            </summary>
+            <param name="idOutward"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutwardDetailController.GetById(System.String)">
+            <summary>
+            Get an OutwardDetail item by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutwardDetailController.Get(VTQT.SharedMvc.Warehouse.Models.OutwardDetailSearchModel)">
+            <summary>
+            Get a list OutwardDetail
+            </summary>
+            <param name="searchModel">OutwardDetailSearchModel</param>
+            <returns></returns>
+            <response code="200">Got successfully - list OutwardDetail - PageIndex - PageSize - TotalCount</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.OutwardDetailController.GetListById(System.String)">
+            <summary>
+            get list by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.SerialWareHouseController.Create(VTQT.SharedMvc.Warehouse.Models.SerialWareHouseModel)">
+            <summary>
+            Insert a newly SerialWareHouse item
+            </summary>
+            <param name="model">SerialWareHouseModel - skip CustomProperties</param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.SerialWareHouseController.Edit(VTQT.SharedMvc.Warehouse.Models.SerialWareHouseModel)">
+            <summary>
+            Update a SerialWareHouse item
+            </summary>
+            <param name="id">PRIMARY KEY SerialWareHouse</param>
+            <param name="model">SerialWareHouseModel - skip CustomProperties</param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.SerialWareHouseController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Delete a list SerialWareHouse by list id
+            </summary>
+            <param name="ids">list id PRIMARY KEY</param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.SerialWareHouseController.Get(VTQT.SharedMvc.Warehouse.Models.SerialWareHouseSearchModel)">
+            <summary>
+            Get a list SerialWareHouse
+            </summary>
+            <param name="searchModel">SerialWareHouseSearchModel</param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.SerialWareHouseController.GetById(System.String)">
+            <summary>
+            Get a SerialWareHouse item by id
+            </summary>
+            <param name="id">PRIMARY KEY</param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.UnitController.Create">
+            <summary>
+            Trả về đơn vị mới rỗng có đa ngôn ngữ
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.UnitController.Create(VTQT.SharedMvc.Warehouse.Models.UnitModel)">
+            <summary>
+            Tạo mới đơn vị
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Inserted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.UnitController.Edit(System.String)">
+            <summary>
+            Trả về đơn vị cập nhật theo Id có đa ngôn ngữ
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.UnitController.Update(VTQT.SharedMvc.Warehouse.Models.UnitModel)">
+            <summary>
+            Cập nhật đơn vị
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.UnitController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu đơn vị theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.UnitController.Get(VTQT.SharedMvc.Warehouse.Models.UnitSearchModel)">
+            <summary>
+            Lấy danh sách đơn vị phân trang
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.UnitController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa đơn vị theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.UnitController.Activates(VTQT.Web.Framework.Modelling.ActivatesModel)">
+            <summary>
+            Kích hoạt/ ngừng kích hoạt đơn vị
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Activated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.UnitController.GetAvailableList(System.Boolean)">
+            <summary>
+            Lấy danh sách đơn vị cho dropdown
+            </summary>
+            <param name="showHidden"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.VendorController.Create(VTQT.SharedMvc.Warehouse.Models.VendorModel)">
+            <summary>
+            Tạo mới nhà cung cấp
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.VendorController.Create">
+            <summary>
+            Trả về nhà cung cấp mới rỗng có đa ngôn ngữ
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.VendorController.Edit(System.String)">
+            <summary>
+            Trả về nhà cung cấp cập nhật có đa ngôn ngữ
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.VendorController.Edit(VTQT.SharedMvc.Warehouse.Models.VendorModel)">
+            <summary>
+            Cập nhật nhà cung cấp
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.VendorController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa nhà cung cấp theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.VendorController.Activates(VTQT.Web.Framework.Modelling.ActivatesModel)">
+            <summary>
+            Kích hoạt/ ngừng kích hoạt nhà cung cấp
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Activated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.VendorController.Get(VTQT.SharedMvc.Warehouse.Models.VendorSearchModel)">
+            <summary>
+            Lấy danh sách nhà cung cấp phân trang
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.VendorController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu nhà cung cấp theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.VendorController.GetAvailableList(System.Boolean)">
+            <summary>
+            Lấy danh sách nhà cung cấp cho dropdown
+            </summary>
+            <param name="showHidden"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WarehouseBalanceController.Create(VTQT.SharedMvc.Warehouse.Models.WarehouseBalanceModel)">
+            <summary>
+            Insert a newly BeginningWareHouse item
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WarehouseBalanceController.Edit(VTQT.SharedMvc.Warehouse.Models.WarehouseBalanceModel)">
+            <summary>
+            Update a BeginningWareHouse item
+            </summary>
+            <param name="model">BeginningWareHouseModel</param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WarehouseBalanceController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Delete a list BeginningWareHouse by list id
+            </summary>
+            <param name="ids">list PRIMARY KEY BeginningWareHouse</param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WarehouseBalanceController.Get(VTQT.SharedMvc.Warehouse.Models.WarehouseBalanceSearchModel)">
+            <summary>
+            Get a list BeginningWareHouse
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully - list BeginningWareHouseModel - PageIndex - PageSize - TotalCount</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WarehouseBalanceController.GetById(System.String)">
+            <summary>
+            Get a BeginningWareHouse item by id
+            </summary>
+            <param name="id">PRIMARY KEY BeginningWareHouse</param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseBookController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa phiếu nhập/ xuất theo Id
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseBookController.Get(VTQT.SharedMvc.Warehouse.Models.VoucherWareHouseSearchModel)">
+            <summary>
+            Lấy danh sách phiếu nhập/ xuất
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.Details(System.String)">
+            <summary>
+            Lấy chi tiết loại vật tư có đa ngôn ngữ
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.Create">
+            <summary>
+            Tạo mới loại vật tư rỗng có đa ngôn ngữ
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.Create(VTQT.SharedMvc.Warehouse.Models.WareHouseItemCategoryModel)">
+            <summary>
+            Thêm mới loại vật tư
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.Edit(System.String)">
+            <summary>
+            Trả về loại vật tư cập nhật có đa ngôn ngữ
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.Edit(VTQT.SharedMvc.Warehouse.Models.WareHouseItemCategoryModel)">
+            <summary>
+            Cập nhật loại vật tư
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa loại vật tư theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.Activates(VTQT.Web.Framework.Modelling.ActivatesModel)">
+            <summary>
+            Kích hoạt/ ngừng kích hoạt loại vật tư
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Activated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.Get(VTQT.SharedMvc.Warehouse.Models.WareHouseItemCategorySearchModel)">
+            <summary>
+            Lấy danh sách loại vật tư phân trang
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu loại vật tư theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemCategoryController.GetAvailableList(System.Boolean)">
+            <summary>
+            Lấy danh sách loại vật tư cho dropdown
+            </summary>
+            <param name="showHidden"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemController.Create(System.String)">
+            <summary>
+            Tạo mới vật tư rỗng có đa ngôn ngữ
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemController.Create(VTQT.SharedMvc.Warehouse.Models.WareHouseItemModel)">
+            <summary>
+            Thêm mới vật tư
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemController.Edit(System.String)">
+            <summary>
+            Trả về vật tư cập nhật có đa ngôn ngữ
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemController.Edit(VTQT.SharedMvc.Warehouse.Models.WareHouseItemModel)">
+            <summary>
+            Cập nhật vật tư
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Xóa vật tư theo danh sách
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemController.Activates(VTQT.Web.Framework.Modelling.ActivatesModel)">
+            <summary>
+            Kích hoạt/ ngừng kích hoạt vật tư
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Activated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemController.Get(VTQT.SharedMvc.Warehouse.Models.WareHouseItemSearchModel)">
+            <summary>
+            Lấy danh sách vật tư phân trang
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseItemController.GetById(System.String)">
+            <summary>
+            Lấy dữ liệu vật tư theo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseLimitController.Create(VTQT.SharedMvc.Warehouse.Models.WareHouseLimitModel)">
+            <summary>
+            Insert a newly WareHouseLimit item
+            </summary>
+            <param name="model">WareHouseLimitModel - skip CustomProperties</param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseLimitController.Edit(VTQT.SharedMvc.Warehouse.Models.WareHouseLimitModel)">
+            <summary>
+            Update a WareHouseLimit item
+            </summary>
+            <param name="id">PRIMARY KEY WareHouseLimit</param>
+            <param name="model"> WareHouseLimitModel - skip CustomProperties</param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseLimitController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Delete a list WareHouseLimit by list id
+            </summary>
+            <param name="ids">list id PRIMARY KEY</param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseLimitController.Get(VTQT.SharedMvc.Warehouse.Models.WareHouseLimitSearchModel)">
+            <summary>
+            Get a list WareHouseLimit
+            </summary>
+            <param name="searchModel"> WareHouseLimitSearchModel</param>
+            <returns></returns>
+            <response code="200">Got successfully - list WareHouseLimitModel - PageIndex - PageSize - TotalCount </response>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Controllers.WareHouseLimitController.GetById(System.String)">
+            <summary>
+            Get a WareHouseLimit item by id
+            </summary>
+            <param name="id">PRIMARY KEY</param>
+            <returns></returns>
+            <response code="200">Got successfully - WareHouseLimitModel </response>
+        </member>
+        <member name="T:VTQT.Api.Warehouse.Infrastructure.DependencyRegistrar">
+            <summary>
+            Dependency registrar
+            </summary>
+        </member>
+        <member name="M:VTQT.Api.Warehouse.Infrastructure.DependencyRegistrar.Register(Autofac.ContainerBuilder,VTQT.Core.Infrastructure.ITypeFinder,VTQT.Core.Configuration.XBaseConfig)">
+            <summary>
+            Register services and interfaces
+            </summary>
+            <param name="builder">Container builder</param>
+            <param name="typeFinder">Type finder</param>
+            <param name="config">Config</param>
+        </member>
+        <member name="P:VTQT.Api.Warehouse.Infrastructure.DependencyRegistrar.Order">
+            <summary>
+            Gets order of this dependency registrar implementation
+            </summary>
+        </member>
+        <member name="M:IChiba.Api.Master.Controllers.WareHouseController.Create(VTQT.SharedMvc.Warehouse.Models.WareHouseModel)">
+            <summary>
+            Insert a newly Warehouse item
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="201">Created successfully</response>
+        </member>
+        <member name="M:IChiba.Api.Master.Controllers.WareHouseController.Edit(VTQT.SharedMvc.Warehouse.Models.WareHouseModel)">
+            <summary>
+            Update a Warehouse item
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Updated successfully</response>
+        </member>
+        <member name="M:IChiba.Api.Master.Controllers.WareHouseController.Deletes(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Delete a list Warehouses
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+            <response code="200">Deleted successfully</response>
+        </member>
+        <member name="M:IChiba.Api.Master.Controllers.WareHouseController.Activates(VTQT.Web.Framework.Modelling.ActivatesModel)">
+            <summary>
+            Active a list Warehouses
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Activated successfully</response>
+        </member>
+        <member name="M:IChiba.Api.Master.Controllers.WareHouseController.Get(VTQT.SharedMvc.Warehouse.Models.WareHouseSearchModel)">
+            <summary>
+            Get a list Warehouses
+            </summary>
+            <param name="searchModel"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+        <member name="M:IChiba.Api.Master.Controllers.WareHouseController.GetById(System.String)">
+            <summary>
+            Get a Warehouse item by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Got successfully</response>
+        </member>
+    </members>
+</doc>

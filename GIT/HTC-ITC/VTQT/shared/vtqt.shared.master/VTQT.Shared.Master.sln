@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VTQT.SharedMvc.Master", "VTQT.SharedMvc.Master\VTQT.SharedMvc.Master.csproj", "{A58F2AB6-BF45-45B9-8303-F6BBB166532A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VTQT.Core.Domain.Master", "VTQT.Core.Domain.Master\VTQT.Core.Domain.Master.csproj", "{1D3276E6-D480-4D31-80E4-876E4F2C085D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A58F2AB6-BF45-45B9-8303-F6BBB166532A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58F2AB6-BF45-45B9-8303-F6BBB166532A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58F2AB6-BF45-45B9-8303-F6BBB166532A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58F2AB6-BF45-45B9-8303-F6BBB166532A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D3276E6-D480-4D31-80E4-876E4F2C085D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D3276E6-D480-4D31-80E4-876E4F2C085D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D3276E6-D480-4D31-80E4-876E4F2C085D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D3276E6-D480-4D31-80E4-876E4F2C085D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E7717D27-A758-426D-B693-28BC6F24A9A8}
+	EndGlobalSection
+EndGlobal

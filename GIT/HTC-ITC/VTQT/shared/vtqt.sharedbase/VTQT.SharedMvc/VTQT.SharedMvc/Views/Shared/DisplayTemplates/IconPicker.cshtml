@@ -1,0 +1,63 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@functions{
+    private string _value;
+    private string Value
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_value))
+                return _value;
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToString(ViewData.Model);
+            }
+            return _value;
+        }
+    }
+
+    private string _size;
+    private string Size
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_size))
+                return _size;
+            var size = ViewData["size"];
+            _size = size != null ? Convert.ToString(size) : "input-group-sm";
+            return _size;
+        }
+    }
+}
+
+@{
+    var id = Html.IdForModel();
+    var name = Html.NameForModel();
+    var icon = !string.IsNullOrEmpty(Value) ? Value : "";
+}
+
+<div id="iconpicker_@id" class="input-group @Size">
+    <span class="input-group-btn">
+        <button id="@id" name="@name" class="btn btn-default" style="background-color: #f6f8f9; pointer-events: none">
+            <i class="fa @icon"></i>
+            <span class="caret"></span>
+        </button>
+    </span>
+</div>

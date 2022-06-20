@@ -1,0 +1,161 @@
+﻿@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@inject ILocalizationService tt
+@inject IAppContext appContext
+
+<!-- #region Kendo Window -->
+
+<div id="app_window_alert" style="display: none">
+    <div class="form fixed-layout-form">
+        <form class="form-horizontal">
+            <div class="form-body">
+                <div class="modal-body">
+                    <div class="alert alert-{{Type}}" role="alert">
+                        <div class="alerts-content">{{Content}}</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default btn-sm"><i class="fa fa-times"></i> @tt.GetResource("Common.Close")</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="app_window_confirm" style="display: none">
+    <div class="form fixed-layout-form">
+        <form class="form-horizontal">
+            <div class="form-body">
+                <div class="modal-body">
+                    <div class="alert alert-{{Type}}" role="alert">
+                        <div class="confirms-content">{{Content}}</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-action="confirm" class="btn blue btn-sm"><i class="fa fa-check"></i> @tt.GetResource("Common.Yes")</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-default btn-sm"><i class="fa fa-times"></i> @tt.GetResource("Common.No")</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="app_window_deletes" style="display: none">
+    <div class="form fixed-layout-form">
+        <form data-form-type="ajax" class="form-horizontal">
+            <div class="form-body">
+                <div class="modal-body">
+                    <div class="alert alert-{{Type}}" role="alert">
+                        <div class="deletes-content">{{Content}}</div>
+                    </div>
+                </div>
+                <div class="modal-footer form-actions">
+                    <button type="submit" class="btn blue btn-sm">
+                        <i class="fa fa-spinner fa-spin spin-submit"></i>
+                        <i class="fa fa-check"></i> @tt.GetResource("Common.Yes")
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                        <i class="fa fa-times"></i> @tt.GetResource("Common.No")
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- #endregion -->
+<!-- #region Ajax-busy -->
+
+<div id="ajax-busy">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+</div>
+
+<!-- #endregion -->
+
+<div id="app_form_antiForgeryToken_container" style="display: none">
+    @Html.AntiForgeryToken()
+</div>
+
+<script>
+    //TODO: XBase Resource
+    app.ajax.statusCodeHandler = {
+        302: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.400")', type: 'danger', options: { width: '40%' } });
+        },
+        400: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.400")', type: 'danger', options: { width: '40%' } });
+        },
+        401: function (xhr) {
+            if (!app.ajax.handleUnauthorizedRequest(xhr))
+                return;
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.401")', type: 'danger', options: { width: '40%' } });
+        },
+        403: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.403")', type: 'danger', options: { width: '40%' } });
+        },
+        404: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.404")', type: 'danger', options: { width: '40%' } });
+        },
+        405: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.405")', type: 'danger', options: { width: '40%' } });
+        },
+        406: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.406")', type: 'danger', options: { width: '40%' } });
+        },
+        408: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.408")', type: 'danger', options: { width: '40%' } });
+        },
+        412: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.412")', type: 'danger', options: { width: '40%' } });
+        },
+        500: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.500")', type: 'danger', options: { width: '40%' } });
+        },
+        501: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.501")', type: 'danger', options: { width: '40%' } });
+        },
+        502: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.502")', type: 'danger', options: { width: '40%' } });
+        },
+        503: function (xhr) {
+            app.window.alert.open({ title: '@tt.GetResource("Common.Warning")', text: '@tt.GetResource("Common.Errors.503")', type: 'danger', options: { width: '40%' } });
+        }
+    };
+
+    // app.urls
+    app.urls.breadcrumb = '@Url.Action("Breadcrumb", "Common")';
+    app.urls.sessionExpired = '@Url.Action("SessionExpired", "ClientError")';
+
+    app.form.antiForgeryToken.cookieName = '@AntiForgeryConfig.TokenFieldName';
+</script>
+
+<script id="__appInitScript">
+    app.route.appId = parseInt('@appContext.CurrentApp.Id');
+    app.route.appType = '@appContext.CurrentApp.AppType';
+    app.route.appAssemblyAreaName = '@ViewContext.RouteData.GetAppAssemblyAreaName()';
+    app.route.areaName = '@ViewContext.RouteData.GetAreaName()';
+    app.route.appControllerName = '@(ViewContext.RouteData.GetControllerName() + "Controller")';
+    app.route.appActionName = '@ViewContext.RouteData.GetActionName()';
+</script>
+
+<!-- #region App Templates -->
+
+<script>
+    app.templates.grid.bool = function (activate) {
+        return activate ? '<i data-action="deactivate" class="fa fa-check green pointer"></i>' : '<i data-action="activate" class="fa fa-lock yellow pointer"></i>';
+    }
+</script>
+
+<!-- #endregion -->

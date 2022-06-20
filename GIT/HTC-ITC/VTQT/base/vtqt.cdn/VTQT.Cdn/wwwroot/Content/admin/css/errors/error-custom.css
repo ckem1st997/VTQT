@@ -1,0 +1,24 @@
+﻿/*#region Global */
+
+::-moz-selection {
+    background: #b3d4fc;
+    -ms-text-shadow: none;
+    text-shadow: none;
+}
+::selection {
+    background: #b3d4fc;
+    -ms-text-shadow: none;
+    text-shadow: none;
+}
+
+/*#endregion  */
+
+body {
+    background-attachment: fixed;
+    background-color: #e4ebf1;
+    background-image: -webkit-linear-gradient(top, #dfe7ee, #ecf1f5);
+    background-image: -o-linear-gradient(top, #dfe7ee, #ecf1f5);
+    background-image: linear-gradient(to bottom, #dfe7ee, #ecf1f5);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdfe7ee', endColorstr='#ffecf1f5', GradientType=0);
+}

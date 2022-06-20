@@ -1,0 +1,237 @@
+﻿@model AppActionModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Master.AppActions.AppActions.Edit")</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.AppId)
+
+                <div class="form-group form-group-sm">
+                    @Html.XBaseDisplayLabelFor(m => m.App.Name, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DisplayFor(m => m.App.Name)
+                    </div>
+                </div>
+                @(Html.LocalizedEditor<AppActionModel, AppActionLocalizedModel>("localizedAppAction",
+                    @<div>
+                        @Html.HiddenFor(m => m.Locales[item].LanguageId)
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Locales[item].Name, true, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Locales[item].Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Locales[item].Description, true, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(m => m.Locales[item].Description, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>,
+                    @<div>
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                ))
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ParentId, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        <select id="@Html.FieldIdFor(m => m.ParentId)" name="@Html.FieldNameFor(m => m.ParentId)" class="form-control" placeholder="@string.Format(T("Common.SelectObject"), T("Master.AppActions.Fields.Parent"))" style="width: 100%">
+                            <option></option>
+                            @foreach (var x in Model.AvailableParents)
+                            {
+                                if (x.Selected)
+                                {
+                                    <option value="@x.Value" selected="selected">@x.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@x.Value">@x.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Controller, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.Controller, Model.AvailableControllers, string.Format(T("Common.SelectObject"), T("Master.AppActions.Fields.Controller")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Action, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.Action, Model.AvailableActions, string.Format(T("Common.SelectObject"), T("Master.AppActions.Fields.Action")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Icon, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Icon, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ShowOnMenu, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.ShowOnMenu)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Active, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.Active)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.DisplayOrder, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(m => m.DisplayOrder)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    //#region Fields
+
+    var frm = {
+        selector: 'form[data-client-form-id="@ClientFormId"]',
+        $this: {},
+        appId: {
+            selector: '#@Html.FieldIdFor(m => m.AppId)',
+            $this: {},
+            init: function () { }
+        },
+        controller: {
+            selector: '#@Html.FieldIdFor(m => m.Controller)',
+            $this: {},
+            init: function () { },
+            change: function (e) { }
+        },
+        action: {
+            selector: '#@Html.FieldIdFor(m => m.Action)',
+            $this: {},
+            init: function () { },
+            load: function (appId, controllerName) { },
+            clear: function () { }
+        },
+        edIcon: {
+            id: 'edIcon',
+            api: {},
+            init: function () { }
+        },
+        preIconWrap: {
+            el: '#preIconWrap',
+            $el: {},
+            init: function () { },
+        },
+        init: function () { }
+    };
+    var appId = frm.appId;
+    var controller = frm.controller;
+    var action = frm.action;
+
+    //#endregion
+
+    //#region Methods
+
+
+
+    //#endregion
+
+    //#region Init
+
+    frm.init = function () {
+        frm.$this = $(frm.selector);
+        appId.init();
+        controller.init();
+        action.init();
+    }
+
+    appId.init = function () {
+        appId.$this = $(appId.selector);
+    }
+
+    controller.init = function () {
+        controller.$this = $(controller.selector);
+
+        controller.$this.on('change', controller.change);
+    }
+    controller.change = function (e) {
+        var controllerName = controller.$this.val();
+        if (controllerName) {
+            var appIdValue = appId.$this.val();
+            action.load(appIdValue, controllerName);
+        } else {
+            action.clear();
+        }
+    }
+
+    action.init = function () {
+        action.$this = $(action.selector);
+    }
+    action.load = function (appId, controllerName) {
+        $.ajax({
+            type: 'GET',
+            data: { appId: appId, appApiControllerName: controllerName },
+            dataType: 'json',
+            url: window.master.urlGetAppActions,
+            beforeSend: function (jqXhr, settings) {
+                action.clear();
+                app.ui.loader(frm.$this, true);
+            },
+            success: function (data) {
+                $.each(data, function (i, x) {
+                    action.$this.append($('<option></option>', {
+                        value: x.id,
+                        text: x.text
+                    }));
+                });
+                app.ui.loader(frm.$this, false);
+            }
+        });
+    }
+    action.clear = function () {
+        action.$this.clearSelect();
+    }
+
+    //#endregion
+
+    //#region Startup
+
+    $(function () {
+        frm.init();
+    });
+
+    //#endregion
+</script>

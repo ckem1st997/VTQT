@@ -1,0 +1,201 @@
+﻿@model ApprovalCRMxSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var approvalMx = {
+        grd: {
+            el: '#approvalMx_grd',
+            $el: {},
+            init: function() { },
+            api: {},
+            tmp: {
+                activate: function(activate) { }
+            },
+            data: function() { }
+        },
+        btnAdd: {
+            el: '#btnAddApprovalMx',
+            $el: {},
+            init: function() { }
+        },
+        btnRemove: {
+            el: '#btnRemoveApprovalMx',
+            $el: {},
+            init: function() { }
+        },
+        btnEditApprovalMx: {
+            el: '#btnEditApprovalMx',
+            $el: {},
+            init: function() { }
+        },
+        init: function() { },
+        activates: function(activate, ids) { }
+    }
+
+    var approvalMxGrd = approvalMx.grd;
+    var btnAddApprovalMx = approvalMx.btnAdd;
+    var btnRemoveApprovalMx = approvalMx.btnRemove;
+    var btnEditApprovalMx = approvalMx.btnEditApprovalMx;
+
+    approvalMxGrd.data = function() {
+        var searchModel = {
+            CrMxId: '@Model.CrMxId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-approvalMx" type="text/x-kendo-template">
+        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+            <span style="padding-left: 20px">Danh sách phê duyệt</span>
+        </div>
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+            <a id="btnAddApprovalMx" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm phê duyệt</a>
+            <a id="btnEditApprovalMx" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>
+            <a id="btnRemoveApprovalMx" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+        </div>
+    </script>
+    @(Html.Kendo().Grid<ApprovalCRMxModel>()
+    .Name("approvalMx_grd")
+    .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+    .Columns(columns =>
+    {
+    columns.Select().Locked().Width(30);
+    columns.ForeignKey(x => x.Approver, (System.Collections.IEnumerable)ViewData["approvers"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+    columns.ForeignKey(x => x.Progress, (System.Collections.IEnumerable)ViewData["progress"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+    columns.Bound(x => x.ReasonDetail).Width(350);
+    })
+    .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-approvalMx"); })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .PageSize(int.MaxValue)
+    .ServerOperation(false)
+    .Read(read => read.Action("GetApprovalCRMx", "CRMx").Data("approvalMxGrd.data"))
+    )
+    .NoRecords()
+    .Scrollable(scr => scr.Enabled(true))
+    .Pageable(pageable => pageable.Enabled(false))
+    .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+    .Navigatable())
+</div>
+
+<script>
+    approvalMx.init = function() {
+        approvalMxGrd.init();
+        btnAddApprovalMx.init();
+        btnRemoveApprovalMx.init();
+        btnEditApprovalMx.init();
+    };
+
+    approvalMxGrd.init = function() {
+        approvalMxGrd.$el = $(approvalMxGrd.el);
+        approvalMxGrd.api = approvalMxGrd.$el.data('kendoGrid');
+    };
+
+    approvalMx.activates = function(activate, ids) {
+        ids = ids || approvalMxGrd.api.selectedIds();
+        if (ids.length > 0) {
+
+        } else {
+            notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+        }
+    };
+
+    btnAddApprovalMx.init = function() {
+        btnAddApprovalMx.$el = $(btnAddApprovalMx.el);
+        btnAddApprovalMx.$el.click(function(e) {
+
+            app.window.form.open({
+                url: '@Url.Action("AddApprovalMx")', options: { width: '500px' }, callback: function() {
+                    var approvalMx = window.frmAddApprovalMx.$el.serializeObject();
+                    var approvalMxModel = {};
+                    approvalMxModel.ReasonDetail = approvalMx.ReasonDetail;
+                    approvalMxModel.Confirm = approvalMx.Confirm;
+                    approvalMxModel.CrMxId = '@Model.CrMxId';
+                    approvalMxModel.Approver = approvalMx.Approver;
+                    approvalMxModel.Progress = approvalMx.Progress;
+
+                    $.ajax({
+                        url: '@Url.Action("AddApprovalMx")',
+                        data: { addApprovalMx: approvalMxModel },
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function(res) {
+                            if (res.success) {
+                                approvalMxGrd.api.reload();
+                            }
+                        }
+                    });
+                    //Close form add item
+                    window.frmAddApprovalMx.winForm.close();
+                }
+            });
+
+        });
+    };
+
+    btnEditApprovalMx.init = function() {
+        btnEditApprovalMx.$el = $(btnEditApprovalMx.el);
+        btnEditApprovalMx.$el.click(function(e) {
+
+            var id = approvalMxGrd.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({
+                    url: '@Url.Action("EditApprovalMx")/' + '?id=' + id, options: { width: '500px' }, callback: function() {
+                        var editApprovalMx = window.frmEditApprovalMx.$el.serializeObject();
+                        var editApprovalMxTicketModel = {};
+                        editApprovalMxTicketModel.Id = id;
+                        editApprovalMxTicketModel.ReasonDetail = editApprovalMx.ReasonDetail;
+                        editApprovalMxTicketModel.Confirm = editApprovalMx.Confirm;
+                        editApprovalMxTicketModel.CrMxId = '@Model.CrMxId';
+                        editApprovalMxTicketModel.Approver = editApprovalMx.Approver;
+                        editApprovalMxTicketModel.Progress = editApprovalMx.Progress;
+
+                        $.ajax({
+                            url: '@Url.Action("EditApprovalMx")',
+                            data: { editApprovalMx: editApprovalMxTicketModel },
+                            dataType: 'json',
+                            type: 'POST',
+                            success: function(res) {
+                                if (res.success) {
+                                    approvalMxGrd.api.reload();
+                                }
+                            }
+                        });
+                        //Close form add item
+                        window.frmEditApprovalMx.winForm.close();
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+
+        });
+    };
+
+    btnRemoveApprovalMx.init = function () {
+        btnRemoveApprovalMx.$el = $(btnRemoveApprovalMx.el);
+        btnRemoveApprovalMx.$el.click(function (e) {
+            var ids = approvalMxGrd.api.selectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: '@Url.Action("DeleteApprovalMx")', ids: ids, options: { width: '450px' }, callback: function () { approvalMxGrd.api.reload(); } });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                }
+        });
+    };
+
+    approvalMxGrd.tmp.activate = function(activate) {
+        return activate ? '<i class="fa fa-check green"></i>' : '<i class="fa fa-times" style="color: red"></i>';
+    };
+
+    $(function() {
+        approvalMx.init();
+    });
+</script>
+

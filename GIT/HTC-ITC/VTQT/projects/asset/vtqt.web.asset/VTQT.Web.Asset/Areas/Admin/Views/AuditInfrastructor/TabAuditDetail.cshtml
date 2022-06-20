@@ -1,0 +1,112 @@
+﻿@model AuditDetailSearchModel
+@{
+    Layout = null;
+}
+<script>
+        var frmAuditDetail = {
+            selector: '.page-data',
+            $this: {},
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { },
+            },
+            grdIndex1: {
+                el: '#frmCreate_grdIndex',
+                $el: {},
+                api: {},
+                init: function () { }
+            },
+            init: function () { }
+    };
+        var form = frmAuditDetail.form;
+        var grdIndex1 = frmAuditDetail.grdIndex1;
+        grdIndex1.data = function () {
+            var dd = $('#AuditLocation').select2('data');
+            var arrDate = $("#VoucherDate").val().split("/");
+            var date = arrDate[2] + "-" + arrDate[1] + "-" + arrDate[0];
+            var whId = dd[0].id;
+            var searchModel = {
+                id: whId,
+                dateTime: date
+            };
+            return searchModel;
+        }
+</script>
+<div class="row full-height">
+    <script id="toolbar" type="text/x-kendo-template">
+    </script>
+    @(Html.Kendo().Grid<AuditDetailModel>()
+            .Name("frmCreate_grdIndex")
+            .HtmlAttributes(new {style = "height: 100%; border-top: none" })
+            .Columns(columns =>
+            {
+                columns.Select().Locked().Width(30);
+                columns.Bound(x => x.ItemId).Hidden();
+                columns.Bound(x => x.ItemName).Width(500).Locked(true);
+                columns.Bound(x => x.UnitName).Width(300).Locked(true);
+                columns.Bound(x => x.Quantity).EditorTemplateName("Decimal").Width(200).RightAlign();
+                columns.Bound(x => x.AuditQuantity).EditorTemplateName("Decimal").Width(200).RightAlign();
+                columns.Bound(x => x.Conclude).EditorTemplateName("KendoTextArea").Width(300);
+                columns.Bound(x => x.Serial).EditorTemplateName("KendoTextArea").Width(300);
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.ClientTemplateId("toolbar");
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                    .Model(m =>
+                    {
+                        m.Id(x => x.Id);
+                        m.Field(p => p.ItemName).Editable(false);
+                        m.Field(p => p.Quantity).Editable(false);
+                        m.Field(p => p.UnitName).Editable(false);
+
+                    })
+                .PageSize(50)
+                .ServerOperation(false)
+                .Read(read => read.Action("Details_Read", "AuditInfrastructor").Data("grdIndex1.data"))
+            )
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PreviousNext(true).Refresh(true))
+            .Navigatable())
+</div>
+
+<script>
+
+        frmAuditDetail.init = function () {
+            grdIndex1.init();
+        }
+
+        grdIndex1.init = function () {
+            grdIndex1.$this = $(grdIndex1.selector);
+            grdIndex1.api = grdIndex1.$this.data('kendoGrid');
+        }
+        //Inits
+        frmAuditDetail.init = function() {
+            frmAuditDetail.$this = $(frmAuditDetail.selector);
+            form.init();
+            grdIndex1.init();
+        }
+
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex1.init = function () {
+            grdIndex1.$el = $(grdIndex1.el);
+            grdIndex1.api = grdIndex1.$el.data('kendoGrid');
+        };
+
+        //Startup
+        $(function() {
+            frmAuditDetail.init();
+        });
+</script>
+<!-- #endregion -->

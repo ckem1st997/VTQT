@@ -1,0 +1,86 @@
+﻿@model AuditDetailSearchModel
+@{
+    Layout = null;
+}
+
+<script>
+        var frmEdit1 = {
+            selector: '.page-data',
+            $this: {},
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { }
+            },
+            grdIndex3: {
+                el: '#frmEdit_grdIndex',
+                $el: {},
+                api: {},
+                data: function () { },
+                init: function () { }
+            },
+         
+            init: function () { }
+        };
+        var form = frmEdit1.form;
+        var grdIndex3 = frmEdit1.grdIndex3;
+
+</script>
+
+<div class="row full-height">
+    <script id="toolbar" type="text/x-kendo-template">
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+                            <a id="btnEdit" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>
+                        </div>
+    </script>
+    @(Html.Kendo().Grid<AuditDetailModel>()
+                        .Name("frmEdit_grdIndex")
+                        .HtmlAttributes(new {style = "height: 100%"})
+                        .Columns(columns =>
+                        {
+                            columns.Bound(x => x.ItemId).Hidden();
+                            columns.Bound(x => x.ItemName).Width(320).Locked(true);
+                            columns.Bound(x => x.UnitName).Width(320).Locked(true);
+                            columns.Bound(x => x.Quantity).EditorTemplateName("Decimal").Width(110).RightAlign();
+                            columns.Bound(x => x.AuditQuantity).EditorTemplateName("Decimal").Width(110).RightAlign();
+                            columns.Bound(x => x.Conclude).Width(300).RightAlign();
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(int.MaxValue)
+                            .ServerOperation(true)
+                            .Read(read => read.Action("Details", "AuditInfrastructor").Data("grdIndex.data"))
+                        )
+                        .NoRecords()
+                        .Scrollable(scr => scr.Enabled(true))
+                        .Pageable(pageable => pageable.Enabled(false))
+                        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Single))
+                        .Navigatable())
+
+</div>
+
+<script>
+
+        //Inits
+        frmEdit1.init = function() {
+            frmEdit1.$this = $(frmEdit1.selector);
+            form.init();
+            grdIndex3.init();
+        }
+
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex3.init = function() {
+            grdIndex3.$el = $(grdIndex3.el);
+            grdIndex3.api = grdIndex3.$el.data('kendoGrid');
+        };
+
+        //Startup
+        $(function() {
+            frmEdit1.init();
+        });
+</script>

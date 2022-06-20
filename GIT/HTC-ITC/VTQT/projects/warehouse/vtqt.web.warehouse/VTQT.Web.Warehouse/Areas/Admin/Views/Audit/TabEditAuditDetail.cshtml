@@ -1,0 +1,110 @@
+﻿@model AuditDetailSearchModel
+@{
+    Layout = null;
+}
+
+<script>
+        var frmEdit1 = {
+            urlEditItem1: '@Url.Action("EditItem")',
+            selector: '.page-data',
+            $this: {},
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { }
+            },
+            grdIndex3: {
+                el: '#frmEdit_grdIndex',
+                $el: {},
+                api: {},
+                data: function () { },
+                init: function () { }
+            },
+            init: function () { }
+        };
+        var form = frmEdit1.form;
+        var grdIndex3 = frmEdit1.grdIndex3;
+
+        function forgeryToken() {
+            return kendo.antiForgeryTokens();
+        }
+
+</script>
+<style>
+    #frmEdit_grdIndex > div.k-toolbar.k-grid-toolbar > a.k-button.k-button-icontext.k-grid-add{
+        opacity: 0;
+    }
+</style>
+<div class="row full-height">
+    <script id="toolbar" type="text/x-kendo-template">
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+                        </div>
+    </script>
+    @(Html.Kendo().Grid<AuditDetailModel>()
+                        .Name("frmEdit_grdIndex")
+                        .HtmlAttributes(new {style = "height: 100%; border-top: none" })
+                        .Columns(columns =>
+                        {
+                            columns.Select().Locked().Width(30);
+                            columns.Bound(x => x.ItemId).Hidden();
+                            columns.Bound(x => x.ItemName).Width(500).Locked(true);
+                            columns.Bound(x => x.UnitName).Width(300).Locked(true);
+                            columns.Bound(x => x.Quantity).Width(400).EditorTemplateName("Decimal").RightAlign();
+                            columns.Bound(x => x.AuditQuantity).EditorTemplateName("Decimal").Width(400).RightAlign();
+                            columns.Bound(x => x.Conclude).EditorTemplateName("KendoTextArea").Width(300);
+                        })
+                        .ToolBar(toolbar =>
+                        {
+                            toolbar.Create().Text(T("Common.AddNew"));
+                            toolbar.ClientTemplateId("toolbar");
+                            toolbar.Save().Text(T("Common.Save")).CancelText(T("Common.Cancel"));
+                        })
+                        .Editable(editable => editable.Mode(GridEditMode.InCell))
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Batch(true)
+                    .Model(m =>
+                    {
+                        m.Id(x => x.Id);
+                        m.Field(p => p.ItemName).Editable(false);
+                        m.Field(p => p.UnitName).Editable(false);
+                        m.Field(p => p.Quantity).Editable(false);
+
+                    })
+                            .PageSize(int.MaxValue)
+                            .ServerOperation(true)
+                            .Read(read => read.Action("Update_Read", "Audit").Data("grdIndex.data"))
+                            .Update(update => update.Action("EditListItem", "Audit").Data("forgeryToken"))
+                        )
+                        .NoRecords()
+                        .Scrollable(scr => scr.Enabled(true))
+                        .Pageable(pageable => pageable.Enabled(false))
+                        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+                        .Navigatable())
+</div>
+
+<script>
+
+        //Inits
+        frmEdit1.init = function() {
+            frmEdit1.$this = $(frmEdit1.selector);
+            form.init();
+            grdIndex3.init();
+        }
+
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex3.init = function() {
+            grdIndex3.$el = $(grdIndex3.el);
+            grdIndex3.api = grdIndex3.$el.data('kendoGrid');
+        };
+
+        //Startup
+        $(function() {
+            frmEdit1.init();
+        });
+</script>

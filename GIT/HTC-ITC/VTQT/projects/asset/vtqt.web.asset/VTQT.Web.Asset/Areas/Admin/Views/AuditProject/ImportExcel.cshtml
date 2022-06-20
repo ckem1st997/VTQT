@@ -1,0 +1,191 @@
+﻿@{
+    Layout = null;
+    var cdn = CommonHelper.GetAppSetting<string>("App:Cdn:Url");
+}
+
+<form data-form-type="ajax" class="form-horizontal" action="ImportExcel" method="POST" accept-charset="utf-8" id="import-form">
+    <div class="form-body">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">@T("Asset.Execl.AppActions.Create")</h4>
+        </div>
+    </div>
+    <div class="modal-body position-rel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-content">
+                    <p>Để nhập dữ liệu từ excel vào phần mềm vui lòng thực hiện theo các bước sau:</p>
+                    <p>Bước 1: Tải tệp excel mẫu về để chuẩn bị dữ liệu <a id="dowloadFile">tại đây</a></p>
+                    <p>Bước 2: Chuẩn bị dữ liệu cần nhập vào phần mềm theo tệp excel mẫu đã tải về ở bước trên</p>
+                    <p>Bước 3: Tải tệp excel chứa dữ liệu cần nhập vào phần mềm và bấm nút "Thực hiện"</p>
+                    <input id="import-file" type="file" style="width:240px;" />
+                </div>
+                <table class="table table-condensed table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Số phiếu kiểm kê</th>
+                            <th>Ngày kiểm kê</th>
+                            <th>Loại tài sản</th>
+                            <th>Nơi thực hiện</th>
+                            <th>Tên đợt kiểm kê</th>
+                            <th>Ngày tạo</th>
+                            <th>Người tạo</th>
+                            <th>Người sửa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="body-content"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer form-actions">
+        <a id="create-new" class="btn bg-green">
+            <i class="fa fa-check"></i>
+            Thực hiện
+        </a>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="width:73px; height:22px;">
+            <i class="fa fa-times"></i> @T("Common.Skip")
+        </button>
+    </div>
+    <script>
+            var listItemData = {};
+            var oFileIn;
+
+            $(function () {
+                oFileIn = document.getElementById('import-file');
+                if (oFileIn.addEventListener) {
+                    $('#body-content').html('');
+                    oFileIn.addEventListener('change', filePicked, false);
+                }
+            });
+
+            // func get data
+            function filePicked(oEvent) {
+                // Get The File From The Input
+                var oFile = oEvent.target.files[0];
+                var sFilename = oFile.name;
+                // Create A File Reader HTML5
+                var reader = new FileReader();
+
+                // Ready The Event For When A File Gets Selected
+                reader.onload = function (e) {
+                    var data = e.target.result;
+                    var cfb = XLSX.read(data, { type: 'binary' });
+                    // Here is your object
+                    var XL_row_object = XLSX.utils.sheet_to_row_object_array(cfb.Sheets["Danh sách kiểm kê TS dự án"]);
+                    var obj = XLSX.utils.sheet_to_row_object_array()
+                    listItemData = XL_row_object;
+
+                    // append html
+                    if (listItemData.length > 0) {
+                        appendData(listItemData);
+                    }
+                    else {
+                        $("#body-content").html('');
+                        listItemData = {};
+                        $.notifyError('Bạn vui lòng check lại file excel');
+                    }
+
+
+                };
+
+                // Tell JS To Start Reading The File.. You could delay this if desired
+                reader.readAsBinaryString(oFile);
+            }
+            // func apeend html
+        function appendData(objData) {
+                var str = "";
+                $("#body-content").html('');
+                var count = objData.length;
+                if (count > 0) {
+                    for (var i = 0; i < count; i++) {
+                        var voucherCode = objData[i]["Số phiếu kiểm kê"];
+                        var voucherDate = objData[i]["Ngày kiểm kê"];
+                        var assetType = objData[i]["Loại tài sản"];
+                        var auditLocation = objData[i]["Nơi thực hiện"];
+                        var description = objData[i]["Tên đợt kiểm kê"];
+                        var createdDate = objData[i]["Ngày tạo"];
+                        var createdBy = objData[i]["Người tạo"];
+                        var modifiedDate = objData[i]["Ngày sửa"];
+
+                        str += '<tr> ' +
+                            '<td>' + voucherCode + '</td>' +
+                            '<td>' + voucherDate + '</td>' +
+                            '<td>' + assetType + '</td>' +
+                            '<td>' + auditLocation + '</td>' +
+                            '<td>' + description + '</td>' +
+                            '<td>' + createdDate + '</td>' +
+                            '<td>' + createdBy + '</td>' +
+                            '<td>' + modifiedDate + '</td>' +
+                             '</tr>';
+                    }
+                    if (str != '') {
+                        $("#body-content").append(str);
+                    }
+                    listItemData = objData;
+                }
+            }
+
+        $('#create-new').click(function () {
+            var arry = [];
+            for (var i = 0; i < listItemData.length; i++) {
+
+                var tem = {
+                    VoucherCode: listItemData[i]["Số phiếu kiểm kê"],
+                    VoucherDate: listItemData[i]["Ngày kiểm kê"],
+                    AssetType: listItemData[i]["Loại tài sản"],
+                    AuditLocation: listItemData[i]["Nơi thực hiện"],
+                    Description: listItemData[i]["Tên đợt kiểm kê"],
+                    CreatedDate: listItemData[i]["Ngày tạo"],
+                    CreatedBy: listItemData[i]["Người tạo"],
+                    ModifiedDate: listItemData[i]["Ngày sửa"],
+                }
+                arry.push(tem)
+            }
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ImportExcel", "AuditProject")',
+                    data: { models: arry },
+                    dataType: "json",
+                    beforeSend: function(xhr, settings) {
+                    },
+                    success: function (response) {
+                        if (response.data.length > 0) {
+                            for (const [key, value] of Object.entries(response.data)) {
+
+                            }
+                        }
+                        app.window.form.open({ url: 'AuditProject/TotalImportExcel?sum=' + listItemData.length + '&err=' + response.totalErr + '', options: { width: '550px' }, callback: master.actionCallback });
+
+                        if (response === 200) {
+                            document.getElementById("import-file").value = "";
+                            $("#body-content").html('');
+                            g.api.resetPage();
+                            $.notifySuccess('Import dữ liệu thành công!');
+
+                        }
+                    },
+                    error: function () {
+                        $.notifyError('Có lỗi xảy ra.');
+                    },
+                    complete: function(xhr, status) {
+                    }
+                });
+        });
+
+         $("#dowloadFile").click(function () {
+           window.location = '@Url.Action("ExporAudit")/';
+
+         })
+
+    </script>
+
+    <script src="~/js/libs-xlsx-0.8.0-jszip.js"></script>
+    <script src="~/js/libs-xlsx-0.8.0-xlsx.js"></script>
+</form>
+
+<style>
+    p a {
+        color: red;
+    }
+</style>

@@ -1,0 +1,178 @@
+﻿@model WareHouseItemModel
+@{
+    Layout = null;
+}
+
+<script>
+    var frmEdit = {
+        grdIndex2: {
+            el: '#frmEdit2_grdIndex2',
+            $el: {},
+            api: {},
+            data: function () { },
+            init: function () { }
+        },
+        btnCancel: {
+            selector: 'a[data-action="cancel"]',
+            $this: {},
+            init: function () { }
+        },
+        init: function () { }
+    };
+    var grdIndex2 = frmEdit.grdIndex2;
+    var btnCancel = frmEdit.btnCancel;
+
+    grdIndex2.data = function () {
+        var searchModel = {
+            ItemId: '@Model.Id'
+        };
+        return searchModel;
+    };
+</script>
+
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Warehouse.WarehouseItems.AppActions.Details")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Code, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DisplayFor(m => m.Code)
+                    </div>
+                </div>
+                @(Html.LocalizedEditor<WareHouseItemModel, WareHouseItemLocalizedModel>("lpWareHouseItem",
+                    @<div>
+                        @Html.HiddenFor(m => m.Locales[item].LanguageId)
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Locales[item].Name, true, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DisplayFor(m => m.Locales[item].Name)
+                            </div>
+                        </div>
+                    </div>,
+                    @<div>
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-3" }, true)
+                            <div class="col-md-9">
+                                @Html.DisplayFor(m => m.Name)
+                            </div>
+                        </div>
+                    </div>
+                    ))
+                <div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.UnitModel, true, new { @class = "control-label col-md-3" }, true)
+                        <div class="col-md-9">
+                            @if (Model.UnitModel != null)
+                            {
+                                @Html.DisplayFor(m => m.UnitModel.UnitName)
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.VendorModel, true, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @if (Model.VendorModel != null)
+                            {
+                                @Html.DisplayFor(m => m.VendorModel.Name)
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.WareHouseItemCategoryModel, true, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @if (Model.WareHouseItemCategoryModel != null)
+                            {
+                                @Html.DisplayFor(m => m.WareHouseItemCategoryModel.Name)
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Country, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DisplayFor(m => m.Country)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DisplayFor(m => m.Description, new { isTextArea = true })
+                    </div>
+                </div>
+                <div class="row full-height" style="height: 180px;">
+                    @(Html.Kendo().Grid<WareHouseItemUnitModel>()
+                        .Name("frmEdit2_grdIndex2")
+                        .HtmlAttributes(new {style = "height: 100%"})
+                        .Columns(columns =>
+                        {
+
+                            columns.Bound(x => x.UnitId).Hidden();
+                            columns.Bound(x => x.UnitName).Width(110).Locked(true);
+                            columns.Bound(x => x.ConvertRate).Width(110).RightAlign();
+
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(int.MaxValue)
+                            .ServerOperation(true)
+                            .Read(read => read.Action("Read", "WareHouseItem").Data("grdIndex2.data"))
+                        )
+                        .NoRecords()
+                        .Scrollable(scr => scr.Enabled(true))
+                        .Pageable(pageable => pageable.Enabled(false))
+                        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Single))
+                        .Navigatable())
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Inactive, true, new { @class = "control-label col-md-3" }, true)
+                    <div class="col-md-9">
+                        @Html.DisplayFor(m => m.Inactive)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- #endregion -->
+<!-- #region Scripts -->
+<script>
+
+        //Inits
+        frmEdit.init = function() {
+            grdIndex2.init();
+            btnCancel.init();
+        }
+
+        grdIndex2.init = function() {
+            grdIndex2.$el = $(grdIndex2.el);
+            grdIndex2.api = grdIndex2.$el.data('kendoGrid');
+        };
+        btnCancel.init = function() {
+            btnCancel.$this = $(btnCancel.selector);
+
+            btnCancel.$this.click(function(e) {
+                $.pjax({ url: '@Url.Action("Index", "WareHouseItem")' });
+            });
+        }
+        //Startup
+        $(function() {
+            frmEdit.init();
+        });
+    </script>
+<!-- #endregion -->

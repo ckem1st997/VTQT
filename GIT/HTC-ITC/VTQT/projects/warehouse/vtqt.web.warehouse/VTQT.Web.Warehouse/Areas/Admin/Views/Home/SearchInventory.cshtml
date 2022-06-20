@@ -1,0 +1,154 @@
+﻿@model WarehouseBalanceSearchModel
+
+
+<script>
+        var master = {
+            grdIndex: {
+                selector: '#grdIndex',
+                $this: {},
+                api: {},
+                init: function () { },
+                edit: function (e) { },
+                create: function (e) { },
+                error: function (e) { },
+                templates: {
+                    flag: function (id, flag) { },
+                    name: function (id, name) { },
+                    resources: function (id) { },
+                    published: function (published) { }
+                },
+
+            },
+            btnSearch: {
+                el: '#ItemId',
+                $el: {},
+                init: function () { }
+            },
+
+            init: function () { },
+              export: function () { }
+        };
+        var grdIndex = master.grdIndex;
+        var btnSearch = master.btnSearch;
+        //#endregion
+
+        //#region Events
+
+        grdIndex.error = function (e) {
+            if (e.errors) {
+                var message = '@T("Common.Error").JavaScriptStringEncode():\n';
+                $.each(e.errors, function (key, value) {
+                    if ('errors' in value) {
+                        $.each(value.errors, function () {
+                            message += this + "\n";
+                        });
+                    }
+                });
+                alert(message);
+            }
+        }
+
+    grdIndex.data = function () {
+        var dd = $('#ItemId').select2('data');
+        var $keywords = dd[0].id;
+            var searchModel = {
+                Keywords: $keywords
+            };
+            return searchModel;
+        }
+</script>
+<div class="title-home-set" style=" background-color: #00875a !important;">
+    @*<div class="dot me-3 bg-indigo" style=" background-color: #e35a26 !important;"></div>*@
+
+    <p class="title-p">@T("Common.Search.Inventory")</p>
+    @*<div class="icon-loading">
+            <i class="fa fa-spinner" aria-hidden="true"></i>
+        </div>*@
+</div>
+<!-- #endregion -->
+<div class="search-home-set" style="border-top:0px">
+    <div>@T("Common.Fields.Warehouseitem")</div>
+    <div>
+        <select name="ItemId"
+                id="ItemId"
+                class="autowidth"
+                style="width: 100%"
+                data-placeholder='@T("Common.Select2.Select")'
+                data-select-url="@Url.Action("GetItemId")">
+        </select>
+    </div>
+</div>
+<div class="result-home-set">
+    <div class="row">
+        @Html.AntiForgeryToken()
+        @(Html.Kendo().Grid<WarehouseBalanceModel>()
+                    .Name("grdIndex")
+                    .Scrollable(x=>x.Height("200px"))
+                    .HtmlAttributes(new {style = "border-top:none;" })
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.WarehouseId);
+                        columns.Bound(x => x.UIQuantity).Width(100);
+                    })
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .PageSize(AdminAreaSettings.GridPageSize)
+                        .ServerOperation(true)
+                        .Read(read => read.Action("ReadWareHouseBalance", "Home").Data("grdIndex.data"))
+                        )
+                    .NoRecords()
+                    .Scrollable(scr => scr.Enabled(true))
+                    .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(false).Numeric(true).PreviousNext(true).Refresh(true))
+                    .Navigatable())
+    </div>
+</div>
+
+<style>
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+
+    .me-3 {
+        margin-right: 1rem !important;
+    }
+</style>
+<script>
+        function forgeryToken() {
+            return kendo.antiForgeryTokens();
+        }
+
+        //#region Fields
+
+    
+
+
+        master.init = function () {
+            grdIndex.init();
+            btnSearch.init();
+        }
+
+        grdIndex.init = function () {
+            grdIndex.$this = $(grdIndex.selector);
+            grdIndex.api = grdIndex.$this.data('kendoGrid');
+        }
+        btnSearch.init = function () {
+            btnSearch.$el = $(btnSearch.el);
+            const search = _.debounce(() => {
+                grdIndex.api.resetPage();
+            }, app.ui.def.debounce.timeout);
+            btnSearch.$el.on("select2:select", function (e) {
+                var data = e.params.data;
+                search();
+                return false;
+            });
+        };
+        $(function () {
+            master.init();
+
+        });
+
+</script>

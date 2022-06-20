@@ -1,0 +1,125 @@
+﻿@model AssetDecreasedModel
+@{ 
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal" id="formRecall">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Asset.AssetDecreased.AppActions.Recall")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.AssetId, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.AssetId, Model.AvailableAssets, "Tài sản", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.DecreaseReason, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.DecreaseReason, Model.AvailableReasons, "Lý do", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Quantity, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => m.Quantity, new { htmlAttributes = new { style = "width: 100%" } })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.DecreaseDate, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => m.DecreaseDate, new { htmlAttributes = new { style = "width: 100%", @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.EmployeeId, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.EmployeeId, Model.AvailableUsers, "Người thu hồi", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.WareHouseCode, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.WareHouseCode, Model.AvailableWarehouses, "Kho", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Notes, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(m => m.Notes, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="button" class="btn blue btn-sm" id="btnSaveRecallData">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $('#btnSaveRecallData').click(function (e) {
+        var formData = $('#formRecall').serializeObject();
+        var recallQuantity = $('#Quantity').val();
+        var assetId = $('#AssetId').val();
+
+        $.ajax({
+            url: '@Url.Action("CompareRecallQuantity", "AssetOffice")',
+            data: { recallQuantity: recallQuantity, assetId: assetId },
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.success) {
+                    $.ajax({
+                        url: '@Url.Action("Recall", "AssetOffice")',
+                        data: { model: formData, __RequestVerificationToken: getToken() },
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function (msg) {
+                            if (msg.success) {
+                                $('form[data-client-form-id="@ClientFormId"]').data('winForm').close();
+                                grd.api.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    app.window.confirm.open({
+                        title: 'Xác nhận ghi giảm',
+                        text: 'Số lượng ghi giảm vượt quá số lượng còn lại. Tiếp tục?',
+                        callback: function () {
+                            $.ajax({
+                                url: '@Url.Action("Recall", "AssetOffice")',
+                                data: { model: formData, __RequestVerificationToken: getToken() },
+                                dataType: 'json',
+                                type: 'POST',
+                                success: function (msg) {
+                                    if (msg.success) {
+                                        $('form[data-client-form-id="@ClientFormId"]').data('winForm').close();
+                                        grd.api.reload();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    var getToken = function () {
+        var token = '@Html.AntiForgeryToken()';
+        token = $(token).val();
+        return token;
+    }
+</script>

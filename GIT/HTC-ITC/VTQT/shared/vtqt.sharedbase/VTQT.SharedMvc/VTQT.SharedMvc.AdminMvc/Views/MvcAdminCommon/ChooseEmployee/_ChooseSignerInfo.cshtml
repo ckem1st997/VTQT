@@ -1,0 +1,331 @@
+﻿@using Newtonsoft.Json
+
+@functions {
+    private string _signerField;
+    private string SignerField
+    {
+        get
+        {
+            if (_signerField != null)
+                return _signerField;
+            var signerField = ViewData["SignerField"];
+            if (signerField != null)
+            {
+                _signerField = Convert.ToString(signerField);
+            }
+            return _signerField;
+        }
+    }
+
+    private string _positionTitleField;
+    private string PositionTitleField
+    {
+        get
+        {
+            if (_positionTitleField != null)
+                return _positionTitleField;
+            var positionTitleField = ViewData["PositionTitleField"];
+            if (positionTitleField != null)
+            {
+                _positionTitleField = Convert.ToString(positionTitleField);
+            }
+            return _positionTitleField;
+        }
+    }
+
+    private EmployeeModel _chosenSigner;
+    private EmployeeModel ChosenSigner
+    {
+        get
+        {
+            if (_chosenSigner != null)
+                return _chosenSigner;
+            var chosenSigner = ViewData["ChosenSigner"];
+            if (chosenSigner != null)
+                _chosenSigner = chosenSigner as EmployeeModel;
+            else
+                _chosenSigner = new EmployeeModel();
+            return _chosenSigner;
+        }
+    }
+
+    private bool? _readOnly;
+    private bool ReadOnly
+    {
+        get
+        {
+            if (_readOnly.HasValue)
+                return _readOnly.Value;
+            var readOnly = ViewData["ReadOnly"];
+            if (readOnly != null)
+                _readOnly = (bool)readOnly;
+            else
+                _readOnly = false;
+            return _readOnly.Value;
+        }
+    }
+
+    private string _selectedCallBack;
+    private string SelectedCallBack
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_selectedCallBack))
+                return _selectedCallBack;
+            var selectedCallBack = ViewData["SelectedCallBack"];
+            if (selectedCallBack != null)
+                _selectedCallBack = (string)selectedCallBack;
+            else
+                _selectedCallBack = string.Empty;
+            return _selectedCallBack;
+        }
+    }
+
+    private string _removedCallBack;
+    private string RemovedCallBack
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_removedCallBack))
+                return _removedCallBack;
+            var removedCallBack = ViewData["RemovedCallBack"];
+            if (removedCallBack != null)
+                _removedCallBack = (string)removedCallBack;
+            else
+                _removedCallBack = string.Empty;
+            return _removedCallBack;
+        }
+    }
+}
+
+@if (string.IsNullOrWhiteSpace(SignerField) || string.IsNullOrWhiteSpace(PositionTitleField))
+{
+    return;
+}
+
+@{
+    var jSigner = JsonConvert.SerializeObject(ChosenSigner);
+}
+
+<div class="row" id="_chooseSignerInfo_@(SignerField)">
+    <div class="col-md-6">
+        <div class="form-group form-group-sm">
+            <label class="control-label col-md-4" title="@T("Common.Signer")">
+                @T("Common.Signer")
+                <span class="required" aria-required="true">*</span>
+            </label>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input type="text" id="@(SignerField)_Text" class="form-control" disabled="disabled" value="" style="border-right: none" />
+                    <a data-action="remove" class="input-group-addon hide" style="border-left: none; border-right: none; background-color: #f6f8f9" title="@T("Common.Delete")">
+                        <i class="fa fa-times font-red" style="font-size: 11px; line-height: 11px"></i>
+                    </a>
+                    <a data-action="select" class="input-group-addon" style="border-left: none" title="@string.Format(T("Common.SelectObject"), T("Common.Employee"))">
+                        <i class="fa fa-search font-blue"></i>
+                    </a>
+                    <input type="hidden" id="@(SignerField)_Value" name="@SignerField" value="" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group form-group-sm">
+            <label class="control-label col-md-4" title="@T("Common.SignerPositionTitle")">@T("Common.SignerPositionTitle")</label>
+            <div class="col-md-8">
+                <input type="text" id="@(PositionTitleField)_Text" class="form-control" disabled="disabled" value="">
+                <input type="hidden" id="@(PositionTitleField)_Value" name="@PositionTitleField" value="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    _chooseSignerInfo['@(SignerField)'] = {
+        chosenSigner: JSON.parse(JSON.stringify(@Html.Raw(jSigner))),
+        el: '#_chooseSignerInfo_@(SignerField)',
+        $el: {},
+        urlChoose: '@Url.Action("ChooseEmployee", "Common")',
+        selectedItem: {},
+        btnSelect: {
+            $el: {},
+            init: function () { }
+        },
+        btnRemove: {
+            $el: {},
+            init: function () { }
+        },
+        signerText: {
+            $el: {},
+            init: function () { }
+        },
+        signerValue: {
+            $el: {},
+            init: function () { }
+        },
+        positionTitleText: {
+            $el: {},
+            init: function () { }
+        },
+        positionTitleValue: {
+            $el: {},
+            init: function () { }
+        },
+        init: function () { },
+        openChoose: function () { },
+        select: function () { },
+        remove: function () { },
+        helpers: {
+            bindData: function (signer) { }
+        }
+    };
+
+    _chooseSignerInfo['@(SignerField)'].init = function () {
+        _chooseSignerInfo['@(SignerField)'].$el = $(_chooseSignerInfo['@(SignerField)'].el);
+
+        //Init
+        _chooseSignerInfo['@(SignerField)'].btnSelect.init();
+        _chooseSignerInfo['@(SignerField)'].btnRemove.init();
+        _chooseSignerInfo['@(SignerField)'].signerText.init();
+        _chooseSignerInfo['@(SignerField)'].signerValue.init();
+        _chooseSignerInfo['@(SignerField)'].positionTitleText.init();
+        _chooseSignerInfo['@(SignerField)'].positionTitleValue.init();
+        //BindData
+        _chooseSignerInfo['@(SignerField)'].helpers.bindData(_chooseSignerInfo['@(SignerField)'].chosenSigner);
+    };
+    //Init btnSelect
+    _chooseSignerInfo['@(SignerField)'].btnSelect.init = function() {
+        var $el = $(_chooseSignerInfo['@(SignerField)'].el).find('a[data-action="select"]');
+        _chooseSignerInfo['@(SignerField)'].btnSelect.$el = $el;
+
+        _chooseSignerInfo['@(SignerField)'].btnSelect.$el.click(function(e) {
+            _chooseSignerInfo['@(SignerField)'].openChoose();
+        });
+    };
+    //Init btnRemove
+    _chooseSignerInfo['@(SignerField)'].btnRemove.init = function() {
+        var $el = $(_chooseSignerInfo['@(SignerField)'].el).find('a[data-action="remove"]');
+        _chooseSignerInfo['@(SignerField)'].btnRemove.$el = $el;
+
+        _chooseSignerInfo['@(SignerField)'].btnRemove.$el.click(function(e) {
+            _chooseSignerInfo['@(SignerField)'].remove();
+        });
+    };
+    //Init SignerText
+    _chooseSignerInfo['@(SignerField)'].signerText.init = function() {
+        var $el = $(_chooseSignerInfo['@(SignerField)'].el).find('#@(SignerField)_Text');
+        _chooseSignerInfo['@(SignerField)'].signerText.$el = $el;
+    };
+    //Init SignerValue
+    _chooseSignerInfo['@(SignerField)'].signerValue.init = function() {
+        var $el = $(_chooseSignerInfo['@(SignerField)'].el).find('#@(SignerField)_Value');
+        _chooseSignerInfo['@(SignerField)'].signerValue.$el = $el;
+    };
+    //Init PositionTitleText
+    _chooseSignerInfo['@(SignerField)'].positionTitleText.init = function() {
+        var $el = $(_chooseSignerInfo['@(SignerField)'].el).find('#@(PositionTitleField)_Text');
+        _chooseSignerInfo['@(SignerField)'].positionTitleText.$el = $el;
+    };
+    //Init PositionTitleValue
+    _chooseSignerInfo['@(SignerField)'].positionTitleValue.init = function() {
+        var $el = $(_chooseSignerInfo['@(SignerField)'].el).find('#@(PositionTitleField)_Value');
+        _chooseSignerInfo['@(SignerField)'].positionTitleValue.$el = $el;
+    };
+
+    _chooseSignerInfo['@(SignerField)'].openChoose = function() {
+        app.window.form.open(
+            {
+                url: _chooseSignerInfo['@(SignerField)'].urlChoose,
+                options: { width: '60%', height: '65%' },
+                callback: function() {
+                    _chooseSignerInfo['@(SignerField)'].select();
+                },
+                initCallback: function() {
+                    window._chooseEmp.grdIndex.api.initDblClick(function() {
+                        _chooseSignerInfo['@(SignerField)'].select();
+                    });
+                }
+            });
+    };
+    _chooseSignerInfo['@(SignerField)'].select = function () {
+        _chooseSignerInfo['@(SignerField)'].selectedItem = window._chooseEmp.grdIndex.api.selectedItems()[0];
+        if (_chooseSignerInfo['@(SignerField)'].selectedItem) {
+            //Bind Data
+            _chooseSignerInfo['@(SignerField)'].helpers.bindData(_chooseSignerInfo['@(SignerField)'].selectedItem);
+            //Close Window
+            window._chooseEmp.winForm.close();
+            //CallBack
+            if ('@(SelectedCallBack)' !== '@string.Empty') {
+                @(SelectedCallBack)(_chooseSignerInfo['@(SignerField)'].selectedItem);
+            }
+        }
+    };
+    _chooseSignerInfo['@(SignerField)'].remove = function() {
+        _chooseSignerInfo['@(SignerField)'].signerText.$el.val('');
+        _chooseSignerInfo['@(SignerField)'].signerText.$el.attr('title', '');
+        _chooseSignerInfo['@(SignerField)'].signerValue.$el.val('');
+
+        _chooseSignerInfo['@(SignerField)'].positionTitleValue.$el.val('');
+        _chooseSignerInfo['@(SignerField)'].positionTitleText.$el.val('');
+        _chooseSignerInfo['@(SignerField)'].positionTitleText.$el.attr('title', '');
+
+        if (_chooseSignerInfo['@(SignerField)'].signerText.$el.val() !== '') {
+            _chooseSignerInfo['@(SignerField)'].btnRemove.$el.removeClass('hide');
+        } else {
+            _chooseSignerInfo['@(SignerField)'].btnRemove.$el.addClass('hide');
+        }
+        //CallBack
+        if ('@(RemovedCallBack)' !== '@string.Empty') {
+            @(RemovedCallBack)(_chooseSignerInfo['@(SignerField)'].selectedItem);
+        }
+    };
+
+    _chooseSignerInfo['@(SignerField)'].helpers.bindData = function(signer) {
+        if (signer.Id !== 0) {
+            _chooseSignerInfo['@(SignerField)'].signerValue.$el.val(signer.Id);
+        } else {
+            _chooseSignerInfo['@(SignerField)'].signerValue.$el.val('');
+        }
+
+        if (signer.EmployeeCode !== null && signer.FullName !== null) {
+            _chooseSignerInfo['@(SignerField)'].signerText.$el.val('[' + signer.EmployeeCode + '] - ' + signer.FullName);
+            _chooseSignerInfo['@(SignerField)'].signerText.$el.attr('title', '[' + signer.EmployeeCode + '] - ' + signer.FullName);
+        } else {
+            _chooseSignerInfo['@(SignerField)'].signerText.$el.val('');
+            _chooseSignerInfo['@(SignerField)'].signerText.$el.attr('title', '');
+        }
+
+        if (signer.PositionTitle !== null) {
+            if (signer.PositionTitle.Id !== null) {
+                _chooseSignerInfo['@(SignerField)'].positionTitleValue.$el.val(signer.PositionTitle.Id);
+            } else {
+                _chooseSignerInfo['@(SignerField)'].positionTitleValue.$el.val('');
+            }
+            if (signer.PositionTitle.Name !== null) {
+                _chooseSignerInfo['@(SignerField)'].positionTitleText.$el.val(signer.PositionTitle.Name);
+                _chooseSignerInfo['@(SignerField)'].positionTitleText.$el.attr('title', signer.PositionTitle.Name);
+            } else {
+                _chooseSignerInfo['@(SignerField)'].positionTitleText.$el.val('');
+                _chooseSignerInfo['@(SignerField)'].positionTitleText.$el.attr('title', '');
+            }
+        }
+
+        if (_chooseSignerInfo['@(SignerField)'].signerText.$el.val() !== '') {
+            _chooseSignerInfo['@(SignerField)'].btnRemove.$el.removeClass('hide');
+        } else {
+            _chooseSignerInfo['@(SignerField)'].btnRemove.$el.addClass('hide');
+        }
+
+        if ('@(ReadOnly)' === 'True') {
+            _chooseSignerInfo['@(SignerField)'].btnSelect.$el.css("pointer-events", "none");
+            _chooseSignerInfo['@(SignerField)'].btnRemove.$el.css("pointer-events", "none");
+            _chooseSignerInfo['@(SignerField)'].btnRemove.$el.addClass('hide');
+
+            _chooseSignerInfo['@(SignerField)'].btnSelect.$el.find('i').removeClass('font-blue');
+            _chooseSignerInfo['@(SignerField)'].btnRemove.$el.find('i').removeClass('font-red');
+        }
+    };
+
+    $(function () {
+        _chooseSignerInfo['@(SignerField)'].init();
+    });
+</script>

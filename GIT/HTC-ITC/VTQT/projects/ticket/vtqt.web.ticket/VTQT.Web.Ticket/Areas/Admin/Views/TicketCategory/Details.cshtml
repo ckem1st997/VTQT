@@ -1,0 +1,60 @@
+﻿@model TicketCategoryModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Ticket.TicketCategories.AppActions.Details")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Code, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DisplayFor(m => m.Code)
+                    </div>
+                </div>
+                @(Html.LocalizedEditor<TicketCategoryModel, TicketCategoryLocalizedModel>("lpTicketCategory",
+                    @<div>
+                        @Html.HiddenFor(m => m.Locales[item].LanguageId)
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Locales[item].Name, true, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DisplayFor(m => m.Locales[item].Name)
+                            </div>
+                        </div>
+                    </div>,
+                    @<div>
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-4" }, true)
+                            <div class="col-md-8">
+                                @Html.DisplayFor(m => m.Name)
+                            </div>
+                        </div>
+                    </div>
+                ))
+            <div class="form-group form-group-sm">
+                @Html.XBaseLabelFor(m => m.ProjectId, true, new { @class = "control-label col-md-4" }, true)
+                <div class="col-md-8">
+                    @Html.DropDownListFor(m => m.ProjectId, (IEnumerable<SelectListItem>)ViewData["projects"], "Dự án", new { @style = "width: 100%", @class = "form-control", @readonly = true, disabled = true })
+                </div>
+            </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Inactive, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DisplayFor(m => m.Inactive)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+

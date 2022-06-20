@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.SharedMvc.Warehouse</name>
+    </assembly>
+    <members>
+        <member name="P:VTQT.SharedMvc.Warehouse.Models.SerialWareHouseModel.IsOver">
+            <summary>
+            Đánh dấu Serial mới nhập mà chưa xuất ra (Giá trị mặc định = 0)
+            </summary>
+        </member>
+    </members>
+</doc>

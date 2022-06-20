@@ -1,0 +1,51 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@functions {
+    private object _htmlAttributes;
+    private object HtmlAttributes
+    {
+        get
+        {
+            if (_htmlAttributes != null)
+                return _htmlAttributes;
+            var htmlAttrData = ViewData["htmlAttributes"];
+            if (htmlAttrData != null)
+                _htmlAttributes = new RouteValueDictionary(htmlAttrData);
+            return _htmlAttributes;
+        }
+    }
+
+    private bool? _value;
+    private bool? Value
+    {
+        get
+        {
+            if (_value.HasValue)
+                return _value;
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToBoolean(ViewData.Model, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            return _value;
+        }
+    }
+}
+
+@Html.CheckBox(string.Empty, Value ?? false, HtmlAttributes ?? new { disabled = "disabled" })

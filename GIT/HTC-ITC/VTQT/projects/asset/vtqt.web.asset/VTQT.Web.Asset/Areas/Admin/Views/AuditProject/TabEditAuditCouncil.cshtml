@@ -1,0 +1,143 @@
+﻿@model AuditCouncilSearchModel
+@{
+    Layout = null;
+}
+
+<script>
+        var frmEditAuditCouncil = {
+            urlCreateAuditCouncil: '@Url.Action("CreateAuditCouncil", "AuditProject")',
+            urlEditAuditCouncil: '@Url.Action("EditAuditCouncil", "AuditProject")',
+            urlDeleteAuditCouncil: '@Url.Action("DeleteAuditCouncil")',
+            selector: '.page-data',
+            $this: {},
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { }
+            },
+            grdIndex4: {
+                el: '#frmEdit1_grdIndex1',
+                $el: {},
+                api: {},
+                data: function () { },
+                init: function () { }
+            },
+            btnAddAuditCouncil: {
+                selector: '#btnAdd1',
+                $this: {},
+                init: function () { }
+            },
+            btnEditAuditCouncil: {
+                selector: '#btnEdit1',
+                $this: {},
+                init: function () { }
+            },
+            btnRemoveAuditCouncil: {
+                selector: '#btnRemove1',
+                $this: {},
+                init: function () { }
+            },
+            init: function () { }
+        };
+    var form = frmEditAuditCouncil.form;
+    var grdIndex4 = frmEditAuditCouncil.grdIndex4;
+    var btnEditAuditCouncil = frmEditAuditCouncil.btnEditAuditCouncil;
+    var btnRemoveAuditCouncil = frmEditAuditCouncil.btnRemoveAuditCouncil;
+    var btnAddAuditCouncil = frmEditAuditCouncil.btnAddAuditCouncil;
+
+</script>
+
+<div class="row full-height">
+    <script id="toolbar1" type="text/x-kendo-template">
+                       <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+                           <a id="btnAdd1" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm</a>
+                           <a id="btnEdit1" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>
+                           <a id="btnRemove1" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+                       </div>
+    </script>
+    @(Html.Kendo().Grid<AuditCouncilModel>()
+                        .Name("frmEdit1_grdIndex1")
+                        .HtmlAttributes(new {style = "height: 100%; border-top: none"})
+                        .Columns(columns =>
+                        {
+                            columns.Select().Width(30);
+                            columns.Bound(x => x.EmployeeId).Hidden();
+                            columns.Bound(x => x.EmployeeName).Width(400);
+                            columns.Bound(x => x.Role).Width(300);
+                        })
+                        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar1"); })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(int.MaxValue)
+                            .ServerOperation(true)
+                            .Read(read => read.Action("AuditCouncil_Read", "AuditProject").Data("grdIndex.data"))
+                        )
+                        .NoRecords()
+                        .Scrollable(scr => scr.Enabled(true))
+                        .Pageable(pageable => pageable.Enabled(false))
+                        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+                        .Navigatable())
+</div>
+
+<script>
+
+        //Methods
+
+    btnAddAuditCouncil.init = function () {
+      var id=  $("#Id").val()
+        btnAddAuditCouncil.$this = $(btnAddAuditCouncil.selector);
+        btnAddAuditCouncil.$this.click(function (e) { app.window.form.open({ url: `${frmEditAuditCouncil.urlCreateAuditCouncil}?auditId=${id}`, options: { width: '450px' }, callback: function () { grdIndex4.api.reload(); } }); });
+    }
+
+        btnEditAuditCouncil.init = function() {
+           btnEditAuditCouncil.$this = $(btnEditAuditCouncil.selector);
+
+            btnEditAuditCouncil.$this.click(function (e) {
+                var id = grdIndex4.api.selectedIds()[0];
+                if (id) {
+                    app.window.form.open({ url: `${frmEditAuditCouncil.urlEditAuditCouncil}/${id}`, options: { width: '450px' }, callback: function () { grdIndex4.api.reload(); } });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                }
+            });
+    }
+
+    btnRemoveAuditCouncil.init = function() {
+        btnRemoveAuditCouncil.$this = $(btnRemoveAuditCouncil.selector);
+
+        btnRemoveAuditCouncil.$this.click(function(e) {
+                var ids = grdIndex4.api.selectedIds();
+                if (ids.length > 0) {
+                    app.window.deletes.open({ url: frmEditAuditCouncil.urlDeleteAuditCouncil, ids: ids, options: { width: '450px' }, callback: function () { grdIndex4.api.reload(); } });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                }
+            });
+    }
+
+        //Inits
+    frmEditAuditCouncil.init = function() {
+        frmEditAuditCouncil.$this = $(frmEditAuditCouncil.selector);
+            form.init();
+            grdIndex4.init();
+        btnEditAuditCouncil.init();
+        btnRemoveAuditCouncil.init();
+        btnAddAuditCouncil.init();
+    }
+
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex4.init = function() {
+            grdIndex4.$el = $(grdIndex4.el);
+            grdIndex4.api = grdIndex4.$el.data('kendoGrid');
+        };
+
+        //Startup
+        $(function() {
+            frmEditAuditCouncil.init();
+        });
+</script>

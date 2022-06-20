@@ -1,0 +1,157 @@
+﻿@model AuthorizeToRoleModel
+@{
+    Layout = null;
+}
+<script>
+
+    var listItemData = {};
+    var oFileIn;
+</script>
+<div class="form fixed-layout-form">
+    <form class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Phân quyền</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.DelegatorId, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.DelegatorId, Model.AvailableUsers, string.Format(T("Common.SelectObject"), T("Common.AuthorizeToRole")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.AuthorizedId, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.AuthorizedId, Model.AvailableUsers, string.Format(T("Common.SelectObject"), T("Common.AuthorizeToRole")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TypeValueId, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.TypeValueId, Model.AvailableTypeValues, string.Format(T("Common.SelectObject"), T("Common.AuthorizeToRole")), new { @class = "form-control", style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ListFileAuthorizedId, true, new { @class = "control-label col-md-4" }, false)
+                    <div class="col-md-8">
+@*                        @Html.DropDownListFor(m => m.ListFileAuthorizedId, Model.AvailableFiles, string.Format(T("Common.SelectObject"), T("Common.AuthorizeToRole")), new { @class = "form-control", style = "width: 100%" })
+*@                        <select class="form-control" name="ListFileAuthorizedId" id="ListFileAuthorizedId" multiple="multiple" style="width: 100%"></select>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+       $( document ).ready(function() {
+           $('#ListFileAuthorizedId').empty();
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "/Admin/TypeValue/GetListFile?idTypeValue=@Model.TypeValueId",
+                success: function (msg) {
+                    if (msg && msg.length > 0) {
+                        $("#ListFileAuthorizedId").select2({
+                            data: msg
+                        });
+                    }
+
+                    else
+                        notify({ text: "Bảng không có cột dữ liệu, xin vui lòng thử lại hoặc liên hệ với bộ phận IT !", type: 'err' });
+
+                }
+            });
+        });
+         $("#TypeValueId").on("select2:select", function (e) {
+             $('#ListFileAuthorizedId').empty();
+            var data = e.params.data;
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "/Admin/TypeValue/GetListFile?idTypeValue=" + $(this).val() + "",
+                success: function (msg) {
+                    console.log();
+                    if (msg && msg.length > 0) {
+                        $("#ListFileAuthorizedId").select2({
+                            data: msg
+                        });
+                    }
+
+                    else
+                        notify({ text: "Bảng không có cột dữ liệu, xin vui lòng thử lại hoặc liên hệ với bộ phận IT !", type: 'err' });
+
+                }
+            });
+            return false;
+        });
+        
+    frmAddItem = {
+            el: 'form[data-client-form-id="@ClientFormId"]',
+            $el: {},
+            winForm: {},           
+            $TypeValueId: $('#@Html.FieldIdFor(m => m.TypeValueId)'),
+            $DelegatorId: $('#@Html.FieldIdFor(m => m.DelegatorId)'),
+            $AuthorizedId: $('#@Html.FieldIdFor(m => m.AuthorizedId)'),
+            $ListFileAuthorizedId: $('#@Html.FieldIdFor(m => m.ListFileAuthorizedId)'),
+            init: function () { }
+        };
+
+    frmAddItem.init = function () {
+        //Init Window
+        frmAddItem.$el = $(frmAddItem.el);
+        frmAddItem.winForm = frmAddItem.$el.data('winForm');
+
+
+    };
+        $("#ListFileAuthorizedId").select2({
+            tags: true,
+            multiple: true,
+            tokenSeparators: [',', ' '],
+            createTag: newtag,
+            matcher: matchCustom
+    });
+    function newtag(params, data) {
+        var term = $.trim(params.term);
+        if (term === '') {
+            return null;
+        }
+        return {
+            id: term,
+            text: term ,
+            newTag: true // add additional parameters
+        }
+    }
+
+    function matchCustom(params, data) {
+        // If there are no search terms, return all of the data
+        if ($.trim(params.term) === '') {
+            return data;
+        }
+
+        // Do not display the item if there is no 'text' property
+        if (typeof data.text === 'undefined') {
+            return null;
+        }
+
+        // Return `null` if the term should not be displayed
+        return null;
+    }
+
+    $(function () {
+        frmAddItem.init();
+    });
+</script>

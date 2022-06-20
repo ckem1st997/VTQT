@@ -1,0 +1,72 @@
+﻿@model NetworkLinkModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Ticket.NetworkLink.AppActions.Details")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Code, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DisplayFor(m => m.Code)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DisplayFor(m => m.Name)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.StartPoint, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DisplayFor(m => m.StartPoint)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.EndPoint, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DisplayFor(m => m.EndPoint)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.AreaA, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DisplayFor(m => m.AreaA)
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.AreaB, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DisplayFor(m => m.AreaB)
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CableId, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DisplayFor(m => m.CableId, new { list = (IEnumerable<SelectListItem>)ViewData["cable"] })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Inactive, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DisplayFor(m => m.Inactive)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

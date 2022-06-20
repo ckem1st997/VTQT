@@ -1,0 +1,103 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@functions{
+    private string _id;
+    private string Id
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_id))
+                return _id;
+            var id = ViewData["id"];
+            if (id != null)
+            {
+                _id = Convert.ToString(id);
+            }
+            return _id;
+        }
+    }
+
+    private string _value;
+    private string Value
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_value))
+                return _value;
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToString(ViewData.Model);
+            }
+            return _value;
+        }
+    }
+
+    private string _style;
+    private string Style
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_style))
+                return _style;
+            var style = ViewData["style"];
+            if (style != null)
+            {
+                _style = Convert.ToString(style);
+            }
+            return _style;
+        }
+    }
+}
+
+@{
+    var id = !string.IsNullOrEmpty(Id) ? Id : Html.IdForModel();
+    var defaultColor = "transparent";
+    var color = defaultColor;
+    if (!string.IsNullOrEmpty(Value))
+    {
+        color = Value;
+    }
+}
+
+<div class="input-group color" id="@id-parent" style="@Style">
+    @Html.TextBox(string.Empty, color, new { id = id, @class = "form-control" })
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-sm" type="button" style="padding: 5px 15px; border-color: #c2cad8; border-radius: 0">
+            <i style="background-color: @(color.Equals(defaultColor, StringComparison.InvariantCultureIgnoreCase) ? "" : color); top: 3px; right: 4px"></i>&nbsp;
+        </button>
+    </span>
+</div>
+
+<script>
+    $(function () {
+        var $picker = $('#@id-parent');
+        $picker.colorpicker({
+            component: '.btn.default',
+            colorSelectors: {
+                '#ffffff': '#ffffff', // default
+                '#337ab7': '#337ab7', // primary
+                '#5cb85c': '#5cb85c', // success
+                '#5bc0de': '#5bc0de', // info
+                '#f0ad4e': '#f0ad4e', // warning
+                '#d9534f': '#d9534f' // danger
+            }
+        });
+    });
+</script>

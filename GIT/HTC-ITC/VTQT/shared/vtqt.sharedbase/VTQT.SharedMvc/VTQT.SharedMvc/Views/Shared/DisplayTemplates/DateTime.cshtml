@@ -1,0 +1,137 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@functions {
+    private object _htmlAttributes;
+    private object HtmlAttributes
+    {
+        get
+        {
+            if (_htmlAttributes != null)
+                return _htmlAttributes;
+            var htmlAttrData = ViewData["htmlAttributes"];
+            if (htmlAttrData != null)
+                _htmlAttributes = new RouteValueDictionary(htmlAttrData);
+            return _htmlAttributes;
+        }
+    }
+
+    private DateTime? _value;
+    private DateTime? Value
+    {
+        get
+        {
+            if (_value.HasValue)
+                return _value;
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToDateTime(ViewData.Model, System.Globalization.CultureInfo.CurrentCulture);
+            }
+            return _value;
+        }
+    }
+
+    private bool _pickTime;
+    private bool PickTime
+    {
+        get
+        {
+            if (_pickTime)
+                return _pickTime;
+            var pickTime = ViewData["pickTime"];
+            if (pickTime != null)
+            {
+                _pickTime = pickTime.Convert<bool>();
+            }
+            return _pickTime;
+        }
+    }
+
+    private string _style;
+    private string Style
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_style))
+                return _style;
+            var style = ViewData["style"];
+            if (style != null)
+            {
+                _style = Convert.ToString(style);
+            }
+            return _style;
+        }
+    }
+}
+
+@{
+    var attrType = HtmlAttributes?.GetType();
+    var xidProp = attrType?.GetProperty("data_xid");
+    var xid = (string)xidProp?.GetValue(HtmlAttributes, null);
+    if (string.IsNullOrWhiteSpace(xid))
+    {
+        xid = Guid.NewGuid().ToString();
+    }
+
+    var id = Html.IdForModel();
+    var el = "#EditorTemplates_DateTime_Container_" + id + "[data-xid='" + xid + "']";
+    var value = string.Empty;
+    if (Value.HasValue && Value.Value > DateTime.MinValue)
+    {
+        value = PickTime ? Value.Value.ToString() : Value.Value.ToShortDateString();
+    }
+}
+
+<div id="EditorTemplates_DateTime_Container_@id" @("data-xid=" + xid) class="input-group date" style="@Style">
+    @Html.TextBox(string.Empty, value, HtmlAttributes ?? new { data_xid = xid, @class = "form-control", disabled = "disabled", style = "border-right: none" })
+    <span class="input-group-addon" style="background-color: #f6f8f9; pointer-events: none">
+        <span class="fa fa-calendar"></span>
+    </span>
+</div>
+
+<script>
+    $(function () {
+        var $picker = $("@Html.Raw(el)");
+        var $input = $picker.find('input[type="text"]');
+        if (!$input.data('xid'))
+            $input.data('xid', '@xid');
+
+        var c = Globalize.culture().calendars.standard;
+        var fmt = c.patterns["d"].toUpperCase();
+        @if (PickTime)
+        {
+            <text>
+                fmt += " " + c.patterns["T"].toLowerCase();
+                fmt = fmt.replace(/h/g, 'H').replace(/tt/, 'A'); // Custom:  Add - format for Moment.js
+            </text>
+        }
+
+        $picker.datetimepicker({
+            format: fmt,
+            useCurrent: false,
+            locale: Globalize.culture().language,
+            calendarWeeks: false,
+            showTodayButton: true,
+            showClear: true,
+            showClose: true,
+            keepOpen: true,
+            allowInputToggle: false
+        });
+    });
+</script>

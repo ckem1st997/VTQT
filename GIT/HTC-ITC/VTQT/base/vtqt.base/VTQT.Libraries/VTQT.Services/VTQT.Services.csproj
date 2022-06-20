@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\VTQT.Services.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll.config&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.pdb&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.xml&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt" />
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VTQT.Caching\VTQT.Caching.Manager\VTQT.Caching.Manager.csproj" />
+    <ProjectReference Include="..\VTQT.Core\VTQT.Core.csproj" />
+    <ProjectReference Include="..\VTQT.Data\VTQT.Data.csproj" />
+    <ProjectReference Include="..\VTQT.SearchEngine\VTQT.Elastic\VTQT.Elastic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Ref\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NEST" Version="7.14.1" />
+    <PackageReference Include="RestSharp" Version="106.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="VTQT.Caching.Helpers">
+      <HintPath>..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core\VTQT.Caching.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Master">
+      <HintPath>..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Master.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

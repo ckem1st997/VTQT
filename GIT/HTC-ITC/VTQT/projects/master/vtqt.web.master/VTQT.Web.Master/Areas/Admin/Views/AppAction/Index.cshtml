@@ -1,0 +1,944 @@
+﻿@model AppActionModel
+
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="create" href="javascript:void(0)" class="btn blue btn-sm"><i class="flaticon2-plus"></i> @T("Common.AddNew")</a>
+            <a data-action="edit" href="javascript:void(0)" class="btn yellow btn-sm"><i class="flaticon2-pen"></i> @T("Common.Edit")</a>
+            <a data-action="deletes" href="javascript:void(0)" class="btn red btn-sm"><i class="flaticon-delete"></i> @T("Common.Deletes")</a>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+
+<div class="page-data" style="padding-top: 92px">
+    <div class="row absolute" style="height: 45px; top: 0">
+        <div id="appActionFilter" class="well well-sm">
+            <label for="ddlAppId" title="@T("Common.App")">@T("Common.App")</label>
+            @Html.DropDownList("ddlAppId", Model.AvailableApps as IEnumerable<SelectListItem>, string.Format(T("Common.SelectObject"), T("Common.App")), new { @class = "input-sm", style = "width: 300px" })
+        </div>
+    </div>
+    <div class="row absolute" style="height: 40px; width: 100%; top: 55px; padding: 0 3px">
+        <div id="boxSearch">
+            <div id="treeFilter" style="display: none">
+                <p>
+                    <input name="search" id="search" class="form-control input-sm" placeholder="@T("Common.Fields.EnterKeywords")" style="width: 240px; display: inline-block">
+                    <button id="btnResetSearch" class="btn btn-default btn-sm"><i class="flaticon2-cross"></i></button>
+                    <span id="matches"></span>
+                    <button id="btnFilterActiveBranch" class="btn btn-default btn-sm"><i class="flaticon-search"></i> @T("Plugins.Fancytree.FilterActiveBranch")</button>
+                    <button id="btnResetFilter" class="btn btn-default btn-sm"><i class="flaticon2-reload"></i> @T("Common.ResetFilter")</button>
+                </p>
+                <label for="hideMode" class="no-display">
+                    <input type="checkbox" id="hideMode">
+                    @T("Plugins.Fancytree.HideUnmatchedNodes")
+                </label>
+                <label for="leavesOnly" class="no-display">
+                    <input type="checkbox" id="leavesOnly">
+                    @T("Plugins.Fancytree.LeavesOnly")
+                </label>
+                <label for="autoExpand" class="no-display">
+                    <input type="checkbox" id="autoExpand" class="no-display">
+                    @T("Plugins.Fancytree.AutoExpand")
+                </label>
+                <label for="counter" class="no-display">
+                    <input type="checkbox" id="counter" class="no-display">
+                    @T("Plugins.Fancytree.CounterBadges")
+                </label>
+                <label for="hideExpandedCounter" class="no-display">
+                    <input type="checkbox" id="hideExpandedCounter">
+                    @T("Plugins.Fancytree.HideExpandedCounter")
+                </label>
+                <label for="fuzzy" class="no-display">
+                    <input type="checkbox" id="fuzzy">
+                    @T("Plugins.Fancytree.Fuzzy")
+                </label>
+                <label for="highlight" class="no-display">
+                    <input type="checkbox" id="highlight">
+                    @T("Plugins.Fancytree.Highlight")
+                </label>
+                <label for="regex" class="no-display">
+                    <input type="checkbox" id="regex">
+                    @T("Plugins.Fancytree.RegularExpression")
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row full-height" style="overflow: auto">
+        <table id="treeIndex" style="width: 100%; display: none">
+            <thead>
+                <tr>
+                    <th width="30" style="text-align: center"><input type="checkbox" data-action="checkAll" class="nostyle" /></th>
+                    <th>@T("Master.AppActions.Fields.Name")</th>
+                    <th width="160">@T("Master.AppActions.Fields.Controller")</th>
+                    <th width="160">@T("Master.AppActions.Fields.Action")</th>
+                    <th width="100" style="text-align: center">@T("Common.Fields.Icon")</th>
+                    <th width="120" style="text-align: center">@T("Common.Fields.ShowOnMenu")</th>
+                    <th width="120" style="text-align: center">@T("Common.Fields.Active")</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<ul id="mnuIndex" style="display: none">
+    <li data-action="details">
+        <i class="flaticon-eye font-blue-dark"></i> @T("Common.Details")
+    </li>
+    <li data-action="create">
+        <i class="flaticon2-plus font-blue"></i> @T("Common.AddNew")
+    </li>
+    <li data-action="edit">
+        <i class="flaticon2-pen font-yellow"></i> @T("Common.Edit")
+    </li>
+    <li data-action="cut">
+        <i class="flaticon-reply font-yellow"></i> @T("Common.Cut")
+    </li>
+    <li data-action="paste">
+        <i class="flaticon-clipboard font-blue"></i> @T("Common.Paste")
+    </li>
+    <li data-action="deletes">
+        <i class="flaticon-delete font-red"></i> @T("Common.Delete")
+    </li>
+</ul>
+<!-- #endregion -->
+<!-- #region Scripts -->
+@section Scripts {
+    <script>
+        //#region Fields
+
+        var master = {
+            urlDetails: '@Url.Action("Details")',
+            urlCreate: '@Url.Action("Create")',
+            urlEdit: '@Url.Action("Edit")',
+            urlDeletes: '@Url.Action("Deletes")',
+            urlGetAppActionTree: '@Url.Action("GetAppActionTree")',
+            urlShowOnMenu: '@Url.Action("ShowOnMenu")',
+            urlActivates: '@Url.Action("Activates")',
+            urlMoves: '@Url.Action("Moves")',
+            urlGetAppActions: '@Url.Action("GetAppActions")',
+            toolbar: {
+                selector: '.page-toolbar',
+                $this: {},
+                actions: {
+                    init: function () { }
+                },
+                init: function () { }
+            },
+            ddlAppId: {
+                selector: '#appActionFilter #ddlAppId',
+                $this: {},
+                init: function () { },
+                change: function (e) { }
+            },
+            boxSearch: {
+                selector: '#boxSearch',
+                $this: {},
+                init: function () { }
+            },
+            treeFilter: {
+                selector: '#treeFilter',
+                $this: {},
+                search: {
+                    selector: '#treeFilter #search',
+                    $this: {},
+                    init: function () { },
+                    keyup: function (e) { }
+                },
+                btnResetSearch: {
+                    selector: '#treeFilter #btnResetSearch',
+                    $this: {},
+                    init: function () { },
+                    click: function (e) { }
+                },
+                matches: {
+                    selector: '#treeFilter #matches',
+                    $this: {},
+                    init: function () { }
+                },
+                btnFilterActiveBranch: {
+                    selector: '#treeFilter #btnFilterActiveBranch',
+                    $this: {},
+                    init: function () { },
+                    click: function (e) { }
+                },
+                btnResetFilter: {
+                    selector: '#treeFilter #btnResetFilter',
+                    $this: {},
+                    init: function () { },
+                    click: function (e) { }
+                },
+                hideMode: {
+                    selector: '#treeFilter #hideMode',
+                    $this: {},
+                    init: function () { }
+                },
+                leavesOnly: {
+                    selector: '#treeFilter #leavesOnly',
+                    $this: {},
+                    init: function () { }
+                },
+                autoExpand: {
+                    selector: '#treeFilter #autoExpand',
+                    $this: {},
+                    init: function () { }
+                },
+                counter: {
+                    selector: '#treeFilter #counter',
+                    $this: {},
+                    init: function () { }
+                },
+                hideExpandedCounter: {
+                    selector: '#treeFilter #hideExpandedCounter',
+                    $this: {},
+                    init: function () { }
+                },
+                fuzzy: {
+                    selector: '#treeFilter #fuzzy',
+                    $this: {},
+                    init: function () { }
+                },
+                highlight: {
+                    selector: '#treeFilter #highlight',
+                    $this: {},
+                    init: function () { }
+                },
+                regex: {
+                    selector: '#treeFilter #regex',
+                    $this: {},
+                    init: function () { }
+                },
+                checkboxFields: {
+                    selector: '#treeIndex fieldset input:checkbox',
+                    $this: {},
+                    init: function () { },
+                    change: function (e) { }
+                },
+                init: function () { },
+                resetSearch: function () { },
+                filterActiveBranch: function () { },
+                resetFilter: function () { }
+            },
+            treeIndex: {
+                selector: '#treeIndex',
+                $this: {},
+                api: {},
+                checkAll: {
+                    selector: '#treeIndex input[type="checkbox"][data-action="checkAll"]',
+                    $this: {},
+                    init: function () { }
+                },
+                clipboard: null,
+                init: function () { },
+                load: function () { },
+                getSelectedIds: function () { },
+                treeDestroy: function () { }
+            },
+            mnuIndex: {
+                selector: '#mnuIndex',
+                $this: {},
+                init: function () { },
+                bindContextMenu: function () { }
+            },
+            init: function () { },
+            details: function (id) { },
+            create: function (appId, parentId) { },
+            edit: function () { },
+            deletes: function () { },
+            showOnMenu: function (id, showOnMenu) { },
+            activates: function (id, activate) { },
+            moves: function (id, parentId, displayOrder) { },
+            actionCallback: function () { }
+        };
+        var toolbar = master.toolbar;
+        var ddlAppId = master.ddlAppId;
+        var boxSearch = master.boxSearch;
+        var treeFilter = master.treeFilter;
+        var treeIndex = master.treeIndex;
+        var mnuIndex = master.mnuIndex;
+
+        //#endregion
+
+        //#region Methods
+
+        master.details = function () {
+            if (!ddlAppId.$this.val()) {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                return false;
+            }
+            var node = treeIndex.api.getActiveNode();
+            if (node) {
+                app.window.form.open({ url: master.urlDetails + '?id=' + node.key, options: { width: '60%' }});
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        }
+        master.create = function (appId, parentId) {
+            if (appId) {
+                app.window.form.open({ url: master.urlCreate + '?appId={0}&parentId={1}'.format(appId, parentId), options: { width: '60%' }, callback: master.actionCallback });
+            } else {
+                notify({ text: '@string.Format(T("Common.Validators.SelectFields.Required"), T("Common.App")).JavaScriptStringEncode()', type: 'info' });
+            }
+        }
+        master.edit = function () {
+            if (!ddlAppId.$this.val()) {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                return false;
+            }
+            var node = treeIndex.api.getActiveNode();
+            if (node) {
+                app.window.form.open({ url: master.urlEdit + '?id=' + node.key, options: { width: '60%' }, callback: master.actionCallback });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        }
+        master.deletes = function () {
+            var ids = treeIndex.getSelectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: master.urlDeletes, ids: ids, options: { width: '450px' }, callback: master.actionCallback });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        }
+        master.showOnMenu = function (id, showOnMenu) {
+            $.ajax({
+                type: 'POST',
+                data: { Ids: [id], Active: showOnMenu, __RequestVerificationToken: app.form.antiForgeryToken.value },
+                dataType: 'json',
+                url: master.urlShowOnMenu,
+                success: function (msg) {
+                    if (!msg)
+                        return;
+                    if (msg.success) {
+                        master.actionCallback();
+                    }
+                }
+            });
+        }
+        master.activates = function (id, activate) {
+            $.ajax({
+                type: 'POST',
+                data: { Ids: [id], Active: activate, __RequestVerificationToken: app.form.antiForgeryToken.value },
+                dataType: 'json',
+                url: master.urlActivates,
+                success: function (msg) {
+                    if (!msg)
+                        return;
+                    if (msg.success) {
+                        master.actionCallback();
+                    }
+                }
+            });
+        }
+        master.moves = function (id, parentId, displayOrder) {
+            $.ajax({
+                type: 'POST',
+                data: { id: id, parentId: parentId, displayOrder: displayOrder, __RequestVerificationToken: app.form.antiForgeryToken.value },
+                dataType: 'json',
+                url: master.urlMoves,
+                success: function (msg) {
+                    if (!msg)
+                        return;
+                    if (msg.success) {
+                        master.actionCallback();
+                    }
+                }
+            });
+        }
+
+        //#endregion
+
+        //#region Init
+
+        master.init = function () {
+            toolbar.init();
+            ddlAppId.init();
+            boxSearch.init();
+            treeFilter.init();
+            treeIndex.init();
+            mnuIndex.init();
+
+            ddlAppId.$this.trigger('change');
+        }
+
+        toolbar.init = function () {
+            toolbar.$this = $(toolbar.selector);
+
+            toolbar.actions.init();
+        }
+        toolbar.actions.init = function () {
+            var $toolbar = toolbar.$this;
+
+            admin.pageToolbar.actions.initCreate($toolbar,
+                function () {
+                    master.create(ddlAppId.$this.val(), null);
+                });
+            admin.pageToolbar.actions.initEdit($toolbar, master.edit);
+            admin.pageToolbar.actions.initDeletes($toolbar, master.deletes);
+        }
+
+        ddlAppId.init = function () {
+            ddlAppId.$this = $(ddlAppId.selector);
+
+            ddlAppId.$this.on('change', ddlAppId.change);
+        }
+        ddlAppId.change = function (e) {
+            var val = ddlAppId.$this.val();
+            if (val) {
+                treeIndex.load();
+            } else {
+                treeIndex.$this.hide();
+                boxSearch.$this.hide();
+                treeFilter.$this.hide();
+
+                treeIndex.treeDestroy();
+                treeFilter.resetSearch();
+            }
+        }
+
+        boxSearch.init = function () {
+            boxSearch.$this = $(boxSearch.selector);
+        }
+
+        treeFilter.init = function () {
+            treeFilter.$this = $(treeFilter.selector);
+
+            treeFilter.search.init();
+            treeFilter.btnResetSearch.init();
+            treeFilter.matches.init();
+            treeFilter.btnFilterActiveBranch.init();
+            treeFilter.btnResetFilter.init();
+            treeFilter.hideMode.init();
+            treeFilter.leavesOnly.init();
+            treeFilter.autoExpand.init();
+            treeFilter.counter.init();
+            treeFilter.hideExpandedCounter.init();
+            treeFilter.fuzzy.init();
+            treeFilter.highlight.init();
+            treeFilter.regex.init();
+
+            treeFilter.checkboxFields.init();
+
+            treeFilter.hideMode.$this.prop('checked', true);
+            app.plugins.uniform.update(treeFilter.hideMode.$this);
+
+            treeFilter.autoExpand.$this.prop('checked', true);
+            app.plugins.uniform.update(treeFilter.autoExpand.$this);
+
+            treeFilter.hideExpandedCounter.$this.prop('checked', true);
+            app.plugins.uniform.update(treeFilter.hideExpandedCounter.$this);
+
+            treeFilter.highlight.$this.prop('checked', true);
+            app.plugins.uniform.update(treeFilter.highlight.$this);
+
+        }
+
+        treeFilter.search.init = function () {
+            treeFilter.search.$this = $(treeFilter.search.selector);
+
+            treeFilter.search.$this.keyup(treeFilter.search.keyup).focus();
+        }
+        treeFilter.search.keyup = function (e) {
+            var n,
+                  opts = {
+                      autoExpand: treeFilter.autoExpand.$this.is(":checked"),
+                      leavesOnly: treeFilter.leavesOnly.$this.is(":checked")
+                  },
+                  match = $(this).val();
+
+            if (e && e.which === $.ui.keyCode.ESCAPE || $.trim(match) === "") {
+                treeFilter.btnResetSearch.$this.click();
+                return;
+            }
+            if (treeFilter.regex.$this.is(":checked")) {
+                // Pass function to perform match
+                n = treeIndex.api.filterNodes(function (node) {
+                    return new RegExp(match, "i").test(node.title);
+                }, opts);
+            } else {
+                // Pass a string to perform case insensitive matching
+                n = treeIndex.api.filterNodes(match, opts);
+            }
+            treeFilter.btnResetSearch.$this.attr("disabled", false);
+            treeFilter.matches.$this.text("(" + n + " @Html.Raw(T("Common.Results")))");
+        }
+
+        treeFilter.btnResetSearch.init = function () {
+            treeFilter.btnResetSearch.$this = $(treeFilter.btnResetSearch.selector);
+
+            treeFilter.btnResetSearch.$this.click(treeFilter.btnResetSearch.click).attr("disabled", true);
+        }
+        treeFilter.btnResetSearch.click = function (e) {
+            treeFilter.resetSearch();
+        }
+
+        treeFilter.matches.init = function () {
+            treeFilter.matches.$this = $(treeFilter.matches.selector);
+        }
+
+        treeFilter.btnFilterActiveBranch.init = function () {
+            treeFilter.btnFilterActiveBranch.$this = $(treeFilter.btnFilterActiveBranch.selector);
+
+            treeFilter.btnFilterActiveBranch.$this.click(treeFilter.btnFilterActiveBranch.click);
+        }
+        treeFilter.btnFilterActiveBranch.click = function (e) {
+            treeFilter.filterActiveBranch();
+        }
+
+        treeFilter.btnResetFilter.init = function () {
+            treeFilter.btnResetFilter.$this = $(treeFilter.btnResetFilter.selector);
+
+            treeFilter.btnResetFilter.$this.click(treeFilter.btnResetFilter.click);
+        }
+        treeFilter.btnResetFilter.click = function (e) {
+            treeFilter.resetFilter();
+        }
+
+        treeFilter.hideMode.init = function () {
+            treeFilter.hideMode.$this = $(treeFilter.hideMode.selector);
+        }
+
+        treeFilter.leavesOnly.init = function () {
+            treeFilter.leavesOnly.$this = $(treeFilter.leavesOnly.selector);
+        }
+
+        treeFilter.autoExpand.init = function () {
+            treeFilter.autoExpand.$this = $(treeFilter.autoExpand.selector);
+        }
+
+        treeFilter.counter.init = function () {
+            treeFilter.counter.$this = $(treeFilter.counter.selector);
+        }
+
+        treeFilter.hideExpandedCounter.init = function () {
+            treeFilter.hideExpandedCounter.$this = $(treeFilter.hideExpandedCounter.selector);
+        }
+
+        treeFilter.fuzzy.init = function () {
+            treeFilter.fuzzy.$this = $(treeFilter.fuzzy.selector);
+        }
+
+        treeFilter.highlight.init = function () {
+            treeFilter.highlight.$this = $(treeFilter.highlight.selector);
+        }
+
+        treeFilter.regex.init = function () {
+            treeFilter.regex.$this = $(treeFilter.regex.selector);
+        }
+
+        treeFilter.checkboxFields.init = function () {
+            treeFilter.checkboxFields.$this = $(treeFilter.checkboxFields.selector);
+
+            treeFilter.checkboxFields.$this.change(treeFilter.checkboxFields.change);
+        }
+        treeFilter.checkboxFields.change = function (e) {
+            var id = $(this).attr("id"),
+              flag = $(this).is(":checked");
+
+            switch (id) {
+                case treeFilter.autoExpand.$this.attr('id'):
+                case treeFilter.regex.$this.attr('id'):
+                case treeFilter.leavesOnly.$this.attr('id'):
+                    // Re-apply filter only
+                    break;
+                case treeFilter.hideMode.$this.attr('id'):
+                    treeIndex.api.options.filter.mode = flag ? "hide" : "dimm";
+                    break;
+                case treeFilter.counter.$this.attr('id'):
+                case treeFilter.fuzzy.$this.attr('id'):
+                case treeFilter.hideExpandedCounter.$this.attr('id'):
+                case treeFilter.highlight.$this.attr('id'):
+                    treeIndex.api.options.filter[id] = flag;
+                    break;
+            }
+            treeIndex.api.clearFilter();
+            treeFilter.search.$this.keyup();
+        }
+
+        treeFilter.resetSearch = function () {
+            treeFilter.search.$this.val("");
+            treeFilter.matches.$this.text("");
+            if (!_.isEmpty(treeIndex.api))
+                treeIndex.api.clearFilter();
+        }
+        treeFilter.filterActiveBranch = function () {
+            if (_.isEmpty(treeIndex.api))
+                return;
+
+            if (!treeIndex.api.getActiveNode()) {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                return;
+            }
+            treeIndex.api.filterBranches(function (node) {
+                return node.isActive();
+            });
+        }
+        treeFilter.resetFilter = function () {
+            if (!_.isEmpty(treeIndex.api))
+                treeIndex.api.clearFilter();
+        }
+
+        treeIndex.init = function () {
+            treeIndex.$this = $(treeIndex.selector);
+
+            treeIndex.checkAll.init();
+        }
+        treeIndex.load = function () {
+            if (_.isEmpty(treeIndex.api)) {
+                treeIndex.$this.fancytree({
+                    source: {
+                        url: master.urlGetAppActionTree,
+                        data: { appId: ddlAppId.$this.val(), expandLevel: 2 },
+                        beforeSend: function (jqXhr, settings) {
+                            treeFilter.resetSearch();
+
+                            treeIndex.checkAll.$this.prop('checked', false);
+                            app.plugins.uniform.update(treeIndex.checkAll.$this);
+
+                            boxSearch.$this.show();
+                            treeFilter.$this.show();
+                            treeIndex.$this.show();
+                        }
+                    },
+                    checkbox: true,
+                    autoScroll: true,
+                    titlesTabbable: true, // Add all node titles to TAB chain
+                    quicksearch: true, // Jump to nodes when pressing first character
+                    selectMode: 2,
+                    filter: {
+                        autoApply: true, // Re-apply last filter if lazy data is loaded
+                        // autoExpand: true,
+                        //counter: true, // Show a badge with number of matching child nodes near parent icons
+                        counter: false,
+                        fuzzy: false,  // Match single characters in order, e.g. 'fb' will match 'FooBar'
+                        hideExpandedCounter: true, // Hide counter badge, when parent is expanded
+                        highlight: true,  // Highlight matches by wrapping inside <mark> tags
+                        mode: "hide" // "dimm": Grayout unmatched nodes, "hide": remove unmatched nodes
+                    },
+                    activate: function (event, data) {
+                    },
+                    select: function (event, data) {
+                        //var selKeys = $.map(data.tree.getSelectedNodes(), function (node) {
+                        //    return node.key;
+                        //});
+                        //$("#echoSelection3").text(selKeys.join(", "));
+
+                        app.plugins.fancytree.handlers.selectOnCheckAll(event, data);
+                    },
+                    //dblclick: function(event, data) {
+                    //    data.node.toggleSelected();
+                    //},
+                    //extensions: ["filter", "edit", "dnd", "table", "gridnav"],
+                    extensions: ["filter", "dnd", "table", "gridnav"],
+                    dnd: {
+                        focusOnClick: true,
+                        preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+                        preventRecursiveMoves: true, // Prevent dropping nodes on own descendants
+                        autoExpandMS: 400,
+                        dragStart: function (node, data) {
+                            /** This function MUST be defined to enable dragging for the tree.
+                            *  Return false to cancel dragging of node.
+                            */
+                            return true;
+                        },
+                        dragEnter: function (node, data) {
+                            /** data.otherNode may be null for non-fancytree droppables.
+                            *  Return false to disallow dropping on node. In this case
+                            *  dragOver and dragLeave are not called.
+                            *  Return 'over', 'before, or 'after' to force a hitMode.
+                            *  Return ['before', 'after'] to restrict available hitModes.
+                            *  Any other return value will calc the hitMode from the cursor position.
+                            */
+                            // Prevent dropping a parent below another parent (only sort
+                            // nodes under the same parent)
+                            /*           if(node.parent !== data.otherNode.parent){
+                                        return false;
+                                        }
+                                        // Don't allow dropping *over* a node (would create a child)
+                                        return ["before", "after"];
+                        */
+
+                            // return ["before", "after"];
+                            return true;
+                        },
+                        dragOver: function (node, data) {
+                        },
+                        dragLeave: function (node, data) {
+                        },
+                        dragStop: function (node, data) {
+                        },
+                        dragDrop: function (node, data) {
+                            /** This function MUST be defined to enable dropping of items on
+                            *  the tree.
+                            */
+                            //data.otherNode.moveTo(node, data.hitMode);
+
+                            @*if (node.isDescendantOf(data.otherNode)) {
+                                notify({ text: '@T("Master.AppActions.MoveAppActionValidation").JavaScriptStringEncode()', type: 'error' });
+                                return;
+                            }*@
+
+                            if (confirm('@T("Confirm.Moves")')) {
+                                var parentId = null;
+                                var displayOrder = null;
+                                if (data.hitMode === 'child' || data.hitMode === 'over')
+                                    parentId = node.key;
+                                else if (data.hitMode === 'before') {
+                                    if (node.parent.isRootNode()) {
+                                        parentId = null;
+                                    } else {
+                                        parentId = node.data.ParentId;
+                                    }
+                                    displayOrder = node.data.DisplayOrder > 1 ? node.data.DisplayOrder - 1 : 1;
+                                }
+                                else if (data.hitMode === 'after') {
+                                    if (node.parent.isRootNode()) {
+                                        parentId = null;
+                                    } else {
+                                        parentId = node.data.ParentId;
+                                    }
+                                    displayOrder = node.data.DisplayOrder + 1;
+                                }
+                                master.moves(data.otherNode.key, parentId, displayOrder);
+                            }
+                        }
+                    },
+                    //edit: {
+                    //    triggerStart: ["f2", "dblclick", "shift+click", "mac+enter"],
+                    //    beforeEdit: function (event, data) {
+                    //        // Return false to prevent edit mode
+                    //        if (data.node.statusNodeType == 'loading')
+                    //            return false;
+                    //        return true;
+                    //    },
+                    //    edit: function (event, data) {
+                    //        // Editor was opened (available as data.input)
+                    //    },
+                    //    beforeClose: function (event, data) {
+                    //        // Return false to prevent cancel/save (data.input is available)
+                    //    },
+                    //    save: function (event, data) {
+                    //        // Save data.input.val() or return false to keep editor open
+                    //        master.rename(data.node.key, data.input.val());
+                    //        return true;
+                    //    },
+                    //    close: function (event, data) {
+                    //        // Editor was removed
+                    //        //if (data.save) {
+                    //        //    // Since we started an async request, mark the node as preliminary
+                    //        //    $(data.node.span).addClass("pending");
+                    //        //}
+                    //    }
+                    //},
+                    table: {
+                        indentation: 20, // indent 20px per node level
+                        nodeColumnIdx: 1, // render the node title into the 2nd column
+                        checkboxColumnIdx: 0 // render the checkboxes into the 1st column
+                    },
+                    gridnav: {
+                        autofocusInput: false,
+                        handleCursorKeys: true
+                    },
+                    renderColumns: function (event, data) {
+                        var node = data.node,
+                            $tdList = $(node.tr).find(">td");
+
+                        //$tdList.eq(1).text(node.getIndexHier()).css('text-align', 'right');
+                        $tdList.eq(1).find('.fancytree-node').attr('data-key', node.key).css({ 'text-align': 'left', 'border-right': 'none' });
+                        $tdList.eq(2).text(node.data.Controller).css({ 'text-align': 'left', 'border-left': 'none', 'border-right': 'none' });
+                        $tdList.eq(3).text(node.data.Action).css({ 'text-align': 'left', 'border-left': 'none', 'border-right': 'none' });
+                        //$tdList.eq(4).html(node.data.Icon !== '' ? '<i class="fa ' + node.data.Icon + '"></i>' : '')
+                        //    .css({ 'border-left': 'none', 'border-right': 'none' }).parent().css('text-align', 'center');
+                        $tdList.eq(4).html(node.data.Icon !== '' ? '<i class="' + node.data.Icon + '"></i>' : '')
+                            .css({ 'border-left': 'none', 'border-right': 'none' }).parent().css('text-align', 'center');
+                        $tdList.eq(5).html(node.data.ShowOnMenu ? '<i class="fa fa-check green" onclick="master.showOnMenu(' + node.key + ', false)" style="cursor:pointer"></i>' : '<i class="fa fa-lock yellow" onclick="master.showOnMenu(' + node.key + ', true)" style="cursor:pointer"></i>')
+                            .css({ 'text-align': 'center', 'border-left': 'none', 'border-right': 'none' });
+                        $tdList.eq(6).html(node.data.Active ? '<i class="fa fa-check green" onclick="master.activates(' + node.key + ', false)" style="cursor:pointer"></i>' : '<i class="fa fa-lock yellow" onclick="master.activates(' + node.key + ', true)" style="cursor:pointer"></i>')
+                            .css({ 'text-align': 'center', 'border-left': 'none' });
+                    },
+                    keydown: function (event, data) {
+                        var node = data.node;
+                        // Eat keyboard events, when a menu is open
+                        if ($(".contextMenu:visible").length > 0)
+                            return false;
+
+                        switch ($.ui.fancytree.eventToString(event)) {
+                            case 'shift+f10': // Open context menu on Shift + F10 key (simulate mouse right click)
+                                $(node.span).trigger("mousedown", {
+                                    preventDefault: true,
+                                    button: 2
+                                })
+                                .trigger("mouseup", {
+                                    preventDefault: true,
+                                    pageX: node.span.offsetLeft,
+                                    pageY: node.span.offsetTop,
+                                    button: 2
+                                });
+                                break;
+                            case 'del':
+                                master.deletes();
+                                break;
+                            case 'ctrl+v':
+                                if (treeIndex.clipboard == null) {
+                                    notify({ text: '@T("Common.DataIsEmpty").JavaScriptStringEncode()', type: 'info' });
+                                }
+                                else if (treeIndex.clipboard.mode === "cut") {
+                                    //var cb = treeIndex.clipboard.data.toDict(true);
+                                    if (node.isDescendantOf(treeIndex.clipboard.data)) {
+                                        notify({ text: '@T("Common.MoveValidation").JavaScriptStringEncode()', type: 'error' });
+                                        return false;
+                                    }
+                                    if (confirm('@T("Confirm.Moves")'))
+                                        master.moves(treeIndex.clipboard.data.key, node.key, null);
+                                }
+                                break;
+                            case 'ctrl+x':
+                                treeIndex.clipboard = { mode: 'cut', data: node };
+                                break;
+                        }
+
+                        return false;
+                    },
+                    createNode: function (event, data) {
+                        if (data.node.statusNodeType !== 'loading')
+                            mnuIndex.bindContextMenu(data.node);
+                    }
+                });
+                treeIndex.api = treeIndex.$this.fancytree("getTree");
+            } else {
+                treeIndex.api.reload({
+                    url: master.urlGetAppActionTree,
+                    data: { appId: ddlAppId.$this.val(), expandLevel: 2 },
+                    beforeSend: function (jqXhr, settings) {
+                        treeFilter.resetSearch();
+
+                        treeIndex.checkAll.$this.prop('checked', false);
+                        app.plugins.uniform.update(treeIndex.checkAll.$this);
+
+                        boxSearch.$this.show();
+                        treeFilter.$this.show();
+                        treeIndex.$this.show();
+                    }
+                });
+            }
+        }
+        treeIndex.getSelectedIds = function () {
+            if (_.isEmpty(treeIndex.api))
+                return [];
+
+            var selNodes = treeIndex.api.getSelectedNodes();
+            var selKeys = $.map(selNodes, function (node) {
+                return node.key;
+            });
+
+            return selKeys;
+        }
+        treeIndex.treeDestroy = function () {
+            if (!_.isEmpty(treeIndex.api))
+                treeIndex.api.treeDestroy();
+        }
+
+        treeIndex.checkAll.init = function () {
+            treeIndex.checkAll.$this = $(treeIndex.checkAll.selector);
+        }
+
+        mnuIndex.init = function () {
+            mnuIndex.$this = $(mnuIndex.selector);
+        }
+        mnuIndex.bindContextMenu = function () {
+            mnuIndex.$this.kendoContextMenu({
+                orientation: 'vertical',
+                target: treeIndex.selector,
+                filter: 'tbody tr',
+                animation: {
+                    open: { effects: "fadeIn" },
+                    duration: 0
+                },
+                open: function (e) {
+                    treeIndex.api.activateKey($(e.target).find('td span[class*="fancytree-node"]').attr('data-key'));
+
+                    var disabled = false;
+                    if (treeIndex.clipboard != null) {
+                        var node = treeIndex.api.getActiveNode();
+                        if (treeIndex.clipboard.data.key != node.key) {
+                            var parent = node.parent;
+                            while (parent != null) {
+                                if (parent.key == treeIndex.clipboard.data.key) {
+                                    disabled = true;
+                                    break;
+                                }
+                                parent = parent.parent;
+                            }
+                        } else {
+                            disabled = true;
+                        }
+                    } else {
+                        disabled = true;
+                    }
+                    var menu = mnuIndex.$this.data("kendoContextMenu");
+                    menu.enable($(e.item).find('li[data-action="paste"]'), !disabled);
+                },
+                select: function (e) {
+                    var node = treeIndex.api.getActiveNode();
+                    var action = $(e.item).attr('data-action');
+                    switch (action) {
+                        case 'details':
+                            master.details();
+                            break;
+                        case 'create':
+                            master.create(ddlAppId.$this.val(), node.key);
+                            break;
+                        case 'edit':
+                            master.edit();
+                            break;
+                        case 'cut':
+                            treeIndex.clipboard = { mode: action, data: node };
+                            break;
+                        case 'paste':
+                            if (treeIndex.clipboard == null) {
+                                notify({ text: '@T("Common.DataIsEmpty").JavaScriptStringEncode()', type: 'info' });
+                            }
+                            else if (treeIndex.clipboard.mode === "cut") {
+                                //var cb = treeIndex.clipboard.data.toDict(true);
+                                if (node.isDescendantOf(treeIndex.clipboard.data)) {
+                                    notify({ text: '@T("Common.MoveValidation").JavaScriptStringEncode()', type: 'error' });
+                                    return;
+                                }
+                                master.moves(treeIndex.clipboard.data.key, node.key, null);
+                            }
+                            break;
+                        case 'deletes':
+                            if (treeIndex.clipboard != null && node.key == treeIndex.clipboard.data.key)
+                                treeIndex.clipboard = null;
+                            master.deletes();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+
+        //#endregion
+
+        //#region Events
+
+        master.actionCallback = function () {
+            treeIndex.load();
+        }
+
+        //#endregion
+
+        //#region Startup
+
+        $(function () {
+            master.init();
+        });
+
+        //#endregion
+    </script>
+}
+<!-- #endregion -->

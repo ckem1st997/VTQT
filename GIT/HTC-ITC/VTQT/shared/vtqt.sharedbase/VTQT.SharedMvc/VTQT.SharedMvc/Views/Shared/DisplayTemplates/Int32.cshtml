@@ -1,0 +1,89 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@model int?
+
+@functions {
+    private object _htmlAttributes;
+    private object HtmlAttributes
+    {
+        get
+        {
+            if (_htmlAttributes != null)
+                return _htmlAttributes;
+            var htmlAttrData = ViewData["htmlAttributes"];
+            if (htmlAttrData != null)
+                _htmlAttributes = new RouteValueDictionary(htmlAttrData);
+            return _htmlAttributes;
+        }
+    }
+
+    private string _format;
+    private string Format
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_format))
+                return _format;
+            var format = ViewData["format"];
+            if (format != null)
+            {
+                _format = Convert.ToString(format);
+            }
+            return _format;
+        }
+    }
+
+    private int? _value;
+    private int? Value
+    {
+        get
+        {
+            if (_value.HasValue)
+                return _value;
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToInt32(ViewData.Model, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            return _value;
+        }
+    }
+}
+
+@{
+    //var name = Html.NameForModel();
+}
+
+@if (!string.IsNullOrEmpty(Format))
+{
+    @(Html.Kendo().IntegerTextBoxFor(m => m)
+        .Culture(System.Globalization.CultureInfo.CurrentCulture.Name)
+        //.Name(name)
+        .Value(Value)
+        .Format(Format)
+        .HtmlAttributes(HtmlAttributes ?? new { disabled = "disabled" }))
+}
+else
+{
+    @(Html.Kendo().IntegerTextBoxFor(m => m)
+        .Culture(System.Globalization.CultureInfo.CurrentCulture.Name)
+        //.Name(name)
+        .Value(Value)
+        .HtmlAttributes(HtmlAttributes ?? new { disabled = "disabled" }))
+}

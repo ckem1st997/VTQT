@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form id="_chooseOrgForm" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@string.Format(T("Common.SelectObject"), T("Common.OrganizationalUnit"))</h4>
+            </div>
+            <div class="modal-body">
+                <div id="_treeOrg" class="full-height"></div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @string.Format(T("Common.SelectObject"), "")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    _chooseOrg = {
+        urlGetOrgTree: '@Url.Action("GetOrganizationalUnitTree", "Common")',
+        el: 'form[data-client-form-id="@ClientFormId"]',
+        $el: {},
+        winForm: {},
+        tree: {
+            el: '#_treeOrg',
+            $el: {},
+            api: {},
+            init: function () { }
+        },
+        init: function () { }
+    };
+
+    _chooseOrg.init = function() {
+        //Init Window
+        _chooseOrg.$el = $(_chooseOrg.el);
+        _chooseOrg.winForm = _chooseOrg.$el.data('winForm');
+        //Init OrganizationalTree
+        _chooseOrg.tree.init();
+        //Init AjaxForm
+        _chooseOrg.$el.initAjaxForm({
+            validationCallback: function() {
+                var nodeSelected = _chooseOrg.tree.api.getActiveNode();
+                if (nodeSelected === null) {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                    return false;
+                }
+                return true;
+            }
+        });
+    };
+
+    _chooseOrg.tree.init = function () {
+        _chooseOrg.tree.$el = $(_chooseOrg.tree.el);
+        _chooseOrg.tree.$el.fancytree({
+            source: {
+                url: _chooseOrg.urlGetOrgTree,
+                data: { expandLevel: 1 }
+            }
+        });
+        _chooseOrg.tree.api = _chooseOrg.tree.$el.fancytree("getTree");
+    };
+
+    $(function () {
+        _chooseOrg.init();
+    });
+</script>

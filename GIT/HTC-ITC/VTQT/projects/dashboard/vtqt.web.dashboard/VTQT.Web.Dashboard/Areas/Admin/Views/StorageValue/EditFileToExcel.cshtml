@@ -1,0 +1,1007 @@
+﻿@model StorageValueModel
+
+<script>
+    var spreadNS = GC.Spread.Sheets;
+</script>
+
+@section HeadScripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+<link href="~/SpreadJS.12.0.7/css/gc.spread.sheets.12.0.7.css" rel="stylesheet" />
+<link href="~/SpreadJS.12.0.7/css/gc.spread.sheets.excel2016colorful.12.0.7.css" rel="stylesheet" />
+<script src="~/SpreadJS.12.0.7/scripts/gc.spread.sheets.all.12.0.7.min.js"></script>
+<script src="~/SpreadJS.12.0.7/scripts/interop/gc.spread.excelio.12.0.7.min.js"></script>
+<script src="~/SpreadJS.12.0.7/scripts/interop/gc.spread.sheets.migration.12.0.7.min.js"></script>
+<script src="~/SpreadJS.12.0.7/scripts/license.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.27/jquery.autocomplete.min.js"></script>
+<script src="~/js/pagination.min.js"></script>
+
+<script>
+    var frmCreate = {
+        urlSearch: '@Url.Action("Search")',
+        urlSaveData: '@Url.Action("CreateSave")',
+        selector: '.page-data',
+        $this: {},
+        form: {
+            selector: '#form-data',
+            $this: {},
+            init: function () { }
+        },
+        grdIndex: {
+            el: '#frmCreate_grdIndex',
+            $el: {},
+            api: {},
+            init: function () { }
+        },
+        btnSave: {
+            selector: 'a[data-action="create"]',
+            $this: {},
+            init: function () { }
+        },
+        btnCancel: {
+            selector: 'a[data-action="cancel"]',
+            $this: {},
+            init: function () { }
+        },
+        btnSearch: {
+            selector: '#searchData',
+            $this: {},
+            init: function () { }
+        },
+        btnEditItem: {
+            selector: '#btnSearch',
+            $this: {},
+            init: function () { }
+        },
+        btnRemoveItem: {
+            selector: '#btnRemove',
+            $this: {},
+            init: function () { }
+        },
+        helpers: {
+            saveData: function () { }
+        },
+        init: function () { }
+    };
+    var form = frmCreate.form;
+    var grdIndex = frmCreate.grdIndex;
+    var btnSave = frmCreate.btnSave;
+    var btnCancel = frmCreate.btnCancel;
+    var btnSearch = frmCreate.btnSearch;
+    var btnEditItem = frmCreate.btnEditItem;
+    var helpers = frmCreate.helpers;
+</script>
+}
+
+
+<!-- #region Page Header -->
+<div class="page-bar">
+
+
+
+    <div class="row search-form">
+        <nav class="breadcrumbs">
+            <a href="#home" class="breadcrumbs__item category">Home</a>
+            <a href="#shop" class="breadcrumbs__item nameTitle is-active">@Model.Name</a>
+        </nav>
+        @* @if (Model.ActiveGetAllData == false) *@
+        @if (true)
+        {
+            <form style="display:flex;align-items:center;float:right;width:60%">
+                <div class="col-md-7">
+                    <div class="form-group form-group-sm">
+                        <div class="input-icon right">
+                            <i class="fa fa-angle-down search-extend tooltips" data-container="body" data-original-title="@T("Common.ShowSearchOptions")" data-toggle="dropdown" data-close-others="true" aria-expanded="true"></i>
+                            <input class="form-control" id="Keywords" name="Keywords" placeholder="Nhập từ khóa" type="text" value="">
+                            <div class="search-extend-bd dropdown-menu hold-on-click" style="width:100%;padding-bottom:10px;display: none">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div>
+                                            <label class="control-label col-md-5">Trường</label>
+                                            <label class="control-label col-md-5">Từ khóa</label>
+                                            <label class="control-label col-md-2">
+                                                <div class="MuiBox-root jss18623" id="btnAddItem" style="cursor: pointer;">
+                                                    <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 20 20" aria-hidden="true" width="20" height="20" style="margin-right: 10px;"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.1909 0C4.58304 0 0.0317383 4.48 0.0317383 10C0.0317383 15.52 4.58304 20 10.1909 20C15.7987 20 20.35 15.52 20.35 10C20.35 4.48 15.7987 0 10.1909 0ZM9.17497 5V9H5.11131V11H9.17497V15H11.2068V11H15.2705V9H11.2068V5H9.17497ZM2.06357 10C2.06357 14.41 5.7107 18 10.1909 18C14.6711 18 18.3182 14.41 18.3182 10C18.3182 5.59 14.6711 2 10.1909 2C5.7107 2 2.06357 5.59 2.06357 10Z" fill="#0088FF"></path></svg>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="row optionSelectParent">
+                                            <div class="optionSelect">
+                                                <div class="col-md-5 fiels-class " style="padding-right:0;margin-top:5px">
+                                                    <label style="display:none">1</label>
+                                                    <select name="SelectOption"
+                                                        id="SelectOption"
+                                                        class="form-control SelectOption"
+                                                        style="width: 100%"
+                                                        data-placeholder='@T("Common.Apps.All")'
+                                                        data-select-url="@Url.Action("GetSelect", "StorageValue",new {nameTable=Model.NameColumn})">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-5 search-class" style="margin-top:5px">
+                                                    <input class="form-control KeyWords" name="KeyWords" placeholder="Nhập từ khóa" type="text" value="">
+                                                </div>
+                                                <div class="col-md-2 minus-class" style="margin-top:5px">
+                                                    <svg class="MuiSvgIcon-root remove-opt-btn" focusable="false" viewBox="0 0 20 20" aria-hidden="true" width="14" height="14" style="transition: all 0.3s ease-in-out !important; color: red; font-size: 25px; fill: currentColor; width: 27px; height: 27px; display: inline-block; flex-shrink: 0; padding-left: 6px; padding-top: 6px; user-select: none; ">
+                                                        <path d="M13.2223 2.03117L11.9689 0.777832L7.00005 5.74672L2.03117 0.777832L0.777832 2.03117L5.74672 7.00005L0.777832 11.9689L2.03117 13.2223L7.00005 8.25339L11.9689 13.2223L13.2223 11.9689L8.25339 7.00005L13.2223 2.03117Z" fill="currentColor"></path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1" style="padding:0;margin-right:6px">
+                    <div class="form-group form-group-sm">
+                        <button type="submit" id="btnSearch" class="btn btn-default btn-sm">
+                            <i class="fa fa-search"></i>Tìm kiếm
+                        </button>
+                    </div>
+                </div>
+
+                <div class="page-toolbar col-md-4">
+                    <div class="pull-right" style="display: flex">
+
+                        <a style="margin-left: 5px;display: none" id="update" data-action="importexcel" href="javascript:void(0)" class="btn blue btn-sm">
+                            <i class="fa fa-save"></i> @T("Common.Save")
+                        </a>
+                        <a style="margin-left: 5px" id="getData" data-action="export" href="javascript:void(0)" class="btn purple btn-sm">
+                            <i class="fa fa-print"></i> @T("Common.ExportData")
+                        </a>
+
+                    </div>
+                </div>
+            </form>
+
+        }
+
+
+    </div>
+
+</div>
+<div class="page-data" style="padding-top:5px;height:93%">
+    <input type="text" id="formulaTextBox" style="width:100%;padding-left:5px;padding-right:5px" />
+    <div class="row full-height">
+        <div id="ss" class="spread-container" style="height: 97%"> </div>
+    </div>
+</div>
+<div class="footer" style="display:flex;margin-top:10px; border-top:1px solid #cdcdcd;">
+    <div style="margin: auto; display: flex; align-items: center; font-weight: 500;">
+        Phóng to/ Thu nhỏ (Excel):
+        <input style="display: inline;width: auto;margin-left:5px" id="zoomFactor" type="range" name="points" min="0.3" max="1.5" value="0.7" step="0.01" />
+    </div>
+    <a style="margin-left: 5px;display:none" id="searchData" data-action="search" href="javascript:void(0)" class="btn yellow btn-sm">
+        <i class="fa fa-search"></i> Tìm kiếm
+    </a>
+    <div style="margin:auto;display:flex;align-items:center">
+        <ul id="example" class="pagination"></ul>
+        <div style="margin-left: 5px; font-weight: 500;" id="countResult">Có 0 kết quả tìm kiếm</div>
+    </div>
+</div>
+<div class="modal">
+    <div class="content">
+        <div class="content__container">
+            <p class="content__container__text">
+                Xin
+            </p>
+
+            <ul class="content__container__list">
+                <li class="content__container__list__item">vui lòng chờ đợi !</li>
+                <li class="content__container__list__item">vui lòng thả lỏng !</li>
+                <li class="content__container__list__item">bạn chút thời gian !</li>
+                <li class="content__container__list__item">là xin... !</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<style>
+
+
+
+
+    .breadcrumbs {
+        border: 1px solid #cbd2d9;
+        border-radius: 0.3rem;
+        display: inline-flex;
+        overflow: hidden;
+        margin-left: 15px;
+    }
+
+    .breadcrumbs__item {
+        background: #fff;
+        color: #333;
+        outline: none;
+        padding: 0.75em 0.75em 0.75em 1.25em;
+        position: relative;
+        text-decoration: none;
+        transition: background 0.2s linear;
+    }
+
+        .breadcrumbs__item:hover:after,
+        .breadcrumbs__item:hover {
+            background: #edf1f5;
+        }
+
+        /*        .breadcrumbs__item:focus:after,
+                        .breadcrumbs__item:focus,
+                        .breadcrumbs__item.is-active:focus {
+                            background: #323f4a;
+                            color: #fff;
+                        }*/
+
+        .breadcrumbs__item:after,
+        .breadcrumbs__item:before {
+            background: white;
+            bottom: 0;
+            clip-path: polygon(50% 50%, -50% -50%, 0 100%);
+            content: "";
+            left: 100%;
+            position: absolute;
+            top: 0;
+            transition: background 0.2s linear;
+            width: 1em;
+            z-index: 1;
+        }
+
+        .breadcrumbs__item:before {
+            background: #cbd2d9;
+            margin-left: 1px;
+        }
+
+        .breadcrumbs__item:last-child {
+            border-right: none;
+        }
+
+        .breadcrumbs__item.is-active {
+            background: #323f4a;
+            color: white;
+        }
+
+
+    div .remove-opt-btn:hover {
+        background-color: rgb(0, 136, 255);
+        border-radius: 15%;
+        color: white !important;
+    }
+
+    .select2-container--bootstrap .select2-selection {
+        border-color: #0088ff !important;
+    }
+
+    .search-class input {
+        border-color: #0088ff !important;
+    }
+
+    ul .pagination li.active a {
+        border-radius: 100%;
+        background-color: #1696ad;
+        border: none;
+    }
+
+    ul.pagination li a {
+        border-radius: 100%;
+        background-color: white;
+        border: none;
+        font-weight: 500;
+    }
+
+    ul.pagination li span {
+        border: none;
+        font-weight: 500;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 191, 191, 191, .8 ) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+    }
+
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 160px;
+        overflow: hidden;
+        font-family: 'Lato', sans-serif;
+        font-size: 35px;
+        line-height: 40px;
+        color: #ecf0f1;
+    }
+
+    .content__container {
+        font-weight: 600;
+        overflow: hidden;
+        height: 40px;
+        padding: 0 40px;
+    }
+
+        .content__container:before {
+            content: '[';
+            left: 0;
+        }
+
+        .content__container:after {
+            content: ']';
+            position: absolute;
+            right: 0;
+        }
+
+        .content__container:after, .content__container:before {
+            position: absolute;
+            top: 0;
+            color: #16a085;
+            font-size: 42px;
+            line-height: 40px;
+            -webkit-animation-name: opacity;
+            -webkit-animation-duration: 2s;
+            -webkit-animation-iteration-count: infinite;
+            animation-name: opacity;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+    .content__container__text {
+        display: inline;
+        float: left;
+        margin: 0;
+    }
+
+    .content__container__list {
+        margin-top: 0;
+        padding-left: 69px;
+        text-align: left;
+        list-style: none;
+        -webkit-animation-name: change;
+        -webkit-animation-duration: 10s;
+        -webkit-animation-iteration-count: infinite;
+        animation-name: change;
+        animation-duration: 10s;
+        animation-iteration-count: infinite;
+    }
+
+    .content__container__list__item {
+        line-height: 40px;
+        margin: 0;
+    }
+
+    @@-webkit-keyframes opacity {
+        0%, 100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @@-webkit-keyframes change {
+        0%, 12.66%, 100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        16.66%, 29.32% {
+            transform: translate3d(0, -25%, 0);
+        }
+
+        33.32%, 45.98% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        49.98%, 62.64% {
+            transform: translate3d(0, -75%, 0);
+        }
+
+        66.64%, 79.3% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        83.3%, 95.96% {
+            transform: translate3d(0, -25%, 0);
+        }
+    }
+
+    @@-o-keyframes opacity {
+        0%, 100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @@-o-keyframes change {
+        0%, 12.66%, 100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        16.66%, 29.32% {
+            transform: translate3d(0, -25%, 0);
+        }
+
+        33.32%, 45.98% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        49.98%, 62.64% {
+            transform: translate3d(0, -75%, 0);
+        }
+
+        66.64%, 79.3% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        83.3%, 95.96% {
+            transform: translate3d(0, -25%, 0);
+        }
+    }
+
+    @@-moz-keyframes opacity {
+        0%, 100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @@-moz-keyframes change {
+        0%, 12.66%, 100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        16.66%, 29.32% {
+            transform: translate3d(0, -25%, 0);
+        }
+
+        33.32%, 45.98% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        49.98%, 62.64% {
+            transform: translate3d(0, -75%, 0);
+        }
+
+        66.64%, 79.3% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        83.3%, 95.96% {
+            transform: translate3d(0, -25%, 0);
+        }
+    }
+
+    @@keyframes opacity {
+        0%, 100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @@keyframes change {
+        0%, 12.66%, 100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        16.66%, 29.32% {
+            transform: translate3d(0, -25%, 0);
+        }
+
+        33.32%, 45.98% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        49.98%, 62.64% {
+            transform: translate3d(0, -75%, 0);
+        }
+
+        66.64%, 79.3% {
+            transform: translate3d(0, -50%, 0);
+        }
+
+        83.3%, 95.96% {
+            transform: translate3d(0, -25%, 0);
+        }
+    }
+
+    body.loading .modal {
+        overflow: hidden;
+    }
+
+    body.loading .modal {
+        display: block;
+    }
+</style>
+<script>
+
+        $(document).ready(function() {
+            $.ajax({
+            url: "/admin/StorageValue/GetTypeValue?id="+'@Model.TypeValueId',
+            type: "get",
+            async: false,
+            datatype: "json",
+            success:function (msg){
+                if(msg && msg.data.Name)
+                $(".category").html(msg.data.Name);
+
+                }
+            });
+        });
+
+        $(function () {
+            $('#SelectOption').selectWrapper();
+            });
+        $(document).on("select2:select","select",function(e) { })
+        function selectRefresh($sel) {
+            $sel.select2({
+            allowClear: false,
+            width: '100%',
+            });
+        }
+        
+        
+        $('body').on('click', '.minus-class', function () {
+            if($("select#SelectOption").length>1)
+                 $(this).parent().remove()
+            else
+               notify({ text: 'Không thể xóa !', type: 'warning' });
+
+        });
+
+        $('body').on('click', '.search-extend', function () {
+            $("select#SelectOption").select2('val', '');
+            $("input.KeyWords").val('');
+            var countElement=$(".optionSelectParent .optionSelect").length;
+            if(countElement>1)
+            {
+               $(".optionSelectParent .optionSelect").each(function( index ) {
+                   if(index>0)
+                    $( this ).remove();
+               });
+            }
+        });
+
+       $("#btnAddItem").click(function(){
+           var $clone=$(".optionSelectParent div.optionSelect:first-child").clone();
+           $clone.find(".fiels-class").children().eq(2).remove();
+           $(".optionSelectParent").append($clone.remove(".search-class"));
+           selectRefresh($(".optionSelect").find("#SelectOption"));
+        });
+        var keySearchCache="";
+        var numberPageCache=0;
+        frmCreate.init = function() {
+            frmCreate.$this = $(frmCreate.selector);
+            form.init();
+            grdIndex.init();
+            btnCancel.init();
+            btnSave.init();
+            btnSearch.init();
+            btnEditItem.init();
+        }
+
+         btnSearch.init = function () {
+            btnSearch.$this = $(btnSearch.selector);
+
+            btnSearch.$this.click(function (e) {
+                app.window.form.open({
+                    url: frmCreate.urlSearch, options: { width: '450px' }, callback: function () {
+                        var itemModel = window.frmSearchKeyWord.$el.serializeObject();
+                        keySearchCache = itemModel.Key;
+                        numberPageCache=0;
+                        processFileSelected(numberPageCache,keySearchCache);
+                        window.frmSearchKeyWord.winForm.close();
+                    }
+                });
+            });
+        }
+        btnEditItem.init = function () {
+            btnEditItem.$this = $(btnEditItem.selector);
+
+            btnEditItem.$this.click(function (e) {
+                e.preventDefault();
+               keySearch=$("#Keywords").val();
+                var listSearch = [];
+                listSearch = GetListSearch();
+                processFileSelected(numberPageCache,keySearch,listSearch);
+            });
+        }
+
+        $(function() {
+            frmCreate.init();
+        });
+    function GetListSearch() {
+        var listSearch = [];
+        var listPro = [];
+        var listKey = [];
+        $(".SelectOption").each(function (index) {
+            listPro.push($(this).val());
+        });
+        $(".KeyWords").each(function (index) {
+            listKey.push($(this).val());
+        });
+        for (var i = 0; i < listPro.length; i++) {
+            var tem = {};
+            if (listKey[i] !== undefined && listKey[i].length > 0 && listPro[i] !== undefined && listPro[i].length > 0) {
+                tem.Text = listKey[i];
+                tem.Value = listPro[i];
+                listSearch.push(tem);
+            }
+        }
+        return listSearch;
+    }
+    function DisableButtonBackList() {
+        $("#btnBackList").attr("disabled", "disabled");
+    }
+    var objectModel = {};
+    var countPro=0;
+    $body = $("body");
+
+    $(document).on({
+        ajaxStart: function() { $body.addClass("loading");    },
+        ajaxStop: function() { $body.removeClass("loading"); }
+    });
+
+    var ss = new GC.Spread.Sheets.Workbook(
+        document.getElementById("ss"),
+        { sheetCount: 1 }
+    );
+    var fbx = new GC.Spread.Sheets.FormulaTextBox.FormulaTextBox(document.getElementById("formulaTextBox"));
+    fbx.workbook(ss);
+    $(document).ready(function () {
+        excelIO = new GC.Spread.Excel.IO();
+        processFileSelected(0,"");
+        $("#getData").click(function () {
+        ExportFile();
+        });
+        var zoomFactorDOM = document.getElementById('zoomFactor');
+        zoomFactorDOM.addEventListener('input', function() {
+            var sheet = ss.getActiveSheet();
+            if (sheet) {
+                var zoomFactor = parseFloat(this.value);
+                zoomFactorDOM.value = zoomFactor;
+                sheet.zoom(zoomFactor);
+            }
+        });
+                    var sheet = ss.getActiveSheet();
+
+    });
+    // Create importJSON()
+    function importJSON(spreadJson) {
+        $("#update").click(function () {
+            try {
+                updatedata(ss.getActiveSheet(), 'updateall', function () {
+                    console.log("update successfully.");
+                });
+            } catch (e) {
+                ss.getActiveSheet().clearPendingChanges();
+                console.log(e);
+                notify({ text: "Thao tác thất bại, xin vui lòng thử lại !", type: 'info' });
+
+            }
+
+            });
+        if (spreadJson.version && spreadJson.sheets) {
+            ss.fromJSON(spreadJson);
+            ss.focus();
+            var ssa = ss.getActiveSheet();
+            
+        // set allowCopyPasteExcelStyle to true
+        ss.options.allowCopyPasteExcelStyle = true;
+       var checkCopy = false;
+        ssa.bind(GC.Spread.Sheets.Events.ClipboardChanging, function (sender, args) {
+             checkCopy=false;
+             var listId=[];
+                 console.log(ssa.getCell(7, Object.keys(objectModel).length - 2).text())
+
+             for(let i = @Model.NumberHeader+1; i < @Model.NumberHeader+101; i++) {
+                     listId.push(ssa.getCell(i, Object.keys(objectModel).length - 2).text().trim());
+             }
+             if (listId.length > 0) {
+                 for (let i = 0; i < listId.length; i++) {
+                     if (args.copyData.includes(listId[i]) === true && listId[i] !== "") {
+                         checkCopy = true;
+                         break;
+                     }
+                 }
+             }
+        });
+        ssa.bind(GC.Spread.Sheets.Events.ClipboardPasted, function (sender, args) {
+            if (checkCopy) 
+                {
+                    var RowChanged = ssa.getDirtyRows();
+                    for(let i = 0; i < RowChanged.length; i++) {
+                       var rowIndex=RowChanged[i].row;
+                       ssa.setValue(rowIndex, Object.keys(objectModel).length - 2, '');
+                       console.log(rowIndex);
+                    }
+                }
+        });
+        
+        ssa.zoom(0.6);
+        var url;
+        var check='@Model.NameColumn.Trim()';
+      //  url = "/admin/storagevalue/GetExcelTo" + check + "";
+      //   url = "/admin/storagevalue/GetObject?nameCOLUMN=" + check + "";
+      //       $.getJSON(url, function (event) {
+      //       if(event && event.data){
+      //           console.log(event);
+      //           ssa.suspendPaint();
+      //           var getData = event.data;
+      //           if (getData.length > 0 && getData !== undefined) {
+      //               var listPro = Object.getOwnPropertyNames(getData[0]);
+      //               listPro.forEach(x => objectModel[x] = null);
+      //               var res = getData.map((m) => { return Object.values(m); });
+      //               countPro=listPro.length;
+      //               ssa.setRowCount(event.count+300, GC.Spread.Sheets.SheetArea.viewport);
+      //               ssa.setColumnCount(listPro.length -1, GC.Spread.Sheets.SheetArea.viewport);
+      //               console
+      //               if('@Model.ActiveGetAllData'=='True')
+      //               {
+      //                  $("#countResult").html("Có "+event.count+" kết quả tìm kiếm");
+      //
+      //               }
+      //               ssa.resumePaint();
+      //               ssa.clearPendingChanges();
+      //           }
+      //           ssa.clearPendingChanges();
+      //       }
+      //   });
+        }
+    }
+
+    function Record(data) {
+        var keyNames = Object.keys(data);
+        var object={};
+        for (var i = 0; i < keyNames.length; i++) {
+            var key = keyNames[i];
+            this[key]=data[key]
+        }
+       // return object;
+    }
+    function Invoice( records) {
+                this.records = records;
+            }
+
+    // Create importSpreadFromExcel()
+    function importSpreadFromExcel(file, options) {
+        excelIO.open(
+            file,
+            function (json) {
+                importJSON(json);
+            },
+            function (e) {
+                console.log(e);
+            },
+            options
+        );
+        //   debugger;
+    }
+    // Create importSpreadFromJSON()
+    function importSpreadFromJSON(file) {
+        function importSuccessCallback(responseText) {
+            var spreadJson = JSON.parse(responseText);
+            importJSON(spreadJson);
+        }
+        var reader = new FileReader();
+        reader.onload = function () {
+            importSuccessCallback(this.result);
+        };
+        reader.readAsText(file);
+        return true;
+    }
+
+    // Create importFile() function to decide if a file is .xlsx or .JSON/.SSJSON
+    function importFile(file) {
+        var fileName = file.name;
+        var index = fileName.lastIndexOf(".");
+        var fileExt = fileName.substr(index + 1).toLowerCase();
+        if (fileExt === "json" || fileExt === "ssjson") {
+            importSpreadFromJSON(file);
+        } else if (fileExt === "xlsx") {
+            importSpreadFromExcel(file);
+        }
+    }
+    // Create processFileSelected()
+    function processFileSelected(numberPage,keySearch,listSearch) {
+            try {
+                numberPage===undefined?0:numberPage;
+                keySearch===undefined?"":keySearch;
+                var file;
+                $.ajax({
+                url: "@Url.Action("GetFileTemplateToAddOrUpdate")/?id="+"@Model.Id"+"&keySearch="+keySearch+""+"&numberPage="+numberPage,
+                type: "post",
+                data:{listItem:listSearch},
+                dataType: 'json',
+                async: false,
+                beforeSend: function (jqXhr, settings) {
+                    app.ui.loader(frmCreate.$this, true);
+                },
+                success:function (msg){
+                    $('#example').pagination({
+                    total: msg.TotalCount,
+                    current: numberPageCache+1,
+                    length: 100,
+                    size: 3,
+                    click: function(options,$target) {
+                        $target.next(".show").text('Current: ' + options.current);
+                        keySearch = $("#Keywords").val();
+                        var listSearch = [];
+                        listSearch = GetListSearch();
+                        numberPageCache = options.current-1;
+                        processFileSelected(numberPageCache, keySearch, listSearch);
+                    }
+                    });
+                $("#numberPage").val(numberPage+1+"/"+Math.ceil(msg.TotalCount/100));
+                $("#countResult").html("Có "+msg.TotalCount+" kết quả tìm kiếm");
+                file = new File([base64ToArrayBuffer(msg.FileConvert)], "TemplateMasterVTCNTT.xlsx", { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                app.ui.loader(frmCreate.$this, false);
+
+            },
+            error:function (msg){
+                 notify({ text: "Có lỗi xảy ra với trong quá trình tìm kiếm, xin vui lòng tải lại trang và thử lại hoặc liên hệ với bộ phận IT !", type: 'err' });
+                 console.log(msg);
+                }
+            });
+
+                if (!file) return false;
+                //  fileSelector.innerHTML = "";
+                return importFile(file);
+            }
+            catch(err) {
+                CheckErrorToFilePjaxStorageValue();
+            }
+
+        }
+
+        base64ToArrayBuffer = (base64) => {
+            try
+            {
+                var binaryString = window.atob(base64);
+                var binaryLen = binaryString.length;
+                var bytes = new Uint8Array(binaryLen);
+                for (var i = 0; i < binaryLen; i++) {
+                    var ascii = binaryString.charCodeAt(i);
+                    bytes[i] = ascii;
+            }
+                return bytes;
+            }
+            catch(err)
+            {
+                CheckErrorToFilePjaxStorageValue();
+
+            }
+
+        }
+
+
+    function CheckErrorToFilePjaxStorageValue(){
+          notify({ text: "Có lỗi xảy ra với File, xin vui lòng xem xét lại File hoặc liên hệ với bộ phận IT !", type: 'err' });
+          $.pjax({ url: '/Admin/StorageValue' });
+    }
+
+    function ExportFile() {
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = mm + '/' + dd + '/' + yyyy;
+        var fileName = 'ExportExcel-'+today+'.xlsx';
+        var json = JSON.stringify(ss.toJSON());
+        excelIO.save(json, function (blob) {
+            saveAs(blob, fileName);
+        $body.removeClass("loading");
+        }, function (e) {
+            console.log(e);
+        });
+    }
+
+    function  SetValueToNull(item){
+            for (const property in item) {
+                item[property]=null;
+                }
+        }
+
+    function SetValueToObjet(item,i,value){
+        var tem=0;
+            for (const property in item) {
+                if (tem === i)
+                    {
+                item[property]=value;
+                break;
+                        }
+                else
+                    tem++;
+            }
+    }
+
+    // lấy data bị thay đổi từ view excel
+    function updatedata(sheet, url, callback) {
+        var dirtyrows = sheet.getDirtyRows();
+        let details = [];
+        let modelsAdd=[];
+        var listId=[];
+        // debugger;
+        $.ajax({
+                url: "@Url.Action("GetGuid")",
+                type: "get",
+                async: false,
+                data: { Count:dirtyrows.length },
+                datatype: "json",
+                //contenttype: "application/json,charset=utf-8",
+                success:function (msg){
+
+                    if (msg && msg.success)
+                        {
+                        for(let i = 0; i < msg.data.length; i++) {
+                            listId.push(msg.data[i]);
+                            }
+                        }
+                    else
+                        notify({ text: "Có lỗi xảy ra bất ngờ, xin vui lòng tải lại trang hoặc liên hệ với bộ phận IT !", type: 'err' });
+
+                    }
+        });
+        var listAddIndex = [];
+        for (var i = 0; i < dirtyrows.length; i++) {
+                var item = {};
+                var listObjectName = Object.getOwnPropertyNames(objectModel);
+                listObjectName.forEach(x => item[x] = null);
+                var rowIndex=dirtyrows[i].row;
+            for (var j = 0; j < Object.keys(objectModel).length - 1; j++) {
+                    SetValueToObjet(item,j,sheet.getValue(rowIndex,j));
+            }
+                if (item.Id === null || item.Id===undefined)
+                    {
+                    item.Id=listId[i];
+                    modelsAdd.push(item);
+                    sheet.setValue(rowIndex, j - 1, listId[i]);
+                    listAddIndex.push(rowIndex);
+                    }
+
+                else
+                    details.push(item);
+        }
+        var url;
+        var check='@Model.NameColumn.Trim()';
+        url= "/admin/storagevalue/Update"+check+""
+        if (details.length+modelsAdd.length > 0) {
+            $.ajax({
+                url: url,
+                type: "post",
+                data: { models: details,modelsAdd:modelsAdd },
+                datatype: "json",
+                success:function (msg){
+                    if (msg && msg.success) {
+                        sheet.clearPendingChanges();
+                    }
+                    else {
+                        for (var i = 0; i < listAddIndex.length; i++) {
+                            var index = listAddIndex[i];
+                            sheet.setValue(index, Object.keys(objectModel).length - 2, '');
+                        }
+                        notify({ text: "Thao tác thất bại, hệ thống sẽ tải lại trang và bạn có thể thử lại !", type: 'error' });
+                        location.reload();
+                    }
+                }
+            });
+        } else {
+            notify({ text: "Không có sự thay đổi, xin vui lòng kiểm tra lại !", type: 'info' });
+
+        }
+    }
+</script>

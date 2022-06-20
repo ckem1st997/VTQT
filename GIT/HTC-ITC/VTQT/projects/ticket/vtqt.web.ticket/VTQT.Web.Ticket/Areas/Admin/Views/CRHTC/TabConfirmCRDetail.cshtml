@@ -1,0 +1,89 @@
+﻿@model ConfirmCRSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var confirmCR = {
+        grd: {
+            el: '#confirmCR_grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            tmp: {
+                activate: function (activate) { }
+            },
+            data: function () { }
+        },
+        init: function () { },
+        activates: function (activate, ids) { }
+    }
+
+    var confirmGrd = confirmCR.grd;
+
+    confirmGrd.data = function () {
+        var searchModel = {
+            CrId: '@Model.CrId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-confirmCR" type="text/x-kendo-template">
+
+    </script>
+    @(Html.Kendo().Grid<ConfirmCRModel>()
+        .Name("confirmCR_grd")
+        .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+        .Columns(columns =>
+        {
+            columns.ForeignKey(x => x.ConfirmClass, (System.Collections.IEnumerable)ViewData["ApproverCR"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.ForeignKey(x => x.Approver, (System.Collections.IEnumerable)ViewData["ApproverCR"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.ForeignKey(x => x.Progress, (System.Collections.IEnumerable)ViewData["progress"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.Bound(x => x.ReasonDetail).Width(350);
+        })
+        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-confirmCR"); })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(int.MaxValue)
+            .ServerOperation(false)
+            .Read(read => read.Action("GetConfirmCR", "CRHTC").Data("confirmGrd.data"))
+        )
+        .NoRecords()
+        .Scrollable(scr => scr.Enabled(true))
+        .Pageable(pageable => pageable.Enabled(false))
+        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+        .Navigatable())
+</div>
+
+<script>
+    confirmCR.init = function () {
+        confirmGrd.init();
+    };
+
+    confirmGrd.init = function () {
+        confirmGrd.$el = $(confirmGrd.el);
+        confirmGrd.api = confirmGrd.$el.data('kendoGrid');
+    };
+
+    confirmCR.activates = function(activate, ids) {
+        ids = ids || confirmGrd.api.selectedIds();
+        if (ids.length > 0) {
+
+        } else {
+            notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+        }
+    };    
+
+    confirmGrd.tmp.activate = function (activate) {
+        return activate ? '<i class="fa fa-check green"></i>' : '<i class="fa fa-times" style="color: red"></i>';
+    };
+
+    $(function () {
+        confirmCR.init();
+    });
+</script>
+

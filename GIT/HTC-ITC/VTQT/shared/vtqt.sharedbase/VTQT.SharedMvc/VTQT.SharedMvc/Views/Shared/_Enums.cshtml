@@ -1,0 +1,41 @@
+﻿<script>
+    //#region Declares
+
+    var enums = {
+        form: {}, // Form
+        grid: {} // Kendo Grid
+    };
+
+    //#endregion
+
+    //#region Form
+
+    /**
+     * Enum for form's error display modes.
+     * @@readonly
+     * @@enum {Number}
+     */
+    enums.form.ErrorDisplayMode = {
+        ShowOnFocus: 1,
+        ShowFirstError: 2,
+        ShowAllErrors: 3
+    };
+
+    //#endregion
+
+    //#region Kendo Grid
+
+    /**
+     * Enum for grid selection modes.
+     * @@readonly
+     * @@enum {Number}
+     */
+    enums.grid.SelectionMode = {
+        /** Single mode, as grid selectable: true or 'Single, Row' or 'Single, Cell'. */
+        Single: 1,
+        /** Multiple mode, as grid selectable: 'Multiple, Row' or 'Multiple, Cell'. */
+        Multiple: 2
+    };
+
+    //#endregion
+</script>

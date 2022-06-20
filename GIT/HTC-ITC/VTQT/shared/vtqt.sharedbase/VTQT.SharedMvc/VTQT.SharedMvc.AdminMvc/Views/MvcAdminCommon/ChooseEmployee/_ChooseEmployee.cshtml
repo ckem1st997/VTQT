@@ -1,0 +1,255 @@
+﻿@using Newtonsoft.Json
+
+@functions {
+    private string _employeeField;
+    private string EmployeeField
+    {
+        get
+        {
+            if (_employeeField != null)
+                return _employeeField;
+            var employeeField = ViewData["EmployeeField"];
+            if (employeeField != null)
+            {
+                _employeeField = Convert.ToString(employeeField);
+            }
+            return _employeeField;
+        }
+    }
+
+    private EmployeeModel _chosenEmployee;
+    private EmployeeModel ChosenEmployee
+    {
+        get
+        {
+            if (_chosenEmployee != null)
+                return _chosenEmployee;
+            var chosenEmployee = ViewData["ChosenEmployee"];
+            if (chosenEmployee != null)
+                _chosenEmployee = chosenEmployee as EmployeeModel;
+            else
+                _chosenEmployee = new EmployeeModel();
+            return _chosenEmployee;
+        }
+    }
+
+    private bool? _readOnly;
+    private bool ReadOnly
+    {
+        get
+        {
+            if (_readOnly.HasValue)
+                return _readOnly.Value;
+            var readOnly = ViewData["ReadOnly"];
+            if (readOnly != null)
+                _readOnly = (bool)readOnly;
+            else
+                _readOnly = false;
+            return _readOnly.Value;
+        }
+    }
+
+    private string _selectedCallBack;
+    private string SelectedCallBack
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_selectedCallBack))
+                return _selectedCallBack;
+            var selectedCallBack = ViewData["SelectedCallBack"];
+            if (selectedCallBack != null)
+                _selectedCallBack = (string)selectedCallBack;
+            else
+                _selectedCallBack = string.Empty;
+            return _selectedCallBack;
+        }
+    }
+
+    private string _removedCallBack;
+    private string RemovedCallBack
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_removedCallBack))
+                return _removedCallBack;
+            var removedCallBack = ViewData["RemovedCallBack"];
+            if (removedCallBack != null)
+                _removedCallBack = (string)removedCallBack;
+            else
+                _removedCallBack = string.Empty;
+            return _removedCallBack;
+        }
+    }
+}
+
+@if (string.IsNullOrWhiteSpace(EmployeeField))
+{
+    return;
+}
+
+@{
+    var jEmployee = JsonConvert.SerializeObject(ChosenEmployee);
+}
+
+<div id="_chooseEmpInput_@(EmployeeField)" class="input-group">
+    <input type="text" id="@(EmployeeField)_Text" class="form-control" value="" disabled="disabled" style="border-right: none" />
+    <a data-action="remove" class="input-group-addon hide" style="border-left: none; border-right: none; background-color: #f6f8f9" title="@T("Common.Delete")">
+        <i class="fa fa-times font-red" style="font-size: 11px; line-height: 11px"></i>
+    </a>
+    <a data-action="select" class="input-group-addon" style="border-left: none" title="@string.Format(T("Common.SelectObject"), T("Common.Employee"))">
+        <i class="fa fa-search font-blue"></i>
+    </a>
+    <input type="hidden" id="@(EmployeeField)_Value" name="@EmployeeField" value="" />
+</div>
+
+<script>
+    _chooseEmpInput['@(EmployeeField)'] = {
+        chosenEmployee: JSON.parse(JSON.stringify(@Html.Raw(jEmployee))),
+        el: '#_chooseEmpInput_@(EmployeeField)',
+        $el: {},
+        urlChoose: '@Url.Action("ChooseEmployee", "Common")',
+        selectedItem: {},
+        btnSelect: {
+            $el: {},
+            init: function () { }
+        },
+        btnRemove: {
+            $el: {},
+            init: function () { }
+        },
+        employeeText: {
+            $el: {},
+            init: function () { }
+        },
+        employeeValue: {
+            $el: {},
+            init: function () { }
+        },
+        init: function () { },
+        openChoose: function () { },
+        select: function () { },
+        remove: function () { },
+        helpers: {
+            bindData: function (employee) { }
+        }
+    };
+
+    _chooseEmpInput['@(EmployeeField)'].init = function () {
+        _chooseEmpInput['@(EmployeeField)'].$el = $(_chooseEmpInput['@(EmployeeField)'].el);
+
+        //Init
+        _chooseEmpInput['@(EmployeeField)'].btnSelect.init();
+        _chooseEmpInput['@(EmployeeField)'].btnRemove.init();
+        _chooseEmpInput['@(EmployeeField)'].employeeText.init();
+        _chooseEmpInput['@(EmployeeField)'].employeeValue.init();
+        //BindData
+        _chooseEmpInput['@(EmployeeField)'].helpers.bindData(_chooseEmpInput['@(EmployeeField)'].chosenEmployee);
+    };
+    //Init btnSelect
+    _chooseEmpInput['@(EmployeeField)'].btnSelect.init = function() {
+        var $el = $(_chooseEmpInput['@(EmployeeField)'].el).find('a[data-action="select"]');
+        _chooseEmpInput['@(EmployeeField)'].btnSelect.$el = $el;
+
+        _chooseEmpInput['@(EmployeeField)'].btnSelect.$el.click(function(e) {
+            _chooseEmpInput['@(EmployeeField)'].openChoose();
+        });
+    };
+    //Init btnRemove
+    _chooseEmpInput['@(EmployeeField)'].btnRemove.init = function() {
+        var $el = $(_chooseEmpInput['@(EmployeeField)'].el).find('a[data-action="remove"]');
+        _chooseEmpInput['@(EmployeeField)'].btnRemove.$el = $el;
+
+        _chooseEmpInput['@(EmployeeField)'].btnRemove.$el.click(function(e) {
+            _chooseEmpInput['@(EmployeeField)'].remove();
+        });
+    };
+    //Init EmployeeText
+    _chooseEmpInput['@(EmployeeField)'].employeeText.init = function() {
+        var $el = $(_chooseEmpInput['@(EmployeeField)'].el).find('#@(EmployeeField)_Text');
+        _chooseEmpInput['@(EmployeeField)'].employeeText.$el = $el;
+    };
+    //Init EmployeeValue
+    _chooseEmpInput['@(EmployeeField)'].employeeValue.init = function() {
+        var $el = $(_chooseEmpInput['@(EmployeeField)'].el).find('#@(EmployeeField)_Value');
+        _chooseEmpInput['@(EmployeeField)'].employeeValue.$el = $el;
+    };
+
+    _chooseEmpInput['@(EmployeeField)'].openChoose = function() {
+        app.window.form.open(
+            {
+                url: _chooseEmpInput['@(EmployeeField)'].urlChoose,
+                options: { width: '60%', height: '65%' },
+                callback: function() {
+                    _chooseEmpInput['@(EmployeeField)'].select();
+                },
+                initCallback: function() {
+                    window._chooseEmp.grdIndex.api.initDblClick(function() {
+                        _chooseEmpInput['@(EmployeeField)'].select();
+                    });
+                }
+            });
+    };
+    _chooseEmpInput['@(EmployeeField)'].select = function() {
+        _chooseEmpInput['@(EmployeeField)'].selectedItem = window._chooseEmp.grdIndex.api.selectedItems()[0];
+        if (_chooseEmpInput['@(EmployeeField)'].selectedItem) {
+            //Bind Data
+            _chooseEmpInput['@(EmployeeField)'].helpers.bindData(_chooseEmpInput['@(EmployeeField)'].selectedItem);
+            //Close Window
+            window._chooseEmp.winForm.close();
+            //CallBack
+            if ('@(SelectedCallBack)' !== '@string.Empty') {
+                @(SelectedCallBack)(_chooseEmpInput['@(EmployeeField)'].selectedItem);
+            }
+        }
+    };
+    _chooseEmpInput['@(EmployeeField)'].remove = function() {
+        _chooseEmpInput['@(EmployeeField)'].employeeText.$el.val('');
+        _chooseEmpInput['@(EmployeeField)'].employeeText.$el.attr('title', '');
+        _chooseEmpInput['@(EmployeeField)'].employeeValue.$el.val('');
+
+        if (_chooseEmpInput['@(EmployeeField)'].employeeText.$el.val() !== '') {
+            _chooseEmpInput['@(EmployeeField)'].btnRemove.$el.removeClass('hide');
+        } else {
+            _chooseEmpInput['@(EmployeeField)'].btnRemove.$el.addClass('hide');
+        }
+        //CallBack
+        if ('@(RemovedCallBack)' !== '@string.Empty') {
+            @(RemovedCallBack)(_chooseEmpInput['@(EmployeeField)'].selectedItem);
+        }
+    };
+
+    _chooseEmpInput['@(EmployeeField)'].helpers.bindData = function (employee) {
+        if (employee.Id !== 0) {
+            _chooseEmpInput['@(EmployeeField)'].employeeValue.$el.val(employee.Id);
+        } else {
+            _chooseEmpInput['@(EmployeeField)'].employeeValue.$el.val('');
+        }
+
+        if (employee.EmployeeCode !== null && employee.FullName !== null) {
+            _chooseEmpInput['@(EmployeeField)'].employeeText.$el.val('[' + employee.EmployeeCode + '] - ' + employee.FullName);
+            _chooseEmpInput['@(EmployeeField)'].employeeText.$el.attr('title', '[' + employee.EmployeeCode + '] - ' + employee.FullName);
+        } else {
+            _chooseEmpInput['@(EmployeeField)'].employeeText.$el.val('');
+            _chooseEmpInput['@(EmployeeField)'].employeeText.$el.attr('title', '');
+        }
+
+        if (_chooseEmpInput['@(EmployeeField)'].employeeText.$el.val() !== '') {
+            _chooseEmpInput['@(EmployeeField)'].btnRemove.$el.removeClass('hide');
+        } else {
+            _chooseEmpInput['@(EmployeeField)'].btnRemove.$el.addClass('hide');
+        }
+
+        if ('@(ReadOnly)' === 'True') {
+            _chooseEmpInput['@(EmployeeField)'].btnSelect.$el.css("pointer-events", "none");
+            _chooseEmpInput['@(EmployeeField)'].btnRemove.$el.css("pointer-events", "none");
+            _chooseEmpInput['@(EmployeeField)'].btnRemove.$el.addClass('hide');
+
+            _chooseEmpInput['@(EmployeeField)'].btnSelect.$el.find('i').removeClass('font-blue');
+            _chooseEmpInput['@(EmployeeField)'].btnRemove.$el.find('i').removeClass('font-red');
+        }
+    };
+
+    $(function () {
+        _chooseEmpInput['@(EmployeeField)'].init();
+    });
+</script>

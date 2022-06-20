@@ -1,0 +1,3 @@
+[submodule "VTQT.SharedRefs"]
+	path = VTQT.SharedRefs
+	url = ../../../Shared/vtqt.sharedrefs.git

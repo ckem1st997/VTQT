@@ -1,0 +1,382 @@
+﻿@model ChannelCategorySearchModel
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="create" href="javascript:void(0)" class="btn blue btn-sm"><i class="flaticon2-plus"></i> @T("Common.AddNew")</a>
+            <a data-action="edit" href="javascript:void(0)" class="btn yellow btn-sm"><i class="flaticon2-pen"></i> @T("Common.Edit")</a>
+            <a data-action="deletes" href="javascript:void(0)" class="btn red btn-sm"><i class="flaticon-delete"></i> @T("Common.Deletes")</a>
+            <button type="button" class="btn purple btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="flaticon-more"></i> @T("Common.OtherActions") <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a data-action="activate" href="javascript: void(0);"><i class="fa fa-check font-blue"></i> @T("Common.Activate")</a>
+                </li>
+                <li>
+                    <a data-action="deactivate" href="javascript: void(0);"><i class="fa fa-lock font-yellow"></i> @T("Common.Deactivate")</a>
+                </li>
+                <li>
+                    <a data-action="export" href="javascript:void(0)"><i class="fa fa-print"></i> @T("Common.ExportData")</a>
+                </li>
+                <li>
+                    <a data-action="importexcel" href="javascript:void(0)"><i class="fa fa-file-excel-o"></i> @T("Common.ImportExcel")</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+<div class="page-data">
+    <div class="row search-form">
+        <form>
+            <div class="search-label">
+                @T("Common.Search"):
+            </div>
+            <div class="col-md-4">
+                <div class="form-group form-group-sm">
+                    <div class="input-icon right">
+                        @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = T("Common.Fields.EnterKeywords") })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group form-group-sm">
+                    <button type="submit" id="btnSearch" class="btn btn-default btn-sm">
+                        <i class="fa fa-search"></i> @T("Common.GetData")
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row full-height">
+        @(Html.Kendo().Grid<ChannelCategoryModel>()
+            .Name("grd")
+            .HtmlAttributes(new { style = "height: 100%" })
+            .Columns(columns =>
+            {
+                columns.Select().Width(30);
+                columns.Bound(x => x.Code).Width(200);
+                columns.Bound(x => x.Name).ClientTemplate("#=grd.tmp.name(Name)#").Width(200);
+                columns.Bound(x => x.ChannelAreaId).Width(200);
+                columns.Bound(x => x.Inactive).ClientTemplate("#=grd.tmp.activate(!Inactive)#").Width(100).Centered().Title("Kích hoạt");
+
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .Read(read => read.Action("Get", "ChannelCategory").Data("grd.data"))
+            )
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(true))
+            .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+            .Navigatable())
+    </div>
+</div>
+
+<ul id="mnu" style="display: none">
+    <li data-action="details">
+        <i class="flaticon-eye font-blue-dark"></i> @T("Common.Details")
+    </li>
+    <li data-action="create">
+        <i class="flaticon2-plus font-blue"></i> @T("Common.AddNew")
+    </li>
+    <li data-action="edit">
+        <i class="flaticon2-pen font-yellow"></i> @T("Common.Edit")
+    </li>
+    <li data-action="activate">
+        <i class="flaticon2-check-mark font-blue"></i> @T("Common.Activate")
+    </li>
+    <li data-action="deactivate">
+        <i class="flaticon-lock font-yellow"></i> @T("Common.Deactivate")
+    </li>
+    <li class="k-separator"></li>
+    <li data-action="refresh">
+        <i class="flaticon-refresh font-green"></i> @T("Common.Refresh")
+    </li>
+    <li data-action="deletes">
+        <i class="flaticon-delete font-red"></i> @T("Common.Delete")
+    </li>
+</ul>
+<!-- #endregion -->
+<!-- #region Scripts -->
+@section HeadScripts {
+    <script>
+        // Fields
+        var master = {
+            urlDetails: '@Url.Action("Details")',
+            urlCreate: '@Url.Action("Create")',
+            urlEdit: '@Url.Action("Edit")',
+            urlDeletes: '@Url.Action("Deletes")',
+            urlActivates: '@Url.Action("Activates")',
+            //urlExport: '@Url.Action("GetExcelReport")',
+            //urlImportExcel: '@Url.Action("ImportExcel")',
+            toolbar: {
+                el: '.page-toolbar',
+                $el: {},
+                actions: {
+                    init: function () { }
+                },
+                init: function () { }
+            },
+            grd: {
+                el: '#grd',
+                $el: {},
+                api: {},
+                actions: {
+                    init: function () { }
+                },
+                tmp: {
+                    name: function (id, name) { },
+                    activate: function (activate) { }
+                },
+                data: function () { },
+                init: function () { }
+            },
+            mnu: {
+                el: '#mnu',
+                $el: {},
+                api: {},
+                init: function () { }
+            },
+            btnSearch: {
+                el: '#btnSearch',
+                $el: {},
+                init: function () { }
+            },
+            init: function () { },
+            details: function (id) { },
+            create: function () { },
+            edit: function (id) { },
+            deletes: function () { },
+            activates: function (activate, ids) { },
+            refresh: function () { },
+            actionCallback: function () { },
+            importExcel: function () { },
+            importExcel: function () { },
+            export: function () { }
+        };
+        var toolbar = master.toolbar;
+        var grd = master.grd;
+        var mnu = master.mnu;
+        var btnSearch = master.btnSearch;
+
+        grd.data = function () {
+            var $keywords = $('#@Html.FieldIdFor(m => m.Keywords)');
+            var $status = $('#@Html.FieldIdFor(m => m.Status)');
+
+            var searchModel = {
+                Keywords: $keywords.val(),
+                Status: $status.val()
+            };
+            return searchModel;
+        };
+    </script>
+}
+
+@section Scripts {
+    <script>
+        // Methods
+        master.importExcel = function () {
+            app.window.form.open({ url: `${master.urlImportExcel}`, options: { width: '620px' } });
+            console.log();
+        };
+
+        master.details = function() {
+            var id = grd.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({ url: `${master.urlDetails}/${id}`, options: { width: '500px' } });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        };
+        master.importExcel = function () {
+            app.window.form.open({ url: `${master.urlImportExcel}`, options: { width: '850px' } });
+            console.log();
+        };
+        master.create = function () {
+            app.window.form.open({ url: master.urlCreate, options: { width: '500px' }, callback: master.actionCallback});
+        };
+        master.edit = function() {
+            var id = grd.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({ url: `${master.urlEdit}/${id}`, options: { width: '500px' }, callback: master.actionCallback });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        };
+        master.deletes = function() {
+            var ids = grd.api.selectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: master.urlDeletes, ids: ids, options: { width: '450px' }, callback: master.actionCallback });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        };
+        master.activates = function(activate, ids) {
+            ids = ids || grd.api.selectedIds();
+            if (ids.length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    data: { Ids: ids, Active: activate, __RequestVerificationToken: app.form.antiForgeryToken.value },
+                    dataType: 'json',
+                    url: master.urlActivates,
+                    beforeSend: function(jqXhr, settings) {
+                        app.ui.loader(grd.api.element, true);
+                    },
+                    success: function(msg) {
+                        if (!msg)
+                            return;
+                        if (!msg.HasError) {
+                            master.actionCallback();
+                        }
+                        app.ui.loader(grd.api.element, false);
+                    },
+                    error: function(jqXhr, textStatus, errorThrown) {
+                        app.ui.loader(grd.api.element, false);
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        };
+        master.refresh = function() {
+            grd.api.reload();
+        };
+        master.actionCallback = function() {
+            grd.api.reload();
+        };
+         master.export = function () {
+             var $keywords = $('#@Html.FieldIdFor(m => m.Keywords)');
+            var $status = $('#@Html.FieldIdFor(m => m.Status)');
+
+            var searchModel = {
+                Keywords: $keywords.val(),
+                Status: $status.val(),
+                PageIndex: grd.api.dataSource.page(),
+                PageSize: grd.api.dataSource.pageSize(),
+            };
+             window.location = master.urlExport + '?' + $.param(searchModel);
+
+        };
+        // Inits
+        master.init = function() {
+            toolbar.init();
+            grd.init();
+            mnu.init();
+            btnSearch.init();
+
+        };
+
+        toolbar.init = function() {
+            toolbar.$el = $(toolbar.el);
+
+            toolbar.actions.init();
+        };
+        toolbar.actions.init = function() {
+            var $toolbar = toolbar.$el;
+            $toolbar.find('a[data-action="export"]').click(function (e) {
+                master.export();
+            });
+            $toolbar.find('a[data-action="importexcel"]').click(function (e) {
+                master.importExcel();
+            });
+            admin.pageToolbar.actions.initCreate($toolbar, master.create);
+            admin.pageToolbar.actions.initEdit($toolbar, master.edit);
+            admin.pageToolbar.actions.initDeletes($toolbar, master.deletes);
+            admin.pageToolbar.actions.initActivate($toolbar, master.activates);
+        };
+        grd.init = function() {
+            grd.$el = $(grd.el);
+            grd.api = grd.$el.data('kendoGrid');
+
+            grd.actions.init();
+        };
+        grd.actions.init = function () {
+            grd.api.initDblClick(master.details);
+            grd.api.initEdit(master.edit);
+            grd.api.initActivate(master.activates);
+        };
+        mnu.init = function() {
+            mnu.$el = $(mnu.el);
+            mnu.$el.kendoContextMenu({
+                orientation: 'vertical',
+                target: master.grd.el,
+                filter: 'tbody tr[role="row"]',
+                animation: {
+                    open: { effects: "fadeIn" },
+                    duration: 0
+                },
+                open: function(e) {
+                    var $row = $(e.target);
+                    var selected = master.grd.api.select().length;
+                    if (selected === 0 || (!$row.hasClass('k-state-selected') && selected > 0)) {
+                        master.grd.api.clearSelection();
+                        master.grd.api.select($row);
+                    }
+                },
+                select: function(e) {
+                    var action = $(e.item).attr('data-action');
+                    switch (action) {
+                    case 'details':
+                        master.details();
+                        break;
+                    case 'create':
+                        master.create();
+                            break;
+                    case 'importExcel':
+                            master.importExcel();
+                            break;
+                    case 'edit':
+                        master.edit();
+                        break;
+                    case 'activate':
+                        master.activates(true);
+                        break;
+                    case 'deactivate':
+                        master.activates(false);
+                        break;
+                    case 'deletes':
+                        master.deletes();
+                        break;
+                    case 'refresh':
+                        master.refresh();
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            });
+            mnu.api = mnu.$el.data("kendoContextMenu");
+        };
+        btnSearch.init = function() {
+            btnSearch.$el = $(btnSearch.el);
+
+            const search = _.debounce(() => {
+                grd.api.resetPage();
+            }, app.ui.def.debounce.timeout);
+            btnSearch.$el.click(function (e) {
+                search();
+                return false;
+            });
+        };
+
+        // Templates
+        grd.tmp.name = function (name) {
+            return `<a data-action="edit" href="javascript:void(0)">${name}</a>`;
+        };
+        grd.tmp.activate = function(activate) {
+            return activate ? '<i data-action="deactivate" class="fa fa-check green pointer"></i>' : '<i data-action="activate" class="fa fa-lock yellow pointer"></i>';
+        };
+
+        // Startup
+        $(function() {
+            master.init();
+        });
+    </script>
+}
+<!-- #endregion -->

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\VTQT.Caching.Manager.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)..\..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll.config&quot; &quot;$(ProjectDir)..\..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.pdb&quot; &quot;$(ProjectDir)..\..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.xml&quot; &quot;$(ProjectDir)..\..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt" />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="EasyCaching.Core" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.HybridCache" Version="0.9.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.62" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\VTQT.Core\VTQT.Core.csproj" />
+  </ItemGroup>
+
+</Project>

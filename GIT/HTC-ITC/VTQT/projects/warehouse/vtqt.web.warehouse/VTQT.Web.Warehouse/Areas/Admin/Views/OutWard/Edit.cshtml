@@ -1,0 +1,418 @@
+﻿@model OutwardModel
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="create" href="javascript:void(0)" class="btn blue btn-sm">
+                <i class="fa fa-check"></i> @T("Common.Save")
+            </a>
+            <a data-action="cancel" href="javascript:void(0)" class="btn red btn-sm">
+                <i class="fa fa-times"></i> @T("Common.Cancel")
+            </a>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Page Content -->
+<div class="page-data" style="padding-top: 10px">
+<div class="form fixed-layout-form">
+<form id="form-data" data-form-type="ajax" class="form-horizontal">
+<div class="row full-height" style="padding-top: 196px">
+<div class="row" style="position: absolute; top: 10px; width: 100%">
+    <div class="col-md-8" style="padding-left: 0">
+        @Html.HiddenFor(m => m.CreatedDate)
+        @Html.HiddenFor(m => m.CreatedBy)
+        <fieldset class="fieldset-no-border">
+            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 84%;">@T("Common.Outward")</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.WareHouseID, true, new { @class = "control-label col-md-4" }, true)
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.WareHouseID, Model.AvailableWareHouses, string.Format(T("Common.SelectObject"), T("Common.Warehouse")), new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.AccObjectId, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.AccObjectId, Model.AvailableAccObject, string.Format(T("Common.SelectObject"), T("Common.AccObject")), new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                </div>
+                @* <div class="col-md-6"> *@
+                @*     <div class="form-group form-group-sm"> *@
+                @*         @Html.XBaseLabelFor(m => m.ReceiverCode, true, new { @class = "control-label col-md-4" }, true) *@
+                @*         <div class="col-md-8"> *@
+                @*             @Html.TextBoxFor(m => m.ReceiverCode, new { @class = "form-control" }) *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Deliver, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Deliver, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Receiver, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Receiver, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.DeliverPhone, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.DeliverPhone, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ReceiverPhone, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.ReceiverPhone, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.DeliverAddress, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.DeliverAddress, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ReceiverAddress, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.ReceiverAddress, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.DeliverDepartment, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.DeliverDepartment, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ReceiverDepartment, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.ReceiverDepartment, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.ToWareHouseId, true, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.ToWareHouseId, Model.AvailableToWareHouses, string.Format(T("Common.SelectObject"), T("Common.Fields.ToWareHouse")), new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Reason, true, new { @class = "control-label col-md-4" }, true)
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.Reason, Model.AvailableReasons, string.Format(T("Common.SelectObject"), T("Common.Fields.Reason")), new { @class = "form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-md-4" style="padding-right: 0">
+        <fieldset class="fieldset-no-border" style="width:98%;">
+            <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; width: 73%;">@T("Common.InfoGroup")</legend>
+            <div class="form-group form-group-sm">
+                @Html.XBaseLabelFor(m => m.VoucherCode, true, new { @class = "control-label col-md-3" }, true)
+                <div class="col-md-9">
+                    @Html.DisplayFor(m => m.VoucherCode)
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.XBaseLabelFor(m => m.VoucherCode, true, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.DisplayFor(m => m.VoucherCodeReality, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.XBaseLabelFor(m => m.VoucherDate, true, new { @class = "control-label col-md-3" }, true)
+                <div class="col-md-9">
+                    @Html.EditorFor(m => m.VoucherDate, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.XBaseLabelFor(m => m.ModifiedBy, true, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.DropDownListFor(m => m.ModifiedBy, Model.AvailableCreatedBy, string.Format(T("Common.SelectObject"), T("Common.Fields.ModifiedBy")), new { @class = "form-control", style = "width: 100%" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.XBaseLabelFor(m => m.CreatedDate, true, new { @class = "control-label col-md-3" }, true)
+                <div class="col-md-9">
+                    @Html.DisplayFor(m => m.CreatedDate)
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="row full-height" style=" padding-top:7%;">
+    <script id="toolbar" type="text/x-kendo-template">
+                        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+                            <span>DANH SÁCH VẬT TƯ</span>
+                        </div>
+                        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+                            <a id="btnAdd" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm vật tư</a>
+                            <a id="btnEdit" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>
+                            <a id="btnRemove" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+                        </div>
+                    </script>
+    @(Html.Kendo().Grid<OutwardDetailModel>()
+        .Name("frmEdit_grdIndex")
+        .HtmlAttributes(new { style = "height: 98%;margin-left: 10px;margin-right: 10px;margin-top: 10px;border-left: 2px solid #cddaeb !important; border-right: 2px solid #cddaeb !important" })
+        .Columns(columns =>
+        {
+            columns.Select().Locked().Width(30);
+            columns.Bound(x => x.ItemId).Hidden();
+            columns.Bound(x => x.ItemName).Width(320).Locked(true);
+            columns.Bound(x => x.UnitId).Hidden();
+            columns.Bound(x => x.UnitName).Width(110).Locked(true);
+            columns.Bound(x => x.UIQuantity).Width(110).RightAlign();
+            columns.Bound(x => x.UIPrice).Width(110).RightAlign();
+            columns.Bound(x => x.Amount).Width(110).RightAlign();
+            columns.Bound(x => x.Quantity).Hidden();
+            columns.Bound(x => x.Price).Hidden();
+            columns.Bound(x => x.Status).Width(200);
+            columns.Bound(x => x.DepartmentId).Hidden();
+            columns.Bound(x => x.DepartmentName).Width(200);
+            columns.Bound(x => x.EmployeeId).Hidden();
+            columns.Bound(x => x.EmployeeName).Width(200);
+            columns.Bound(x => x.StationId).Hidden();
+            columns.Bound(x => x.StationName).Width(200);
+            columns.Bound(x => x.ProjectId).Hidden();
+            columns.Bound(x => x.ProjectName).Width(200);
+            columns.Bound(x => x.CustomerId).Hidden();
+            columns.Bound(x => x.CustomerName).Width(300);
+        })
+        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar"); })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(int.MaxValue)
+            .ServerOperation(true)
+            .Read(read => read.Action("Details_Read", "Outward").Data("grdIndex.data"))
+        )
+        .NoRecords()
+        .Scrollable(scr => scr.Enabled(true))
+        .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(true))
+        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+        .Navigatable())
+</div>
+</div>
+</form>
+</div>
+</div>
+
+<!-- #endregion -->
+<!-- #region Scripts -->
+
+@section HeadScripts {
+    <script>
+        var frmEdit = {
+            urlCreateItem: '@Url.Action("CreateItem")',
+            urlEditItem: '@Url.Action("EditItem")',
+            urlDeleteItems: '@Url.Action("DeleteItems")',
+            urlSaveData: '@Url.Action("EditSave")',
+            selector: '.page-data',
+            $this: {},
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { }
+            },
+            grdIndex: {
+                el: '#frmEdit_grdIndex',
+                $el: {},
+                api: {},
+                data: function () { },
+                init: function () { }
+            },
+            btnSave: {
+                selector: 'a[data-action="create"]',
+                $this: {},
+                init: function () { }
+            },
+            btnCancel: {
+                selector: 'a[data-action="cancel"]',
+                $this: {},
+                init: function () { }
+            },
+            btnAddItem: {
+                selector: '#btnAdd',
+                $this: {},
+                init: function () { }
+            },
+            btnEditItem: {
+                selector: '#btnEdit',
+                $this: {},
+                init: function () { }
+            },
+            btnRemoveItem: {
+                selector: '#btnRemove',
+                $this: {},
+                init: function () { }
+            },
+            helpers: {
+                saveData: function () { }
+            },
+            init: function () { }
+        };
+        var form = frmEdit.form;
+        var grdIndex = frmEdit.grdIndex;
+        var btnSave = frmEdit.btnSave;
+        var btnCancel = frmEdit.btnCancel;
+        var btnAddItem = frmEdit.btnAddItem;
+        var btnEditItem = frmEdit.btnEditItem;
+        var btnRemoveItem = frmEdit.btnRemoveItem;
+        var helpers = frmEdit.helpers;
+
+        grdIndex.data = function () {
+            var searchModel = {
+                OutwardId: '@Model.Id'
+            };
+            return searchModel;
+        };
+    </script>
+}
+
+@section Scripts {
+    <script>
+        //Methods
+        btnAddItem.init = function() {
+            btnAddItem.$this = $(btnAddItem.selector);
+
+            btnAddItem.$this.click(function (e) { app.window.form.open({ url: frmEdit.urlCreateItem + '?outwardId=' + '@Model.Id'+'&AccObjectId='+$("#AccObjectId").val(), options: { width: '450px' }, callback: function() { grdIndex.api.reload(); } }); });
+        }
+        btnEditItem.init = function() {
+            btnEditItem.$this = $(btnEditItem.selector);
+
+            btnEditItem.$this.click(function (e) {
+                var id = grdIndex.api.selectedIds()[0];
+                if (id) {
+                    app.window.form.open({ url: `${frmEdit.urlEditItem}/`+'?id=' +id+'&AccObjectId='+$("#AccObjectId").val(), options: { width: '450px' }, callback: function () { grdIndex.api.reload(); } });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                }
+            });
+        }
+        btnRemoveItem.init = function() {
+            btnRemoveItem.$this = $(btnRemoveItem.selector);
+
+            btnRemoveItem.$this.click(function(e) {
+                var ids = grdIndex.api.selectedIds();
+                if (ids.length > 0) {
+                    app.window.deletes.open({ url: frmEdit.urlDeleteItems, ids: ids, options: { width: '450px' }, callback: function () { grdIndex.api.reload(); } });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                }
+            });
+        }
+
+        //Helpers
+        helpers.saveData = function(model) {
+            $.ajax({
+                type: 'POST',
+                data: { model: model },
+                dataType: 'json',
+                url: frmEdit.urlSaveData,
+                beforeSend: function(jqXhr, settings) {
+                    app.ui.loader(frmEdit.$this, true);
+                },
+                success: function(msg) {
+                    if (msg.success) {
+                        $.pjax({ url: '@Url.Action("Index", "WareHouseBook")' });
+                    }
+                    app.ui.loader(frmEdit.$this, false);
+                }
+            });
+        }
+
+        //Inits
+        frmEdit.init = function() {
+            frmEdit.$this = $(frmEdit.selector);
+            form.init();
+            grdIndex.init();
+            btnCancel.init();
+            btnSave.init();
+            btnAddItem.init();
+            btnEditItem.init();
+            btnRemoveItem.init();
+        }
+
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex.init = function() {
+            grdIndex.$el = $(grdIndex.el);
+            grdIndex.api = grdIndex.$el.data('kendoGrid');
+        };
+        btnSave.init = function() {
+            btnSave.$this = $(btnSave.selector);
+
+            btnSave.$this.click(function(e) {
+                if (form.$this.valid()) {
+                    var model = form.$this.serializeObject();
+                    model.Id = '@Model.Id';
+                    model.VoucherCode = '@Model.VoucherCode';
+
+                    helpers.saveData(model);
+                }
+            });
+        }
+        btnCancel.init = function() {
+            btnCancel.$this = $(btnCancel.selector);
+
+            btnCancel.$this.click(function(e) {
+                $.pjax({ url: '@Url.Action("Index", "WareHouseBook")' });
+            });
+        }
+
+        //Startup
+        $(function() {
+            frmEdit.init();
+        });
+    </script>
+}
+
+<!-- #endregion -->

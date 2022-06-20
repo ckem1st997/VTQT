@@ -1,0 +1,169 @@
+﻿@using VTQT.Web.Asset.Models
+
+@model AssetSearchModel
+
+
+<script>
+    var masterProjectBase = {
+        grdIndexProjectBase: {
+            selector: '#grdIndexProjectBase',
+            $this: {},
+            api: {},
+            init: function () { },
+            edit: function (e) { },
+            create: function (e) { },
+            error: function (e) { },
+            templates: {
+                flag: function (id, flag) { },
+                name: function (id, name) { },
+                resources: function (id) { },
+                published: function (published) { }
+            },
+            data: function () { }
+
+        },
+        btnSearchProjectBase: {
+            el: '#ProjectBaseId',
+            $el: {},
+            init: function () { }
+        },
+        inputSearchProjectBase: {
+            el: '#ProjectBaseDateGetOrganizationId',
+            $el: {},
+            init: function () { }
+        },
+        init: function () { }
+    };
+    var grdIndexProjectBase = masterProjectBase.grdIndexProjectBase;
+    var btnSearchProjectBase = masterProjectBase.btnSearchProjectBase;
+    var inputSearchProjectBase = masterProjectBase.inputSearchProjectBase;
+
+    grdIndexProjectBase.data = function () {
+        var dd = $('#ProjectBaseId').select2('data');
+        var ProjectBaseDateGetOrganizationId = $('#ProjectBaseDateGetOrganizationId').val();
+        var $keywords = dd[0].id;
+        if ($keywords == undefined || $keywords.length < 1)
+            $keywords = 10;
+        var searchModel = {
+            OrganizationId: ProjectBaseDateGetOrganizationId,
+            Keywords: $keywords,
+            PageIndex: $("#grdIndexProjectBase").data("kendoGrid").dataSource.page(),
+            PageSize: $("#grdIndexProjectBase").data("kendoGrid").dataSource.pageSize()
+        };
+        return searchModel;
+    };
+</script>
+
+<div class="title-home-set" style=" background-color: #00875a !important;">
+    <p class="title-p">Theo đơn vị</p>
+</div>
+<!-- #endregion -->
+<div class="search-home-set" style="border-top:0px">
+    <div>@T("common.fields.assetcategory"):</div>
+    <select name="ProjectBaseId"
+            id="ProjectBaseId"
+            class="autowidth"
+            style="width: 30%"
+            data-placeholder='@T("Common.Select2.Select")'
+            data-select-url="@Url.Action("GetAssetCategory")">
+    </select>
+ <div style="margin-left:5%;margin-right:5%">@T("asset.assettransference.fields.department"):</div>
+    <select name="ProjectBaseDateGetOrganizationId"
+            id="ProjectBaseDateGetOrganizationId"
+            class="autowidth"
+            style="width: 42%"
+            data-placeholder='@T("Common.Select2.Select")'
+            data-select-url="@Url.Action("GetOrganization")">
+    </select>
+
+    <div style="display: none;">Hết hạn sau khoảng (Ngày):</div>
+
+    <input class="input-type" style="width:10%" max="100" min="1" value="30" type="hidden" id="ProjectBaseDate" />
+</div>
+
+<div class="result-home-set full-height" style="border:none">
+
+    @Html.AntiForgeryToken()
+    @(Html.Kendo().Grid<ProjectBaseModel>()
+            .Name("grdIndexProjectBase")
+           //   .Scrollable(s => s.Height("10vh"))
+           .HtmlAttributes(new { style = "border-top:none;height:65%;border: 1px solid #d9d9d9" })
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.OrganizationUnitName).Width(39);
+                columns.Bound(x => x.Quantity).Width(39);
+                columns.Bound(x => x.BrokenQuantity).Width(39);
+                columns.Bound(x => x.RecallQuantity).Width(39);
+                columns.Bound(x => x.SoldQuantity).Width(50);
+                columns.Bound(x => x.EndWarrantyDuration).Width(50);
+
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .ServerOperation(true)
+                .Read(read => read.Action("GetProjectBase", "Home").Data("grdIndexProjectBase.data"))
+                )
+            .NoRecords()
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PreviousNext(true).Refresh(true))
+            .Navigatable())
+</div>
+
+
+<style>
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+
+    .me-3 {
+        margin-right: 1rem !important;
+    }
+</style>
+<script>
+
+    masterProjectBase.init = function () {
+        grdIndexProjectBase.init();
+        btnSearchProjectBase.init();
+        inputSearchProjectBase.init();
+        $(btnSearchProjectBase.el).select2().select2('val', 10);
+
+    }
+
+    grdIndexProjectBase.init = function () {
+        grdIndexProjectBase.$this = $(grdIndexProjectBase.selector);
+        grdIndexProjectBase.api = grdIndexProjectBase.$this.data('kendoGrid');
+    }
+    btnSearchProjectBase.init = function () {
+        btnSearchProjectBase.$el = $(btnSearchProjectBase.el);
+        const search = _.debounce(() => {
+            grdIndexProjectBase.api.resetPage();
+        }, app.ui.def.debounce.timeout);
+        btnSearchProjectBase.$el.on("select2:select", function (e) {
+            var data = e.params.data;
+            search();
+            return false;
+        });
+    };
+
+    inputSearchProjectBase.init = function () {
+        inputSearchProjectBase.$el = $(inputSearchProjectBase.el);
+        const search = _.debounce(() => {
+            grdIndexProjectBase.api.resetPage();
+        }, app.ui.def.debounce.timeout);
+        inputSearchProjectBase.$el.change(function (e) {
+            search();
+            return false;
+        });
+    };
+    $(function () {
+        masterProjectBase.init();
+
+    });
+
+</script>
+

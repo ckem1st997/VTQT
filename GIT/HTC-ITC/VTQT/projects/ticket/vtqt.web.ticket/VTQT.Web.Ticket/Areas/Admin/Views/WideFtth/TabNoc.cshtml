@@ -1,0 +1,83 @@
+﻿@model WideFtthModel
+@{
+    Layout = null;
+}
+
+<script>
+    var noc = {
+        formNoc: {
+            el: '#form-noc',
+            $el: {},
+            init: function () { },
+            data: []
+        },
+        init: function () { }
+    }
+
+    var formNoc = noc.formNoc;
+</script>
+
+<div class="noc-detail row full-height">
+    <form id="form-noc">
+        <div class="row" style="margin-bottom: 5px; margin-top: 20px">
+            @Html.HiddenFor(m => m.WideFtthId)
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ReasonId, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" },true)
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.ReasonId, Model.AvailableReason, "Nguyên nhân", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.PhenomenaId, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" },true)
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.PhenomenaId, Model.AvailablePhenomena, "Hiện tượng", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.StatusId, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" },true)
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.StatusId, Model.AvailableStatus, "Tình trạng sự cố", new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.DetailReason, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(m => m.DetailReason, new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 5px">
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Treatment, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(m => m.Treatment, new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    noc.init = function () {
+        formNoc.init();
+    }
+
+    formNoc.init = function () {
+        formNoc.$el = $(formNoc.el);
+    }
+
+    $(function () {
+        noc.init();
+    });
+</script>

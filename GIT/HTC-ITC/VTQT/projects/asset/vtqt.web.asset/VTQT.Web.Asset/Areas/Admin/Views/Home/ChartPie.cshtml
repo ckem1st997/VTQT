@@ -1,0 +1,142 @@
+﻿<div class="title-home-set" style=" background-color: #00875a !important;">
+    <p class="title-p">Theo tình trạng</p>
+</div>
+<!-- #endregion -->
+<div class="search-home-set" style="border-top:0px">
+    <div>@T("common.fields.assetcategory"):</div>
+    <select name="ItemId"
+            id="ItemId"
+            class="autowidth"
+            style="width: 25%;height:75%"
+            data-placeholder='@T("Common.Select2.Select")'
+            data-select-url="@Url.Action("GetAssetCategory")">
+    </select>
+
+
+    <div style="margin-left:5%;margin-right:5%">@T("asset.assettransference.fields.department"):</div>
+    <select name="ItemGetOrganizationId"
+            id="ItemGetOrganizationId"
+            class="autowidth"
+            style="width: 42%"
+            data-placeholder='@T("Common.Select2.Select")'
+            data-select-url="@Url.Action("GetOrganization")">
+    </select>
+
+</div>
+
+<div class="result-home-set" style="padding-left: 0">
+    <div class="" id="div_stats_by_gender">
+        <div class="portlet-body" id="stats_by_gender">
+        </div>
+
+        @*<input id="em" type="range" min="0.3" max="2" step="0.01" value="1" />*@
+    </div>
+</div>
+
+<style>
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+
+    .me-3 {
+        margin-right: 1rem !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        Pie(10);
+        $("#ItemId").select2().select2('val',10);
+
+        $("#ItemId").on("select2:select", function (e) {
+            var id = $(this).val();
+            var ItemGetOrganizationId = $("#ItemGetOrganizationId").val();
+            Pie(id,ItemGetOrganizationId);
+            return false;
+        });
+
+        $("#ItemGetOrganizationId").on("select2:select", function (e) {
+            var id = $("#ItemId").val();
+            var ItemGetOrganizationId = $(this).val();
+            Pie(id,ItemGetOrganizationId);
+            return false;
+        });
+    });
+
+    function Pie(id, ItemGetOrganizationId) {
+        var $divContainer = $('#div_stats_by_gender');
+        //var orgId = $('input[name=OrganizationalUnitId]').val();
+        $.ajax({
+            type: 'GET',
+            data: { Type: id, OrganizationId: ItemGetOrganizationId },
+            dataType: 'json',
+            url: '@Url.Action("GetPie")',
+            beforeSend: function (jqXhr, settings) {
+                app.ui.loader($divContainer, true);
+            },
+            success: function (data) {
+                if (data && data.length) {
+                    data[0].sliced = true;
+                    Highcharts.chart('stats_by_gender', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie',
+                            height: 300
+                        },
+                        colors: ['#7cb5ec', '#f7a35c', '#90ed7d'],
+                        title: {
+                            text: ''
+                        },
+                        tooltip: {
+                            pointFormat: '<b>{point.percentage:.2f}%</b> ({point.y})'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.percentage:.2f}%</b> ({point.y})'
+                                },
+                                showInLegend: true,
+                               size: 200
+                               // size: '10%'
+                            }
+                        },
+                        series: [{
+                            colorByPoint: true,
+                            data: data
+                        }]
+                    });
+                }
+                app.ui.loader($divContainer, false);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                app.ui.loader($divContainer, false);
+            }
+        });
+    }
+    //document.getElementById('em').addEventListener('input', e => {
+    //    var chart = Highcharts.charts[0];
+    //    console.log(chart.container.style)
+    //    chart.container.style.fontSize = e.target.value + 'em';
+
+    //    // Update layout based on new font and line sizes
+    //    chart.isDirtyLegend = true;
+    //    chart.redraw(false);
+    //});
+</script>
+
+
+
+
+
+
+
+

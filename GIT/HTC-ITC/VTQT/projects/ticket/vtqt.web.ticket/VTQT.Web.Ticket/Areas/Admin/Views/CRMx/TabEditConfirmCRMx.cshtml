@@ -1,0 +1,203 @@
+﻿@model ConfirmCRMxSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var confirmMx = {
+        grd: {
+            el: '#confirmMx_grd',
+            $el: {},
+            init: function() { },
+            api: {},
+            tmp: {
+                activate: function(activate) { }
+            },
+            data: function() { }
+        },
+        btnAdd: {
+            el: '#btnAddConfirmMx',
+            $el: {},
+            init: function() { }
+        },
+        btnRemove: {
+            el: '#btnRemoveConfirmMx',
+            $el: {},
+            init: function() { }
+        },
+        btnEditConfirmMx: {
+            el: '#btnEditConfirmMx',
+            $el: {},
+            init: function() { }
+        },
+        init: function() { },
+        activates: function(activate, ids) { }
+    }
+
+    var confirmMxGrd = confirmMx.grd;
+    var btnAddConfirmMx = confirmMx.btnAdd;
+    var btnRemoveConfirmMx = confirmMx.btnRemove;
+    var btnEditConfirmMx = confirmMx.btnEditConfirmMx;
+
+    confirmMxGrd.data = function() {
+        var searchModel = {
+            CrMxId: '@Model.CrMxId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-confirmCRMx" type="text/x-kendo-template">
+        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+            <span style="padding-left: 20px">Danh sách xác nhận</span>
+        </div>
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+            <a id="btnAddConfirmMx" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm xác nhận</a>
+            <a id="btnEditConfirmMx" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>
+            <a id="btnRemoveConfirmMx" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+        </div>
+    </script>
+    @(Html.Kendo().Grid<ConfirmCRMxModel>()
+    .Name("confirmMx_grd")
+    .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+    .Columns(columns =>
+    {
+    columns.Select().Locked().Width(30);
+    columns.ForeignKey(x => x.Approver, (System.Collections.IEnumerable)ViewData["ApproverCR"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+    columns.ForeignKey(x => x.Progress, (System.Collections.IEnumerable)ViewData["progress"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+    columns.Bound(x => x.ReasonDetail).Width(350);
+    })
+    .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-confirmCRMx"); })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .PageSize(int.MaxValue)
+    .ServerOperation(false)
+    .Read(read => read.Action("GetConfirmCRMx", "CRMx").Data("confirmMxGrd.data"))
+    )
+    .NoRecords()
+    .Scrollable(scr => scr.Enabled(true))
+    .Pageable(pageable => pageable.Enabled(false))
+    .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+    .Navigatable())
+</div>
+
+<script>
+    confirmMx.init = function() {
+        confirmMxGrd.init();
+        btnAddConfirmMx.init();
+        btnRemoveConfirmMx.init();
+        btnEditConfirmMx.init();
+    };
+
+    confirmMxGrd.init = function() {
+        confirmMxGrd.$el = $(confirmMxGrd.el);
+        confirmMxGrd.api = confirmMxGrd.$el.data('kendoGrid');
+    };
+
+    confirmMx.activates = function(activate, ids) {
+        ids = ids || confirmMxGrd.api.selectedIds();
+        if (ids.length > 0) {
+
+        } else {
+            notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+        }
+    };
+
+    btnAddConfirmMx.init = function() {
+        btnAddConfirmMx.$el = $(btnAddConfirmMx.el);
+        btnAddConfirmMx.$el.click(function(e) {
+
+            app.window.form.open({
+                url: '@Url.Action("AddConfirmCRMx")', options: { width: '500px' }, callback: function() {
+                    var confirmMx = window.frmAddConfirmMx.$el.serializeObject();
+                    var confirmMxModel = {};
+                    confirmMxModel.ReasonDetail = confirmMx.ReasonDetail;
+                    confirmMxModel.Confirm = confirmMx.Confirm;
+                    confirmMxModel.CrMxId = '@Model.CrMxId';
+                    confirmMxModel.Approver = confirmMx.Approver;
+                    confirmMxModel.Progress = confirmMx.Progress;
+                    confirmMxModel.ConfirmClass = confirmMx.ConfirmClass;
+
+                    $.ajax({
+                        url: '@Url.Action("AddConfirmCRMx")',
+                        data: { confirmCRMx: confirmMxModel },
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function(res) {
+                            if (res.success) {
+                                confirmMxGrd.api.reload();
+                            }
+                        }
+                    });
+                    //Close form add item
+                    window.frmAddConfirmMx.winForm.close();
+                }
+            });
+
+        });
+    };
+
+    btnEditConfirmMx.init = function() {
+        btnEditConfirmMx.$el = $(btnEditConfirmMx.el);
+        btnEditConfirmMx.$el.click(function(e) {
+
+            var id = confirmMxGrd.api.selectedIds()[0];
+            if (id) {
+                app.window.form.open({
+                    url: '@Url.Action("EditConfirmCRMx")/' + '?id=' + id, options: { width: '500px' }, callback: function() {
+                        var editConfirmMx = window.frmEditConfirmMx.$el.serializeObject();
+                        var editConfirmMxTicketModel = {};
+                        editConfirmMxTicketModel.Id = id;
+                        editConfirmMxTicketModel.ReasonDetail = editConfirmMx.ReasonDetail;
+                        editConfirmMxTicketModel.Confirm = editConfirmMx.Confirm;
+                        editConfirmMxTicketModel.CrMxId = '@Model.CrMxId';
+                        editConfirmMxTicketModel.Approver = editConfirmMx.Approver;
+                        editConfirmMxTicketModel.Progress = editConfirmMx.Progress;
+                        editConfirmMxTicketModel.ConfirmClass = editConfirmMx.ConfirmClass;
+
+                        $.ajax({
+                            url: '@Url.Action("EditConfirmCRMx")',
+                            data: { editConfirmCRMx: editConfirmMxTicketModel },
+                            dataType: 'json',
+                            type: 'POST',
+                            success: function(res) {
+                                if (res.success) {
+                                    confirmMxGrd.api.reload();
+                                }
+                            }
+                        });
+                        //Close form add item
+                        window.frmEditConfirmMx.winForm.close();
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+
+        });
+    };
+
+    btnRemoveConfirmMx.init = function() {
+        btnRemoveConfirmMx.$el = $(btnRemoveConfirmMx.el);
+        btnRemoveConfirmMx.$el.click(function(e) {
+            var ids = confirmMxGrd.api.selectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: '@Url.Action("DeleteConfirmCRMx")', ids: ids, options: { width: '450px' }, callback: function() { confirmMxGrd.api.reload(); } });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        });
+    };
+
+    confirmMxGrd.tmp.activate = function(activate) {
+        return activate ? '<i class="fa fa-check green"></i>' : '<i class="fa fa-times" style="color: red"></i>';
+    };
+
+    $(function() {
+        confirmMx.init();
+    });
+</script>
+

@@ -1,0 +1,378 @@
+﻿@model WareHouseItemModel
+@{
+    Layout = null;
+}
+
+<div class="page-data">
+    <div class="form fixed-layout-form">
+        <form id="form-data" data-form-type="ajax" class="form-horizontal">
+            <div class="form-body">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">@T("Warehouse.WarehouseItems.AppActions.Create")</h4>
+                </div>
+                <div class="modal-body" style="height:550px;">
+                    @Html.AntiForgeryToken()
+
+                    @(Html.LocalizedEditor<WareHouseItemModel, WareHouseItemLocalizedModel>("lpWareHouseItem",
+                    @<div>
+                        @Html.HiddenFor(m => m.Locales[item].LanguageId)
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Locales[item].Name, true, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Locales[item].Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>,
+                    @<div>
+                        <div class="form-group form-group-sm">
+                            @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-3" }, true)
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                ))
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Code, true, new { @class = "control-label col-md-3" }, true)
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.UnitId, true, new { @class = "control-label col-md-3" }, true)
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(m => m.UnitId, Model.AvailableUnits, "Đơn vị", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.VendorID, true, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(m => m.VendorID, Model.AvailableVendors, "Nhà cung cấp", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.CategoryID, true, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(m => m.CategoryID, Model.AvailableWareHouseItemCategories, "Loại vật tư", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Country, true, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Inactive, true, new { @class = "control-label col-md-3" }, true)
+                        <div class="col-md-9">
+                            @Html.EditorFor(m => m.Inactive)
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+                        <span>Các Đơn Vị Có Thể Sử Dụng</span>
+                    </div>
+                    <div class="row full-height" style="height: 180px;">
+                        <script id="toolbar" type="text/x-kendo-template">
+                            <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+                                <a id="btnAdd" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm đơn vị</a>
+                                <a id="btnRemove" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+                            </div>
+                        </script>
+                        @(Html.Kendo().Grid<WareHouseItemUnitModel>()
+                        .Name("frmCreate_grdIndex")
+                        .HtmlAttributes(new { style = "height: 100%;margin-left: 10px;margin-right: 10px;margin-top: 10px;border-left: 1px solid #cddaeb !important; border-right: 1px solid #cddaeb !important" })
+                        .Columns(columns =>
+                        {
+                            columns.Select().Locked().Width(30);
+                            columns.Bound(x => x.ItemId).Hidden();
+                            columns.Bound(x => x.UnitName).Width(110).Locked(true);
+                            columns.Bound(x => x.ConvertRate).Width(150);
+                            columns.Bound(x => x.Note).Width(200);
+
+                        })
+
+                        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar"); })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(int.MaxValue)
+                            .ServerOperation(false)
+                             .Model(m =>
+                             {
+                                 m.Id(x => x.Id);
+                                 m.Field(x => x.ItemId).DefaultValue(Model.Id);
+                             })
+                        )
+                        .NoRecords()
+                        .Scrollable(scr => scr.Enabled(true))
+                        .Pageable(pageable => pageable.Enabled(false))
+                        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+                        .Navigatable())
+                    </div>
+                </div>
+                <div class="modal-footer form-actions">
+                    <button type="submit" class="btn blue btn-sm" id="btnWHItem">
+                        <i class="fa fa-spinner fa-spin spin-submit"></i>
+                        <i class="fa fa-check"></i> @T("Common.Save")
+                    </button>
+                    <button type="submit" class="btn blue btn-sm" data-action="continueAdding">
+                        <i class="fa fa-spinner fa-spin spin-submit"></i>
+                        <i class="fa fa-plus"></i> @T("Common.ContinueAdding")
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                        <i class="fa fa-times"></i> @T("Common.Close")
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- #endregion -->
+<!-- #region Scripts -->
+<script>
+        var frmCreate = {
+            urlAddItem: '@Url.Action("AddItem")',
+            urlSaveData: '@Url.Action("CreateSave", "WareHouseItem")',
+            selector: '.page-data',
+            $this: {},
+            form: {
+                selector: '#form-data',
+                $this: {},
+                init: function () { }
+            },
+            grdIndex: {
+                el: '#frmCreate_grdIndex',
+                $el: {},
+                api: {},
+                init: function () { }
+            },
+            btnSave: {
+                selector: '#btnWHItem',
+                $this: {},
+                init: function () { }
+            },
+            btnCancel: {
+                selector: 'a[data-action="cancel"]',
+                $this: {},
+                init: function () { }
+            },
+            btnAddItem: {
+                selector: '#btnAdd',
+                $this: {},
+                init: function () { }
+            },
+            btnEditItem: {
+                selector: '#btnEdit',
+                $this: {},
+                init: function () { }
+            },
+            btnRemoveItem: {
+                selector: '#btnRemove',
+                $this: {},
+                init: function () { }
+            },
+            helpers: {
+                saveData: function () { }
+            },
+            init: function () { }
+        };
+        var form = frmCreate.form;
+        var grdIndex = frmCreate.grdIndex;
+        var btnSave = frmCreate.btnSave;
+        var btnCancel = frmCreate.btnCancel;
+        var btnAddItem = frmCreate.btnAddItem;
+        var btnEditItem = frmCreate.btnEditItem;
+        var btnRemoveItem = frmCreate.btnRemoveItem;
+        var helpers = frmCreate.helpers;
+</script>
+
+<script>
+        //Methods
+        btnAddItem.init = function () {
+            btnAddItem.$this = $(btnAddItem.selector);
+
+            btnAddItem.$this.click(function (e) {
+                app.window.form.open({
+                    url: frmCreate.urlAddItem, options: { width: '30%' }, callback: function () {
+                        var itemModel = window.frmAddItem.$el.serializeObject();
+                        var unitName = "";
+                         $.ajax({
+                             type: 'GET',
+                             data: { id: itemModel.UnitId },
+                             dataType: 'json',
+                             url: '@Url.Action("Detail", "Unit")',
+                             success: function (msg) {
+                                 var gridData = grdIndex.api.dataSource.data();
+                                 if (!checkUnit(gridData, msg.Id)) {
+                                     var item = {};
+                                     @*var id = $('#@Html.FieldIdFor(m => m.Id)');
+                                     item.ItemId = id.val();*@
+                                     item.UnitId = itemModel.UnitId;
+                                     item.UnitName = msg.UnitName;
+                                     item.ConvertRate = itemModel.ConvertRate;
+                                     var value = $('#UnitId').select2('data')[0];
+                                     item.Note = "1 " + msg.UnitName + " = " + itemModel.ConvertRate + " " + value.text + "";
+                                     grdIndex.api.dataSource.insert(item);
+                                 }
+                                 else
+                                   notify({ text: '@T("Notifies.UnitAdd").JavaScriptStringEncode()', type: 'info' });
+
+
+                             }
+                         });
+                        window.frmAddItem.winForm.close();
+                    }
+                });
+            });
+    }
+
+
+    function checkUnit(data, id) {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].UnitId == id)
+                return true;
+        }
+        return false
+    }
+
+        btnEditItem.init = function () {
+            btnEditItem.$this = $(btnEditItem.selector);
+
+            btnEditItem.$this.click(function (e) {
+
+            });
+        }
+        btnRemoveItem.init = function () {
+            btnRemoveItem.$this = $(btnRemoveItem.selector);
+
+            btnRemoveItem.$this.click(function (e) {
+                var selectedItems = grdIndex.api.selectedRows();
+                if (selectedItems.length > 0) {
+                    app.window.confirm.open({
+                        callback: function () {
+                            $.each(selectedItems,
+                                function(i, x) {
+                                    if (x) {
+                                        grdIndex.api.removeRow(x);
+                                    }
+                                });
+                        }
+                    });
+                } else {
+                    notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                    return false;
+                }
+            });
+        }
+
+        //Helpers
+        helpers.saveData = function (model, details) {
+            $.ajax({
+                type: 'POST',
+                data: { model: model, modelDetails: details },
+                dataType: 'json',
+                url: frmCreate.urlSaveData,
+                beforeSend: function(jqXhr, settings) {
+                    app.ui.loader(frmCreate.$this, true);
+                },
+                success: function(msg) {
+                    if (msg.success) {
+                         location.reload();
+                    }
+                    app.ui.loader(frmCreate.$this, false);
+                }
+            });
+        }
+
+        //Inits
+        frmCreate.init = function() {
+            frmCreate.$this = $(frmCreate.selector);
+            form.init();
+            grdIndex.init();
+            btnCancel.init();
+            btnSave.init();
+            btnAddItem.init();
+            btnEditItem.init();
+            btnRemoveItem.init();
+        }
+
+        form.init = function() {
+            form.$this = $(form.selector);
+
+            form.$this.initFormValidation();
+        }
+
+        grdIndex.init = function () {
+            grdIndex.$el = $(grdIndex.el);
+            grdIndex.api = grdIndex.$el.data('kendoGrid');
+        };
+        btnSave.init = function() {
+            btnSave.$this = $(btnSave.selector);
+
+            btnSave.$this.click(function (e) {
+                if (form.$this.valid()) {
+                    var details = [];
+                    var gridData = grdIndex.api.dataSource.data();
+                    $.each(gridData,
+                        function(i, x) {
+                            var item = {};
+
+                            item.UnitId = x.UnitId;
+                            item.UnitName = x.UnitName;
+                            item.ConvertRate = x.ConvertRate;
+                            item.itemId = x.itemId;
+
+                            details.push(item);
+                        });
+
+                    var model = form.$this.serializeObject();
+                    if (details.length == 0) {
+                        notify({ text: '@T("Notifies.NotAddUnitItem").JavaScriptStringEncode()', type: 'info' });
+                        return false;
+                    } else if(!checkUnit(details,model.UnitId)) {
+                        notify({ text: '@T("Notifies.NotUnitItemWithin").JavaScriptStringEncode()', type: 'info' });
+                        return false;
+                    }
+                    helpers.saveData(model, details);
+                }
+            });
+    }
+
+    $('#UnitId').on('select2:select', function (e) {
+        var value = $('#UnitId').select2('data')[0];
+        //&& grdIndex.api.dataSource.data().length < 2
+        if (value !== undefined ) {
+            grdIndex.api.dataSource.data([]);
+            var item = {};
+            item.UnitId = value.id;
+            item.UnitName = value.text;
+            item.ConvertRate = 1;
+            item.Note = "1 " + value.text + " = 1 " + value.text + "";
+            grdIndex.api.dataSource.insert(item);
+        }
+
+    });
+        btnCancel.init = function() {
+            btnCancel.$this = $(btnCancel.selector);
+
+            btnCancel.$this.click(function(e) {
+                $.pjax({ url: '@Url.Action("Index", "WareHouseItem")' });
+            });
+        }
+
+        //Startup
+        $(function() {
+            frmCreate.init();
+        });
+</script>
+
+<!-- #endregion -->

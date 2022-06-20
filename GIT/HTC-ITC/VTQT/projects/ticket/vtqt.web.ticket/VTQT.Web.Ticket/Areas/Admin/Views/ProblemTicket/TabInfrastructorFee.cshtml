@@ -1,0 +1,132 @@
+﻿@model InfrastructorSearchFeeModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var fee = {
+        grd: {
+            el: '#fee_grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            data: function () { }
+        },
+        btnAdd: {
+            el: '#btnAddFee',
+            $el: {},
+            init: function () { }
+        },
+        btnRemove: {
+            el: '#btnRemoveFee',
+            $el: {},
+            init: function () { }
+        },
+        init: function () { }
+    }
+
+    var feeGrd = fee.grd;
+    var btnAddFee = fee.btnAdd;
+    var btnRemoveFee = fee.btnRemove;
+
+    feeGrd.data = function () {
+        var searchModel = {
+            TicketId: '@Model.TicketId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-fee" type="text/x-kendo-template">
+        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+            <span style="padding-left: 20px">Danh sách chi phí</span>
+        </div>
+        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+            <a id="btnAddFee" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm chi phí</a>
+            @*<a id="btnEdit" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>*@
+            <a id="btnRemoveFee" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+        </div>
+    </script>
+    @(Html.Kendo().Grid<InfrastructorFeeModel>()
+        .Name("fee_grd")
+        .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+        .Columns(columns =>
+        {
+            columns.Select().Locked().Width(30);
+            columns.Bound(x => x.Name).Locked().Width(250);
+            columns.Bound(x => x.Fee).Locked().Width(100).RightAlign();
+            columns.Bound(x => x.Description).Width(350);
+            columns.ForeignKey(x => x.WareHouseItemCode, (System.Collections.IEnumerable)ViewData["items"] ?? new List<SelectListItem>(), "Value", "Text").Width(250);
+        })
+        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-fee"); })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(int.MaxValue)
+            .ServerOperation(false)
+            .Read(read => read.Action("GetInfrastructorFeeTicket", "ProblemTicket").Data("feeGrd.data"))
+        )
+        .NoRecords()
+        .Scrollable(scr => scr.Enabled(true))
+        .Pageable(pageable => pageable.Enabled(false))
+        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+        .Navigatable())
+</div>
+
+<script>
+    fee.init = function () {
+        feeGrd.init();
+        btnAddFee.init();
+        btnRemoveFee.init();
+    };
+
+    feeGrd.init = function () {
+        feeGrd.$el = $(feeGrd.el);
+        feeGrd.api = feeGrd.$el.data('kendoGrid');
+    };
+
+    btnAddFee.init = function () {
+        btnAddFee.$el = $(btnAddFee.el);
+        btnAddFee.$el.click(function (e) {
+            app.window.form.open({
+                url: '@Url.Action("AddInfrastructorFee")', options: {width: '500px'}, callback: function (){
+                    var fee = window.frmAddFee.$el.serializeObject();                                                       
+                    feeGrd.api.dataSource.insert(fee);
+
+                    //Close form add item
+                    window.frmAddFee.winForm.close();
+                }
+            });
+        });
+    };
+
+    btnRemoveFee.init = function () {
+        btnRemoveFee.$el = $(btnRemoveFee.el);
+        btnRemoveFee.$el.click(function (e) {
+            var selectedItems = feeGrd.api.selectedRows();
+            if (selectedItems.length > 0) {
+                app.window.confirm.open({
+                    callback: function () {
+                        $.each(selectedItems,
+                            function(i, x) {
+                                if (x) {
+                                    feeGrd.api.removeRow(x);
+                                }
+                            });
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                return false;
+            }
+        });
+    };
+
+    $(function () {
+        fee.init();
+    });
+</script>
+
+

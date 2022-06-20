@@ -1,0 +1,1100 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Core.Domain.Asset</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Core.Domain.Asset.AssetDataConnection">
+            <summary>
+            Database       : AssetManagement
+            Data Source    : 192.168.100.43
+            Server Version : 8.0.28-0ubuntu0.20.04.3
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.Assets">
+            <summary>
+            Danh sách tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.AssetCategories">
+            <summary>
+            Loại tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.AssetDecreaseds">
+            <summary>
+            Ghi giảm/thu hồi tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.Audits">
+            <summary>
+            Kiểm kê tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.AuditCouncils">
+            <summary>
+            Hội đồng kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.AuditDetails">
+            <summary>
+            Kết quả kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.DecreaseReasons">
+            <summary>
+            Lý do thu hồi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.Histories">
+            <summary>
+            Lịch sử
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.Maintenances">
+            <summary>
+            Bảo dưỡng/ sửa chữa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.MaintenanceDetails">
+            <summary>
+            Chi tiết của lần sủa chữa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDataConnection.UsageStatus">
+            <summary>
+            Danh mục các status
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.Asset">
+            <summary>
+            Danh sách tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.Code">
+            <summary>
+            Mã tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.Name">
+            <summary>
+            Tên tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.Status">
+            <summary>
+            Trạng thái: 1 - Đang sử dụng; 2 - Tạm ngừng sử dụng; 3 - Đã thu hồi; 4 - Đã thanh lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.CategoryId">
+            <summary>
+            Loại tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.Reference">
+            <summary>
+            Tham chiếu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.WareHouseItemCode">
+            <summary>
+            Mã vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.WareHouseItemName">
+            <summary>
+            Tên vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.OriginUsageStatus">
+            <summary>
+            Tình trạng ban đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.OriginValue">
+            <summary>
+            Giá trị ban đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.CurrentUsageStatus">
+            <summary>
+            Tình trạng hiện tại
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.CurrentValue">
+            <summary>
+            Giá trị hiện tại
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.DepreciationDuration">
+            <summary>
+            Thời gian khấu hao
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.DepreciationUnit">
+            <summary>
+            Khấu hao theo: 1 - Ngày; 2 - Tháng; 3 - Năm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.WarrantyDuration">
+            <summary>
+            Thời gian bảo hành
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.WarrantyUnit">
+            <summary>
+            Bảo hành theo: 1 - Ngày; 2 - Tháng; 3 - Năm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.WarrantyCondition">
+            <summary>
+            Điều kiện bảo hành
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.VendorName">
+            <summary>
+            Nhà cung cấp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.Country">
+            <summary>
+            Nước sản xuất
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.ManufactureYear">
+            <summary>
+            Năm sản xuất
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.Description">
+            <summary>
+            Mô tả đặc tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.AssetType">
+            <summary>
+            Loại tài sản: 1 - Tài sản hành chính; 2 - Tài sản hạ tầng; 3 - Tài sản dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.OrganizationUnitId">
+            <summary>
+            Phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.OrganizationUnitName">
+            <summary>
+            Tên phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.EmployeeId">
+            <summary>
+            Nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.EmployeeName">
+            <summary>
+            Tên nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.StationCode">
+            <summary>
+            Trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.StationName">
+            <summary>
+            Tên trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.ProjectCode">
+            <summary>
+            Dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.ProjectName">
+            <summary>
+            Tên dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.CustomerCode">
+            <summary>
+            Khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.CustomerName">
+            <summary>
+            Tên khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.ModifiedBy">
+            <summary>
+            Người sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.UnitId">
+            <summary>
+            Mã đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.UnitName">
+            <summary>
+            Tên đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.MaintenancedDate">
+            <summary>
+            Ngày bảo dưỡng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.AllocationDate">
+            <summary>
+            Ngày cấp phát
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.IpAddress">
+            <summary>
+            Địa chỉ IP
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.BuildingNumber">
+            <summary>
+            Số tòa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.FloorNumber">
+            <summary>
+            Số tầng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.Owner">
+            <summary>
+            Chủ sở hữu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.ProjectCategory">
+            <summary>
+            Loại dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.ProjectArea">
+            <summary>
+            Vùng dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.ProjectProvince">
+            <summary>
+            Tỉnh dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.ProjectAddress">
+            <summary>
+            Địa chỉ dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.Asset_CategoryId">
+            <summary>
+            FK_Asset_CategoryId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.AuditDetails">
+            <summary>
+            FK_AuditDetails_PK_Asset_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.FK_Asset_Id_BackReferences">
+            <summary>
+            FK_Asset_Id_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.FK_AssetDetail_Asset_BackReferences">
+            <summary>
+            FK_AssetDetail_Asset_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.FK_History_AssetId_BackReferences">
+            <summary>
+            FK_History_AssetId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Asset.FK_MaintenamceDetail_AssetId_BackReferences">
+            <summary>
+            FK_MaintenamceDetail_AssetId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.Code">
+            <summary>
+            Mã tài sản đính kèm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.Name">
+            <summary>
+            Tên tài sản đính kèm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.CategoryId">
+            <summary>
+            Loại tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.Reference">
+            <summary>
+            Tham chiếu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.WareHouseItemCode">
+            <summary>
+            Mã vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.WareHouseItemName">
+            <summary>
+            Tên vật tư
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.OriginQuantity">
+            <summary>
+            Số lượng cấp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.RecallQuantity">
+            <summary>
+            Số lượng thu hồi
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.BrokenQuantity">
+            <summary>
+            Số lượng hỏng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.SoldQuantity">
+            <summary>
+            Số lượng thanh lý
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.OriginUsageStatus">
+            <summary>
+            Tình trạng ban đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.OriginValue">
+            <summary>
+            Giá trị ban đầu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.CurrentUsageStatus">
+            <summary>
+            Tình trạng hiện tại
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.CurrentValue">
+            <summary>
+            Giá trị hiện tại
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.Description">
+            <summary>
+            Mô tả
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.AssetType">
+            <summary>
+            Kiểu tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.OrganizationUnitId">
+            <summary>
+            Mã phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.OrganizationUnitName">
+            <summary>
+            Tên phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.EmployeeId">
+            <summary>
+            Mã nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.EmployeeName">
+            <summary>
+            Tên nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.StationCode">
+            <summary>
+            Mã trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.StationName">
+            <summary>
+            Tên trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.ProjectCode">
+            <summary>
+            Mã dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.ProjectName">
+            <summary>
+            Tên dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.CustomerCode">
+            <summary>
+            Mã khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.CustomerName">
+            <summary>
+            Tên khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.ModifiedBy">
+            <summary>
+            Người sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.UnitId">
+            <summary>
+            Mã đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.UnitName">
+            <summary>
+            Tên đơn vị tính
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.Serial">
+            <summary>
+            Serial
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.AllocationDate">
+            <summary>
+            Ngày cấp phát
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.IpAddress">
+            <summary>
+            Địa chỉ IP
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.BuildingNumber">
+            <summary>
+            Số tòa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.FloorNumber">
+            <summary>
+            Số tầng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.Owner">
+            <summary>
+            Chủ sở hữu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.ProjectCategory">
+            <summary>
+            Loại dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.AttachmentQuantity">
+            <summary>
+            Số lượng đính kèm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.ProjectArea">
+            <summary>
+            Vùng dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.ProjectProvince">
+            <summary>
+            Tỉnh dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.ProjectAddress">
+            <summary>
+            Địa chỉ dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.MaintenancedDate">
+            <summary>
+            Ngày bảo dưỡng/ sửa chữa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.AssetAttachment_CategoryId">
+            <summary>
+            FK_AssetAttachment_CategoryId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.FK_AssetDetail_AssetAttachment_BackReferences">
+            <summary>
+            FK_AssetDetail_AssetAttachment_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetAttachment.FK_MaintenanceDetail_AssetAttachmentId_BackReferences">
+            <summary>
+            FK_MaintenanceDetail_AssetAttachmentId_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.AssetCategory">
+            <summary>
+            Loại tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.Code">
+            <summary>
+            Mã
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.Name">
+            <summary>
+            Tên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.ParentId">
+            <summary>
+            Loại cha
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.Description">
+            <summary>
+            Mô tả
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.DepreciationDuration">
+            <summary>
+            Thời gian khấu hao
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.DepreciationUnit">
+            <summary>
+            Đơn vị của thời gian khấu hao (1: Ngày, 2: Tháng, 3: Năm)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.WarrantyDuration">
+            <summary>
+            Thời gian bảo hành
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.WarrantyUnit">
+            <summary>
+            Đơn vị của thời gian bảo hành (1: Ngày, 2: Tháng, 3: Năm)
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.AssetCategory_ParentId">
+            <summary>
+            FK_AssetCategory_ParentId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.FK_Asset_CategoryId_BackReferences">
+            <summary>
+            FK_Asset_CategoryId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.FK_AssetAttachment_CategoryId_BackReferences">
+            <summary>
+            FK_AssetAttachment_CategoryId_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetCategory.FK_AssetCategory_ParentId_BackReferences">
+            <summary>
+            FK_AssetCategory_ParentId_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.AssetDecreased">
+            <summary>
+            Ghi giảm/thu hồi tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDecreased.DecreaseReason">
+            <summary>
+            Lý do ghi giảm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDetail.AssetDetail_Asset">
+            <summary>
+            FK_AssetDetail_Asset
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetDetail.AssetDetail_AssetAttachment">
+            <summary>
+            FK_AssetDetail_AssetAttachment
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.FromOrganizationId">
+            <summary>
+            Mã phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.FromEmployeeId">
+            <summary>
+            Mã nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.ToOrganizationId">
+            <summary>
+            Tới phòng ban
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.ToEmployeeId">
+            <summary>
+            Tới nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.ToStationCode">
+            <summary>
+            Tới trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.ToProjectCode">
+            <summary>
+            Tới dự án
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.ToCustomerCode">
+            <summary>
+            Tới khách hàng
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.Dispatcher">
+            <summary>
+            Người điều chuyển
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.TransferedDate">
+            <summary>
+            Ngày điều chuyển
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetTransference.Note">
+            <summary>
+            Ghi chú
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.Audit">
+            <summary>
+            Kiểm kê tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.VoucherCode">
+            <summary>
+            Số phiếu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.VoucherDate">
+            <summary>
+            Ngày phiếu
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.AssetType">
+            <summary>
+            Loại tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.AuditLocation">
+            <summary>
+            Nơi thực hiện kiểm kê: Nếu là tài sản hành chính thì là phòng ban, nếu tài sản là dự án thì là mã dự án, nếu tài sản hạ tâng thì là mã trạm ...
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.Description">
+            <summary>
+            Tên đợt kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.ModifiedDate">
+            <summary>
+            Ngày sửa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.AuditCouncils">
+            <summary>
+            FK_AuditCouncils_PK_Audit_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Audit.AuditDetails">
+            <summary>
+            FK_AuditDetails_PK_Audit_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.AuditCouncil">
+            <summary>
+            Hội đồng kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditCouncil.AuditId">
+            <summary>
+            fk kỳ kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditCouncil.EmployeeId">
+            <summary>
+            fk nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditCouncil.EmployeeName">
+            <summary>
+            Tên nhân viên
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditCouncil.Role">
+            <summary>
+            vai trò trong đoàn kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditCouncil.Audit">
+            <summary>
+            FK_AuditCouncils_PK_Audit
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.AuditDetail">
+            <summary>
+            Kết quả kiểm kê
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditDetail.AuditId">
+            <summary>
+            FK Audit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditDetail.ItemId">
+            <summary>
+            fk Vật tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditDetail.Conclude">
+            <summary>
+            Kết luận
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditDetail.Asset">
+            <summary>
+            FK_AuditDetails_PK_Asset
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditDetail.Audit">
+            <summary>
+            FK_AuditDetails_PK_Audit
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditDetail.FK_AuditDetail_Id_BackReferences">
+            <summary>
+            FK_AuditDetail_Id_BackReference
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditDetailSerial.Asset_Id">
+            <summary>
+            FK_Asset_Id
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AuditDetailSerial.AuditDetail_Id">
+            <summary>
+            FK_AuditDetail_Id
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.DecreaseReason">
+            <summary>
+            Lý do thu hồi
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.History">
+            <summary>
+            Lịch sử
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.History.AssetId">
+            <summary>
+            FK tài sản
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.History.Action">
+            <summary>
+            Hành động: Thêm, Sửa, Sủa chữa, Thu hồi, Bảo dưỡng, Thanh Lý ...
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.History.Content">
+            <summary>
+            Nội dung tóm tắt
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.History.User">
+            <summary>
+            Nguwoif thực hiện
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.History.TimeStamp">
+            <summary>
+            Thời gian
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.History.History_AssetId">
+            <summary>
+            FK_History_AssetId
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.Maintenance">
+            <summary>
+            Bảo dưỡng/ sửa chữa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Maintenance.EmployeeName">
+            <summary>
+            Người thực hiện
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Maintenance.Action">
+            <summary>
+            Sủa chữa, bảo dưỡng định kỳ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Maintenance.Content">
+            <summary>
+            Nội dung
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Maintenance.Amount">
+            <summary>
+            Chi phí
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Maintenance.FK_MaintenamceDetail_MaintenanceId_BackReferences">
+            <summary>
+            FK_MaintenamceDetail_MaintenanceId_BackReference
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.MaintenanceDetail">
+            <summary>
+            Chi tiết của lần sủa chữa
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.MaintenanceDetail.MaintenamceDetail_AssetId">
+            <summary>
+            FK_MaintenamceDetail_AssetId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.MaintenanceDetail.MaintenamceDetail_MaintenanceId">
+            <summary>
+            FK_MaintenamceDetail_MaintenanceId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.MaintenanceDetail.MaintenanceDetail_AssetAttachmentId">
+            <summary>
+            FK_MaintenanceDetail_AssetAttachmentId
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.Area">
+            <summary>
+            Khu vực
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.Province">
+            <summary>
+            Tên tỉnh
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.Name">
+            <summary>
+            Tên trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.Code">
+            <summary>
+            Mã trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.CodeVnm">
+            <summary>
+            Mã trạm VNM
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.Level">
+            <summary>
+            Phân cấp
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.Address">
+            <summary>
+            Địa chỉ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.Longitude">
+            <summary>
+            Kinh độ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.Latitude">
+            <summary>
+            Vĩ độ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.Note">
+            <summary>
+            Ghi chú
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.Station.CategoryId">
+            <summary>
+            Loại trạm
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.UsageStatus">
+            <summary>
+            Danh mục các status
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.UsageStatus.Status">
+            <summary>
+            Mã trạng thái
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetSvcEntity.StationCategory">
+            <summary>
+            Loại trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetSvcEntity.StationArea">
+            <summary>
+            Khu vực trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetSvcEntity.StationAddress">
+            <summary>
+            Địa chỉ trạm
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetSvcEntity.StationLongitude">
+            <summary>
+            Kinh độ
+            </summary>
+        </member>
+        <member name="P:VTQT.Core.Domain.Asset.AssetSvcEntity.StationLatitude">
+            <summary>
+            Vĩ độ
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.AssetAction">
+            <summary>
+            Hoạt động với tài sản
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.AssetAction.Allocation">
+            <summary>
+            Cấp phát
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.AssetAction.Repair">
+            <summary>
+            Sửa chữa
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.AssetAction.Maintenance">
+            <summary>
+            Bảo dưỡng
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.AssetAction.Recall">
+            <summary>
+            Thu hồi
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.AssetAction.Sold">
+            <summary>
+            Thanh lý
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.AssetAction.Broken">
+            <summary>
+            Hỏng
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.AssetAction.Other">
+            <summary>
+            Khác
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.Enum.AssetType">
+            <summary>
+            Loại tài sản
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.Enum.AssetType.Office">
+            <summary>
+            Tài sản hành chính
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.Enum.AssetType.Infrastructure">
+            <summary>
+            Tài sản hạ tầng
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.Enum.AssetType.Project">
+            <summary>
+            Tài sản dự án
+            </summary>
+        </member>
+        <member name="T:VTQT.Core.Domain.Asset.Enum.Duration">
+            <summary>
+            Mốc thời gian
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.Enum.Duration.Date">
+            <summary>
+            Ngày
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.Enum.Duration.Month">
+            <summary>
+            Tháng
+            </summary>
+        </member>
+        <member name="F:VTQT.Core.Domain.Asset.Enum.Duration.Year">
+            <summary>
+            Năm
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.SharedMvc.Dashboard</name>
+    </assembly>
+    <members>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.StorageValueModel.Name">
+            <summary>
+            Tên dữ liệu
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.StorageValueModel.TimeDay">
+            <summary>
+            Ngày
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.StorageValueModel.TimeMouth">
+            <summary>
+            Tháng
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.StorageValueModel.TimeYear">
+            <summary>
+            Năm
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.StorageValueModel.Status">
+            <summary>
+            Trạng thái
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.StorageValueModel.CreatedDate">
+            <summary>
+            Ngày tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.StorageValueModel.CreatedBy">
+            <summary>
+            Người tạo
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.StorageValueModel.ModifiedDate">
+            <summary>
+            Ngày sửa gần nhất
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.StorageValueModel.ModifiedBy">
+            <summary>
+            Người sử gần nhất
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.TypeValueModel.Name">
+            <summary>
+            Tên loại dữ liệu
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.TypeValueModel.Description">
+            <summary>
+            Mô tả
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.TypeValueModel.ParentId">
+            <summary>
+            fk Id của kiểu cha
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.TypeValueModel.Path">
+            <summary>
+            HearachyID dạng path để hỗ trợ query dữ liệu dạng tree
+            </summary>
+        </member>
+        <member name="P:VTQT.SharedMvc.Dashboard.Models.TypeValueModel.Inactive">
+            <summary>
+            Ngừng theo dõi
+            </summary>
+        </member>
+    </members>
+</doc>

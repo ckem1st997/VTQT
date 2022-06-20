@@ -1,0 +1,278 @@
+﻿@model MaintenanceModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form id="form-data" data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Asset.AssetDecreased.AppActions.Maintenance")</h4>
+            </div>
+            <div class="modal-body" style="overflow:hidden">
+                @Html.AntiForgeryToken()
+
+                <div class="row" style="padding: 10px 10px 20px">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.EmployeeName, true, new { @class = "control-label col-md-2", @style = "text-align: left" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(m => m.EmployeeId, Model.AvailableUsers, "Nhân viên", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Action, true, new { @class = "control-label col-md-2", @style = "text-align: left" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(m => m.Action, Model.AvailableActions, "Nội dung", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Content, true, new { @class = "control-label col-md-2", @style = "text-align: left" })
+                        <div class="col-md-6">
+                            @Html.TextAreaFor(m => m.Content, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.MaintenancedDate, true, new { @class = "control-label col-md-2", @style = "text-align: left" }, true)
+                        <div class="col-md-3">
+                            @Html.EditorFor(m => m.MaintenancedDate)
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Amount, true, new { @class = "control-label col-md-2", @style = "text-align: left" })
+                        <div class="col-md-3">
+                            @Html.EditorFor(m => m.Amount, new { htmlAttributes = new { style = "width: 100%" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="height: 450px; padding: 10px">
+                    <script id="toolbar" type="text/x-kendo-template">
+                        <div class="toolbar" style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: \\#23527c">
+                            <span>CÁC TÀI SẢN</span>
+                        </div>
+                        <div class="toolbar" style="display: inline-block; margin-right: 0; margin-left: auto">
+                            <a id="btnAdd" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon2-plus green"></i> Thêm tài sản</a>
+                            @*<a id="btnEdit" href="javascript:void(0)" class="btn btn-default btn-sm"><i class="flaticon2-pen yellow"></i> Chỉnh sửa</a>*@
+                            <a id="btnRemove" class="btn btn-default btn-sm" href="javascript:void(0)" style="min-width: 80px"><i class="flaticon-delete red"></i> Xóa (Đã chọn)</a>
+                        </div>
+                    </script>
+                    @(Html.Kendo().Grid<MaintenanceDetailModel>()
+                        .Name("frmCreate_grdIndex")
+                        .HtmlAttributes(new {style = "height: 100%; border: 1px solid lightgray" })
+                        .Columns(columns =>
+                        {
+                            columns.Select().Locked().Width(30);
+                            columns.Bound(x => x.AssetAttachmentId).Hidden();
+                            columns.Bound(x => x.AssetCode).Width(100).Locked(true);
+                            columns.Bound(x => x.AssetName).Width(200).Locked(true);
+                            columns.ForeignKey(x => x.AssetCategoryId, (System.Collections.IEnumerable)ViewData["categories"], "Value", "Text").Width(150);
+                            columns.Bound(x => x.MaintenanceLocation).Width(200);
+                            columns.Bound(x => x.ReasonDescription).Width(250);
+                        })
+                        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar"); })
+                        .Editable(editable => editable.Mode(GridEditMode.InCell))
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Batch(true)
+                                .Model(m =>
+                                {
+                                    m.Field(p => p.AssetCode).Editable(false);
+                                    m.Field(p => p.AssetName).Editable(false);
+                                    m.Field(p => p.AssetCategoryId).Editable(false);
+                                })
+                            .PageSize(int.MaxValue)
+                            .ServerOperation(false)
+                        )
+                        .NoRecords()
+                        .AutoBind(false)
+                        .Scrollable(scr => scr.Enabled(true))
+                        .Pageable(pageable => pageable.Enabled(false))
+                        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+                        .Navigatable())
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm" id="btnWHItem">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="submit" class="btn blue btn-sm" data-action="continueAdding">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-plus"></i> @T("Common.ContinueAdding")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- #endregion -->
+<!-- #region Scripts -->
+<script>
+    var frmCreate = {
+        urlAddItem: '@Url.Action("MaintenanceAddItem")',
+        selector: '.page-data',
+        $this: {},
+        form: {
+            selector: '#form-data',
+            $this: {},
+            init: function () { }
+        },
+        grdIndex: {
+            el: '#frmCreate_grdIndex',
+            $el: {},
+            api: {},
+            init: function () { }
+        },
+        btnAddItem: {
+            selector: '#btnAdd',
+            $this: {},
+            init: function () { }
+        },
+        btnEditItem: {
+            selector: '#btnEdit',
+            $this: {},
+            init: function () { }
+        },
+        btnRemoveItem: {
+            selector: '#btnRemove',
+            $this: {},
+            init: function () { }
+        },
+        init: function () { }
+    };
+    var form = frmCreate.form;
+    var grdIndex = frmCreate.grdIndex;
+    var btnAddItem = frmCreate.btnAddItem;
+    var btnEditItem = frmCreate.btnEditItem;
+    var btnRemoveItem = frmCreate.btnRemoveItem;
+
+    btnAddItem.init = function () {
+        btnAddItem.$this = $(btnAddItem.selector);
+
+        btnAddItem.$this.click(function (e) {
+            app.window.form.open({
+                url: frmCreate.urlAddItem, options: { width: '850px' }, callback: function () {
+
+                    var itemModel = window.frmAddItem.$el.serializeObject();
+                    var assetDetails = window.grdDetails.api.selectedItems();
+
+                    //Bind Data
+                    var item = {};
+                    if (assetDetails != undefined && assetDetails != null && assetDetails.length > 0) {
+                        $.each(assetDetails, function (i, x) {
+                            item.AssetAttachmentId = x.Id;
+                            item.AssetCategoryId = x.CategoryId;
+                            item.AssetCode = x.Code;
+                            item.AssetName = x.Name;
+                            item.ReasonDescription = itemModel.ReasonDescriptionMaintenanceDetail;
+                            item.MaintenanceLocation = itemModel.MaintenanceLocationMaintenanceDetail;
+
+                            grdIndex.api.dataSource.insert(item);
+                        });
+                    }
+
+                    //Close form add item
+                    window.frmAddItem.winForm.close();
+                }
+            });
+        });
+    }
+    btnEditItem.init = function () {
+        btnEditItem.$this = $(btnEditItem.selector);
+
+        btnEditItem.$this.click(function (e) {
+
+        });
+    }
+    btnRemoveItem.init = function () {
+        btnRemoveItem.$this = $(btnRemoveItem.selector);
+
+        btnRemoveItem.$this.click(function (e) {
+            var selectedItems = grdIndex.api.selectedRows();
+            if (selectedItems.length > 0) {
+                app.window.confirm.open({
+                    callback: function () {
+                        $.each(selectedItems,
+                            function(i, x) {
+                                if (x) {
+                                    grdIndex.api.removeRow(x);
+                                }
+                            });
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+                return false;
+            }
+        });
+    }
+
+    //Inits
+    frmCreate.init = function() {
+        frmCreate.$this = $(frmCreate.selector);
+        form.init();
+        grdIndex.init();
+        btnAddItem.init();
+        btnEditItem.init();
+        btnRemoveItem.init();
+    }
+
+    form.init = function() {
+        form.$this = $(form.selector);
+
+        form.$this.initFormValidation();
+    }
+
+    grdIndex.init = function () {
+        grdIndex.$el = $(grdIndex.el);
+        grdIndex.api = grdIndex.$el.data('kendoGrid');
+
+        var details = @Html.Raw(Model.MaintenanceDetailsString);
+        var data = [];
+
+        if (details) {
+            $.each(details, function (i, x) {
+                var item = {};
+
+                item.AssetAttachmentId = x.AssetAttachmentId;
+                item.AssetCategoryId = x.AssetCategoryId;
+                item.AssetCode = x.AssetCode;
+                item.AssetName = x.AssetName;
+                item.MaintenanceId = x.MaintenanceId;
+                item.AvailablesCategories = x.AvailablesCategories;
+
+                data.push(item);
+            });
+            grdIndex.api.dataSource.data(data);
+        }
+    };
+
+    app.ajaxForm.extraData = function () {
+        var ds = frmCreate.grdIndex.api.dataSource.data();
+
+        var details = [];
+
+        if (ds != undefined && ds != null && ds.length > 0) {
+            ds.forEach((x) => {
+                var item = {};
+                item.AssetAttachmentId = x.AssetAttachmentId;
+                item.ReasonDescription = x.ReasonDescription;
+                item.MaintenanceLocation = x.MaintenanceLocation;
+
+                details.push(item);
+            });
+        }
+
+        return { details: details };
+    };
+
+    //Startup
+    $(function() {
+        frmCreate.init();
+    });
+</script>
+<!-- #endregion -->

@@ -1,0 +1,86 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@inject ILocalizationService tt
+@inject IAppContext appContext
+
+@{
+    var cdn = appContext.CurrentApp.CdnUrl;
+    var noAvatarUri = PathHelper.Images.Common.NoImage.CombineBaseUri(cdn).ToString();
+}
+
+@functions {
+    private string _id;
+    private string Id
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_id))
+                return _id;
+            var id = ViewData["id"];
+            if (id != null)
+            {
+                _id = Convert.ToString(id);
+            }
+            return _id;
+        }
+    }
+
+    private string _value;
+    private string Value
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_value))
+                return _value;
+            if (ViewData.Model != null)
+            {
+                _value = Convert.ToString(ViewData.Model);
+            }
+            return _value;
+        }
+    }
+}
+
+@{
+    var id = !string.IsNullOrEmpty(Id) ? Id : Html.IdForModel();
+
+    const string containerCssClass = "imgupload-container";
+}
+
+<div id="@(id)_Container" class="@containerCssClass">
+    @Html.Hidden("", Value, new { id = id })
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="imgupload-thumbnail">
+                        <img id="img_@id" src="@(!string.IsNullOrEmpty(Value) ? Value : noAvatarUri)" alt="" />
+                    </div>
+                </td>
+                <td style="width:100%">
+                    <div class="imgupload-actions">
+                        <button id="btnDelete_@id" type="button" class="btn btn-default btn-sm disable-event" style="margin-right: 3px"><i class="fa fa-trash-o font-red"></i> @tt.GetResource("Common.Delete")</button>
+                        <button id="btnUpload_@id" type="button" class="btn btn-default btn-sm disable-event"><i class="fa fa-upload font-blue"></i> @tt.GetResource("Common.Upload")</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

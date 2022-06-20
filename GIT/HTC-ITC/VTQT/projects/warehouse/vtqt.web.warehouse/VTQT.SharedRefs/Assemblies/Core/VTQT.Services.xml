@@ -1,0 +1,2602 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTQT.Services</name>
+    </assembly>
+    <members>
+        <member name="T:VTQT.Services.Apps.AppMappingService">
+            <summary>
+            Store mapping service
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.InsertAppMappingAsync(VTQT.Core.Domain.Master.AppMapping)">
+            <summary>
+            Inserts a store mapping record
+            </summary>
+            <param name="appMapping">Store mapping</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.IsEntityMappingExistsAsync``1">
+            <summary>
+            Get a value indicating whether a store mapping exists for an entity type
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue if exists; otherwise false
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.ApplyAppMapping``1(System.Linq.IQueryable{``0},System.String)">
+            <summary>
+            Apply store mapping to the passed query
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="query">Query to filter</param>
+            <param name="appId">Store identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the filtered query
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.DeleteAppMappingAsync(VTQT.Core.Domain.Master.AppMapping)">
+            <summary>
+            Deletes a store mapping record
+            </summary>
+            <param name="appMapping">Store mapping record</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.GetAppMappingsAsync``1(``0)">
+            <summary>
+            Gets store mapping records
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the store mapping records
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.InsertAppMappingAsync``1(``0,System.String)">
+            <summary>
+            Inserts a store mapping record
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <param name="appId">Store id</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.GetAppsIdsWithAccessAsync``1(``0)">
+            <summary>
+            Find store identifiers with granted access (mapped to the entity)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the store identifiers
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.GetAppsIdsWithAccess``1(``0)">
+            <summary>
+            Find store identifiers with granted access (mapped to the entity)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the store identifiers
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.AuthorizeAsync``1(``0)">
+            <summary>
+            Authorize whether entity could be accessed in the current store (mapped to this store)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue - authorized; otherwise, false
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.Authorize``1(``0)">
+            <summary>
+            Authorize whether entity could be accessed in the current store (mapped to this store)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue - authorized; otherwise, false
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.AuthorizeAsync``1(``0,System.String)">
+            <summary>
+            Authorize whether entity could be accessed in a store (mapped to this store)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <param name="appId">Store identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue - authorized; otherwise, false
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppMappingService.Authorize``1(``0,System.String)">
+            <summary>
+            Authorize whether entity could be accessed in a store (mapped to this store)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <param name="appId">Store identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue - authorized; otherwise, false
+            </returns>
+        </member>
+        <member name="T:VTQT.Services.Apps.AppService">
+            <summary>
+            App service
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.ParseHostValues(VTQT.Core.Domain.Master.App)">
+            <summary>
+            Parse comma-separated Hosts
+            </summary>
+            <param name="app">App</param>
+            <returns>Comma-separated hosts</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.DeleteAppAsync(VTQT.Core.Domain.Master.App)">
+            <summary>
+            Deletes a app
+            </summary>
+            <param name="app">App</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.GetAllAppsAsync">
+            <summary>
+            Gets all apps
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the apps
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.GetAllApps">
+            <summary>
+            Gets all apps
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the apps
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.GetAppByIdAsync(System.String)">
+            <summary>
+            Gets a app 
+            </summary>
+            <param name="appId">App identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the app
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.GetAppById(System.String)">
+            <summary>
+            Gets a app 
+            </summary>
+            <param name="appId">App identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the app
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.InsertAppAsync(VTQT.Core.Domain.Master.App)">
+            <summary>
+            Inserts a app
+            </summary>
+            <param name="app">App</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.UpdateAppAsync(VTQT.Core.Domain.Master.App)">
+            <summary>
+            Updates the app
+            </summary>
+            <param name="app">App</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.ContainsHostValue(VTQT.Core.Domain.Master.App,System.String)">
+            <summary>
+            Indicates whether a app contains a specified host
+            </summary>
+            <param name="app">App</param>
+            <param name="host">Host</param>
+            <returns>true - contains, false - no</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.AppService.GetNotExistingAppsAsync(System.String[])">
+            <summary>
+            Returns a list of names of not existing apps
+            </summary>
+            <param name="appIdsNames">The names and/or IDs of the app to check</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the list of names and/or IDs not existing apps
+            </returns>
+        </member>
+        <member name="T:VTQT.Services.Apps.Caching.AppMappingServiceCacheEventConsumer">
+            <summary>
+            Represents a app mapping cache event consumer
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Apps.Caching.AppMappingServiceCacheEventConsumer.ClearCacheAsync(VTQT.Core.Domain.Master.AppMapping)">
+            <summary>
+            Clear cache data
+            </summary>
+            <param name="entity">Entity</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Services.Apps.Caching.AppServiceCacheEventConsumer">
+            <summary>
+            Represents a store cache event consumer
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Apps.Caching.AppServiceCacheEventConsumer.ClearCacheAsync(VTQT.Core.Domain.Master.App)">
+            <summary>
+            Clear cache data
+            </summary>
+            <param name="entity">Entity</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Services.Apps.IAppMappingService">
+            <summary>
+            Store mapping service interface
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.ApplyAppMapping``1(System.Linq.IQueryable{``0},System.String)">
+            <summary>
+            Apply store mapping to the passed query
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="query">Query to filter</param>
+            <param name="appId">Store identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the filtered query
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.DeleteAppMappingAsync(VTQT.Core.Domain.Master.AppMapping)">
+            <summary>
+            Deletes a store mapping record
+            </summary>
+            <param name="appMapping">Store mapping record</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.GetAppMappingsAsync``1(``0)">
+            <summary>
+            Gets store mapping records
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the store mapping records
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.InsertAppMappingAsync``1(``0,System.String)">
+            <summary>
+            Inserts a store mapping record
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <param name="appId">Store id</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.GetAppsIdsWithAccessAsync``1(``0)">
+            <summary>
+            Find store identifiers with granted access (mapped to the entity)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the store identifiers
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.GetAppsIdsWithAccess``1(``0)">
+            <summary>
+            Find store identifiers with granted access (mapped to the entity)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the store identifiers
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.AuthorizeAsync``1(``0)">
+            <summary>
+            Authorize whether entity could be accessed in the current store (mapped to this store)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue - authorized; otherwise, false
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.Authorize``1(``0)">
+            <summary>
+            Authorize whether entity could be accessed in the current store (mapped to this store)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue - authorized; otherwise, false
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.AuthorizeAsync``1(``0,System.String)">
+            <summary>
+            Authorize whether entity could be accessed in a store (mapped to this store)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <param name="appId">Store identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue - authorized; otherwise, false
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppMappingService.Authorize``1(``0,System.String)">
+            <summary>
+            Authorize whether entity could be accessed in a store (mapped to this store)
+            </summary>
+            <typeparam name="TEntity">Type of entity that supports store mapping</typeparam>
+            <param name="entity">Entity</param>
+            <param name="appId">Store identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue - authorized; otherwise, false
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppService.DeleteAppAsync(VTQT.Core.Domain.Master.App)">
+            <summary>
+            Deletes a app
+            </summary>
+            <param name="app">App</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppService.GetAllAppsAsync">
+            <summary>
+            Gets all apps
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the apps
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppService.GetAllApps">
+            <summary>
+            Gets all apps
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the apps
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppService.GetAppByIdAsync(System.String)">
+            <summary>
+            Gets a app 
+            </summary>
+            <param name="appId">App identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the app
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppService.GetAppById(System.String)">
+            <summary>
+            Gets a app 
+            </summary>
+            <param name="appId">App identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the app
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppService.InsertAppAsync(VTQT.Core.Domain.Master.App)">
+            <summary>
+            Inserts a app
+            </summary>
+            <param name="app">App</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppService.UpdateAppAsync(VTQT.Core.Domain.Master.App)">
+            <summary>
+            Updates the app
+            </summary>
+            <param name="app">App</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppService.ContainsHostValue(VTQT.Core.Domain.Master.App,System.String)">
+            <summary>
+            Indicates whether a app contains a specified host
+            </summary>
+            <param name="app">App</param>
+            <param name="host">Host</param>
+            <returns>true - contains, false - no</returns>
+        </member>
+        <member name="M:VTQT.Services.Apps.IAppService.GetNotExistingAppsAsync(System.String[])">
+            <summary>
+            Returns a list of names of not existing apps
+            </summary>
+            <param name="appIdsNames">The names and/or IDs of the app to check</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the list of names and/or IDs not existing apps
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Caching.ServiceCacheEventConsumer`1.ClearCacheAsync(`0,VTQT.Services.Caching.ServiceCacheEventConsumer{`0}.EntityEventType)">
+            <summary>
+            entity
+            </summary>
+            <param name="entity">Entity</param>
+            <param name="entityEventType">Entity event type</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Caching.ServiceCacheEventConsumer`1.ClearCacheAsync(`0)">
+            <summary>
+            Clear cache data
+            </summary>
+            <param name="entity">Entity</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Caching.ServiceCacheEventConsumer`1.RemoveByPrefixAsync(System.String)">
+            <summary>
+            Removes items by key prefix
+            </summary>
+            <param name="prefixCacheKey">String key prefix</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Caching.ServiceCacheEventConsumer`1.RemoveAsync(System.String)">
+            <summary>
+            Removes the value with the specified key from the cache
+            </summary>
+            <param name="cacheKey">Key of cached item</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Caching.ServiceCacheEventConsumer`1.HandleEventAsync(VTQT.Core.Events.EntityInsertedEvent{`0})">
+            <summary>
+            Handle entity inserted event
+            </summary>
+            <param name="eventMessage">Event message</param>
+        </member>
+        <member name="M:VTQT.Services.Caching.ServiceCacheEventConsumer`1.HandleEventAsync(VTQT.Core.Events.EntityUpdatedEvent{`0})">
+            <summary>
+            Handle entity updated event
+            </summary>
+            <param name="eventMessage">Event message</param>
+        </member>
+        <member name="M:VTQT.Services.Caching.ServiceCacheEventConsumer`1.HandleEventAsync(VTQT.Core.Events.EntityDeletedEvent{`0})">
+            <summary>
+            Handle entity deleted event
+            </summary>
+            <param name="eventMessage">Event message</param>
+        </member>
+        <member name="T:VTQT.Services.Configuration.Caching.SettingServiceCacheEventConsumer">
+            <summary>
+            Represents a setting cache event consumer
+            </summary>
+        </member>
+        <member name="T:VTQT.Services.Configuration.ISettingService">
+            <summary>
+            Setting service interface
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.GetSettingByIdAsync(System.String)">
+            <summary>
+            Gets a setting by identifier
+            </summary>
+            <param name="settingId">Setting identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the setting
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.DeleteSettingAsync(VTQT.Core.Domain.Master.Setting)">
+            <summary>
+            Deletes a setting
+            </summary>
+            <param name="setting">Setting</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.DeleteSettingsAsync(System.Collections.Generic.IList{VTQT.Core.Domain.Master.Setting})">
+            <summary>
+            Deletes settings
+            </summary>
+            <param name="settings">Settings</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.GetSettingAsync(System.String,System.String,System.Boolean)">
+            <summary>
+            Get setting by key
+            </summary>
+            <param name="key">Key</param>
+            <param name="appId">Store identifier</param>
+            <param name="loadSharedValueIfNotFound">A value indicating whether a shared (for all stores) value should be loaded if a value specific for a certain is not found</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the setting
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.GetSettingByKeyAsync``1(System.String,``0,System.String,System.Boolean)">
+            <summary>
+            Get setting value by key
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="key">Key</param>
+            <param name="appId">Store identifier</param>
+            <param name="defaultValue">Default value</param>
+            <param name="loadSharedValueIfNotFound">A value indicating whether a shared (for all stores) value should be loaded if a value specific for a certain is not found</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the setting value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.GetSettingByKey``1(System.String,``0,System.String,System.Boolean)">
+            <summary>
+            Get setting value by key
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="key">Key</param>
+            <param name="appId">Store identifier</param>
+            <param name="defaultValue">Default value</param>
+            <param name="loadSharedValueIfNotFound">A value indicating whether a shared (for all stores) value should be loaded if a value specific for a certain is not found</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the setting value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.SetSettingAsync``1(System.String,``0,System.String,System.Boolean)">
+            <summary>
+            Set setting value
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="key">Key</param>
+            <param name="value">Value</param>
+            <param name="appId">Store identifier</param>
+            <param name="clearCache">A value indicating whether to clear cache after setting update</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.GetAllSettingsAsync">
+            <summary>
+            Gets all settings
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the settings
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.GetAllSettings">
+            <summary>
+            Gets all settings
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the settings
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.SettingExistsAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String)">
+            <summary>
+            Determines whether a setting exists
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="appId">Store identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue -setting exists; false - does not exist
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.LoadSettingAsync``1(System.String)">
+            <summary>
+            Load settings
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="appId">Store identifier for which settings should be loaded</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.LoadSetting``1(System.String)">
+            <summary>
+            Load settings
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="appId">Store identifier for which settings should be loaded</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.LoadSettingAsync(System.Type,System.String)">
+            <summary>
+            Load settings
+            </summary>
+            <param name="type">Type</param>
+            <param name="appId">Store identifier for which settings should be loaded</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.LoadSetting(System.Type,System.String)">
+            <summary>
+            Load settings
+            </summary>
+            <param name="type">Type</param>
+            <param name="appId">Store identifier for which settings should be loaded</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.SaveSettingAsync``1(``0,System.String)">
+            <summary>
+            Save settings object
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="appId">Store identifier</param>
+            <param name="settings">Setting instance</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.SaveSettingAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Boolean)">
+            <summary>
+            Save settings object
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="appId">Store ID</param>
+            <param name="clearCache">A value indicating whether to clear cache after setting update</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.SaveSettingOverridablePerStoreAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Save settings object (per store). If the setting is not overridden per store then it'll be delete
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="overrideForStore">A value indicating whether to setting is overridden in some store</param>
+            <param name="appId">Store ID</param>
+            <param name="clearCache">A value indicating whether to clear cache after setting update</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.DeleteSettingAsync``1">
+            <summary>
+            Delete all settings
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.DeleteSettingAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String)">
+            <summary>
+            Delete settings object
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="appId">Store ID</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.ClearCacheAsync">
+            <summary>
+            Clear cache
+            </summary>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.ISettingService.GetSettingKey``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Get setting key (stored into database)
+            </summary>
+            <typeparam name="TSettings">Type of settings</typeparam>
+            <typeparam name="T">Property type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <returns>Key</returns>
+        </member>
+        <member name="T:VTQT.Services.Configuration.SettingService">
+            <summary>
+            Setting manager
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.GetAllSettingsDictionaryAsync">
+            <summary>
+            Gets all settings
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the settings
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.GetAllSettingsDictionary">
+            <summary>
+            Gets all settings
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the settings
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.SetSettingAsync(System.Type,System.String,System.Object,System.String,System.Boolean)">
+            <summary>
+            Set setting value
+            </summary>
+            <param name="type">Type</param>
+            <param name="key">Key</param>
+            <param name="value">Value</param>
+            <param name="appId">Store identifier</param>
+            <param name="clearCache">A value indicating whether to clear cache after setting update</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.InsertSettingAsync(VTQT.Core.Domain.Master.Setting,System.Boolean)">
+            <summary>
+            Adds a setting
+            </summary>
+            <param name="setting">Setting</param>
+            <param name="clearCache">A value indicating whether to clear cache after setting update</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.UpdateSettingAsync(VTQT.Core.Domain.Master.Setting,System.Boolean)">
+            <summary>
+            Updates a setting
+            </summary>
+            <param name="setting">Setting</param>
+            <param name="clearCache">A value indicating whether to clear cache after setting update</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.DeleteSettingAsync(VTQT.Core.Domain.Master.Setting)">
+            <summary>
+            Deletes a setting
+            </summary>
+            <param name="setting">Setting</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.DeleteSettingsAsync(System.Collections.Generic.IList{VTQT.Core.Domain.Master.Setting})">
+            <summary>
+            Deletes settings
+            </summary>
+            <param name="settings">Settings</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.GetSettingByIdAsync(System.String)">
+            <summary>
+            Gets a setting by identifier
+            </summary>
+            <param name="settingId">Setting identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the setting
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.GetSettingAsync(System.String,System.String,System.Boolean)">
+            <summary>
+            Get setting by key
+            </summary>
+            <param name="key">Key</param>
+            <param name="appId">Store identifier</param>
+            <param name="loadSharedValueIfNotFound">A value indicating whether a shared (for all stores) value should be loaded if a value specific for a certain is not found</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the setting
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.GetSettingByKeyAsync``1(System.String,``0,System.String,System.Boolean)">
+            <summary>
+            Get setting value by key
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="key">Key</param>
+            <param name="defaultValue">Default value</param>
+            <param name="appId">Store identifier</param>
+            <param name="loadSharedValueIfNotFound">A value indicating whether a shared (for all stores) value should be loaded if a value specific for a certain is not found</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the setting value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.GetSettingByKey``1(System.String,``0,System.String,System.Boolean)">
+            <summary>
+            Get setting value by key
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="key">Key</param>
+            <param name="defaultValue">Default value</param>
+            <param name="appId">Store identifier</param>
+            <param name="loadSharedValueIfNotFound">A value indicating whether a shared (for all stores) value should be loaded if a value specific for a certain is not found</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the setting value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.SetSettingAsync``1(System.String,``0,System.String,System.Boolean)">
+            <summary>
+            Set setting value
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="key">Key</param>
+            <param name="value">Value</param>
+            <param name="appId">Store identifier</param>
+            <param name="clearCache">A value indicating whether to clear cache after setting update</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.GetAllSettingsAsync">
+            <summary>
+            Gets all settings
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the settings
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.GetAllSettings">
+            <summary>
+            Gets all settings
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the settings
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.SettingExistsAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String)">
+            <summary>
+            Determines whether a setting exists
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="settings">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="appId">Store identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue -setting exists; false - does not exist
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.LoadSettingAsync``1(System.String)">
+            <summary>
+            Load settings
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="appId">Store identifier for which settings should be loaded</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.LoadSetting``1(System.String)">
+            <summary>
+            Load settings
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="appId">Store identifier for which settings should be loaded</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.LoadSettingAsync(System.Type,System.String)">
+            <summary>
+            Load settings
+            </summary>
+            <param name="type">Type</param>
+            <param name="appId">Store identifier for which settings should be loaded</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.LoadSetting(System.Type,System.String)">
+            <summary>
+            Load settings
+            </summary>
+            <param name="type">Type</param>
+            <param name="appId">Store identifier for which settings should be loaded</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.SaveSettingAsync``1(``0,System.String)">
+            <summary>
+            Save settings object
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="appId">Store identifier</param>
+            <param name="settings">Setting instance</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.SaveSettingAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Boolean)">
+            <summary>
+            Save settings object
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="appId">Store ID</param>
+            <param name="clearCache">A value indicating whether to clear cache after setting update</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.SaveSettingOverridablePerStoreAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Save settings object (per store). If the setting is not overridden per store then it'll be delete
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="overrideForStore">A value indicating whether to setting is overridden in some store</param>
+            <param name="appId">Store ID</param>
+            <param name="clearCache">A value indicating whether to clear cache after setting update</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.DeleteSettingAsync``1">
+            <summary>
+            Delete all settings
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.DeleteSettingAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String)">
+            <summary>
+            Delete settings object
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="appId">Store ID</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.ClearCacheAsync">
+            <summary>
+            Clear cache
+            </summary>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Configuration.SettingService.GetSettingKey``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Get setting key (stored into database)
+            </summary>
+            <typeparam name="TSettings">Type of settings</typeparam>
+            <typeparam name="T">Property type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <returns>Key</returns>
+        </member>
+        <member name="T:VTQT.Services.Events.EventPublisher">
+            <summary>
+            Represents the event publisher implementation
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Events.EventPublisher.PublishAsync``1(``0)">
+            <summary>
+            Publish event to consumers
+            </summary>
+            <typeparam name="TEvent">Type of event</typeparam>
+            <param name="event">Event object</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Services.Events.IConsumer`1">
+            <summary>
+            Consumer interface
+            </summary>
+            <typeparam name="T">Type</typeparam>
+        </member>
+        <member name="M:VTQT.Services.Events.IConsumer`1.HandleEventAsync(`0)">
+            <summary>
+            Handle event
+            </summary>
+            <param name="eventMessage">Event</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Services.ExportImport.Extensions">
+            <summary>
+            Extensions
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.ExportImport.Extensions.WriteStringAsync(System.Xml.XmlWriter,System.String,System.Object,System.Boolean,System.String)">
+            <summary>
+            Write string async
+            </summary>
+            <param name="xmlWriter">XML writer</param>
+            <param name="nodeName">Node name</param>
+            <param name="nodeValue">Node value</param>
+            <param name="ignore">Ignore</param>
+            <param name="defaulValue">Default value</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.ExportImport.Extensions.WriteStartElementAsync(System.Xml.XmlWriter,System.String)">
+            <summary>
+            Write start element async
+            </summary>
+            <param name="xmlWriter">XML writer</param>
+            <param name="nodeName">Node name</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.ExportImport.Extensions.WriteAttributeStringAsync(System.Xml.XmlWriter,System.String,System.Object,System.String)">
+            <summary>
+            Write attribute string async
+            </summary>
+            <param name="xmlWriter">XML writer</param>
+            <param name="nodeName">Node name</param>
+            <param name="nodeValue">Node value</param>
+            <param name="defaulValue">Default value</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.ExportImport.Extensions.WriteElementStringAsync(System.Xml.XmlWriter,System.String,System.Object,System.String)">
+            <summary>
+            Write element string async
+            </summary>
+            <param name="xmlWriter">XML writer</param>
+            <param name="nodeName">Node name</param>
+            <param name="nodeValue">Node value</param>
+            <param name="defaulValue">Default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the 
+            </returns>
+        </member>
+        <member name="T:VTQT.Services.Extensions">
+            <summary>
+            Extensions
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Extensions.ToXBaseListItemsAsync``1(``0,System.Boolean,System.Int32[],System.Boolean)">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="enumObj">Enum</param>
+            <param name="markCurrentAsSelected">Mark current value as selected</param>
+            <param name="valuesToExclude">Values to exclude</param>
+            <param name="useLocalization">Localize</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="M:VTQT.Services.Extensions.ToXBaseListItems``1(``0,System.Boolean,System.Int32[],System.Boolean)">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="enumObj">Enum</param>
+            <param name="markCurrentAsSelected">Mark current value as selected</param>
+            <param name="valuesToExclude">Values to exclude</param>
+            <param name="useLocalization">Localize</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="M:VTQT.Services.Extensions.ToXBaseListItems``1(``0,System.Func{VTQT.Core.BaseEntity,System.String})">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="objList">List of objects</param>
+            <param name="selector">Selector for name</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="M:VTQT.Services.Extensions.ToMvcListItemsAsync``1(``0,System.Boolean,System.Int32[],System.Boolean)">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="enumObj">Enum</param>
+            <param name="markCurrentAsSelected">Mark current value as selected</param>
+            <param name="valuesToExclude">Values to exclude</param>
+            <param name="useLocalization">Localize</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="M:VTQT.Services.Extensions.ToMvcListItems``1(``0,System.Boolean,System.Int32[],System.Boolean)">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="enumObj">Enum</param>
+            <param name="markCurrentAsSelected">Mark current value as selected</param>
+            <param name="valuesToExclude">Values to exclude</param>
+            <param name="useLocalization">Localize</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="M:VTQT.Services.Extensions.ToMvcListItems``1(``0,System.Func{VTQT.Core.BaseEntity,System.String})">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="objList">List of objects</param>
+            <param name="selector">Selector for name</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="T:VTQT.Services.Helpers.DateTimeHelper">
+            <summary>
+            Represents a datetime helper
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Helpers.DateTimeHelper.FindTimeZoneById(System.String)">
+            <summary>
+            Retrieves a System.TimeZoneInfo object from the registry based on its identifier.
+            </summary>
+            <param name="id">The time zone identifier, which corresponds to the System.TimeZoneInfo.Id property.</param>
+            <returns>A System.TimeZoneInfo object whose identifier is the value of the id parameter.</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.DateTimeHelper.GetSystemTimeZones">
+            <summary>
+            Returns a sorted collection of all the time zones
+            </summary>
+            <returns>A read-only collection of System.TimeZoneInfo objects.</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.DateTimeHelper.ConvertToUtcTime(System.DateTime)">
+            <summary>
+            Converts the date and time to Coordinated Universal Time (UTC)
+            </summary>
+            <param name="dt">The date and time (represents local system time or UTC time) to convert.</param>
+            <returns>A DateTime value that represents the Coordinated Universal Time (UTC) that corresponds to the dateTime parameter. The DateTime value's Kind property is always set to DateTimeKind.Utc.</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.DateTimeHelper.ConvertToUtcTime(System.DateTime,System.DateTimeKind)">
+            <summary>
+            Converts the date and time to Coordinated Universal Time (UTC)
+            </summary>
+            <param name="dt">The date and time (represents local system time or UTC time) to convert.</param>
+            <param name="sourceDateTimeKind">The source datetimekind</param>
+            <returns>A DateTime value that represents the Coordinated Universal Time (UTC) that corresponds to the dateTime parameter. The DateTime value's Kind property is always set to DateTimeKind.Utc.</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.DateTimeHelper.ConvertToUtcTime(System.DateTime,System.TimeZoneInfo)">
+            <summary>
+            Converts the date and time to Coordinated Universal Time (UTC)
+            </summary>
+            <param name="dt">The date and time to convert.</param>
+            <param name="sourceTimeZone">The time zone of dateTime.</param>
+            <returns>A DateTime value that represents the Coordinated Universal Time (UTC) that corresponds to the dateTime parameter. The DateTime value's Kind property is always set to DateTimeKind.Utc.</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.EnumHelper.GetXBaseListItemsAsync``1(System.Nullable{System.Int32},System.Int32[],System.Boolean)">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="selectedValue">Selected value</param>
+            <param name="valuesToExclude">Values to exclude</param>
+            <param name="useLocalization">Localize</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.EnumHelper.GetXBaseListItems``1(System.Nullable{System.Int32},System.Int32[],System.Boolean)">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="selectedValue">Selected value</param>
+            <param name="valuesToExclude">Values to exclude</param>
+            <param name="useLocalization">Localize</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.EnumHelper.GetMvcListItemsAsync``1(System.Nullable{System.Int32},System.Int32[],System.Boolean)">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="selectedValue">Selected value</param>
+            <param name="valuesToExclude">Values to exclude</param>
+            <param name="useLocalization">Localize</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.EnumHelper.GetMvcListItems``1(System.Nullable{System.Int32},System.Int32[],System.Boolean)">
+            <summary>
+            Convert to select list
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="selectedValue">Selected value</param>
+            <param name="valuesToExclude">Values to exclude</param>
+            <param name="useLocalization">Localize</param>
+            <returns>List of select items</returns>
+        </member>
+        <member name="T:VTQT.Services.Helpers.IDateTimeHelper">
+            <summary>
+            Represents a datetime helper
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Helpers.IDateTimeHelper.FindTimeZoneById(System.String)">
+            <summary>
+            Retrieves a System.TimeZoneInfo object from the registry based on its identifier.
+            </summary>
+            <param name="id">The time zone identifier, which corresponds to the System.TimeZoneInfo.Id property.</param>
+            <returns>A System.TimeZoneInfo object whose identifier is the value of the id parameter.</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.IDateTimeHelper.GetSystemTimeZones">
+            <summary>
+            Returns a sorted collection of all the time zones
+            </summary>
+            <returns>A read-only collection of System.TimeZoneInfo objects.</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.IDateTimeHelper.ConvertToUtcTime(System.DateTime)">
+            <summary>
+            Converts the date and time to Coordinated Universal Time (UTC)
+            </summary>
+            <param name="dt">The date and time (represents local system time or UTC time) to convert.</param>
+            <returns>A DateTime value that represents the Coordinated Universal Time (UTC) that corresponds to the dateTime parameter. The DateTime value's Kind property is always set to DateTimeKind.Utc.</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.IDateTimeHelper.ConvertToUtcTime(System.DateTime,System.DateTimeKind)">
+            <summary>
+            Converts the date and time to Coordinated Universal Time (UTC)
+            </summary>
+            <param name="dt">The date and time (represents local system time or UTC time) to convert.</param>
+            <param name="sourceDateTimeKind">The source datetimekind</param>
+            <returns>A DateTime value that represents the Coordinated Universal Time (UTC) that corresponds to the dateTime parameter. The DateTime value's Kind property is always set to DateTimeKind.Utc.</returns>
+        </member>
+        <member name="M:VTQT.Services.Helpers.IDateTimeHelper.ConvertToUtcTime(System.DateTime,System.TimeZoneInfo)">
+            <summary>
+            Converts the date and time to Coordinated Universal Time (UTC)
+            </summary>
+            <param name="dt">The date and time to convert.</param>
+            <param name="sourceTimeZone">The time zone of dateTime.</param>
+            <returns>A DateTime value that represents the Coordinated Universal Time (UTC) that corresponds to the dateTime parameter. The DateTime value's Kind property is always set to DateTimeKind.Utc.</returns>
+        </member>
+        <member name="T:VTQT.Services.Localization.Caching.LanguageServiceCacheEventConsumer">
+            <summary>
+            Represents a language cache event consumer
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.Caching.LanguageServiceCacheEventConsumer.ClearCacheAsync(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Clear cache data
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="T:VTQT.Services.Localization.Caching.LocaleStringResourceServiceCacheEventConsumer">
+            <summary>
+            Represents a locale string resource cache event consumer
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.Caching.LocaleStringResourceServiceCacheEventConsumer.ClearCacheAsync(VTQT.Core.Domain.Master.LocaleStringResource)">
+            <summary>
+            Clear cache data
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="T:VTQT.Services.Localization.Caching.LocalizedPropertyServiceCacheEventConsumer">
+            <summary>
+            Represents a localized property cache event consumer
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.Caching.LocalizedPropertyServiceCacheEventConsumer.ClearCacheAsync(VTQT.Core.Domain.Master.LocalizedProperty)">
+            <summary>
+            Clear cache data
+            </summary>
+            <param name="entity">Entity</param>
+        </member>
+        <member name="T:VTQT.Services.Localization.ILanguageService">
+            <summary>
+            Language service interface
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILanguageService.DeleteLanguageAsync(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Deletes a language
+            </summary>
+            <param name="language">Language</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILanguageService.GetAllLanguagesAsync(System.Boolean,System.String)">
+            <summary>
+            Gets all languages
+            </summary>
+            <param name="showHidden">A value indicating whether to show hidden records</param>
+            <param name="appId">Load records allowed only in a specified store; pass 0 to load all records</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the languages
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILanguageService.GetAllLanguages(System.Boolean,System.String)">
+            <summary>
+            Gets all languages
+            </summary>
+            <param name="showHidden">A value indicating whether to show hidden records</param>
+            <param name="appId">Load records allowed only in a specified store; pass 0 to load all records</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the languages
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILanguageService.GetLanguageByIdAsync(System.String)">
+            <summary>
+            Gets a language
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the language
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILanguageService.GetLanguageById(System.String)">
+            <summary>
+            Gets a language
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the language
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILanguageService.InsertLanguageAsync(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Inserts a language
+            </summary>
+            <param name="language">Language</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILanguageService.UpdateLanguageAsync(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Updates a language
+            </summary>
+            <param name="language">Language</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILanguageService.GetTwoLetterIsoLanguageName(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Get 2 letter ISO language code
+            </summary>
+            <param name="language">Language</param>
+            <returns>ISO language code</returns>
+        </member>
+        <member name="T:VTQT.Services.Localization.ILocalizationService">
+            <summary>
+            Localization manager interface
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.DeleteLocaleStringResourceAsync(VTQT.Core.Domain.Master.LocaleStringResource)">
+            <summary>
+            Deletes a locale string resource
+            </summary>
+            <param name="localeStringResource">Locale string resource</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetLocaleStringResourceByIdAsync(System.String)">
+            <summary>
+            Gets a locale string resource
+            </summary>
+            <param name="localeStringResourceId">Locale string resource identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the locale string resource
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetLocaleStringResourceByNameAsync(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets a locale string resource
+            </summary>
+            <param name="resourceName">A string representing a resource name</param>
+            <param name="languageId">Language identifier</param>
+            <param name="logIfNotFound">A value indicating whether to log error if locale string resource is not found</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the locale string resource
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.InsertLocaleStringResourceAsync(VTQT.Core.Domain.Master.LocaleStringResource)">
+            <summary>
+            Inserts a locale string resource
+            </summary>
+            <param name="localeStringResource">Locale string resource</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.UpdateLocaleStringResourceAsync(VTQT.Core.Domain.Master.LocaleStringResource)">
+            <summary>
+            Updates the locale string resource
+            </summary>
+            <param name="localeStringResource">Locale string resource</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetAllResourceValuesAsync(System.String)">
+            <summary>
+            Gets all locale string resources by language identifier
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the locale string resources
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetAllResourceValues(System.String)">
+            <summary>
+            Gets all locale string resources by language identifier
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the locale string resources
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetResourceAsync(System.String,System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Gets a resource string based on the specified ResourceKey property.
+            </summary>
+            <param name="resourceKey">A string representing a ResourceKey.</param>
+            <param name="languageId">Language identifier</param>
+            <param name="logIfNotFound">A value indicating whether to log error if locale string resource is not found</param>
+            <param name="defaultValue">Default value</param>
+            <param name="returnEmptyIfNotFound">A value indicating whether an empty string will be returned if a resource is not found and default value is set to empty string</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains a string representing the requested resource string.
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetResource(System.String,System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Gets a resource string based on the specified ResourceKey property.
+            </summary>
+            <param name="resourceKey">A string representing a ResourceKey.</param>
+            <param name="languageId">Language identifier</param>
+            <param name="logIfNotFound">A value indicating whether to log error if locale string resource is not found</param>
+            <param name="defaultValue">Default value</param>
+            <param name="returnEmptyIfNotFound">A value indicating whether an empty string will be returned if a resource is not found and default value is set to empty string</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains a string representing the requested resource string.
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.ExportResourcesToXmlAsync(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Export language resources to XML
+            </summary>
+            <param name="language">Language</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result in XML format
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.ImportResourcesFromXmlAsync(VTQT.Core.Domain.Master.Language,System.IO.StreamReader,System.Boolean)">
+            <summary>
+            Import language resources from XML file
+            </summary>
+            <param name="language">Language</param>
+            <param name="xmlStreamReader">Stream reader of XML file</param>
+            <param name="updateExistingResources">A value indicating whether to update existing resources</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetLocalizedAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier; pass null to use the current working language; pass 0 to get standard language value</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized property
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetLocalized``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier; pass null to use the current working language; pass 0 to get standard language value</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized property
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetLocalizedSettingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of setting
+            </summary>
+            <typeparam name="TSettings">Settings type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier</param>
+            <param name="appId">Store identifier</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized property
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.SaveLocalizedSettingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.String)">
+            <summary>
+            Save localized property of setting
+            </summary>
+            <typeparam name="TSettings">Settings type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier</param>
+            <param name="value">Localized value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized property
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetLocalizedEnumAsync``1(``0,System.String)">
+            <summary>
+            Get localized value of enum
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="enumValue">Enum value</param>
+            <param name="languageId">Language identifier; pass null to use the current working language</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.GetLocalizedEnum``1(``0,System.String)">
+            <summary>
+            Get localized value of enum
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="enumValue">Enum value</param>
+            <param name="languageId">Language identifier; pass null to use the current working language</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.AddOrUpdateLocaleResourceAsync(System.String,System.String,System.String)">
+            <summary>
+            Add a locale resource (if new) or update an existing one
+            </summary>
+            <param name="resourceName">Resource name</param>
+            <param name="resourceValue">Resource value</param>
+            <param name="languageCulture">Language culture code. If null or empty, then a resource will be added for all languages</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.AddLocaleResourceAsync(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Add locale resources
+            </summary>
+            <param name="resources">Resource name-value pairs</param>
+            <param name="languageId">Language identifier; pass null to add the passed resources for all languages</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.DeleteLocaleResourceAsync(System.String)">
+            <summary>
+            Delete a locale resource
+            </summary>
+            <param name="resourceName">Resource name</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.DeleteLocaleResourcesAsync(System.Collections.Generic.IList{System.String},System.String)">
+            <summary>
+            Delete locale resources
+            </summary>
+            <param name="resourceNames">Resource names</param>
+            <param name="languageId">Language identifier; pass null to delete the passed resources from all languages</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizationService.DeleteLocaleResourcesAsync(System.String,System.String)">
+            <summary>
+            Delete locale resources by the passed name prefix
+            </summary>
+            <param name="resourceNamePrefix">Resource name prefix</param>
+            <param name="languageId">Language identifier; pass null to delete resources by prefix from all languages</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Services.Localization.ILocalizedEntityService">
+            <summary>
+            Localized entity service interface
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizedEntityService.GetLocalizedValueAsync(System.String,System.String,System.String,System.String,System.Func{System.String})">
+            <summary>
+            Find localized value
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <param name="entityId">Entity identifier</param>
+            <param name="localeKeyGroup">Locale key group</param>
+            <param name="localeKey">Locale key</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the found localized value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizedEntityService.GetLocalizedValue(System.String,System.String,System.String,System.String,System.Func{System.String})">
+            <summary>
+            Find localized value
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <param name="entityId">Entity identifier</param>
+            <param name="localeKeyGroup">Locale key group</param>
+            <param name="localeKey">Locale key</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the found localized value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizedEntityService.GetLocalizedAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.String,System.Boolean)">
+            <summary>
+            Dùng trong trường hợp muốn lấy giá trị default là Standard ở Table/Entity chính khi không có bản ghi đa ngôn ngữ
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="keySelector"></param>
+            <param name="languageId"></param>
+            <param name="entityId"></param>
+            <param name="returnDefaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizedEntityService.SaveLocalizedValueAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.String)">
+            <summary>
+            Save localized value
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="localeValue">Locale value</param>
+            <param name="languageId">Language ID</param>
+        </member>
+        <member name="M:VTQT.Services.Localization.ILocalizedEntityService.SaveLocalizedValueAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},``1,System.String)">
+            <summary>
+            Save localized value
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="localeValue">Locale value</param>
+            <param name="languageId">Language ID</param>
+        </member>
+        <member name="T:VTQT.Services.Localization.LanguageService">
+            <summary>
+            Language service
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.LanguageService.DeleteLanguageAsync(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Deletes a language
+            </summary>
+            <param name="language">Language</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LanguageService.GetAllLanguagesAsync(System.Boolean,System.String)">
+            <summary>
+            Gets all languages
+            </summary>
+            <param name="showHidden">A value indicating whether to show hidden records</param>
+            <param name="appId">Load records allowed only in a specified store; pass 0 to load all records</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the languages
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LanguageService.GetAllLanguages(System.Boolean,System.String)">
+            <summary>
+            Gets all languages
+            </summary>
+            <param name="showHidden">A value indicating whether to show hidden records</param>
+            <param name="appId">Load records allowed only in a specified store; pass 0 to load all records</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the languages
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LanguageService.GetLanguageByIdAsync(System.String)">
+            <summary>
+            Gets a language
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the language
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LanguageService.GetLanguageById(System.String)">
+            <summary>
+            Gets a language
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the language
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LanguageService.InsertLanguageAsync(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Inserts a language
+            </summary>
+            <param name="language">Language</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LanguageService.UpdateLanguageAsync(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Updates a language
+            </summary>
+            <param name="language">Language</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LanguageService.GetTwoLetterIsoLanguageName(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Get 2 letter ISO language code
+            </summary>
+            <param name="language">Language</param>
+            <returns>ISO language code</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationExtentions.GetLocalizedAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}})">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <returns>Localized property</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationExtentions.GetLocalized``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}})">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <returns>Localized property</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationExtentions.GetLocalizedAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>Localized property</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationExtentions.GetLocalized``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>Localized property</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationExtentions.GetLocalizedAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>Localized property</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationExtentions.GetLocalized``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>Localized property</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationExtentions.GetLocalizedEnumAsync``1(``0,VTQT.Services.Localization.ILocalizationService,VTQT.Core.IWorkContext)">
+            <summary>
+            Get localized value of enum
+            </summary>
+            <typeparam name="T">Enum</typeparam>
+            <param name="enumValue">Enum value</param>
+            <param name="localizationService">Localization service</param>
+            <param name="workContext">Work context</param>
+            <returns>Localized value</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationExtentions.GetLocalizedEnum``1(``0,VTQT.Services.Localization.ILocalizationService,VTQT.Core.IWorkContext)">
+            <summary>
+            Get localized value of enum
+            </summary>
+            <typeparam name="T">Enum</typeparam>
+            <param name="enumValue">Enum value</param>
+            <param name="localizationService">Localization service</param>
+            <param name="workContext">Work context</param>
+            <returns>Localized value</returns>
+        </member>
+        <member name="T:VTQT.Services.Localization.LocalizationService">
+            <summary>
+            Provides information about localization
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.InsertLocaleStringResourcesAsync(System.Collections.Generic.IList{VTQT.Core.Domain.Master.LocaleStringResource})">
+            <summary>
+            Insert resources
+            </summary>
+            <param name="resources">Resources</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetAllResourcesAsync(System.String)">
+            <summary>
+            Gets all locale string resources by language identifier
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the locale string resources
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.UpdateLocaleStringResourcesAsync(System.Collections.Generic.IList{VTQT.Core.Domain.Master.LocaleStringResource})">
+            <summary>
+            Update resources
+            </summary>
+            <param name="resources">Resources</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.DeleteLocaleStringResourceAsync(VTQT.Core.Domain.Master.LocaleStringResource)">
+            <summary>
+            Deletes a locale string resource
+            </summary>
+            <param name="localeStringResource">Locale string resource</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetLocaleStringResourceByIdAsync(System.String)">
+            <summary>
+            Gets a locale string resource
+            </summary>
+            <param name="localeStringResourceId">Locale string resource identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the locale string resource
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetLocaleStringResourceByNameAsync(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets a locale string resource
+            </summary>
+            <param name="resourceName">A string representing a resource name</param>
+            <param name="languageId">Language identifier</param>
+            <param name="logIfNotFound">A value indicating whether to log error if locale string resource is not found</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the locale string resource
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.InsertLocaleStringResourceAsync(VTQT.Core.Domain.Master.LocaleStringResource)">
+            <summary>
+            Inserts a locale string resource
+            </summary>
+            <param name="localeStringResource">Locale string resource</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.UpdateLocaleStringResourceAsync(VTQT.Core.Domain.Master.LocaleStringResource)">
+            <summary>
+            Updates the locale string resource
+            </summary>
+            <param name="localeStringResource">Locale string resource</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetAllResourceValuesAsync(System.String)">
+            <summary>
+            Gets all locale string resources by language identifier
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <param name="loadPublicLocales">A value indicating whether to load data for the public store only (if "false", then for admin area only. If null, then load all locales. We use it for performance optimization of the site startup</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the locale string resources
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetAllResourceValues(System.String)">
+            <summary>
+            Gets all locale string resources by language identifier
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <param name="loadPublicLocales">A value indicating whether to load data for the public store only (if "false", then for admin area only. If null, then load all locales. We use it for performance optimization of the site startup</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the locale string resources
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetResourceAsync(System.String,System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Gets a resource string based on the specified ResourceKey property.
+            </summary>
+            <param name="resourceKey">A string representing a ResourceKey.</param>
+            <param name="languageId">Language identifier</param>
+            <param name="logIfNotFound">A value indicating whether to log error if locale string resource is not found</param>
+            <param name="defaultValue">Default value</param>
+            <param name="returnEmptyIfNotFound">A value indicating whether an empty string will be returned if a resource is not found and default value is set to empty string</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains a string representing the requested resource string.
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetResource(System.String,System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Gets a resource string based on the specified ResourceKey property.
+            </summary>
+            <param name="resourceKey">A string representing a ResourceKey.</param>
+            <param name="languageId">Language identifier</param>
+            <param name="logIfNotFound">A value indicating whether to log error if locale string resource is not found</param>
+            <param name="defaultValue">Default value</param>
+            <param name="returnEmptyIfNotFound">A value indicating whether an empty string will be returned if a resource is not found and default value is set to empty string</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains a string representing the requested resource string.
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.ExportResourcesToXmlAsync(VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Export language resources to XML
+            </summary>
+            <param name="language">Language</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result in XML format
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.ImportResourcesFromXmlAsync(VTQT.Core.Domain.Master.Language,System.IO.StreamReader,System.Boolean)">
+            <summary>
+            Import language resources from XML file
+            </summary>
+            <param name="language">Language</param>
+            <param name="xmlStreamReader">Stream reader of XML file</param>
+            <param name="updateExistingResources">A value indicating whether to update existing resources</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetLocalizedAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier; pass null to use the current working language; pass 0 to get standard language value</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized property
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetLocalized``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of an entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier; pass null to use the current working language; pass 0 to get standard language value</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized property
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetLocalizedSettingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get localized property of setting
+            </summary>
+            <typeparam name="TSettings">Settings type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier</param>
+            <param name="appId">Store identifier</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if localized is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized property
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.SaveLocalizedSettingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.String)">
+            <summary>
+            Save localized property of setting
+            </summary>
+            <typeparam name="TSettings">Settings type</typeparam>
+            <param name="settings">Settings</param>
+            <param name="keySelector">Key selector</param>
+            <param name="languageId">Language identifier</param>
+            <param name="value">Localized value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized property
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetLocalizedEnumAsync``1(``0,System.String)">
+            <summary>
+            Get localized value of enum
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="enumValue">Enum value</param>
+            <param name="languageId">Language identifier; pass null to use the current working language</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.GetLocalizedEnum``1(``0,System.String)">
+            <summary>
+            Get localized value of enum
+            </summary>
+            <typeparam name="TEnum">Enum type</typeparam>
+            <param name="enumValue">Enum value</param>
+            <param name="languageId">Language identifier; pass null to use the current working language</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the localized value
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.AddOrUpdateLocaleResourceAsync(System.String,System.String,System.String)">
+            <summary>
+            Add a locale resource (if new) or update an existing one
+            </summary>
+            <param name="resourceName">Resource name</param>
+            <param name="resourceValue">Resource value</param>
+            <param name="languageCulture">Language culture code. If null or empty, then a resource will be added for all languages</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.AddLocaleResourceAsync(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Add locale resources
+            </summary>
+            <param name="resources">Resource name-value pairs</param>
+            <param name="languageId">Language identifier; pass null to add the passed resources for all languages</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.DeleteLocaleResourceAsync(System.String)">
+            <summary>
+            Delete a locale resource
+            </summary>
+            <param name="resourceName">Resource name</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.DeleteLocaleResourcesAsync(System.Collections.Generic.IList{System.String},System.String)">
+            <summary>
+            Delete locale resources
+            </summary>
+            <param name="resourceNames">Resource names</param>
+            <param name="languageId">Language identifier; pass null to delete the passed resources from all languages</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizationService.DeleteLocaleResourcesAsync(System.String,System.String)">
+            <summary>
+            Delete locale resources by the passed name prefix
+            </summary>
+            <param name="resourceNamePrefix">Resource name prefix</param>
+            <param name="languageId">Language identifier; pass null to delete resources by prefix from all languages</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:VTQT.Services.Localization.LocalizedEntityService">
+            <summary>
+            Provides information about localizable entities
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.GetLocalizedPropertiesAsync(System.String,System.String)">
+            <summary>
+            Gets localized properties
+            </summary>
+            <param name="entityId">Entity identifier</param>
+            <param name="localeKeyGroup">Locale key group</param>
+            <returns>Localized properties</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.GetAllLocalizedPropertiesAsync">
+            <summary>
+            Gets all cached localized properties
+            </summary>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the cached localized properties
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.DeleteLocalizedPropertyAsync(VTQT.Core.Domain.Master.LocalizedProperty)">
+            <summary>
+            Deletes a localized property
+            </summary>
+            <param name="localizedProperty">Localized property</param>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.InsertLocalizedPropertyAsync(VTQT.Core.Domain.Master.LocalizedProperty)">
+            <summary>
+            Inserts a localized property
+            </summary>
+            <param name="localizedProperty">Localized property</param>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.UpdateLocalizedPropertyAsync(VTQT.Core.Domain.Master.LocalizedProperty)">
+            <summary>
+            Updates the localized property
+            </summary>
+            <param name="localizedProperty">Localized property</param>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.GetLocalizedValueAsync(System.String,System.String,System.String,System.String,System.Func{System.String})">
+            <summary>
+            Find localized value
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <param name="entityId">Entity identifier</param>
+            <param name="localeKeyGroup">Locale key group</param>
+            <param name="localeKey">Locale key</param>
+            <returns>Found localized value</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.GetLocalizedValue(System.String,System.String,System.String,System.String,System.Func{System.String})">
+            <summary>
+            Find localized value
+            </summary>
+            <param name="languageId">Language identifier</param>
+            <param name="entityId">Entity identifier</param>
+            <param name="localeKeyGroup">Locale key group</param>
+            <param name="localeKey">Locale key</param>
+            <returns>Found localized value</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.GetLocalizedAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.String,System.Boolean)">
+            <summary>
+            Dùng trong trường hợp muốn lấy giá trị default là Standard ở Table/Entity chính khi không có bản ghi đa ngôn ngữ
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="keySelector"></param>
+            <param name="languageId"></param>
+            <param name="entityId"></param>
+            <param name="returnDefaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.SaveLocalizedValueAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String,System.String)">
+            <summary>
+            Save localized value
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="localeValue">Locale value</param>
+            <param name="languageId">Language ID</param>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedEntityService.SaveLocalizedValueAsync``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},``1,System.String)">
+            <summary>
+            Save localized value
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <typeparam name="TPropType">Property type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="keySelector">Key selector</param>
+            <param name="localeValue">Locale value</param>
+            <param name="languageId">Language ID</param>
+        </member>
+        <member name="T:VTQT.Services.Localization.LocalizedUrlExtensions">
+            <summary>
+            Represents extensions for localized URLs
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedUrlExtensions.IsLocalizedUrlAsync(System.String,Microsoft.AspNetCore.Http.PathString,System.Boolean)">
+            <summary>
+            Get a value indicating whether URL is localized (contains SEO code)
+            </summary>
+            <param name="url">URL</param>
+            <param name="pathBase">Application path base</param>
+            <param name="isRawPath">A value indicating whether passed URL is raw URL</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the rue if passed URL contains SEO code; otherwise false. Language whose SEO code is in the URL if URL is localized
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedUrlExtensions.RemoveApplicationPathFromRawUrl(System.String,Microsoft.AspNetCore.Http.PathString)">
+            <summary>
+            Remove application path from raw URL
+            </summary>
+            <param name="rawUrl">Raw URL</param>
+            <param name="pathBase">Application path base</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedUrlExtensions.RemoveLanguageSeoCodeFromUrl(System.String,Microsoft.AspNetCore.Http.PathString,System.Boolean)">
+            <summary>
+            Remove language SEO code from URL
+            </summary>
+            <param name="url">Raw URL</param>
+            <param name="pathBase">Application path base</param>
+            <param name="isRawPath">A value indicating whether passed URL is raw URL</param>
+            <returns>URL without language SEO code</returns>
+        </member>
+        <member name="M:VTQT.Services.Localization.LocalizedUrlExtensions.AddLanguageSeoCodeToUrl(System.String,Microsoft.AspNetCore.Http.PathString,System.Boolean,VTQT.Core.Domain.Master.Language)">
+            <summary>
+            Add language SEO code to URL
+            </summary>
+            <param name="url">Raw URL</param>
+            <param name="pathBase">Application path base</param>
+            <param name="isRawPath">A value indicating whether passed URL is raw URL</param>
+            <param name="language">Language</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:VTQT.Services.Logging.ElasticLogger.IsEnabledFor(VTQT.Core.Domain.LogLevel)">
+            <summary>
+            Checks if this logger is enabled for a given <see cref="P:VTQT.Services.Logging.ElasticLogger.LogLevel"/> passed as parameter. 
+            </summary>
+            <param name="level">true if this logger is enabled for level, otherwise false</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:VTQT.Services.Logging.ElasticLogger.Log(VTQT.Core.Domain.LogLevel,System.Exception,System.String,System.Object[])">
+            <summary>
+            Generates a logging event for the specified level using the message and exception
+            </summary>
+            <param name="level">The level of the message to be logged</param>
+            <param name="exception">The exception to log, including its stack trace. Pass null to not log an exception</param>
+            <param name="message">The message object to log</param>
+            <param name="args">An Object array containing zero or more objects to format. Can be null.</param>
+        </member>
+        <member name="M:VTQT.Services.Logging.SeriLogger.IsEnabledFor(VTQT.Core.Domain.LogLevel)">
+            <summary>
+            Checks if this logger is enabled for a given <see cref="P:VTQT.Services.Logging.SeriLogger.LogLevel"/> passed as parameter. 
+            </summary>
+            <param name="level">true if this logger is enabled for level, otherwise false</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:VTQT.Services.Logging.SeriLogger.Log(VTQT.Core.Domain.LogLevel,System.Exception,System.String,System.Object[])">
+            <summary>
+            Generates a logging event for the specified level using the message and exception
+            </summary>
+            <param name="level">The level of the message to be logged</param>
+            <param name="exception">The exception to log, including its stack trace. Pass null to not log an exception</param>
+            <param name="message">The message object to log</param>
+            <param name="args">An Object array containing zero or more objects to format. Can be null.</param>
+        </member>
+        <member name="T:VTQT.Services.Security.NopSecurityDefaults">
+            <summary>
+            Represents default values related to security services
+            </summary>
+        </member>
+        <member name="P:VTQT.Services.Security.NopSecurityDefaults.RecaptchaScriptPath">
+            <summary>
+            Gets a reCAPTCHA script URL
+            </summary>
+            <remarks>
+            {0} : Id of recaptcha instance on page
+            {1} : Render type
+            {2} : language if exists
+            </remarks>
+        </member>
+        <member name="P:VTQT.Services.Security.NopSecurityDefaults.RecaptchaValidationPath">
+            <summary>
+            Gets a reCAPTCHA validation URL
+            </summary>
+            <remarks>
+            {0} : private key
+            {1} : response value
+            {2} : IP address
+            </remarks>
+        </member>
+        <member name="T:VTQT.Services.Seo.IUrlRecordService">
+            <summary>
+            Provides information about URL records
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.DeleteUrlRecordsAsync(System.Collections.Generic.IList{VTQT.Core.Domain.Master.UrlRecord})">
+            <summary>
+            Deletes an URL records
+            </summary>
+            <param name="urlRecords">URL records</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.GetUrlRecordsByIdsAsync(System.String[])">
+            <summary>
+            Gets an URL records
+            </summary>
+            <param name="urlRecordIds">URL record identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the uRL record
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.InsertUrlRecordAsync(VTQT.Core.Domain.Master.UrlRecord)">
+            <summary>
+            Inserts an URL record
+            </summary>
+            <param name="urlRecord">URL record</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.GetBySlugAsync(System.String)">
+            <summary>
+            Find URL record
+            </summary>
+            <param name="slug">Slug</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the found URL record
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.GetAllUrlRecordsAsync(System.String,System.String,System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Gets all URL records
+            </summary>
+            <param name="slug">Slug</param>
+            <param name="languageId">Language ID; "null" to load records with any language; "0" to load records with standard language only; otherwise to load records with specify language ID only</param>
+            <param name="isActive">A value indicating whether to get active records; "null" to load all records; "false" to load only inactive records; "true" to load only active records</param>
+            <param name="pageIndex">Page index</param>
+            <param name="pageSize">Page size</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the uRL records
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.GetActiveSlugAsync(System.String,System.String,System.String)">
+            <summary>
+            Find slug
+            </summary>
+            <param name="entityId">Entity identifier</param>
+            <param name="entityName">Entity name</param>
+            <param name="languageId">Language identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the found slug
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.SaveSlugAsync``1(``0,System.String,System.String)">
+            <summary>
+            Save slug
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="slug">Slug</param>
+            <param name="languageId">Language ID</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.GetSeNameAsync``1(``0,System.String,System.Boolean,System.Boolean)">
+            <summary>
+             Get search engine friendly name (slug)
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="languageId">Language identifier; pass null to use the current language</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if language specified one is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the search engine  name (slug)
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.GetSeNameAsync(System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get search engine friendly name (slug)
+            </summary>
+            <param name="entityId">Entity identifier</param>
+            <param name="entityName">Entity name</param>
+            <param name="languageId">Language identifier; pass null to use the current language</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if language specified one is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the search engine  name (slug)
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.GetSeNameAsync(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get SE name
+            </summary>
+            <param name="name">Name</param>
+            <param name="convertNonWesternChars">A value indicating whether non western chars should be converted</param>
+            <param name="allowUnicodeCharsInUrls">A value indicating whether Unicode chars are allowed</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.ValidateSeNameAsync``1(``0,System.String,System.String,System.Boolean)">
+            <summary>
+            Validate search engine name
+            </summary>
+            <param name="entity">Entity</param>
+            <param name="seName">Search engine name to validate</param>
+            <param name="name">User-friendly name used to generate sename</param>
+            <param name="ensureNotEmpty">Ensure that sename is not empty</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the valid sename
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.IUrlRecordService.ValidateSeNameAsync(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Validate search engine name
+            </summary>
+            <param name="entityId">Entity identifier</param>
+            <param name="entityName">Entity name</param>
+            <param name="seName">Search engine name to validate</param>
+            <param name="name">User-friendly name used to generate sename</param>
+            <param name="ensureNotEmpty">Ensure that sename is not empty</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the valid sename
+            </returns>
+        </member>
+        <member name="T:VTQT.Services.Seo.SeoDefaults">
+            <summary>
+            Represents default values related to SEO services
+            </summary>
+        </member>
+        <member name="P:VTQT.Services.Seo.SeoDefaults.ForumTopicLength">
+            <summary>
+            Gets a max length of forum topic slug name
+            </summary>
+            <remarks>For long URLs we can get the following error: 
+            "the specified path, file name, or both are too long. The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters", 
+            that's why we limit it to 100</remarks>
+        </member>
+        <member name="P:VTQT.Services.Seo.SeoDefaults.SearchEngineNameLength">
+            <summary>
+            Gets a max length of search engine name
+            </summary>
+            <remarks>For long URLs we can get the following error: 
+            "the specified path, file name, or both are too long. The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters", 
+            that's why we limit it to 200</remarks>
+        </member>
+        <member name="P:VTQT.Services.Seo.SeoDefaults.ReservedUrlRecordSlugs">
+            <summary>
+            Gets a default list of slugs (sename) reserved for some other needs
+            </summary>
+        </member>
+        <member name="P:VTQT.Services.Seo.SeoDefaults.SitemapDateFormat">
+            <summary>
+            Gets a date and time format for the sitemap
+            </summary>
+        </member>
+        <member name="P:VTQT.Services.Seo.SeoDefaults.SitemapMaxUrlNumber">
+            <summary>
+            Gets a max number of URLs in the sitemap file. At now each provided sitemap file must have no more than 50000 URLs
+            </summary>
+        </member>
+        <member name="T:VTQT.Services.Seo.UrlRecordService">
+            <summary>
+            Provides information about URL records
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.InitializeSeoCharacterTable">
+            <summary>
+            Stores Unicode characters and their "normalized"
+            values to a hash table. Character codes are referenced
+            by hex numbers because that's the most common way to
+            refer to them.
+            
+            Upper-case comments are identifiers from the Unicode database. 
+            Lower- and mixed-case comments are the author's
+            </summary>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.ToUnichar(System.String)">
+            <summary>
+            Takes a hexadecimal string and converts it to an Unicode character
+            </summary>
+            <param name="hexString">A four-digit number in hex notation (eg, 00E7).</param>
+            <returns>A unicode character, as string.</returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.UpdateUrlRecordAsync(VTQT.Core.Domain.Master.UrlRecord)">
+            <summary>
+            Updates the URL record
+            </summary>
+            <param name="urlRecord">URL record</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.DeleteUrlRecordsAsync(System.Collections.Generic.IList{VTQT.Core.Domain.Master.UrlRecord})">
+            <summary>
+            Deletes an URL records
+            </summary>
+            <param name="urlRecords">URL records</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.GetUrlRecordsByIdsAsync(System.String[])">
+            <summary>
+            Gets an URL records
+            </summary>
+            <param name="urlRecordIds">URL record identifiers</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the uRL record
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.InsertUrlRecordAsync(VTQT.Core.Domain.Master.UrlRecord)">
+            <summary>
+            Inserts an URL record
+            </summary>
+            <param name="urlRecord">URL record</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.GetBySlugAsync(System.String)">
+            <summary>
+            Find URL record
+            </summary>
+            <param name="slug">Slug</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the found URL record
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.GetAllUrlRecordsAsync(System.String,System.String,System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Gets all URL records
+            </summary>
+            <param name="slug">Slug</param>
+            <param name="languageId">Language ID; "null" to load records with any language; "0" to load records with standard language only; otherwise to load records with specify language ID only</param>
+            <param name="isActive">A value indicating whether to get active records; "null" to load all records; "false" to load only inactive records; "true" to load only active records</param>
+            <param name="pageIndex">Page index</param>
+            <param name="pageSize">Page size</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the uRL records
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.GetActiveSlugAsync(System.String,System.String,System.String)">
+            <summary>
+            Find slug
+            </summary>
+            <param name="entityId">Entity identifier</param>
+            <param name="entityName">Entity name</param>
+            <param name="languageId">Language identifier</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the found slug
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.SaveSlugAsync``1(``0,System.String,System.String)">
+            <summary>
+            Save slug
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="slug">Slug</param>
+            <param name="languageId">Language ID</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.GetSeNameAsync``1(``0,System.String,System.Boolean,System.Boolean)">
+            <summary>
+             Get search engine friendly name (slug)
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="entity">Entity</param>
+            <param name="languageId">Language identifier; pass null to use the current language</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if language specified one is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the search engine  name (slug)
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.GetSeNameAsync(System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get search engine friendly name (slug)
+            </summary>
+            <param name="entityId">Entity identifier</param>
+            <param name="entityName">Entity name</param>
+            <param name="languageId">Language identifier; pass null to use the current language</param>
+            <param name="returnDefaultValue">A value indicating whether to return default value (if language specified one is not found)</param>
+            <param name="ensureTwoPublishedLanguages">A value indicating whether to ensure that we have at least two published languages; otherwise, load only default value</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the search engine  name (slug)
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.GetSeNameAsync(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get SE name
+            </summary>
+            <param name="name">Name</param>
+            <param name="convertNonWesternChars">A value indicating whether non western chars should be converted</param>
+            <param name="allowUnicodeCharsInUrls">A value indicating whether Unicode chars are allowed</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the result
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.ValidateSeNameAsync``1(``0,System.String,System.String,System.Boolean)">
+            <summary>
+            Validate search engine name
+            </summary>
+            <param name="entity">Entity</param>
+            <param name="seName">Search engine name to validate</param>
+            <param name="name">User-friendly name used to generate sename</param>
+            <param name="ensureNotEmpty">Ensure that sename is not empty</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the valid sename
+            </returns>
+        </member>
+        <member name="M:VTQT.Services.Seo.UrlRecordService.ValidateSeNameAsync(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Validate search engine name
+            </summary>
+            <param name="entityId">Entity identifier</param>
+            <param name="entityName">Entity name</param>
+            <param name="seName">Search engine name to validate</param>
+            <param name="name">User-friendly name used to generate sename</param>
+            <param name="ensureNotEmpty">Ensure that sename is not empty</param>
+            <returns>
+            A task that represents the asynchronous operation
+            The task result contains the valid sename
+            </returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,98 @@
+﻿@model AssetTransferenceModel
+@{
+    Layout = null;
+}
+
+<div class="form fixed-layout-form">
+    <form data-form-type="ajax" class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Asset.AssetDecreased.AppActions.Transference")</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.AssetId, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.AssetId, Model.AvailableAssets, "Tài sản", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.FromOrganizationId, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.FromOrganizationId, Model.AvailableOrganizations, "Phòng ban", new { @class = "form-control", @readonly = true, disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.FromStationCode, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.FromStationCode, Model.AvailableStations, "Trạm", new { @class = "form-control", @readonly = true, disabled = "disabled" })
+                    </div>
+                </div>
+                <span style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: #23527c; padding-left: 20px">ĐIỀU CHUYỂN ĐẾN</span>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ToOrganizationId, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.ToOrganizationId, Model.AvailableOrganizations, "Phòng ban", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.ToStationCode, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.ToStationCode, Model.AvailableStations, "Trạm", new { @class = "form-control" })
+                    </div>
+                </div>
+                <span style="line-height: 28px; font-size: 12px; font-weight: 600; font-family: TahomaCustom, Arial, sans-serif !important; color: #23527c; padding-left: 20px">THÔNG TIN ĐIỀU CHUYỂN</span>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.TransferedDate, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(m => m.TransferedDate, new { htmlAttributes = new { style = "width: 100%", @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Dispatcher, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.Dispatcher, Model.AvailableUsers, "Người điều chuyển", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Note, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(m => m.Note, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $('#AssetId').on('select2:select', function (e) {
+        $.ajax({
+            url: '@Url.Action("GetDepartmentAndEmployeeByAsset")',
+            data: { assetId: e.params.data.id },
+            dataType: 'json',
+            type: 'POST',
+            success: function (ids) {
+                if (ids != null && ids != undefined) {
+                    $('#FromOrganizationId').val(ids[0]);
+                    $('#FromOrganizationId').trigger('change');
+
+                    $('#FromStationCode').val(ids[2]);
+                    $('#FromStationCode').trigger('change');
+                }
+            }
+        })
+    });
+</script>

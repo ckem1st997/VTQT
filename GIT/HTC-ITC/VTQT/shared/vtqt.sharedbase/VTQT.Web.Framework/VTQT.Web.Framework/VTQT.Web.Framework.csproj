@@ -1,0 +1,100 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\VTQT.Web.Framework.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="BundlerMinifier.Core" Version="3.2.449" />
+    <PackageReference Include="EasyCaching.Bus.Redis" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.HybridCache" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.InMemory" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.Redis" Version="0.9.0" />
+    <PackageReference Include="EasyCaching.Serialization.Json" Version="0.9.0" />
+    <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.11.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.24" />
+    <PackageReference Include="Humanizer" Version="2.11.10" />
+    <PackageReference Include="IdentityModel" Version="4.6.0" />
+    <PackageReference Include="linq2db" Version="3.4.2" />
+    <PackageReference Include="linq2db.AspNet" Version="3.4.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.19" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.17" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="3.1.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.17" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="5.6.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.5" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Aspose.BarCode">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Aspose\Aspose.BarCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Cells">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Aspose\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Pdf">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Aspose\Aspose.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Words">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Aspose\Aspose.Words.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Kendo.Mvc\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Caching.Helpers">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Caching.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Caching.Manager">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Caching.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Asset">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Asset.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Master">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Master.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Ticket">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Ticket.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Warehouse">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Warehouse.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Data">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Services">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Services.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll.config&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.pdb&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.xml&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt" />
+  </Target>
+
+</Project>

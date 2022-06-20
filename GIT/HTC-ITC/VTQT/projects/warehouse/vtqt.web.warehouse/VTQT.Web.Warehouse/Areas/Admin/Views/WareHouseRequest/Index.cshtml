@@ -1,0 +1,180 @@
+﻿@using VTQT.Web.Warehouse.Models
+@model WareHouseRequestSearchModel
+
+
+<script>
+    var master2 = {
+        urlImport: '@Url.Action("Create", "Inward")',
+        urlExport: '@Url.Action("Create", "Outward")',
+        grdIndex2: {
+            selector: '#grdIndexLimit123',
+            $this: {},
+            api: {},
+            init: function () { },
+            edit: function (e) { },
+            create: function (e) { },
+            error: function (e) { },
+            templates: {
+                flag: function (id, flag) { },
+                name: function (id, name) { },
+                resources: function (id) { },
+                published: function (published) { }
+            },
+            data: function () {}
+
+        },
+        btnSearch111: {
+            el: '#btnSearch',
+            $el: {},
+            init: function () { }
+        },
+        btnProcessRequest: {
+            el: 'a[data-action="process-request"]',
+            $el: {},
+            init: function () { }
+        },
+        init: function () { }
+    };
+    var grdIndex2 = master2.grdIndex2;
+    var btnSearch111 = master2.btnSearch111;
+    var btnProcessRequest = master2.btnProcessRequest;
+
+    grdIndex2.data = function () {
+        console.dir()
+        var $keywords = $('#@Html.FieldIdFor(m => m.Keywords)');
+
+        var searchModel = {
+            Keywords: $keywords.val(),
+            PageIndex: $("#grdIndexLimit123").data("kendoGrid").dataSource.page(),
+            PageSize: $("#grdIndexLimit123").data("kendoGrid").dataSource.pageSize()
+        };
+        return searchModel;
+    };
+    //#endregion
+
+    //#region Events
+
+    master2.init = function () {
+        grdIndex2.init();
+        btnProcessRequest.init();
+    }
+
+    grdIndex2.init = function () {
+        grdIndex2.$this = $(grdIndex2.selector);
+        grdIndex2.api = grdIndex2.$this.data('kendoGrid');
+    }
+
+    $("#btnSearch").click(function (e) {
+            const search = _.debounce(() => {
+                grdIndex2.api.resetPage();
+            }, app.ui.def.debounce.timeout);
+            search();
+            return false;
+    });
+
+    btnProcessRequest.init = function () {
+        btnProcessRequest.$el = $(btnProcessRequest.el);
+
+        btnProcessRequest.$el.click(function (e) {
+            var item = grdIndex2.$this.data('kendoGrid').selectedItems()[0];
+            if (item) {
+                if (item.RequestType.toLowerCase().includes('nhập kho')) {
+                    $.pjax({ url: `${master2.urlImport}/?keyJira=${item.Key}&linkJira=${item.Link}` });
+                }
+                else if (item.RequestType.toLowerCase().includes('xuất kho')) {
+                    $.pjax({ url: `${master2.urlExport}/?keyJira=${item.Key}&linkJira=${item.Link}` });
+                }
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        });
+    };
+
+    function test(key, parameters) {
+        return `<a rel="nofollow noopener" role="link" tabindex="0" target="_blank" class="linknewtab" href="${parameters}">${key}</a>`;
+    }
+
+    function GetColorStatus(e, t) {
+        if (e =="yellow")
+            return `<p style="color:#0072c6">${t}</p>`
+        return `<p style="color:${e}">${t}</p>`
+    }
+
+    function GetBellWarn(e, t) {
+        if (!t)
+            return `<p style="color:#0072c6">${t}</p>`
+        return `${e}<svg title="Cảnh báo!" xml:space="preserve" viewBox="0 0 100 100" y="0" x="0" xmlns="http://www.w3.org/2000/svg" id="圖層_1" version="1.1" style="height: 30px; width: 30px;position: absolute;top: 0%; background:transparent;" width="200px" height="200px"><g class="ldl-scale" style="transform-origin: 50% 50%; transform: rotate(0deg) scale(0.8, 0.8);"><g class="ldl-ani"><g class="ldl-layer"><g class="ldl-ani"><g><g class="ldl-layer"><g class="ldl-ani" style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -0.634921s infinite normal forwards running breath-9518dd03-7be1-42b1-ad93-2c7fadf7ad7b;"><circle stroke-miterlimit="10" stroke-width="3.5" stroke="#333" fill="#f5e6c8" r="6.375" cy="17.438" cx="50" style="fill: rgb(245, 230, 200); stroke: rgb(51, 51, 51);"></circle></g></g><g class="ldl-layer"><g class="ldl-ani" style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -0.714286s infinite normal forwards running breath-9518dd03-7be1-42b1-ad93-2c7fadf7ad7b;"><circle stroke-miterlimit="10" stroke-width="3.5" stroke="#333" fill="#f5e6c8" r="9.375" cy="79.563" cx="50" style="fill: rgb(245, 230, 200); stroke: rgb(51, 51, 51);"></circle></g></g><g class="ldl-layer"><g class="ldl-ani" style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -0.793651s infinite normal forwards running breath-9518dd03-7be1-42b1-ad93-2c7fadf7ad7b;"><path stroke-miterlimit="10" stroke-width="3.5" stroke="#333" fill="#f5e6c8" d="M81.657 73.019c.002-.117.004-.234-.002-.35a7.345 7.345 0 0 0-.107-.991c-.018-.104-.045-.205-.068-.308a7.011 7.011 0 0 0-.167-.645 7.845 7.845 0 0 0-.356-.909c-.05-.107-.1-.212-.155-.316a7.453 7.453 0 0 0-.332-.558c-.055-.085-.106-.173-.164-.255a7.341 7.341 0 0 0-1.276-1.382c-.077-.065-.16-.121-.239-.183-.12-.093-.236-.191-.362-.276-.952-.643-1.882-1.323-2.661-2.165a30.613 30.613 0 0 1-1.158-1.34l-.085-.11a30.718 30.718 0 0 1-1.009-1.328c-.117-.163-.226-.332-.339-.497a29.199 29.199 0 0 1-.666-1.007c-.122-.195-.238-.394-.356-.593a28.645 28.645 0 0 1-.884-1.61c-.17-.336-.33-.677-.485-1.02-.095-.21-.191-.419-.281-.631a26.142 26.142 0 0 1-.443-1.141c-.068-.185-.142-.368-.206-.555a25.04 25.04 0 0 1-.528-1.743c-.173-.663-.326-1.312-.45-1.93s-.22-1.206-.278-1.749L67.086 35.35v-.001l-.049-.452c-.771-7.17-5.899-12.894-12.573-14.695-.115-.032-.228-.068-.344-.097-.285-.071-.576-.125-.866-.182-.259-.051-.517-.103-.781-.141-.237-.034-.476-.056-.716-.081-.203-.021-.401-.055-.606-.069-.099-.007-.195 0-.294-.005-.284-.014-.571-.014-.858-.014-.287 0-.574 0-.858.014-.099.005-.195-.002-.294.005-.205.013-.403.048-.606.069-.24.025-.479.047-.716.081-.263.039-.522.091-.781.141-.291.056-.581.111-.866.182-.116.029-.229.066-.344.097-6.674 1.801-11.802 7.526-12.573 14.695l-.049.452v.001L31.4 49.426c-.058.542-.154 1.13-.278 1.749a34.9 34.9 0 0 1-.45 1.93 25.04 25.04 0 0 1-.528 1.743c-.064.187-.138.37-.206.555-.141.383-.285.765-.443 1.141-.089.212-.186.421-.281.631a23.485 23.485 0 0 1-.814 1.65 27.72 27.72 0 0 1-.555.98c-.117.198-.234.397-.356.593-.213.341-.438.675-.666 1.007-.113.165-.222.334-.339.497-.323.451-.66.894-1.009 1.328l-.085.11c-.372.458-.76.903-1.158 1.34-.779.843-1.709 1.522-2.661 2.165-.126.085-.241.183-.362.276-.08.061-.162.118-.239.183a7.374 7.374 0 0 0-1.276 1.382c-.059.083-.109.17-.164.255-.118.181-.23.366-.332.558-.055.104-.104.21-.155.316a7.203 7.203 0 0 0-.239.573 6.344 6.344 0 0 0-.284.981c-.022.103-.05.203-.068.308a7.345 7.345 0 0 0-.107.991c-.006.116-.004.233-.002.35.001.085-.005.167-.002.253.154 3.381 3.058 5.99 6.443 5.99h50.433c3.384 0 6.288-2.609 6.443-5.99.003-.085-.004-.167-.003-.252z" style="fill: rgb(245, 230, 200); stroke: rgb(51, 51, 51);"></path></g></g></g></g></g><g class="ldl-layer"><g class="ldl-ani"><g><g class="ldl-layer"><g class="ldl-ani" style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -0.873016s infinite normal forwards running breath-9518dd03-7be1-42b1-ad93-2c7fadf7ad7b;"><circle stroke-miterlimit="10" stroke-width="3.5" stroke="#333" fill="#fff" r="14.738" cy="43.034" cx="66.613" style="fill: rgb(255, 255, 255); stroke: rgb(51, 51, 51);"></circle></g></g><g class="ldl-layer"><g class="ldl-ani" style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -0.952381s infinite normal forwards running breath-9518dd03-7be1-42b1-ad93-2c7fadf7ad7b;"><path d="M61.113 48.534l11-11" stroke-miterlimit="10" stroke-width="3.5" stroke="#e15b64" fill="none" style="stroke: rgb(225, 91, 100);"></path></g></g><g class="ldl-layer"><g class="ldl-ani" style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -1.03175s infinite normal forwards running breath-9518dd03-7be1-42b1-ad93-2c7fadf7ad7b;"><path d="M72.113 48.534l-11-11" stroke-miterlimit="10" stroke-width="3.5" stroke="#e15b64" fill="none" style="stroke: rgb(225, 91, 100);"></path></g></g></g></g></g><g class="ldl-layer"><g class="ldl-ani" style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -1.11111s infinite normal forwards running breath-9518dd03-7be1-42b1-ad93-2c7fadf7ad7b;"><path d="M89.072 92.992l5.261-9.113" fill="none"></path></g></g><metadata xmlns:d="https://loading.io/stock/"><d:name>alarm</d:name><d:tags>alarm,bell,alert,notify,ring,chime,temporal,remove,delete,cancel,stop</d:tags><d:license>by</d:license><d:slug>qbep6k</d:slug></metadata></g></g></svg>`
+    }
+    $(function () {
+        master2.init();
+
+    });
+
+    //#endregion
+</script>
+
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="process-request" href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-spinner" aria-hidden="true"></i>Xử lý yêu cầu</a>            
+        </div>
+    </div>
+</div>
+
+<div class="page-data">
+    <div class="row search-form">
+        <form>
+            <div class="search-label">
+                @T("Common.Search"):
+            </div>
+            <div class="col-md-4">
+                <div class="form-group form-group-sm">
+                    <div class="input-icon right">
+                        @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = T("Common.Fields.EnterKeywords") })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group form-group-sm">
+                    <button type="submit" id="btnSearch" class="btn btn-default btn-sm">
+                        <i class="fa fa-search"></i> @T("Common.GetData")
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row full-height">
+
+        @(Html.Kendo().Grid<JiraResponseModel>()
+            .Name("grdIndexLimit123")
+            .HtmlAttributes(new {style = "height:100%;" })
+            .Columns(columns =>
+            {
+                columns.Select().Locked().Width(30);
+                columns.Bound(x => x.Key).Locked().Width(100).ClientTemplate("#=test(Key,Link)#"); ;
+                columns.Bound(x => x.RequestType).Locked().Width(100).Title("Loại yêu cầu");
+                // columns.Bound(x => x.CreatedDate).Locked().Width(139).ClientTemplate("#=GetBellWarn(CreatedDate,Warn)#");
+                columns.Bound(x => x.CreatedDate).Locked().Width(139);
+                columns.Bound(x => x.IssueType).Width(250);
+                columns.Bound(x => x.Reason).Width(200).Title("Lý do nhập/xuất");
+                columns.Bound(x => x.Status).Width(200).ClientTemplate("#=GetColorStatus(ColorStatus,Status)#");
+                columns.Bound(x => x.Summary).Width(699);
+                columns.Bound(x => x.Creator).Width(250);
+                columns.Bound(x => x.Assignee).Width(250).Title("Người tiếp nhận");
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(AdminAreaSettings.GridPageSize)
+                .ServerOperation(true)
+                .Read(read => read.Action("GetIssuessJira", "WareHouseRequest").Data("grdIndex2.data"))
+            )
+            .NoRecords()
+            .Scrollable(s => s.Enabled(true))
+            .Scrollable(scr => scr.Enabled(true))
+            .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PreviousNext(true).Refresh(true))
+            .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple)).Navigatable())
+    </div>
+</div>
+
+<!-- #endregion -->

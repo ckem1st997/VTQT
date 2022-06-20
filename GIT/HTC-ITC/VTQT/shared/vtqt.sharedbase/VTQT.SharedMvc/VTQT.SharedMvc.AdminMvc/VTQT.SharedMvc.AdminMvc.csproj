@@ -1,0 +1,138 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    <!--<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
+    <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+    <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>-->
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\VTQT.SharedMvc.AdminMvc.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Views/Shared/Admin -->
+    <Content Include="Views\Shared\Admin\_HLayout.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\Admin\_PjaxStartup.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+
+    <!-- Views/MvcAdminCommon -->
+    <Content Include="Views\MvcAdminCommon\_HMenu.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\_Menu.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\_MobileMenu.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\LanguageSelector.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\LockoutAccount.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+
+    <!-- Views/MvcAdminCommon/ChooseEmployee -->
+    <Content Include="Views\MvcAdminCommon\ChooseEmployee\_ChooseEmployee.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\ChooseEmployee\_ChooseEmployeeInfo.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\ChooseEmployee\_ChooseEmployees.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\ChooseEmployee\_ChooseSignerInfo.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\ChooseEmployee\ChooseEmployee.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\ChooseEmployee\ChooseEmployees.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+
+    <!-- Views/MvcAdminCommon/ChooseOrganizationalUnit -->
+    <Content Include="Views\MvcAdminCommon\ChooseOrganizationalUnit\_ChooseOrganizationalUnit.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\MvcAdminCommon\ChooseOrganizationalUnit\ChooseOrganizationalUnit.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Views/Shared/Admin -->
+    <EmbeddedResource Include="Views\Shared\Admin\_HLayout.cshtml" />
+    <EmbeddedResource Include="Views\Shared\Admin\_PjaxStartup.cshtml" />
+
+    <!-- Views/MvcAdminCommon -->
+    <EmbeddedResource Include="Views\MvcAdminCommon\_HMenu.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\_Menu.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\_MobileMenu.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\LanguageSelector.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\LockoutAccount.cshtml" />
+
+    <!-- Views/MvcAdminCommon/ChooseEmployee -->
+    <EmbeddedResource Include="Views\MvcAdminCommon\ChooseEmployee\_ChooseEmployee.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\ChooseEmployee\_ChooseEmployeeInfo.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\ChooseEmployee\_ChooseEmployees.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\ChooseEmployee\_ChooseSignerInfo.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\ChooseEmployee\ChooseEmployee.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\ChooseEmployee\ChooseEmployees.cshtml" />
+
+    <!-- Views/MvcAdminCommon/ChooseOrganizationalUnit -->
+    <EmbeddedResource Include="Views\MvcAdminCommon\ChooseOrganizationalUnit\_ChooseOrganizationalUnit.cshtml" />
+    <EmbeddedResource Include="Views\MvcAdminCommon\ChooseOrganizationalUnit\ChooseOrganizationalUnit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\VTQT.Caching\VTQT.Caching.Helpers\VTQT.Caching.Helpers.csproj" />
+    <ProjectReference Include="..\..\VTQT.Web.Framework\VTQT.Web.Framework\VTQT.Web.Framework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Kendo.Mvc\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Caching.Manager">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Caching.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Core.Domain.Master">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Core.Domain.Master.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.Services">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="VTQT.SharedMvc.Master">
+      <HintPath>..\..\..\VTQT.SharedRefs\Assemblies\Core\VTQT.SharedMvc.Master.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll.config&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.pdb&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt&#xD;&#xA;xcopy &quot;$(TargetDir)*.xml&quot; &quot;$(ProjectDir)..\..\..\..\Shared\VTQT.SharedRefs\Assemblies\Core&quot; /c /e /y /exclude:$(SolutionDir)..\..\Shared\VTQT.SharedRefs\Config\ExcludeCopy.txt" />
+  </Target>
+
+</Project>

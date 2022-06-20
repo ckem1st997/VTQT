@@ -1,0 +1,134 @@
+﻿@model CRHTCModel
+@{
+    Layout = null;
+}
+
+<script>
+    var noc = {
+        formNoc: {
+            el: '#form-noc',
+            $el: {},
+            init: function () { },
+            data: []
+        },
+        init: function () { }
+    }
+
+    var formNoc = noc.formNoc;
+</script>
+
+<div class="noc-detail row full-height">
+    <form id="form-noc">
+        <div class="row" style="margin-bottom: 5px; margin-top: 20px">
+            @Html.HiddenFor(m => m.CRHTCId)
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.CrArea, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.CrArea, Model.AvailableCRAreas, "Vùng sự cố", new { @class = "form-control", @style = "width: 100%", disabled = "disabled" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.CrProvince, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.CrProvince, Model.AvailableCRProvinces, "Tỉnh sự cố", new { @class = "form-control", @style = "width: 100%", disabled = "disabled" })
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px">
+                <div class="col-md-6" style="padding: 0">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.StartTimeAction, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" }, true)
+                        <div class="col-md-5">
+                            @Html.EditorFor(m => m.StartTimeAction, new { pickTime = true, htmlAttributes = new { style = "width: 100%", disabled = "disabled", @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding: 0">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.RestoreTimeService, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(m => m.RestoreTimeService, new { pickTime = true, htmlAttributes = new { style = "width: 100%", disabled = "disabled", @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 5px">
+                <div class="col-md-6" style="padding: 0">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.TimeMinus, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                        <div class="col-md-2" style="width: 14%">
+                            @(Html.Kendo().NumericTextBox<int>()
+                            .Name("HourTimeMinus")
+                            .Min(0)
+                            .HtmlAttributes(new {style = "width: 100%; padding: 0", @readonly = true})
+                            .Spinners(false)
+                            .Value(Model.HourTimeMinus)
+                        )
+                        </div>
+                        <div class="col-md-2" style="width: 14%">
+                            @(Html.Kendo().NumericTextBox<int>()
+                            .Name("MinuteTimeMinus")
+                            .Min(0)
+                            .HtmlAttributes(new {style = "width: 100%; padding: 0", @readonly = true })
+                            .Spinners(false)
+                            .Value(Model.MinuteTimeMinus)
+                        )
+                        </div>
+                        <div class="col-md-2" style="width: 14%">
+                            @(Html.Kendo().NumericTextBox<int>()
+                            .Name("SecondTimeMinus")
+                            .Min(0)
+                            .HtmlAttributes(new {style = "width: 100%; padding: 0", @readonly = true })
+                            .Spinners(false)
+                            .Value(Model.SecondTimeMinus)
+                        )
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding: 0">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.OverTimeRegister, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                        <div class="col-md-5">
+                            @(Html.Kendo().CheckBox()
+                            .Name("OverTimeRegister")
+                            .Checked(Model.OverTimeRegister)
+                            .Label("")
+                            .HtmlAttributes(new {disabled = "disabled"}))
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding: 0">
+                    <div class="form-group form-group-sm">
+                        @Html.XBaseLabelFor(m => m.Supervisor, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                        <div class="col-md-5">
+                            @Html.TextBoxFor(m => m.Supervisor, new { @class = "form-control", @style = "width: 100%", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    noc.init = function () {
+        formNoc.init();
+    }
+
+    formNoc.init = function () {
+        formNoc.$el = $(formNoc.el);
+        formNoc.data = $('#MinuteTimeMinus').val();
+        formNoc.data = $('#StartTimeAction').val();
+        formNoc.data = $('#RestoreTimeService').val();
+        formNoc.data = $('#HourTimeMinus').val();
+    }
+
+    $(function () {
+        noc.init();
+    });
+</script>

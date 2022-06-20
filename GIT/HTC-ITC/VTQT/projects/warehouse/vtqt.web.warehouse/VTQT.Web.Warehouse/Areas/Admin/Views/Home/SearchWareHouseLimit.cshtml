@@ -1,0 +1,123 @@
+﻿@model WareHouseLimitSearchModel
+
+
+    <script>
+        //#region Fields
+        var master1 = {
+            grdIndex1: {
+                selector: '#grdIndexLimit',
+                $this: {},
+                api: {},
+                init: function () { },
+                edit: function (e) { },
+                create: function (e) { },
+                error: function (e) { },
+                templates: {
+                    flag: function (id, flag) { },
+                    name: function (id, name) { },
+                    resources: function (id) { },
+                    published: function (published) { }
+                },
+
+            },
+            btnSearch1: {
+                el: '#WHId',
+                $el: {},
+                init: function () { }
+            },
+
+            init: function () { },
+            export: function () { }
+        };
+        var grdIndex1 = master1.grdIndex1;
+        var btnSearch1 = master1.btnSearch1;
+        //#endregion
+
+        //#region Events
+
+        grdIndex1.data = function () {
+            var dd = $('#WHId').select2('data');
+            var $keywords = dd[0].id;
+            var searchModel = {
+                WareHouesId: $keywords
+            };
+            return searchModel;
+        }
+            //#endregion
+    </script>
+    <!-- #endregion -->
+    <div class="title-home-set">
+        @*<div class="dot me-3 bg-indigo" style="background-color: #f0f352"></div>*@
+
+        <p>@T("Common.Search.WareHouseLimit")</p>
+        @*<div class="icon-loading">
+                <i class="fa fa-spinner" aria-hidden="true"></i>
+            </div>*@
+    </div>
+    <div class="search-home-set" style="border-top:0px">
+        <div>@T("common.fields.warehouse")</div>
+        <div>
+            <select name="WHId"
+                    id="WHId"
+                    class="autowidth"
+                    style="width: 70%"
+                    data-placeholder='@T("Common.Select2.Select")'
+                    data-select-url="@Url.Action("GetWareHouseId")">
+            </select>
+        </div>
+    </div>
+    <div class="result-home-set">
+        <div class="row">
+            @Html.AntiForgeryToken()
+            @(Html.Kendo().Grid<WareHouseLimitModel>()
+                    .Name("grdIndexLimit")
+                    .Scrollable(x => x.Height("200px"))
+                    .HtmlAttributes(new {style = "border-top:none" })
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.ItemId).Width(200);
+                        columns.Bound(x => x.Quantity).Width(200);
+                        columns.Bound(x => x.MinQuantity).Width(100);
+                        columns.Bound(x => x.MaxQuantity).Width(100);
+                    })
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .PageSize(AdminAreaSettings.GridPageSize)
+                        .ServerOperation(true)
+                        .Read(read => read.Action("ReadWareHouseLimit", "Home").Data("grdIndex1.data"))
+                    )
+                    .NoRecords()
+                    .Scrollable(scr => scr.Enabled(true))
+                    .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(false).Numeric(true).PreviousNext(true).Refresh(true))
+                    .Navigatable())
+        </div>
+    </div>
+
+<script>
+
+
+    master1.init = function () {
+        grdIndex1.init();
+        btnSearch1.init();
+    }
+
+    grdIndex1.init = function () {
+        grdIndex1.$this = $(grdIndex1.selector);
+        grdIndex1.api = grdIndex1.$this.data('kendoGrid');
+    }
+    btnSearch1.init = function () {
+        btnSearch1.$el = $(btnSearch1.el);
+        const search = _.debounce(() => {
+            grdIndex1.api.resetPage();
+        }, app.ui.def.debounce.timeout);
+        btnSearch1.$el.on("select2:select", function (e) {
+            var data = e.params.data;
+            search();
+            return false;
+        });
+    };
+    $(function () {
+        master1.init();
+
+    });
+</script>

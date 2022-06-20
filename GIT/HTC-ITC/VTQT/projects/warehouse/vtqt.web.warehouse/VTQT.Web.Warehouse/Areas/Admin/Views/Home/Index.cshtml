@@ -1,0 +1,175 @@
+﻿
+<div class="page-data" style="">
+    <ul class="page-breadcrumb"></ul>
+
+    <div id="paddingTop" class="row full-height" style="padding-top: 310px">
+        <div class="row" style="position: absolute; top: 10px; width: 100%">
+            <div class="col-md-5 col-12 ">
+                @{
+                    await Html.RenderPartialAsync("SearchInventory");
+                }
+
+            </div>
+            <div class="col-md-7 col-12 ">
+                @{
+                    await Html.RenderPartialAsync("SearchWareHouseLimit");
+                }
+
+            </div>
+        </div>
+
+        <div class="full-height" style="margin-top: 10px;padding-right: 15px; padding-left: 15px;">
+            @{
+                await Html.RenderPartialAsync("SearchRequestDelivery");
+            }
+        </div>
+    </div>
+
+</div>
+<style>
+        /*    .page-container .page-content-wrapper .page-content {
+            padding-top: 16px !important;
+        }
+
+        .page-data {
+            padding-top: 0px !important;
+        }*/
+
+        /* .SearchInventory:hover {
+            transform: translateY(-5px);
+            transition: all 0.2s ease-in-out;
+        }
+
+            .SearchInventory:hover .icon-loading {
+                font-size: 19px;
+                transform: rotate(180deg);
+                transition: all 0.5s ease-in-out;
+            }*/
+
+        .SearchInventory {
+            transition: transform 250ms;
+        }
+
+        .icon-loading {
+            font-size: 16px;
+            position: absolute;
+            right: 30px;
+            transform: rotate(-180deg);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .height-2 {
+            height: 50%;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        /*  tr.k-master-row td:first-child {
+            color: #7a869a;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.66666667;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        tr.k-master-row td {
+            color: #0052cc;
+            border: 1px solid #dfe1e6;
+            border-radius: 3px;
+            color: #253858;
+            font-size: 11px;
+            font-weight: 700;
+            margin: 0;
+            padding: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        tr th.k-header {
+            color: #7a869a !important;
+            line-height: 1.66666667;
+            letter-spacing: 0;
+            text-transform: none;
+            font-weight: bold !important;
+            text-align: center !important;
+        }
+    */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        /*tr.k-master-row {
+            border-bottom: 1px dotted black;
+        }
+    */
+        .title-home-set {
+            background-color: #756de0;
+            height: 35px;
+            padding: 8px;
+            color: white;
+            font-weight: bold;
+            border-top-left-radius: 3px;
+            -moz-border-radius-topright: 3px;
+            border-top-right-radius: 3px;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .search-home-set {
+            height: 45px;
+            border: 1px solid #d9d9d9;
+            display: flex;
+            align-items: center;
+            padding-left: 25px;
+            color: #7a869a !important;
+            font-weight: bold !important;
+        }
+
+            .search-home-set div:first-child {
+                width: 100px;
+            }
+
+            .search-home-set div:nth-child(2) {
+                width: 60%;
+            }
+
+        .result-home-set {
+            border: 1px solid #d9d9d9;
+            border-top: none;
+        }
+
+        @@media only screen and (min-height: 800px) {
+            #grdIndexLimit123 {
+                height: 80% !important;
+            }
+        } 
+        @@media only screen and (max-height: 800px) {
+        #grdIndexLimit123 > div.k-grid-content.k-auto-scrollable {
+                        height: 65% !important;
+                    }
+        #paddingTop{
+        padding-top: 265px !important;
+        }
+            .k-grid-content.k-auto-scrollable {
+                height: 150px !important;
+            }
+        }
+      
+</style>
+<script>
+    function GetColorStatus(e, t) {
+        if (e === "yellow")
+            return `<p style="color:#0072c6">${t}</p>`;
+        return `<p style="color:${e}">${t}</p>`;
+    }
+</script>
+
+
+

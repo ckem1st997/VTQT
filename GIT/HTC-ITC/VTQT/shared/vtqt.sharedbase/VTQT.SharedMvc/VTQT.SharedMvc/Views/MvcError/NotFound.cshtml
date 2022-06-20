@@ -1,0 +1,39 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@inject ILocalizationService tt
+
+@{
+    Layout = "~/Views/Shared/_MvcErrorLayout.cshtml";
+}
+
+<body class="page-404-full-page">
+    <div class="row">
+        <div class="col-md-12 page-404">
+            <div class="number">
+                404
+            </div>
+            <div class="details">
+                <h3>@ViewBag.Title</h3>
+                <p>
+                    @ViewBag.Message
+                </p>
+                <h4>@Html.ActionLink(tt.GetResource("Common.Home"), "Index", "Home", new { area = "" }, null)</h4>
+            </div>
+        </div>
+    </div>
+</body>

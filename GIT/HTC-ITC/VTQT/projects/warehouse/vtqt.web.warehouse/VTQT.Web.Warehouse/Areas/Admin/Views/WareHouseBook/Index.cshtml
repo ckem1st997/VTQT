@@ -1,0 +1,537 @@
+﻿@model VoucherWareHouseSearchModel
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right">
+            <a data-action="create-import" href="javascript:void(0)" class="btn btn-success btn-sm"><i class="flaticon2-plus"></i> @T("Common.Import")</a>
+            <a data-action="create-export" href="javascript:void(0)" class="btn blue btn-sm"><i class="flaticon-logout"></i> @T("Common.Export")</a>
+            <a data-action="edit" href="javascript:void(0)" class="btn yellow btn-sm"><i class="flaticon2-pen"></i> @T("Common.Edit")</a>
+            <a data-action="deletes" href="javascript:void(0)" class="btn red btn-sm"><i class="flaticon-delete"></i> @T("Common.Deletes")</a>
+            <a data-action="export" href="javascript:void(0)" class="btn purple btn-sm"><i class="flaticon2-printer"></i> @T("Common.ExportData")</a>
+        </div>
+    </div>
+</div>
+
+<div class="splitter fixed-layout-split" data-position="230px">
+    <div class="leftPane">
+        <div id="treeWareHouse" class="full-height"></div>
+    </div>
+    <div class="rightPane">
+        <div class="page-data">
+            <div class="row search-form">
+                <form style="display:flex;align-items:center;">
+                    <div class="search-label">
+                        @T("Common.Search"):
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-group-sm">
+                            <div class="input-icon right">
+                                <i class="fa fa-angle-down search-extend tooltips" data-container="body" data-original-title="@T("Common.ShowSearchOptions")" data-toggle="dropdown" data-close-others="true" aria-expanded="true"></i>
+                                @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = T("Common.Fields.EnterKeywords") })
+                                <div class="search-extend-bd dropdown-menu hold-on-click">
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.FromDate)
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    @Html.EditorFor(m => m.FromDate, new { htmlAttributes = new { @class = "form-control", placeholder = T("Common.Fields.FromDate"), style = "border-right: none" } })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    @Html.EditorFor(m => m.ToDate, new { htmlAttributes = new { @class = "form-control", placeholder = T("Common.Fields.ToDate"), style = "border-right: none" } })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.SelectedTypeVoucher)
+                                            @Html.DropDownListFor(m => m.SelectedTypeVoucher, (IEnumerable<SelectListItem>)ViewData["vouchers"], T("WareHouse.VoucherWareHouses.Fields.VoucherType"), new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.SelectedInwardReason)
+                                            @Html.DropDownListFor(m => m.SelectedInwardReason, (IEnumerable<SelectListItem>)ViewData["inwardReason"], T("Common.Fields.SelectedInwardReason"), new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.SelectedOutwardReason)
+                                            @Html.DropDownListFor(m => m.SelectedOutwardReason, (IEnumerable<SelectListItem>)ViewData["outwardReason"], T("Common.Fields.SelectedOutwardReason"), new { @class = "form-control", @style = "width: 100%" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group form-group-sm">
+                            <button type="submit" id="btnSearch" class="btn btn-default btn-sm">
+                                <i class="fa fa-search"></i> @T("Common.GetData")
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row full-height">
+                @(Html.Kendo().Grid<VoucherWareHouseModel>()
+                    .Name("grd")
+                    .HtmlAttributes(new { style = "height: 99%" })
+                    .Columns(columns =>
+                    {
+                        columns.Select().Locked().Width(30);
+                        columns.Bound(x => x.VoucherType).Locked().Width(150);
+                        columns.Bound(x => x.VoucherCode).Locked().Width(200);
+                        columns.Bound(x => x.Voucher).Locked().Width(200);
+                        columns.Bound(x => x.StrVoucherDate).Width(200);
+                        columns.Bound(x => x.CreatedBy).Width(200);
+                        columns.Bound(x => x.ModifiedBy).Width(200);
+                        columns.Bound(x => x.Deliver).Width(200);
+                        columns.Bound(x => x.Receiver).Width(200);
+                        columns.ForeignKey(x => x.SelectedInwardReason, (System.Collections.IEnumerable)ViewData["inwardReason"], "Value", "Text").Width(250);
+                        columns.ForeignKey(x => x.SelectedOutwardReason, (System.Collections.IEnumerable)ViewData["outwardReason"], "Value", "Text").Width(250);
+                        columns.Bound(x => x.Description).Width(350);
+                    })
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .ServerOperation(true)
+                        .PageSize(AdminAreaSettings.GridPageSize)
+                        .Read(read => read.Action("Get", "WareHouseBook").Data("grd.data"))
+                    )
+                    .NoRecords()
+                    .AutoBind(false)
+                    .Scrollable(scr => scr.Enabled(true))
+                    .Pageable(pageable => pageable.ButtonCount(AdminAreaSettings.GridButtonCount).Info(true).Input(true).Numeric(true).PageSizes(AdminAreaSettings.GridPageSizeOptions).PreviousNext(true).Refresh(true))
+                    .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+                    .Navigatable())
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul id="mnu" style="display: none">
+    <li data-action="details">
+        <i class="flaticon-eye font-blue-dark"></i> @T("Common.Details")
+    </li>
+    <li data-action="create-import">
+        <i class="flaticon2-plus font-green-meadow"></i> @T("Common.Import")
+    </li>
+    <li data-action="create-export">
+        <i class="flaticon-logout font-red-intense"></i> @T("Common.Export")
+    </li>
+    <li data-action="edit">
+        <i class="flaticon2-pen font-yellow"></i> @T("Common.Edit")
+    </li>
+    <li data-action="export">
+        <i class="flaticon2-printer font-purple-studio"></i> @T("Common.ExportData")
+    </li>
+    <li class="k-separator"></li>
+    <li data-action="refresh">
+        <i class="flaticon-refresh font-green"></i> @T("Common.Refresh")
+    </li>
+    <li data-action="deletes">
+        <i class="flaticon-delete font-red"></i> @T("Common.Delete")
+    </li>
+</ul>
+
+<!-- #endregion -->
+<!-- #region Scripts -->
+@section HeadScripts {
+    <script>
+        // Fields
+        var master = {
+            urlTree: '@Url.Action("GetTree")',
+            urlEdit: '@Url.Action("Edit", "WareHouseBook")',
+            urlDeletes: '@Url.Action("Deletes")',
+                urlExport: '@Url.Action("ExportOrder")',
+            toolbar: {
+                el: '.page-toolbar',
+                $el: {},
+                actions: {
+                    init: function () { }
+                },
+                init: function () { }
+            },
+            grd: {
+                el: '#grd',
+                $el: {},
+                api: {},
+                actions: {
+                    init: function () { }
+                },
+                data: function () { },
+                init: function () { }
+            },
+            treeWareHouse: {
+                el: '#treeWareHouse',
+                $el: {},
+                api: {},
+                init: function () {},
+            },
+            mnu: {
+                el: '#mnu',
+                $el: {},
+                api: {},
+                init: function () { }
+            },
+            btnSearch: {
+                el: '#btnSearch',
+                $el: {},
+                init: function () { }
+            },
+            searchTitle: {
+                voucherType: '',
+                importReason: '',
+                exportReason: '',
+                fromDate: '',
+                toDate: ''
+            },
+            init: function () { },
+            edit: function (id) { },
+            details: function (id) { },
+            deletes: function () { },
+            refresh: function () { },
+            actionCallback: function () { },
+            export: function () { }
+        };
+        var toolbar = master.toolbar;
+        var grd = master.grd;
+        var mnu = master.mnu;
+        var btnSearch = master.btnSearch;
+        var treeWareHouse = master.treeWareHouse;
+        var searchTitle = master.searchTitle;
+
+        grd.data = function () {
+            var $keywords = $('#@Html.FieldIdFor(m => m.Keywords)');
+            var $selectedTypeVoucher = $('#@Html.FieldIdFor(m => m.SelectedTypeVoucher)');
+            var $selectedInwardReason = $('#@Html.FieldIdFor(m => m.SelectedInwardReason)');
+            var $selectedOutwardReason = $('#@Html.FieldIdFor(m => m.SelectedOutwardReason)');
+            var $fromDate = $('#@Html.FieldIdFor(m => m.FromDate)');
+            var $toDate = $('#@Html.FieldIdFor(m => m.ToDate)');
+            var wareHouseId = null;
+            if (!_.isEmpty(treeWareHouse.api) && treeWareHouse.api.getActiveNode())
+                wareHouseId = treeWareHouse.api.activeNode.key;
+
+            var searchModel = {
+                Keywords: $keywords.val(),
+                SelectedTypeVoucher: $selectedTypeVoucher.val(),
+                SelectedInwardReason: $selectedInwardReason.val(),
+                SelectedOutwardReason: $selectedOutwardReason.val(),
+                FromDate: $fromDate.val(),
+                ToDate: $toDate.val(),
+                WareHouseId: wareHouseId
+            };
+            return searchModel;
+        };
+    </script>
+}
+
+@section Scripts {
+    <script>
+        // Methods
+        master.export = function () {
+            var $keywords = $('#@Html.FieldIdFor(m => m.Keywords)');
+            var $selectedTypeVoucher = $('#@Html.FieldIdFor(m => m.SelectedTypeVoucher)');
+            var $selectedInwardReason = $('#@Html.FieldIdFor(m => m.SelectedInwardReason)');
+            var $selectedOutwardReason = $('#@Html.FieldIdFor(m => m.SelectedOutwardReason)');
+            var $fromDate = $('#@Html.FieldIdFor(m => m.FromDate)');
+            var $toDate = $('#@Html.FieldIdFor(m => m.ToDate)');
+            var wareHouseId = null;
+            if (!_.isEmpty(treeWareHouse.api) && treeWareHouse.api.getActiveNode())
+                wareHouseId = treeWareHouse.api.activeNode.key;
+
+            var searchModel = {
+                Keywords: $keywords.val(),
+                SelectedTypeVoucher: $selectedTypeVoucher.val(),
+                SelectedInwardReason: $selectedInwardReason.val(),
+                SelectedOutwardReason: $selectedOutwardReason.val(),
+                FromDate: $fromDate.val(),
+                ToDate: $toDate.val(),
+                WareHouseId: wareHouseId,
+                PageIndex: grd.api.dataSource.page(),
+                PageSize: grd.api.dataSource.pageSize(),
+            };
+            $.ajax({
+                url: '@Url.Action("GetExcelReport")',
+                data: searchModel,
+                success: function (data) {
+                    window.location = '@Url.Action("DownloadExcel")' + '?fileGuid=' + data.FileGuid
+                        + '&fileName=' + data.FileName;
+                }
+            });
+        };
+        master.edit = function() {
+            var id = grd.api.selectedIds()[0];
+            if (id) {
+                $.ajax({
+                    type: 'POST',
+                    data: id,
+                    dataType: 'text',
+                    url: `${master.urlEdit}/${id}`,
+                    success: function (msg) {
+                        if (msg == 1) {
+                            $.pjax({ url: '/Admin/Inward/Edit/' + id });
+                        }
+                        else if (msg == 2) {
+                            $.pjax({ url: '/Admin/Outward/Edit/' + id });
+                        }
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        };
+        master.details = function() {
+            var id = grd.api.selectedIds()[0];
+            if (id) {
+                $.ajax({
+                    type: 'POST',
+                    data: id,
+                    dataType: 'text',
+                    url: `${master.urlEdit}/${id}`,
+                    success: function (msg) {
+                        if (msg == 1) {
+                          //  $.pjax({ url: '/Admin/Inward/Details/'  });
+                            window.open('/Admin/Inward/Details/'+ id, '_blank');
+                        }
+                        else if (msg == 2) {
+                         //   $.pjax({ url: '/Admin/Outward/Details/' + id });
+                            window.open('/Admin/Outward/Details/'+ id, '_blank');
+
+                        }
+                    }
+                });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        };
+        master.deletes = function () {
+            var ids = grd.api.selectedIds();
+            if (ids.length > 0) {
+                app.window.deletes.open({ url: master.urlDeletes, ids: ids, options: { width: '450px' }, callback: master.actionCallback });
+            } else {
+                notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+            }
+        };
+
+        master.refresh = function() {
+            grd.api.reload();
+        };
+        master.actionCallback = function() {
+            grd.api.reload();
+        };
+
+        // Inits
+        master.init = function() {
+            toolbar.init();
+            grd.init();
+            mnu.init();
+            btnSearch.init();
+            treeWareHouse.init();
+        };
+
+        toolbar.init = function() {
+            toolbar.$el = $(toolbar.el);
+
+            toolbar.actions.init();
+        };
+        toolbar.actions.init = function() {
+            var $toolbar = toolbar.$el;
+            admin.pageToolbar.actions.initEdit($toolbar, master.edit);
+            admin.pageToolbar.actions.initDeletes($toolbar, master.deletes);
+
+            $toolbar.find('a[data-action="create-import"]').click(function (e) {
+
+                var wareHouseId = null;
+            if (!_.isEmpty(treeWareHouse.api) && treeWareHouse.api.getActiveNode())
+                wareHouseId = treeWareHouse.api.activeNode.key;
+            if (wareHouseId === null || wareHouseId === undefined || wareHouseId.length < 5) {
+                notify({ text: '@T("Notifies.NotWareHouseSelect").JavaScriptStringEncode()', type: 'info' });
+                return;
+            }
+            else
+                $.pjax({ url: `/Admin/Inward/Create/?IdWareHouse=${wareHouseId}` });
+            });
+            $toolbar.find('a[data-action="create-export"]').click(function (e) {
+                var wareHouseId = null;
+            if (!_.isEmpty(treeWareHouse.api) && treeWareHouse.api.getActiveNode())
+                wareHouseId = treeWareHouse.api.activeNode.key;
+            if (wareHouseId === null || wareHouseId === undefined || wareHouseId.length < 5) {
+                notify({ text: '@T("Notifies.NotWareHouseSelect").JavaScriptStringEncode()', type: 'info' });
+                return;
+            }
+            else
+                $.pjax({ url: `/Admin/Outward/Create/?IdWareHouse=${wareHouseId}` });
+            });
+            $toolbar.find('a[data-action="export"]').click(function (e) {
+                master.export();
+            });
+        };
+        grd.init = function() {
+            grd.$el = $(grd.el);
+            grd.api = grd.$el.data('kendoGrid');
+
+            grd.actions.init();
+        };
+        grd.actions.init = function () {
+            //DblClick
+            grd.api.initDblClick(master.details);
+            grd.api.initEdit(master.edit);
+        };
+        treeWareHouse.init = function () {
+            treeWareHouse.$el = $(treeWareHouse.el);
+            treeWareHouse.$el.fancytree({
+                source: {
+                    url: master.urlTree,
+                    beforeSend: function (jqXHR, settings) {
+                        grd.api.clear();
+                    },
+                    complete: function () {
+                        var lastKeySelected = '@Model.WareHouseId';
+                        $("#treeWareHouse").fancytree("getTree").getNodeByKey(lastKeySelected).setActive();
+                    }
+                },
+                postProcess: function (event, data) {
+                    data.result = data.response.data;
+                },
+                activate: function (event, data) {
+                    $('#@Html.FieldIdFor(m => m.Keywords)').val("")
+                    var node = data.node;
+                    if (node.statusNodeType !== 'loading') {
+                        grd.api.resetPage();
+                    }
+                }
+            });
+            treeWareHouse.api = treeWareHouse.$el.fancytree("getTree");
+        };
+        mnu.init = function() {
+            mnu.$el = $(mnu.el);
+            mnu.$el.kendoContextMenu({
+                orientation: 'vertical',
+                target: master.grd.el,
+                filter: 'tbody tr[role="row"]',
+                animation: {
+                    open: { effects: "fadeIn" },
+                    duration: 0
+                },
+                open: function(e) {
+                    var $row = $(e.target);
+                    var selected = master.grd.api.select().length;
+                    if (selected === 0 || (!$row.hasClass('k-state-selected') && selected > 0)) {
+                        master.grd.api.clearSelection();
+                        master.grd.api.select($row);
+                    }
+                },
+                select: function(e) {
+                    var action = $(e.item).attr('data-action');
+                    switch (action) {
+                    case 'details':
+                        master.details();
+                            break;
+                    case 'create-import':
+                        $.pjax({ url: '/Admin/Inward/Create' });
+                        break;
+                    case 'create-export':
+                        $.pjax({ url: '/Admin/Outward/Create' });
+                        break;
+                    case 'edit':
+                        master.edit();
+                        break;
+                    case 'export':
+                        master.export();
+                        break;
+                    case 'deletes':
+                        master.deletes();
+                        break;
+                    case 'refresh':
+                        master.refresh();
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            });
+            mnu.api = mnu.$el.data("kendoContextMenu");
+        };
+        btnSearch.init = function() {
+            btnSearch.$el = $(btnSearch.el);
+
+            const search = _.debounce(() => {
+                grd.api.resetPage();
+            }, app.ui.def.debounce.timeout);
+            btnSearch.$el.click(function (e) {
+                $('#Keywords').attr("placeholder", searchTitleBuilder());
+                search();
+                return false;
+            });
+        };
+
+        $('#SelectedTypeVoucher').on('select2:select', function (e) {
+            if (e.params.data.text) {
+                searchTitle.voucherType = e.params.data.text;
+            }
+        });
+
+        $('#SelectedInwardReason').on('select2:select', function (e) {
+            if (e.params.data.text) {
+                searchTitle.importReason = e.params.data.text;
+            }
+        });
+
+        $('#SelectedOutwardReason').on('select2:select', function (e) {
+            if (e.params.data.text) {
+                searchTitle.exportReason = e.params.data.text;
+            }
+        });
+
+        $('#SelectedTypeVoucher').on('select2:unselect', function (e) {
+            searchTitle.voucherType = '';
+        });
+
+        $('#SelectedInwardReason').on('select2:unselect', function (e) {
+            searchTitle.importReason = '';
+        });
+
+        $('#SelectedOutwardReason').on('select2:unselect', function (e) {
+            searchTitle.exportReason = '';
+        });
+
+        var searchTitleBuilder = function () {
+            var title = '';
+            if (searchTitle.voucherType) {
+                title += `${searchTitle.voucherType}`;
+            }
+
+            if (searchTitle.importReason) {
+                if (title) {
+                    title += `, Lý do nhập: ${searchTitle.importReason}`;
+                }
+                else {
+                    title += `Lý do nhập: ${searchTitle.importReason}`;
+                }
+            }
+
+            if (searchTitle.exportReason) {
+                if (title) {
+                    title += `, Lý do xuất: ${searchTitle.exportReason}`;
+                }
+                else {
+                    title += `Lý do xuất: ${searchTitle.exportReason}`;
+                }
+            }
+
+            if (title) {
+                return title;
+            }
+
+            return 'Nhập từ khóa';
+        };
+
+        // Startup
+        $(function() {
+            master.init();
+        });
+    </script>
+}
+<!-- #endregion -->

@@ -1,0 +1,38 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@using Microsoft.AspNetCore.Routing
+
+@model object
+
+@functions {
+    private object _htmlAttributes;
+    private object HtmlAttributes
+    {
+        get
+        {
+            if (_htmlAttributes != null)
+                return _htmlAttributes;
+            var htmlAttrData = ViewData["htmlAttributes"];
+            if (htmlAttrData != null)
+                _htmlAttributes = new RouteValueDictionary(htmlAttrData);
+            return _htmlAttributes;
+        }
+    }
+}
+
+@Html.TextAreaFor(m => m, HtmlAttributes ?? new { @class = "k-textbox", rows = 1 })

@@ -1,0 +1,88 @@
+﻿@model ApprovalCRMxSearchModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var approvalMx = {
+        grd: {
+            el: '#approvalMx_grd',
+            $el: {},
+            init: function () { },
+            api: {},
+            tmp: {
+                activate: function (activate) { }
+            },
+            data: function () { }
+        },
+        init: function () { },
+        activates: function (activate, ids) { }
+    }
+
+    var approvalMxGrd = approvalMx.grd;
+
+    approvalMxGrd.data = function () {
+        var searchModel = {
+            CrMxId: '@Model.CrMxId'
+        };
+
+        return searchModel;
+    };
+</script>
+
+<div class="row" style="overflow: hidden">
+    <script id="toolbar-approvalMx" type="text/x-kendo-template">
+
+    </script>
+    @(Html.Kendo().Grid<ApprovalCRMxModel>()
+        .Name("approvalMx_grd")
+        .HtmlAttributes(new {style = "border: 1px solid lightgray" })
+        .Columns(columns =>
+        {
+            columns.ForeignKey(x => x.Approver, (System.Collections.IEnumerable)ViewData["approvers"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.ForeignKey(x => x.Progress, (System.Collections.IEnumerable)ViewData["progress"] ?? new List<SelectListItem>(), "Value", "Text").Width(350);
+            columns.Bound(x => x.ReasonDetail).Width(350);
+        })
+        .ToolBar(toolbar => { toolbar.ClientTemplateId("toolbar-approvalMx"); })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(int.MaxValue)
+            .ServerOperation(false)
+            .Read(read => read.Action("GetApprovalCRMx", "CRMx").Data("approvalMxGrd.data"))
+        )
+        .NoRecords()
+        .Scrollable(scr => scr.Enabled(true))
+        .Pageable(pageable => pageable.Enabled(false))
+        .Selectable(selectable => selectable.Type(GridSelectionType.Row).Mode(GridSelectionMode.Multiple))
+        .Navigatable())
+</div>
+
+<script>
+    approvalMx.init = function () {
+        approvalMxGrd.init();
+    };
+
+    approvalMxGrd.init = function () {
+        approvalMxGrd.$el = $(approvalMxGrd.el);
+        approvalMxGrd.api = approvalMxGrd.$el.data('kendoGrid');
+    };
+
+    approvalMx.activates = function(activate, ids) {
+        ids = ids || approvalMxGrd.api.selectedIds();
+        if (ids.length > 0) {
+
+        } else {
+            notify({ text: '@T("Notifies.NoItemsSelected").JavaScriptStringEncode()', type: 'info' });
+        }
+    };    
+
+    approvalMxGrd.tmp.activate = function (activate) {
+        return activate ? '<i class="fa fa-check green"></i>' : '<i class="fa fa-times" style="color: red"></i>';
+    };
+
+    $(function () {
+        approvalMx.init();
+    });
+</script>
+

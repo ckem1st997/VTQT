@@ -1,0 +1,54 @@
+﻿@model IList<AppActionModel>
+
+<div id="admin_menu" class="hor-menu hor-menu-light hidden-sm hidden-xs">
+    <ul class="nav navbar-nav">
+        @foreach (var appAction in Model)
+        {
+            <li class="classic-menu-dropdown">
+                @if (appAction.Children.Any())
+                {
+                    <a href="javascript:;" title="@appAction.Description" data-hover="megamenu-dropdown" data-close-others="true">
+                        <i class="fa @appAction.Icon"></i>
+                        <span class="navbar-label">@appAction.Name</span>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        @ChildMenu(appAction)
+                    </ul>
+                }
+                else
+                {
+                    <a href="@(!string.IsNullOrEmpty(appAction.AssemblyArea) && !string.IsNullOrEmpty(appAction.Controller) && !string.IsNullOrEmpty(appAction.Action) ? Url.Action(appAction.Action, appAction.Controller, new { appAssemblyArea = appAction.AssemblyArea }) : "javascript:;")" title="@appAction.Description">
+                        <i class="fa @appAction.Icon"></i>
+                        <span class="navbar-label">@appAction.Name</span>
+                    </a>
+                }
+            </li>
+        }
+    </ul>
+</div>
+
+@helper ChildMenu(AppActionModel parent)
+{
+    foreach (var child in parent.Children)
+    {
+        if (child.Children.Any())
+        {
+                <li class="dropdown-submenu">
+                    <a href="javascript:;" title="@child.Description">
+                        <i class="fa @child.Icon"></i> @child.Name
+                    </a>
+                    <ul class="dropdown-menu">
+                        @ChildMenu(child)
+                    </ul>
+                </li>
+        }
+        else
+        {
+                <li>
+                    <a href="@(!string.IsNullOrEmpty(child.AssemblyArea) && !string.IsNullOrEmpty(child.Controller) && !string.IsNullOrEmpty(child.Action) ? Url.Action(child.Action, child.Controller, new { appAssemblyArea = child.AssemblyArea }) : "javascript:;")" title="@child.Description">
+                        <i class="fa @child.Icon"></i> @child.Name
+                    </a>
+                </li>
+        }
+    }
+}

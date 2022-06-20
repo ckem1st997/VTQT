@@ -1,0 +1,86 @@
+﻿@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+
+@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.SharedMvc.AdminMvc.Models.AdminMvcCommon
+@using VTQT.SharedMvc.Master
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@inject ILanguageService languageService
+@inject ICommonServices services
+
+@{
+    var appContext = EngineContext.Current.Resolve<IAppContext>();
+    var workContext = EngineContext.Current.Resolve<IWorkContext>();
+    var currentApp = appContext.CurrentApp;
+
+    var cdn = currentApp.CdnUrl;
+    var flagsUri = PathHelper.Images.Flags.RootPath.CombineBaseUri(cdn);
+
+    var langModel = new LanguageSelectorModel();
+    langModel.CurrentLanguage = services.WorkContext.WorkingLanguage.ToModel();
+    langModel.AvailableLanguages = (await languageService
+        .GetAllLanguagesAsync(appId: services.AppContext.CurrentApp.Id))
+        .Select(x => x.ToModel())
+        .ToList();
+}
+
+@if (langModel.AvailableLanguages.Count > 1)
+{
+    <form id="form-languageselector" class="hide" action="@Url.Action("LanguageSelected", "Common")" method="post"
+          data-ajax="true" data-ajax-complete="onLanguageChangedRequestCompleted();">
+        <input type="hidden" id="userlanguage" value="@langModel.CurrentLanguage.Id" />
+    </form>
+
+    <li class="dropdown dropdown-language">
+        <a href="javascript:;" class="dropdown-toggle" title="@langModel.CurrentLanguage.Name" data-toggle="dropdown" aria-expanded="false">
+            @if (!string.IsNullOrEmpty(langModel.CurrentLanguage.FlagImageFileName))
+            {
+                <img alt="@langModel.CurrentLanguage.Name" src="@(flagsUri + langModel.CurrentLanguage.FlagImageFileName)">
+            }
+            <span class="langname">@langModel.CurrentLanguage.UniqueSeoCode.ToUpperInvariant()</span>
+            <i class="fa fa-angle-down"></i>
+        </a>
+        <ul id="language-selector" class="dropdown-menu dropdown-menu-default" style="left: -100px">
+            @foreach (var language in langModel.AvailableLanguages)
+            {
+                <li @(language.Id == langModel.CurrentLanguage.Id ? "disabled" : "")>
+                    <a href="javascript:;" data-lang-id="@language.Id">
+                        @if (!string.IsNullOrEmpty(language.FlagImageFileName))
+                        {
+                            <img alt="@language.Name" src="@(flagsUri + language.FlagImageFileName)">
+                        }
+                        @language.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </li>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#language-selector > li:not(.disabled) > a").click(function () {
+                var el = $(this);
+                var langId = el.data("lang-id");
+                $("#userlanguage").val(langId);
+                $("#form-languageselector").submit();
+            });
+        });
+
+        function onLanguageChangedRequestCompleted() {
+            location.reload();
+        }
+    </script>
+}

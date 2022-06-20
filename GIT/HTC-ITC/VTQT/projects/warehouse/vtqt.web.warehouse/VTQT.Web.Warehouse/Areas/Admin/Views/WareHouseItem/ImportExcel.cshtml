@@ -1,0 +1,193 @@
+﻿@{
+    Layout = null;
+    var cdn = CommonHelper.GetAppSetting<string>("App:Cdn:Url");
+}
+<div class="main-content">
+    <p>Để nhập dữ liệu từ excel vào phần mềm vui lòng thực hiện theo các bước sau:</p>
+    <p>Bước 1: Tải tệp excel mẫu về để chuẩn bị dữ liệu <a id="dowloadFile">tại đây</a></p>
+    <p>Bước 2: Chuẩn bị dữ liệu cần nhập vào phần mềm theo tệp excel mẫu đã tải về ở bước trên</p>
+    <p>Bước 3: Tải tệp excel chứa dữ liệu cần nhập vào phần mềm và bấm nút "Thực hiện"</p>
+    <input id="import-file" type="file" style="width:240px;" />
+</div>
+<form data-form-type="ajax" class="form-horizontal" action="ImportExcel" method="POST" accept-charset="utf-8" id="import-form" style="height:75vh;overflow:scroll">
+    <div class="form-body">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">@T("Warehouse.Execl.AppActions.Create")</h4>
+        </div>
+    </div>
+    <div class="modal-body position-rel" style="height:89%">
+        <div class="row">
+            <div class="col-md-12">
+
+                <table class="table table-condensed table-responsive table-striped">
+                    <thead style="position: sticky; top: 0; background: white;">
+                        <tr>
+                            <th>Mã vật tư</th>
+                            <th>Tên vật tư</th>
+                            <th>Đơn vị</th>
+                            <th>Loại vật tư</th>
+                            <th>Mô tả</th>
+                            <th>Nhà cung cấp</th>
+                            <th>Quốc gia</th>
+                            <th>Áp dụng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="body-content"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal-footer form-actions">
+    <a id="create-new" class="btn bg-green">
+        <i class="fa fa-check"></i>
+        Thực hiện
+    </a>
+    <button type="button" onclick="restart()" class="btn btn-default btn-sm" data-dismiss="modal" style="width:73px; height:22px;">
+        <i class="fa fa-times"></i> @T("Common.Skip")
+    </button>
+</div>
+
+
+<script>
+    function restart() {
+        location.reload();
+    }
+            var listItemData = {};
+            var oFileIn;
+
+            $(function () {
+                oFileIn = document.getElementById('import-file');
+                if (oFileIn.addEventListener) {
+                    $('#body-content').html('');
+                    oFileIn.addEventListener('change', filePicked, false);
+                }
+            });
+
+            // func get data
+            function filePicked(oEvent) {
+                // Get The File From The Input
+                var oFile = oEvent.target.files[0];
+                var sFilename = oFile.name;
+                // Create A File Reader HTML5
+                var reader = new FileReader();
+
+                // Ready The Event For When A File Gets Selected
+                reader.onload = function (e) {
+                    var data = e.target.result;
+                    var cfb = XLSX.read(data, { type: 'binary' });
+                    // Here is your object
+                    var XL_row_object = XLSX.utils.sheet_to_row_object_array(cfb.Sheets["Danh sách vật tư"]);
+                    var obj = XLSX.utils.sheet_to_row_object_array()
+                    listItemData = XL_row_object;
+
+                    // append html
+                    if (listItemData.length > 0) {
+                        appendData(listItemData);
+                    }
+                    else {
+                        $("#body-content").html('');
+                        listItemData = {};
+                        notify({ text: 'Bạn vui lòng check lại file excel.', type: 'warning' });
+                    }
+
+
+                };
+
+                // Tell JS To Start Reading The File.. You could delay this if desired
+                reader.readAsBinaryString(oFile);
+            }
+            // func apeend html
+        function appendData(objData) {
+                var str = "";
+                $("#body-content").html('');
+                var count = objData.length;
+                if (count > 0) {
+                    for (var i = 0; i < count; i++) {
+                        var code = objData[i]["Mã vật tư"];
+                        var name = objData[i]["Tên vật tư"];
+                        var unitId = objData[i]["Đơn vị"];
+                        var categoryID = objData[i]["Loại vật tư"];
+                        var description = objData[i]["Mô tả"] ? objData[i]["Mô tả"] : '';
+                        var vendorID = objData[i]["Nhà cung cấp"] ? objData[i]["Nhà cung cấp"] : '';
+                        var country = objData[i]["Quốc gia"] ? objData[i]["Quốc gia"] : '';
+                        var inactive = objData[i]["Áp dụng"];
+
+                        str += '<tr> ' +
+                            '<td>' + code + '</td>' +
+                            '<td>' + name + '</td>' +
+                            '<td>' + unitId + '</td>' +
+                            '<td>' + categoryID + '</td>' +
+                            '<td>' + description + '</td>' +
+                            '<td>' + vendorID + '</td>' +
+                            '<td>' + country + '</td>' +
+                            '<td>' + inactive + '</td>' +
+                             '</tr>';
+                    }
+                    if (str != '') {
+                        $("#body-content").append(str);
+                    }
+                    listItemData = objData;
+                }
+            }
+
+        $('#create-new').click(function () {
+            var arry = [];
+            for (var i = 0; i < listItemData.length; i++) {
+                var tem = {
+                    Code: listItemData[i]["Mã vật tư"],
+                    Name: listItemData[i]["Tên vật tư"],
+                    UnitId: listItemData[i]["Đơn vị"],
+                    CategoryID: listItemData[i]["Loại vật tư"],
+                    Description: listItemData[i]["Mô tả"] ? listItemData[i]["Mô tả"] : null,
+                    VendorID: listItemData[i]["Nhà cung cấp"] ? listItemData[i]["Nhà cung cấp"] : null,
+                    country: listItemData[i]["Quốc gia"] ? listItemData[i]["Quốc gia"] : null,
+                    Inactive: listItemData[i]["Áp dụng"] == "Đã kích hoạt" ? false : true,
+                }
+                arry.push(tem)
+            }
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ImportExcel", "WareHouseItem")',
+                    contentType: 'application/json',
+                    data: JSON.stringify(arry),
+                    beforeSend: function(xhr, settings) {
+                    },
+                    success: function (response) {
+                        if (response.data.length > 0) {
+                            for (const [key, value] of Object.entries(response.data)) {
+
+                            }
+                        }
+                        app.window.form.open({ url: 'WareHouseItem/TotalImportExcel?sum=' + listItemData.length + '&err=' + response.totalErr + '&countDone=' + response.data +'', options: { width: '550px' }, callback: master.actionCallback });
+
+                        if (response === 200) {
+                            document.getElementById("import-file").value = "";
+                            $("#body-content").html('');
+                            g.api.resetPage();
+                            $.notifySuccess('Import dữ liệu thành công!');
+
+                        }
+                    },
+                    error: function () {
+                        notify({ text: 'Có lỗi xảy ra.', type: 'warning' });
+                    },
+                    complete: function(xhr, status) {
+                    }
+                });
+        });
+        $("#dowloadFile").click(function () {
+           window.location = '@Url.Action("ExportWareHouseItem")/';
+
+        })
+
+</script>
+
+<script src="~/js/libs-xlsx-0.8.0-jszip.js"></script>
+<script src="~/js/libs-xlsx-0.8.0-xlsx.js"></script>
+<style>
+    h5 a {
+        color: red;
+    }
+</style>

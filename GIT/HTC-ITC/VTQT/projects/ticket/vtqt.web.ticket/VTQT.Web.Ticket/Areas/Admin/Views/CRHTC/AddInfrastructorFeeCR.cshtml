@@ -1,0 +1,70 @@
+@model InfrastructorFeeCRModel
+@{
+    Layout = null;
+}
+
+<script>
+    frmAddFee = {
+        el: 'form[data-client-form-id="@ClientFormId"]',
+        $el: {},
+        winForm: {},
+        init: function () { }
+    };
+</script>
+
+<div class="form fixed-layout-form">
+    <form class="form-horizontal">
+        <div class="form-body">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@T("Ticket.InfrastructorFees.AppActions.Create")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Name, true, new { @class = "control-label col-md-4" }, true)
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @style = "width: 100%" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Description, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @style = "width: 100%" })                 
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.Fee, true, new { @class = "control-label col-md-4" },true)
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => m.Fee, new { htmlAttributes = new { style = "width: 100%; padding: 0", @class = "form-control" } })                  
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.XBaseLabelFor(m => m.WareHouseItemCode, true, new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.WareHouseItemCode, Model.AvailableItems, "Vật tư", new { @class = "form-control", @style = "width: 100%" })               
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn blue btn-sm">
+                    <i class="fa fa-spinner fa-spin spin-submit"></i>
+                    <i class="fa fa-check"></i> @T("Common.Save")
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times"></i> @T("Common.Close")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>       
+    frmAddFee.init = function () {
+        frmAddFee.$el = $(frmAddFee.el);
+        frmAddFee.winForm = frmAddFee.$el.data('winForm');
+    };
+
+    $(function () {
+        frmAddFee.init();
+    });
+</script>

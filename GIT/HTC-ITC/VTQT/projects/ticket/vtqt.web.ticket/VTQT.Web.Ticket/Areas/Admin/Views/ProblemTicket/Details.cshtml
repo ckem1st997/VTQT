@@ -1,0 +1,441 @@
+﻿@model TicketModel
+
+<script>
+    var master = {
+        urlEdit: '@Url.Action("Edit")',
+        urlBackList: '@Url.Action("Index")',
+        el: '.page-data',
+        $el: {},
+        tab: {
+            el: '#tabIndex',
+            $el: {},
+            init: function () { },
+            change: function () { }
+        },
+        file: {
+            el: '#FilesUpload',
+            $el: {},
+            init: function () { },
+            change: function () { },
+            data: []
+        },
+        form: {
+            el: '#form-data',
+            $el: {},
+            init: function () { }
+        },
+        btnEdit: {
+            el: '#btnEdit',
+            $el: {},
+            init: function () { }
+        },
+        btnAssign: {
+            el: '#btnAssign',
+            $el: {},
+            init: function () { }
+        },
+        btnBackList: {
+            el: '#btnBackList',
+            $el: {},
+            init: function () { }
+        },
+        btnComment: {
+            el: '#btnComment',
+            $el: {},
+            init: function () { }
+        },
+        init: function () { }
+    };
+    var form = master.form;
+    var btnBackList = master.btnBackList;
+    var btnEdit = master.btnEdit;
+    var btnAssign = master.btnAssign;
+    var btnComment = master.btnComment;
+    var tab = master.tab;
+    var file = master.file;
+
+</script>
+
+<style>
+    div.k-grid-content.k-auto-scrollable {
+        height: auto !important;
+    }
+</style>
+
+<!-- #region Page Header -->
+<div class="page-bar">
+    <ul class="page-breadcrumb"></ul>
+    <div class="page-toolbar">
+        <div class="pull-right" style="display:flex">
+            <div class="btn-toolbar" role="toolbar" aria-label="Right group">
+                <a href="javascript:void(0)" class="btn btn-primary btn-sm" id="btnBackList"><i class="fa fa-arrow-left" aria-hidden="true"></i>Quay lại danh sách</a>
+                <a href="javascript:void(0)" class="btn btn-warning btn-sm" id="btnEdit"><i class="fa fa-pencil" aria-hidden="true"></i>Chỉnh sửa</a>
+                <a href="javascript:void(0)" class="btn btn-success btn-sm" id="btnAssign"><i class="fa fa-users" aria-hidden="true"></i>Phân công</a>
+                <a data-action="exportrecall" href="javascript:void(0)" class="btn btn-success btn-sm"><i class="fa fa-print"></i>@T("Common.ExportData.DoneTicket")</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+
+<div class="page-data" style="padding-top: 10px; overflow-y: auto">
+    <div class="form fixed-layout-form">
+        <form id="form-data" class="form-horizontal" data-form-type="ajax">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row" style="margin-bottom: 30px">
+                            <fieldset class="fieldset-no-border">
+                                <legend style="color: #23527c; border-bottom: none; text-transform: uppercase">THÔNG TIN CHUNG</legend>
+                                @Html.HiddenFor(m => m.ProjectId)
+                                @Html.HiddenFor(m => m.Id)
+                                
+                                <div class="row" style="margin-bottom: 10px">
+                                    <div class="col-md-6" style="padding: 0">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.Priority, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                                            <div class="col-md-5">
+                                                @Html.DropDownListFor(m => m.Priority, Model.AvailablePriorities, "Mức độ nghiêm trọng", new { @class = "form-control", @style = "width: 100%", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6" style="padding: 0">
+                                        <div class="form-group form-group-sm">
+                                            @Html.XBaseLabelFor(m => m.Status, true, new { @class = "control-label col-md-5", @style = "padding-left: 40px" })
+                                            <div class="col-md-5">
+                                                @Html.DropDownListFor(m => m.Status, Model.AvailableStatus, "Tình trạng", new { @class = "form-control", @style = "width: 100%", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm" style="margin-bottom: 10px">
+                                    @Html.XBaseLabelFor(m => m.Subject, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" }, true)
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.Subject, new { @class = "form-control", @style = "width: 100%", @readonly = true, @rows = "1" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm" style="margin-bottom: 10px">
+                                    @Html.XBaseLabelFor(m => m.FirstReason, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" })
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.FirstReason, new { @class = "form-control", @style = "width: 100%", @rows = "1", @readonly = true })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm" style="margin-bottom: 10px">
+                                    @Html.XBaseLabelFor(m => m.LastReason, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" })
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.LastReason, new { @class = "form-control", @style = "width: 100%", @rows = "1", @readonly = true })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm" style="margin-bottom: 10px">
+                                    @Html.XBaseLabelFor(m => m.Solution, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" })
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.Solution, new { @class = "form-control", @style = "width: 100%", @rows = "1", @readonly = true })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm" style="margin-bottom: 5px">
+                                    @Html.XBaseLabelFor(m => m.Detail, true, new { @class = "control-label col-md-2", @style = "padding-left: 40px; width: 20.8%" })
+                                    <div class="col-md-9" style="width: 71%">
+                                        @Html.TextAreaFor(m => m.Detail, new { @class = "form-control", @style = "width: 100%", @rows = "1", @readonly = true })
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="row" style="width: 91.5%; overflow: hidden">
+                            <fieldset class="fieldset-no-border" style="margin-bottom: 5px">
+                                <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; padding-left: 20px; padding-bottom: 15px">THÔNG TIN CHI TIẾT</legend>
+                                @(Html.XBase().TabStrip()
+                                .Name("tabIndex")
+                                .HtmlAttributes(new { style = "padding-left: 30px" })
+                                .Items(async x =>
+                                {
+                                    x.Add().Text("NOC")
+                                        .Name("tbNoc")
+                                        .LinkHtmlAttributes(new { data_tab_name = "Noc" })
+                                        .Content(Html.PartialAsync("TabNocDetail", Model.ProblemTicketModel).Result.RenderHtmlContent())
+                                        .Selected(true);
+
+                                    x.Add().Text("Link mạng")
+                                        .Name("tbNetworkLink")
+                                        .LinkHtmlAttributes(new { data_tab_name = "NetworkLink" })
+                                        .Content(Html.PartialAsync("TabNetworkLinkDetail", new NetworkLinkTicketSearchModel { TicketId = Model.Id },
+                                            new ViewDataDictionary(ViewData) { { "categories", Model.AvailableNetworkLinkCategories},
+                                                                               { "phenomenas", Model.AvailablePhenomenas},
+                                                                               { "cables", Model.AvailableCables} }).Result.RenderHtmlContent());
+
+                                    x.Add().Text("Kênh")
+                                        .Name("tbChannel")
+                                        .LinkHtmlAttributes(new { data_tab_name = "Channel" })
+                                        .Content(Html.PartialAsync("TabChannelDetail", new ChannelTicketSearchModel { TicketId = Model.Id },
+                                            new ViewDataDictionary(ViewData) { { "categories", Model.AvailableChannelCategories},
+                                                                               { "phenomenas", Model.AvailablePhenomenas},
+                                                                               { "cables", Model.AvailableCables} }).Result.RenderHtmlContent());
+
+                                    x.Add().Text("Thiết bị")
+                                        .Name("tbDevice")
+                                        .LinkHtmlAttributes(new { data_tab_name = "Device" })
+                                        .Content(Html.PartialAsync("TabDeviceDetail", new DeviceTicketSearchModel { TicketId = Model.Id },
+                                            new ViewDataDictionary(ViewData) { { "categories", Model.AvailableDeviceCategories},
+                                                                               { "phenomenas", Model.AvailablePhenomenas} }).Result.RenderHtmlContent());
+
+                                    x.Add().Text("Phê duyệt")
+                                        .Name("tbApproval")
+                                        .LinkHtmlAttributes(new { data_tab_name = "Approval" })
+                                        .Content(Html.PartialAsync("TabApprovalDetail", new ApprovalTicketSearchModel { TicketId = Model.Id },
+                                            new ViewDataDictionary(ViewData) { { "approvers", Model.AvailableApprovers} }).Result.RenderHtmlContent());
+
+                                    x.Add().Text("Chi phí")
+                                        .Name("tbInfrastructorFee")
+                                        .LinkHtmlAttributes(new { data_tab_name = "InfrastructorFee" })
+                                        .Content(Html.PartialAsync("TabInfrastructorFeeDetail", new InfrastructorSearchFeeModel { TicketId = Model.Id },
+                                            new ViewDataDictionary(ViewData) { { "items", Model.AvailableItems } }).Result.RenderHtmlContent());
+
+                                    await EngineContext.Current.Resolve<IEventPublisher>().PublishAsync(new TabStripCreated(x, "tabIndex", this.Html));
+                                }))
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="row">
+                            <fieldset class="fieldset-no-border" style="margin-bottom: 5px">
+                                <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; padding-left: 40px">TIẾN ĐỘ</legend>
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.Assignee, true, new { @class = "control-label col-md-5", @style = "padding-left: 80px" })
+                                        <div class="col-md-6">
+                                            @Html.DropDownListFor(m => m.Assignee, Model.AvailableUsers, "Người xử lý", new { @class = "form-control", @style = "width: 100%", disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.CreatedBy, true, new { @class = "control-label col-md-5", @style = "padding-left: 80px" })
+                                        <div class="col-md-6">
+                                            @Html.DropDownListFor(m => m.CreatedBy, Model.AvailableUsers, "Người tạo", new { @class = "form-control", @style = "width: 100%", disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.StartDate, true, new { @class = "control-label col-md-5", @style = "padding-left: 80px" })
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(m => m.StartDate, new {  pickTime = true, htmlAttributes = new { style = "width: 100%", @class = "form-control", disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="form-group form-group-sm">
+                                        @Html.XBaseLabelFor(m => m.FinishDate, true, new { @class = "control-label col-md-5", @style = "padding-left: 80px" })
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(m => m.FinishDate, new {  pickTime = true, htmlAttributes = new { style = "width: 100%", @class = "form-control", disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                            <fieldset class="fieldset-no-border">
+                                <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; padding-left: 40px">ĐÍNH KÈM</legend>
+                                <div class="col-md-10" style="margin-top: 20px">
+                                    <ul class="list-group-flush list-files-data" style="margin-left: 40px">
+                                        @{
+                                            if (Model.Files?.ToList()?.Count > 0)
+                                            {
+                                                foreach (var f in Model.Files)
+                                                {
+                                                    @Html.Raw($"<li class='list-group-item-light'><a href='javascript:void(0)' style='text-decoration:none' onclick='downloadFile(this)' data-url='{f.Path}' data-file-name='{f.FileName}'>{f.FileName}</a> - {Math.Round(f.Size/1024,2)} KB</li>");
+                                                }
+                                            }                                                                   
+                                        }
+                                    </ul>
+                                </div>
+                                @*<div class="col-md-10" style="margin-top: 5px">
+                                    <div class="upload-files-wrapper" style="display: inline-block; position: relative; padding: 15px; border: 1px dashed gray; margin-left: 70px; width: 100%">
+                                        <div class="icon-files-wrapper" style="display: inline-block">
+                                            <i class="fa fa-cloud-upload" aria-hidden="true" style="padding: 5px; font-size: 20px"></i>
+                                            <span>Drop files to attach, or </span>
+                                            <a href="javascript:void(0)" style="text-decoration: none">browser.</a>
+                                        </div>
+                                        <input type="file" id="FilesUpload" asp-for="FilesUpload" multiple class="form-control" style="border: 1px dashed gray; position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0" accept="image/jpeg,image/jpg,image/png,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                    </div>
+                                </div>*@
+                            </fieldset>
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-md-11">
+                                <fieldset class="fieldset-no-border">
+                                    <legend style="color: #23527c; border-bottom: none; text-transform: uppercase; padding-left: 40px">TRAO ĐỔI</legend>
+                                    <div class="col-md-10" style="margin-left: 70px; width: 91%">
+                                        <ul class="list-group-flush" id="comment-list" style="padding: 10px">
+                                            @{
+                                                if (Model.Comments?.Count > 0)
+                                                {
+                                                    foreach (var cmt in Model.Comments)
+                                                    {
+                                                        @Html.Raw($"<li class='list-group-item-light'><a href='javascript:void(0)' style='text-decoration: none'>{cmt.UserName}</a> add a comment - {cmt.StrCreatedDate} <br/> {cmt.Content}</li>");
+                                                    }
+                                                }
+                                            }
+                                        </ul>
+                                        <textarea id="comment-content" style="width: 100%"></textarea>
+                                        <div class="comment-action" style="position: relative; margin-top: 5px">
+                                            <a href="javascript:void(0)" id="btnComment" class="btn btn-success btn-sm" style="float: right"><i class="fa fa-paper-plane" aria-hidden="true"></i> Comment</a>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    master.init = function() {
+        master.$el = $(master.el);
+        form.init();
+        btnBackList.init();
+        btnEdit.init();
+        btnAssign.init();
+        btnComment.init();
+        tab.init();
+        file.init();
+    };
+
+    tab.init = function() {
+        tab.change();
+    };
+
+    tab.change = function() {
+        tab.$el = $(tab.el);
+        tab.$el.on('shown.bs.tab',
+            function() {
+                app.plugins.uniform.handles();
+                app.grid.handlers.resize();
+            });
+    };
+
+    file.init = function() {
+        file.change();
+    };
+
+    file.change = function() {
+        file.$el = $(file.el);
+        if (file.$el[0])
+            file.data = file.$el[0].files;
+        file.$el.change(function() {
+            if (file.data) {
+                $('.list-files-data').empty();
+                $.each(file.data,
+                    function(i, f) {
+                        $('.list-files-data').append(`<li class="list-group-item-light">${f.name} - ${Math.round(f.size / 1024)} KB</li>`)
+                    });
+            }
+        });
+    };
+
+    form.init = function() {
+        form.$el = $(form.el);
+
+        form.$el.initFormValidation();
+    };
+
+    btnBackList.init = function() {
+        btnBackList.$el = $(btnBackList.el);
+
+        btnBackList.$el.click(function(e) {
+            $.pjax({ url: master.urlBackList });
+        });
+    };
+
+    btnEdit.init = function() {
+        btnEdit.$el = $(btnEdit.el);
+
+        btnEdit.$el.click(function (e) {
+            $.pjax({ url: master.urlEdit + '/' + '@Model.Id' });
+        });
+    };
+
+    btnComment.init = function () {
+        btnComment.$el = $(btnComment.el);
+
+        btnComment.$el.click(function (e) {
+            if ($('#comment-content').val() && $('#comment-content').val().trim().length > 0){
+                $.ajax({
+                    type: "POST",
+                    data: { userId: '@Model.UserLogin', content: $('#comment-content').val(), ticketId: '@Model.Id' },
+                    dataType: "json",
+                    url: '@Url.Action("GetUserComment")',
+                    success: function (res) {
+                        if (res.success) {
+                            $('#comment-list').prepend(`<li class="list-group-item-light"><a href="javascript:void(0)" style="text-decoration: none">${res.data.UserName}</a> add a comment - ${res.data.StrCreatedDate} <br/> ${res.data.Content}</li>`)
+                            $('#comment-content').val("");
+                        }
+                    }
+                });
+            }
+        });
+    };
+
+    btnAssign.init = function() {
+        btnAssign.$el = $(btnAssign.el);
+
+        btnAssign.$el.click(function (e) {
+            app.window.form.open({
+                url: '@Url.Action("Assign")' + '?assignee=@Model.Assignee', options: {width: '500px'}, callback: function (){
+                    var assign = window.frmAssign.$el.serializeObject();
+                    var assignmentModel = {};
+                    assignmentModel.TicketId = '@Model.Id';
+                    assignmentModel.Performer = assign.Performer;
+                    assignmentModel.Assignee = assign.Assignee;
+                    assignmentModel.AssignmentReason = assign.AssignmentReason;
+                    assignmentModel.AssignmentContent = assign.AssignmentContent;
+
+                    $.ajax({
+                        url: '@Url.Action("Assign")',
+                        data: { model: assignmentModel },
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function (res) {
+                            if (res.success) {
+                                window.location.reload(true);
+                            }
+                        }
+                    });
+
+                    //Close form add item
+                    window.frmAssign.winForm.close();
+                }
+            });
+        });
+    };
+
+    function downloadFile(el) {
+        var params = { url: $(el).attr("data-url"), fileName: $(el).attr("data-file-name") };
+        window.location = '@Url.Action("DownloadFile")' + '?' + $.param(params);
+    };
+
+    function getToken() {
+        var token = '@Html.AntiForgeryToken()';
+        token = $(token).val();
+        return token;
+    }
+
+     $('a[data-action="exportrecall"]').click(function (e) {
+            window.location = '@Url.Action("ExportDone", "ProblemTicket")/@Model.Id';
+     });
+
+    $(function () {
+        master.init();
+    });
+</script>
+
+

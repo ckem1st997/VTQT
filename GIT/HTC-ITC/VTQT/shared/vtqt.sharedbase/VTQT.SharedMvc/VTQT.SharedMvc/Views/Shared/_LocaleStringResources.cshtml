@@ -1,0 +1,48 @@
+﻿@using VTQT
+@using VTQT.Core
+@using VTQT.Core.Infrastructure
+@using VTQT.Core.Localization
+@using VTQT.Core.Logging
+@using VTQT.Services
+@using VTQT.Services.Localization
+@using VTQT.Web.Framework
+@using VTQT.Web.Framework.Extensions
+@using VTQT.Web.Framework.Filters
+@using VTQT.Web.Framework.Helpers
+@using VTQT.Web.Framework.Security
+@using VTQT.Web.Framework.UI
+
+@inject ILocalizationService tt
+
+@*TODO: XBase Resource*@
+@{
+    var clientResKeys = new[]
+    {
+        "Common.Alert.Default.Title",
+        "Common.Confirm.Default.Content",
+        "Common.Confirm.Default.Title",
+        "Common.Deletes.Confirm.Default.Content",
+        "Common.Deletes.Confirm.Default.Title",
+        "Common.Error",
+        "Common.LoadError",
+        "Common.Loading",
+        "Common.MoreData",
+        "Common.NoData",
+        "Common.Search",
+        "Common.ShowMore",
+        "Common.ShowLess",
+        "Common.Windows.Forms.Close.Confirm.Default.Title",
+        "Common.Windows.Forms.Close.Confirm.DataMightBeChanged",
+    };
+}
+
+<script>
+	window.Res = {
+		@foreach (var key in clientResKeys)
+        {
+            //var resourceKey = string.FormaT("{0}", key);
+            var resourceKey = string.Format("{0}", key);
+			@Html.Raw("\"{0}\": {1},\n".FormatCurrentUI(key, tt.GetResource(resourceKey).EncodeJsString()))
+		}
+	};
+</script>
